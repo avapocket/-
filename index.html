@@ -1,807 +1,1111 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Спортивный Клуб</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PRIVATE ACCESS</title>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  <style>
-    :root {
-      --bg: #080b12;
-      --card: rgba(20, 25, 36, 0.92);
-      --blue: #2563eb;
-      --green: #10b981;
-      --text: #ffffff;
-      --muted: #9ca3af;
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#07070a;
+    --panel:#111117;
+    --panel2:#17171f;
+    --purple:#8b5cf6;
+    --pink:#ec4899;
+    --white:#fff;
+    --gray:#92929d;
+    --green:#22c55e;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    background:var(--bg);
+    color:white;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+    padding-bottom:100px;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:320px;
+    height:320px;
+    top:-150px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(139,92,246,.18);
+    filter:blur(90px);
+    pointer-events:none;
+}
+
+.app{
+    width:100%;
+    max-width:480px;
+    margin:auto;
+    padding:22px 15px 30px;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.logo{
+    width:68px;
+    height:68px;
+    margin:0 auto 14px;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    box-shadow:
+        0 0 35px rgba(139,92,246,.35),
+        inset 0 1px rgba(255,255,255,.25);
+    font-size:30px;
+}
+
+.header h1{
+    margin:0;
+    font-size:27px;
+    font-weight:900;
+    letter-spacing:-.5px;
+}
+
+.header p{
+    margin:7px 0 13px;
+    color:var(--gray);
+    font-size:13px;
+}
+
+.tag{
+    display:inline-flex;
+    padding:7px 12px;
+    border-radius:50px;
+    background:rgba(139,92,246,.10);
+    border:1px solid rgba(139,92,246,.25);
+    color:#c4b5fd;
+    font-size:11px;
+    font-weight:800;
+}
+
+/* PRODUCTS */
+
+.products{
+    display:flex;
+    flex-direction:column;
+    gap:17px;
+}
+
+.product{
+    position:relative;
+    overflow:hidden;
+    border-radius:22px;
+    background:linear-gradient(145deg,#15151d,#0e0e13);
+    border:1px solid rgba(255,255,255,.07);
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+
+.preview{
+    height:205px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 25% 30%,rgba(139,92,246,.75),transparent 35%),
+        radial-gradient(circle at 75% 70%,rgba(236,72,153,.55),transparent 38%),
+        linear-gradient(135deg,#15101e,#09090d);
+}
+
+.preview::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(125deg,
+        transparent 20%,
+        rgba(255,255,255,.08) 45%,
+        transparent 65%);
+    transform:translateX(-100%);
+    animation:shine 4s infinite;
+}
+
+@keyframes shine{
+    0%,55%{transform:translateX(-100%)}
+    75%,100%{transform:translateX(100%)}
+}
+
+.blur-shape{
+    position:absolute;
+    width:170px;
+    height:170px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:rgba(255,255,255,.09);
+    filter:blur(28px);
+}
+
+.preview-icon{
+    position:absolute;
+    z-index:2;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.38);
+    border:1px solid rgba(255,255,255,.2);
+    backdrop-filter:blur(15px);
+    font-size:23px;
+}
+
+.private-label{
+    position:absolute;
+    z-index:3;
+    top:13px;
+    left:13px;
+    padding:6px 9px;
+    border-radius:8px;
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(10px);
+    font-size:10px;
+    font-weight:900;
+}
+
+.product-content{
+    padding:17px;
+}
+
+.product-title{
+    margin:0 0 7px;
+    font-size:17px;
+    font-weight:850;
+}
+
+.product-description{
+    margin:0 0 14px;
+    color:var(--gray);
+    font-size:13px;
+    line-height:1.45;
+}
+
+.bottom-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.price{
+    font-size:18px;
+    font-weight:900;
+    color:#d8b4fe;
+}
+
+.buy{
+    width:auto;
+    min-width:145px;
+    padding:12px 15px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--purple),var(--pink));
+    color:white;
+    font-size:13px;
+    font-weight:850;
+    cursor:pointer;
+    box-shadow:0 7px 22px rgba(139,92,246,.2);
+}
+
+.buy:active{
+    transform:scale(.96);
+}
+
+/* BOTTOM CONTACT */
+
+.contact-bar{
+    position:fixed;
+    z-index:20;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:
+        12px 15px
+        calc(12px + env(safe-area-inset-bottom));
+    background:rgba(7,7,10,.82);
+    backdrop-filter:blur(20px);
+    border-top:1px solid rgba(255,255,255,.07);
+}
+
+.contact{
+    width:100%;
+    max-width:450px;
+    margin:auto;
+    height:48px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    background:#15151c;
+    color:white;
+    font-size:13px;
+    font-weight:800;
+}
+
+/* MODAL */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(8px);
+}
+
+.overlay.show{
+    display:flex;
+    animation:fade .2s ease;
+}
+
+@keyframes fade{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+.modal{
+    width:100%;
+    max-width:480px;
+    max-height:94vh;
+    overflow-y:auto;
+    padding:20px 16px calc(22px + env(safe-area-inset-bottom));
+    border-radius:25px 25px 0 0;
+    background:#111116;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 -20px 60px rgba(0,0,0,.6);
+    animation:slide .25s ease;
+}
+
+@keyframes slide{
+    from{transform:translateY(100%)}
+    to{transform:translateY(0)}
+}
+
+.modal-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-title{
+    font-size:20px;
+    font-weight:900;
+}
+
+.close{
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:50%;
+    background:#22222a;
+    color:white;
+    font-size:16px;
+}
+
+/* ORDER */
+
+.order{
+    padding:15px;
+    border-radius:15px;
+    background:#18181f;
+    border:1px solid rgba(255,255,255,.06);
+    margin-bottom:14px;
+}
+
+.order-name{
+    font-size:14px;
+    font-weight:800;
+}
+
+.order-price{
+    margin-top:5px;
+    color:#c4b5fd;
+    font-size:18px;
+    font-weight:900;
+}
+
+/* TIMER */
+
+.timer{
+    text-align:center;
+    padding:15px;
+    margin-bottom:14px;
+    border-radius:16px;
+    background:rgba(139,92,246,.08);
+    border:1px solid rgba(139,92,246,.2);
+}
+
+.timer-label{
+    color:var(--gray);
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+#timer{
+    font-size:30px;
+    font-weight:950;
+    letter-spacing:2px;
+    color:#d8b4fe;
+}
+
+/* CARD */
+
+.bank-card{
+    position:relative;
+    overflow:hidden;
+    padding:19px;
+    min-height:175px;
+    border-radius:20px;
+    background:
+        radial-gradient(circle at 90% 10%,rgba(236,72,153,.3),transparent 35%),
+        radial-gradient(circle at 10% 90%,rgba(139,92,246,.3),transparent 40%),
+        linear-gradient(135deg,#24212d,#111116);
+    border:1px solid rgba(255,255,255,.1);
+    margin-bottom:12px;
+}
+
+.bank-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#bbb;
+}
+
+.bank-name{
+    color:#facc15;
+    font-weight:900;
+}
+
+.card-number{
+    position:absolute;
+    left:19px;
+    bottom:48px;
+    font-size:19px;
+    font-weight:850;
+    letter-spacing:2px;
+}
+
+.card-hint{
+    position:absolute;
+    left:19px;
+    bottom:18px;
+    color:#8f8f99;
+    font-size:10px;
+}
+
+.copy{
+    width:100%;
+    height:45px;
+    border:0;
+    border-radius:13px;
+    background:#22222a;
+    color:white;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:13px;
+}
+
+/* INFO */
+
+.info{
+    padding:14px;
+    border-radius:14px;
+    background:rgba(34,197,94,.07);
+    border:1px solid rgba(34,197,94,.16);
+    color:#bbf7d0;
+    font-size:12px;
+    line-height:1.55;
+    margin-bottom:13px;
+}
+
+.paid{
+    width:100%;
+    height:49px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    color:white;
+    font-size:14px;
+    font-weight:900;
+}
+
+/* SUCCESS */
+
+.success{
+    display:none;
+    text-align:center;
+    padding:20px 5px 8px;
+}
+
+.success-icon{
+    width:76px;
+    height:76px;
+    margin:0 auto 17px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(34,197,94,.12);
+    border:1px solid rgba(34,197,94,.3);
+    font-size:36px;
+    animation:pop .35s ease;
+}
+
+@keyframes pop{
+    0%{transform:scale(.5);opacity:0}
+    80%{transform:scale(1.08)}
+    100%{transform:scale(1);opacity:1}
+}
+
+.success h2{
+    margin:0 0 10px;
+    font-size:23px;
+}
+
+.success p{
+    margin:0 auto 19px;
+    max-width:350px;
+    color:var(--gray);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.send-check{
+    width:100%;
+    height:50px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    color:white;
+    font-size:14px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.close-success{
+    width:100%;
+    height:46px;
+    border:0;
+    border-radius:13px;
+    background:#22222a;
+    color:#ddd;
+    font-size:13px;
+    font-weight:800;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:360px){
+    .bottom-row{
+        flex-direction:column;
+        align-items:stretch;
     }
 
-    * {
-      box-sizing: border-box;
+    .buy{
+        width:100%;
     }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding-bottom: 85px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 50% 0%, #172554 0%, #0b1120 40%, #05070c 100%);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 440px;
-      margin: 0 auto;
-      padding: 18px 15px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    header h1 {
-      margin: 0 0 7px;
-      font-size: 25px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #60a5fa, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    header p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .products {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .card {
-      overflow: hidden;
-      border-radius: 17px;
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-
-    .card img {
-      display: block;
-      width: 100%;
-      height: 165px;
-      object-fit: cover;
-    }
-
-    .card-body {
-      padding: 15px;
-    }
-
-    .card h3 {
-      margin: 0 0 7px;
-      font-size: 17px;
-    }
-
-    .description {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .price {
-      margin-bottom: 12px;
-      color: #34d399;
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    button {
-      width: 100%;
-      border: 0;
-      border-radius: 11px;
-      padding: 12px;
-      color: white;
-      background: var(--blue);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    button:active {
-      transform: scale(.98);
-    }
-
-    .contact-bar {
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 12px 15px;
-      background: rgba(8,11,18,.92);
-      backdrop-filter: blur(15px);
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-
-    .contact-btn {
-      max-width: 440px;
-      margin: auto;
-      display: block;
-      background: var(--green);
-    }
-
-    /* PAYMENT */
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      inset: 0;
-      padding: 15px;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.86);
-      backdrop-filter: blur(7px);
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .payment-box {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      max-height: 92vh;
-      overflow-y: auto;
-      padding: 22px 18px;
-      border-radius: 20px;
-      background: #111722;
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 20px 60px rgba(0,0,0,.6);
-    }
-
-    .close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      border-radius: 50%;
-      background: rgba(255,255,255,.1);
-      font-size: 17px;
-    }
-
-    .payment-title {
-      margin: 0 40px 5px 0;
-      font-size: 21px;
-      font-weight: 800;
-    }
-
-    .payment-subtitle {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .selected-product {
-      padding: 13px;
-      margin-bottom: 15px;
-      border-radius: 13px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.07);
-    }
-
-    .selected-product-name {
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .selected-product-price {
-      margin-top: 5px;
-      color: #34d399;
-      font-weight: 800;
-    }
-
-    .timer-box {
-      text-align: center;
-      margin: 15px 0;
-      padding: 15px;
-      border-radius: 14px;
-      background: rgba(37,99,235,.12);
-      border: 1px solid rgba(37,99,235,.3);
-    }
-
-    .timer-label {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
-
-    #timer {
-      font-size: 30px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #60a5fa;
-    }
-
-    .bank-card {
-      margin: 15px 0;
-      padding: 18px;
-      border-radius: 17px;
-      background: linear-gradient(135deg, #202938, #0f172a);
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-
-    .bank-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 25px;
-    }
-
-    .bank-logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-    }
-
-    .card-icon {
-      width: 32px;
-      height: 22px;
-      border-radius: 5px;
-      background: linear-gradient(135deg,#fff,#cbd5e1);
-      position: relative;
-    }
-
-    .card-icon::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 7px;
-      height: 3px;
-      background: #64748b;
-    }
-
-    .bank-name {
-      color: #facc15;
-      font-weight: 800;
-    }
-
-    .card-number {
-      font-size: 20px;
-      letter-spacing: 2px;
-      font-weight: 700;
-      margin-bottom: 9px;
-      word-break: break-all;
-    }
-
-    .card-hint {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .instruction {
-      margin: 15px 0;
-      padding: 14px;
-      border-radius: 13px;
-      background: rgba(16,185,129,.08);
-      border: 1px solid rgba(16,185,129,.22);
-      color: #d1fae5;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .warning {
-      margin-top: 10px;
-      color: #fbbf24;
-      font-size: 11px;
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    .paid-btn {
-      margin-top: 8px;
-      background: var(--green);
-    }
-
-    .copy-btn {
-      margin-top: 8px;
-      background: rgba(255,255,255,.09);
-    }
-
-    .success {
-      display: none;
-      text-align: center;
-    }
-
-    .success-icon {
-      font-size: 52px;
-      margin-bottom: 8px;
-    }
-
-    .success h2 {
-      margin: 0 0 8px;
-    }
-
-    .success p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="app">
 
-    <header>
-      <h1>🔥 Спорт & Тренировки</h1>
-      <p>Выберите подходящую программу</p>
+    <header class="header">
+
+        <div class="logo">🔒</div>
+
+        <h1>PRIVATE ACCESS</h1>
+
+        <p>Закрытый приватный доступ</p>
+
+        <div class="tag">
+            18+ • PRIVATE ACCESS
+        </div>
+
     </header>
 
-    <div class="products" id="productList"></div>
 
-  </div>
+    <main class="products" id="products"></main>
 
-  <div class="contact-bar">
-    <button class="contact-btn" onclick="contactAdmin()">
-      💬 Написать в Telegram
+</div>
+
+
+<!-- CONTACT -->
+
+<div class="contact-bar">
+
+    <button class="contact" onclick="openTelegram()">
+        💬 Связаться с администратором
     </button>
-  </div>
+
+</div>
 
 
-  <!-- ОКНО ОПЛАТЫ -->
+<!-- PAYMENT -->
 
-  <div class="modal" id="paymentModal">
+<div class="overlay" id="overlay">
 
-    <div class="payment-box">
+    <div class="modal">
 
-      <button class="close" onclick="closePayment()">✕</button>
+        <div class="modal-top">
 
-      <div id="paymentContent">
-
-        <h2 class="payment-title">💳 Оплата</h2>
-
-        <p class="payment-subtitle">
-          Переведите необходимую сумму на карту
-        </p>
-
-        <div class="selected-product">
-          <div class="selected-product-name" id="paymentProduct"></div>
-          <div class="selected-product-price" id="paymentPrice"></div>
-        </div>
-
-        <div class="timer-box">
-          <div class="timer-label">Время на оплату</div>
-          <div id="timer">15:00</div>
-        </div>
-
-        <div class="bank-card">
-
-          <div class="bank-top">
-
-            <div class="bank-logo">
-              <div class="card-icon"></div>
-              <span>Банковская карта</span>
+            <div class="modal-title">
+                💳 Оплата доступа
             </div>
 
-            <div class="bank-name">
-              Тинькофф
+            <button class="close" onclick="closeModal()">
+                ✕
+            </button>
+
+        </div>
+
+
+        <!-- PAYMENT SCREEN -->
+
+        <div id="paymentScreen">
+
+            <div class="order">
+
+                <div class="order-name" id="selectedName">
+                    -
+                </div>
+
+                <div class="order-price" id="selectedPrice">
+                    -
+                </div>
+
             </div>
 
-          </div>
 
-          <div class="card-number" id="cardNumber">
-            2200 7021 9498 5615
-          </div>
+            <div class="timer">
 
-          <div class="card-hint">
-            Переводите ровно указанную сумму
-          </div>
+                <div class="timer-label">
+                    Время на оплату
+                </div>
+
+                <div id="timer">
+                    15:00
+                </div>
+
+            </div>
+
+
+            <div class="bank-card">
+
+                <div class="bank-top">
+
+                    <span>💳 Банковская карта</span>
+
+                    <span class="bank-name">
+                        Т-Банк
+                    </span>
+
+                </div>
+
+                <div class="card-number">
+                    2200 7021 9498 5615
+                </div>
+
+                <div class="card-hint">
+                    Номер карты для перевода
+                </div>
+
+            </div>
+
+
+            <button class="copy" onclick="copyCard()">
+                📋 Скопировать номер карты
+            </button>
+
+
+            <div class="info">
+
+                <b>Как оплатить:</b><br><br>
+
+                1. Переведите указанную сумму на карту.<br>
+                2. Сохраните чек после перевода.<br>
+                3. Нажмите «Я оплатил».<br>
+                4. Отправьте чек в Telegram администратору.
+
+            </div>
+
+
+            <button class="paid" onclick="paymentDone()">
+                ✅ Я оплатил
+            </button>
 
         </div>
 
-        <button class="copy-btn" onclick="copyCard()">
-          📋 Скопировать номер карты
-        </button>
 
-        <div class="instruction">
-          <b>📌 После оплаты</b><br><br>
+        <!-- SUCCESS SCREEN -->
 
-          После поступления оплаты вам будет предоставлена
-          приобретённая услуга.
-          <br><br>
+        <div class="success" id="successScreen">
 
-          Нажмите кнопку <b>«Я оплатил»</b> после совершения перевода,
-          чтобы отправить заявку администратору.
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                Оплата отправлена
+            </h2>
+
+            <p>
+
+                Теперь отправьте чек об оплате
+                нашему администратору в Telegram.
+
+                <br><br>
+
+                Укажите название приобретённого
+                доступа и прикрепите чек.
+
+                <br><br>
+
+                После проверки оплаты
+                с вами свяжется администратор.
+
+            </p>
+
+
+            <button class="send-check" onclick="openTelegram()">
+                📩 Отправить чек в Telegram
+            </button>
+
+
+            <button class="close-success" onclick="closeModal()">
+                Закрыть
+            </button>
+
         </div>
-
-        <button class="paid-btn" onclick="paid()">
-          ✅ Я оплатил
-        </button>
-
-        <div class="warning">
-          ⚠️ Не закрывайте это окно до завершения оплаты.
-          После окончания таймера создайте новую заявку.
-        </div>
-
-      </div>
-
-
-      <div class="success" id="successContent">
-
-        <div class="success-icon">✅</div>
-
-        <h2>Заявка отправлена</h2>
-
-        <p>
-          Информация о вашей оплате отправлена администратору.
-          После проверки платежа с вами свяжутся в Telegram
-          и предоставят приобретённую услугу.
-        </p>
-
-        <button onclick="closePayment()">
-          Закрыть
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</div>
 
 
-  <script>
+<script>
 
-    const tg = window.Telegram.WebApp;
+/* TELEGRAM */
+
+const tg = window.Telegram?.WebApp;
+
+if(tg){
 
     tg.ready();
     tg.expand();
 
-
-    /* НАСТРОЙКИ */
-
-    const MY_TELEGRAM_USERNAME = "Beriman1";
-
-    const CARD_NUMBER = "2200702194985615";
+}
 
 
-    /* ТОВАРЫ */
+/* SETTINGS */
 
-    const products = [
+const ADMIN_USERNAME = "PREMDOSTUP";
 
-      {
-        id: 1,
-        title: "🥊 Разовая тренировка",
-        price: "500 ₽",
-        img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800",
-        desc: "Персональное занятие с тренером, вводный инструктаж и составление плана."
-      },
-
-      {
-        id: 2,
-        title: "🏋️ Месячный абонемент",
-        price: "3 500 ₽",
-        img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800",
-        desc: "Безлимитное посещение тренажёрного зала в течение 30 дней."
-      },
-
-      {
-        id: 3,
-        title: "🏆 Персональный тренер",
-        price: "8 000 ₽",
-        img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
-        desc: "10 индивидуальных занятий с тренером. Контроль техники и питания."
-      },
-
-      {
-        id: 4,
-        title: "🥗 План питания",
-        price: "1 500 ₽",
-        img: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800",
-        desc: "Расчёт КБЖУ и индивидуальный рацион на 4 недели."
-      },
-
-      {
-        id: 5,
-        title: "🧘 Йога & Растяжка",
-        price: "2 800 ₽",
-        img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800",
-        desc: "8 групповых занятий по растяжке и восстановлению."
-      },
-
-      {
-        id: 6,
-        title: "🏊 Бассейн — 10 визитов",
-        price: "4 000 ₽",
-        img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800",
-        desc: "10 посещений бассейна и доступ в сауну."
-      },
-
-      {
-        id: 7,
-        title: "⚡ Онлайн-ведение",
-        price: "5 000 ₽",
-        img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800",
-        desc: "Контроль тренировок, корректировка программы и обратная связь."
-      },
-
-      {
-        id: 8,
-        title: "🎁 Подарочный сертификат",
-        price: "5 000 ₽",
-        img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800",
-        desc: "Сертификат на любую услугу клуба."
-      }
-
-    ];
+const CARD_NUMBER = "2200702194985615";
 
 
-    let selectedProduct = null;
-    let timerInterval = null;
-    let timeLeft = 15 * 60;
+/* PRODUCTS */
+
+const products = [
+
+    {
+        id:1,
+        title:"Private Video #01",
+        price:"500 ₽",
+        description:"Закрытый доступ к приватному контенту."
+    },
+
+    {
+        id:2,
+        title:"Private Video #02",
+        price:"700 ₽",
+        description:"Эксклюзивный закрытый доступ после оплаты."
+    },
+
+    {
+        id:3,
+        title:"Private Video #03",
+        price:"1 000 ₽",
+        description:"Расширенный приватный доступ."
+    },
+
+    {
+        id:4,
+        title:"Premium Pack",
+        price:"2 500 ₽",
+        description:"Премиальный набор закрытого контента."
+    }
+
+];
 
 
-    /* РЕНДЕР ТОВАРОВ */
+let selectedProduct = null;
 
-    function renderProducts() {
+let timerInterval = null;
 
-      const list = document.getElementById("productList");
+let seconds = 900;
 
-      list.innerHTML = "";
 
-      products.forEach(product => {
+/* RENDER */
 
-        const card = document.createElement("div");
+function renderProducts(){
 
-        card.className = "card";
+    const container =
+        document.getElementById("products");
+
+    container.innerHTML = "";
+
+    products.forEach((product,index)=>{
+
+        const card =
+            document.createElement("article");
+
+        card.className = "product";
 
         card.innerHTML = `
 
-          <img
-            src="${product.img}"
-            alt="${product.title}"
-            onerror="this.src='https://via.placeholder.com/500x250?text=Sport'"
-          >
+            <div class="preview">
 
-          <div class="card-body">
+                <div class="blur-shape"></div>
 
-            <h3>${product.title}</h3>
+                <div class="private-label">
+                    18+ • PRIVATE
+                </div>
 
-            <p class="description">
-              ${product.desc}
-            </p>
+                <div class="preview-icon">
+                    ▶
+                </div>
 
-            <div class="price">
-              ${product.price}
             </div>
 
-            <button onclick="openPayment(${product.id})">
-              💳 Купить
-            </button>
+            <div class="product-content">
 
-          </div>
+                <h2 class="product-title">
+                    ${product.title}
+                </h2>
+
+                <p class="product-description">
+                    ${product.description}
+                </p>
+
+                <div class="bottom-row">
+
+                    <div class="price">
+                        ${product.price}
+                    </div>
+
+                    <button
+                        class="buy"
+                        onclick="openPayment(${product.id})"
+                    >
+                        🔐 Получить доступ
+                    </button>
+
+                </div>
+
+            </div>
+
         `;
 
-        list.appendChild(card);
+        container.appendChild(card);
 
-      });
+    });
 
-    }
+}
 
 
-    /* ОПЛАТА */
+/* OPEN PAYMENT */
 
-    function openPayment(id) {
+function openPayment(id){
 
-      selectedProduct = products.find(p => p.id === id);
+    selectedProduct =
+        products.find(item => item.id === id);
 
-      if (!selectedProduct) return;
+    if(!selectedProduct) return;
 
-      document.getElementById("paymentProduct").textContent =
+
+    document.getElementById("selectedName")
+        .textContent =
         selectedProduct.title;
 
-      document.getElementById("paymentPrice").textContent =
+
+    document.getElementById("selectedPrice")
+        .textContent =
         selectedProduct.price;
 
-      document.getElementById("cardNumber").textContent =
-        formatCard(CARD_NUMBER);
 
-      document.getElementById("paymentContent").style.display = "block";
-      document.getElementById("successContent").style.display = "none";
+    document.getElementById("paymentScreen")
+        .style.display = "block";
 
-      document.getElementById("paymentModal").classList.add("active");
 
-      startTimer();
+    document.getElementById("successScreen")
+        .style.display = "none";
 
-    }
 
+    document.getElementById("overlay")
+        .classList.add("show");
 
-    function closePayment() {
 
-      document.getElementById("paymentModal").classList.remove("active");
+    startTimer();
 
-      clearInterval(timerInterval);
+}
 
-    }
 
+/* TIMER */
 
-    /* ТАЙМЕР 15 МИНУТ */
+function startTimer(){
 
-    function startTimer() {
+    clearInterval(timerInterval);
 
-      clearInterval(timerInterval);
+    seconds = 900;
 
-      timeLeft = 15 * 60;
+    updateTimer();
 
-      updateTimer();
+    timerInterval =
+        setInterval(()=>{
 
-      timerInterval = setInterval(() => {
+            seconds--;
 
-        timeLeft--;
+            updateTimer();
 
-        updateTimer();
+            if(seconds <= 0){
 
-        if (timeLeft <= 0) {
+                clearInterval(timerInterval);
 
-          clearInterval(timerInterval);
+                document.getElementById("timer")
+                    .textContent = "00:00";
 
-          document.getElementById("timer").textContent = "00:00";
+            }
 
-          alert("Время на оплату истекло. Создайте новую заявку.");
+        },1000);
 
-        }
+}
 
-      }, 1000);
 
-    }
+function updateTimer(){
 
+    const minutes =
+        Math.floor(seconds / 60);
 
-    function updateTimer() {
+    const secs =
+        seconds % 60;
 
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
+    document.getElementById("timer")
+        .textContent =
+        String(minutes).padStart(2,"0")
+        + ":" +
+        String(secs).padStart(2,"0");
 
-      document.getElementById("timer").textContent =
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(seconds).padStart(2, "0");
+}
 
-    }
 
+/* COPY CARD */
 
-    /* ФОРМАТ КАРТЫ */
+function copyCard(){
 
-    function formatCard(number) {
+    if(navigator.clipboard){
 
-      return number.replace(/(.{4})/g, "$1 ").trim();
+        navigator.clipboard
+            .writeText(CARD_NUMBER)
+            .then(()=>{
 
-    }
+                const button =
+                    document.querySelector(".copy");
 
+                const oldText =
+                    button.textContent;
 
-    /* КОПИРОВАНИЕ */
+                button.textContent =
+                    "✅ Номер скопирован";
 
-    function copyCard() {
+                setTimeout(()=>{
 
-      navigator.clipboard.writeText(CARD_NUMBER)
-        .then(() => {
+                    button.textContent =
+                        oldText;
 
-          const button = document.querySelector(".copy-btn");
+                },1800);
 
-          const oldText = button.textContent;
+            });
 
-          button.textContent = "✅ Номер скопирован";
+    }else{
 
-          setTimeout(() => {
-
-            button.textContent = oldText;
-
-          }, 1800);
-
-        })
-        .catch(() => {
-
-          alert("Номер карты: " + formatCard(CARD_NUMBER));
-
-        });
-
-    }
-
-
-    /* Я ОПЛАТИЛ */
-
-    function paid() {
-
-      if (!selectedProduct) return;
-
-      const user = tg.initDataUnsafe?.user;
-
-      const paymentData = {
-
-        action: "payment",
-
-        product: selectedProduct.title,
-
-        price: selectedProduct.price,
-
-        username: user?.username || "",
-
-        first_name: user?.first_name || "",
-
-        user_id: user?.id || ""
-
-      };
-
-
-      /*
-        Если Mini App открыт внутри Telegram,
-        отправляем информацию боту.
-      */
-
-      if (tg.sendData) {
-
-        try {
-
-          tg.sendData(JSON.stringify(paymentData));
-
-        } catch (error) {
-
-          console.log(error);
-
-        }
-
-      }
-
-
-      /*
-        Показываем пользователю подтверждение.
-      */
-
-      clearInterval(timerInterval);
-
-      document.getElementById("paymentContent").style.display = "none";
-
-      document.getElementById("successContent").style.display = "block";
-
-    }
-
-
-    /* СВЯЗЬ */
-
-    function contactAdmin() {
-
-      if (MY_TELEGRAM_USERNAME) {
-
-        tg.openTelegramLink(
-          "https://t.me/" + MY_TELEGRAM_USERNAME
+        alert(
+            "Номер карты:\n" +
+            formatCard(CARD_NUMBER)
         );
 
-      } else {
+    }
 
-        alert("Telegram администратора не указан.");
+}
 
-      }
+
+/* PAYMENT DONE */
+
+function paymentDone(){
+
+    if(!selectedProduct) return;
+
+
+    const user =
+        tg?.initDataUnsafe?.user || {};
+
+
+    const paymentData = {
+
+        action:"payment",
+
+        product_id:selectedProduct.id,
+
+        product:selectedProduct.title,
+
+        price:selectedProduct.price,
+
+        user_id:user.id || "",
+
+        username:user.username || "",
+
+        first_name:user.first_name || "",
+
+        timestamp:new Date().toISOString()
+
+    };
+
+
+    /*
+       Отправляем информацию в Telegram.
+       Это НЕ является проверкой банковской оплаты.
+    */
+
+    try{
+
+        tg?.sendData(
+            JSON.stringify(paymentData)
+        );
+
+    }catch(error){
+
+        console.log(error);
 
     }
 
 
-    renderProducts();
+    clearInterval(timerInterval);
 
-  </script>
+
+    document.getElementById("paymentScreen")
+        .style.display = "none";
+
+
+    document.getElementById("successScreen")
+        .style.display = "block";
+
+}
+
+
+/* TELEGRAM */
+
+function openTelegram(){
+
+    const url =
+        "https://t.me/" + ADMIN_USERNAME;
+
+
+    try{
+
+        if(tg && typeof tg.openTelegramLink === "function"){
+
+            tg.openTelegramLink(url);
+
+        }else{
+
+            window.open(url,"_blank");
+
+        }
+
+    }catch(error){
+
+        window.open(url,"_blank");
+
+    }
+
+}
+
+
+/* CLOSE */
+
+function closeModal(){
+
+    clearInterval(timerInterval);
+
+    document.getElementById("overlay")
+        .classList.remove("show");
+
+}
+
+
+/* FORMAT */
+
+function formatCard(number){
+
+    return number
+        .replace(/\D/g,"")
+        .replace(/(.{4})/g,"$1 ")
+        .trim();
+
+}
+
+
+/* CLICK OUTSIDE */
+
+document.getElementById("overlay")
+    .addEventListener("click",function(event){
+
+        if(event.target === this){
+
+            closeModal();
+
+        }
+
+    });
+
+
+/* START */
+
+renderProducts();
+
+</script>
 
 </body>
 </html>
