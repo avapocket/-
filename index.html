@@ -3,415 +3,805 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Спортивный Клуб — Mini App</title>
-  
-  <!-- Telegram Web App SDK -->
+  <title>Спортивный Клуб</title>
+
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     :root {
-      --bg-color: #0d1117;
-      --card-bg: rgba(22, 27, 34, 0.85);
-      --text-color: #ffffff;
-      --btn-color: #2563eb;
-      --btn-text: #ffffff;
-      --accent-color: #10b981;
+      --bg: #080b12;
+      --card: rgba(20, 25, 36, 0.92);
+      --blue: #2563eb;
+      --green: #10b981;
+      --text: #ffffff;
+      --muted: #9ca3af;
     }
 
-    /* Стильный темный фон с градиентными свечениями */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 50%, #070a13 100%);
-      background-attachment: fixed;
-      color: var(--text-color);
-      padding-bottom: 90px;
       min-height: 100vh;
+      padding-bottom: 85px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 0%, #172554 0%, #0b1120 40%, #05070c 100%);
     }
 
     .container {
-      padding: 16px;
+      width: 100%;
       max-width: 440px;
       margin: 0 auto;
+      padding: 18px 15px;
     }
 
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
-    header h1 { 
-      margin: 0 0 6px 0; 
-      font-size: 24px;
+    header h1 {
+      margin: 0 0 7px;
+      font-size: 25px;
+      font-weight: 800;
       background: linear-gradient(135deg, #60a5fa, #3b82f6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
-    header p { margin: 0; opacity: 0.7; font-size: 13px; }
 
-    /* Панель управления редактором */
-    .admin-panel {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px dashed #3b82f6;
-      backdrop-filter: blur(8px);
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    header p {
+      margin: 0;
+      color: var(--muted);
       font-size: 13px;
     }
 
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 40px;
-      height: 22px;
-    }
-
-    .switch input { opacity: 0; width: 0; height: 0; }
-
-    .slider {
-      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #4b5563; transition: .3s; border-radius: 22px;
-    }
-
-    .slider:before {
-      position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
-      background-color: white; transition: .3s; border-radius: 50%;
-    }
-
-    input:checked + .slider { background-color: #2563eb; }
-    input:checked + .slider:before { transform: translateX(18px); }
-
-    /* Товары в один столбец */
-    .column-list {
+    .products {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 15px;
     }
 
     .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      border-radius: 17px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
     .card img {
+      display: block;
       width: 100%;
-      height: 160px;
+      height: 165px;
       object-fit: cover;
     }
 
     .card-body {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
+      padding: 15px;
     }
 
     .card h3 {
-      margin: 0 0 6px 0;
-      font-size: 16px;
-      line-height: 1.3;
+      margin: 0 0 7px;
+      font-size: 17px;
+    }
+
+    .description {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     .price {
-      font-weight: bold;
-      color: var(--accent-color);
-      font-size: 15px;
       margin-bottom: 12px;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      color: #34d399;
+      font-size: 16px;
+      font-weight: 800;
     }
 
     button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      background-color: var(--btn-color);
-      color: var(--btn-text);
-      font-weight: 600;
-      font-size: 13px;
+      width: 100%;
+      border: 0;
+      border-radius: 11px;
+      padding: 12px;
+      color: white;
+      background: var(--blue);
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    button.secondary {
-      background-color: rgba(255,255,255,0.1);
-      color: var(--text-color);
+    button:active {
+      transform: scale(.98);
     }
 
-    button.edit-btn {
-      background-color: #f59e0b;
-      color: #000;
-      flex: 100%;
-      margin-top: 4px;
-      display: none;
+    .contact-bar {
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 12px 15px;
+      background: rgba(8,11,18,.92);
+      backdrop-filter: blur(15px);
+      border-top: 1px solid rgba(255,255,255,.08);
     }
 
-    /* Модальные окна */
+    .contact-btn {
+      max-width: 440px;
+      margin: auto;
+      display: block;
+      background: var(--green);
+    }
+
+    /* PAYMENT */
+
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(6px);
       z-index: 1000;
-      justify-content: center;
+      inset: 0;
+      padding: 15px;
       align-items: center;
-      padding: 16px;
-      box-sizing: border-box;
+      justify-content: center;
+      background: rgba(0,0,0,.86);
+      backdrop-filter: blur(7px);
     }
 
-    .modal-content {
-      background: #161b22;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
-      padding: 20px;
+    .modal.active {
+      display: flex;
+    }
+
+    .payment-box {
+      position: relative;
       width: 100%;
       max-width: 400px;
-      max-height: 90vh;
+      max-height: 92vh;
       overflow-y: auto;
+      padding: 22px 18px;
+      border-radius: 20px;
+      background: #111722;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      font-size: 17px;
+    }
+
+    .payment-title {
+      margin: 0 40px 5px 0;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .payment-subtitle {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .selected-product {
+      padding: 13px;
+      margin-bottom: 15px;
+      border-radius: 13px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .selected-product-name {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .selected-product-price {
+      margin-top: 5px;
+      color: #34d399;
+      font-weight: 800;
+    }
+
+    .timer-box {
+      text-align: center;
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 14px;
+      background: rgba(37,99,235,.12);
+      border: 1px solid rgba(37,99,235,.3);
+    }
+
+    .timer-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    #timer {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #60a5fa;
+    }
+
+    .bank-card {
+      margin: 15px 0;
+      padding: 18px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, #202938, #0f172a);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .bank-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .bank-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+    }
+
+    .card-icon {
+      width: 32px;
+      height: 22px;
+      border-radius: 5px;
+      background: linear-gradient(135deg,#fff,#cbd5e1);
       position: relative;
     }
 
-    .close-btn {
+    .card-icon::after {
+      content: "";
       position: absolute;
-      top: 12px; right: 12px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 50%; width: 28px; height: 28px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-weight: bold;
+      left: 0;
+      right: 0;
+      top: 7px;
+      height: 3px;
+      background: #64748b;
     }
 
-    .modal img {
-      width: 100%; height: 180px;
-      object-fit: cover; border-radius: 12px; margin-bottom: 12px;
+    .bank-name {
+      color: #facc15;
+      font-weight: 800;
     }
 
-    .form-group {
-      margin-bottom: 12px;
-      text-align: left;
+    .card-number {
+      font-size: 20px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 9px;
+      word-break: break-all;
     }
 
-    .form-group label {
-      display: block; font-size: 12px; margin-bottom: 4px; opacity: 0.8;
+    .card-hint {
+      color: var(--muted);
+      font-size: 11px;
     }
 
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 10px; border-radius: 8px;
-      border: 1px solid #374151; background: #0d1117; color: #fff;
-      box-sizing: border-box; font-size: 13px;
+    .instruction {
+      margin: 15px 0;
+      padding: 14px;
+      border-radius: 13px;
+      background: rgba(16,185,129,.08);
+      border: 1px solid rgba(16,185,129,.22);
+      color: #d1fae5;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    /* Нижняя плавающая кнопка */
-    .contact-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 12px 16px;
-      display: flex; 
-      gap: 10px;
-      z-index: 100;
+    .warning {
+      margin-top: 10px;
+      color: #fbbf24;
+      font-size: 11px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .paid-btn {
+      margin-top: 8px;
+      background: var(--green);
+    }
+
+    .copy-btn {
+      margin-top: 8px;
+      background: rgba(255,255,255,.09);
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 52px;
+      margin-bottom: 8px;
+    }
+
+    .success h2 {
+      margin: 0 0 8px;
+    }
+
+    .success p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
+
     <header>
       <h1>🔥 Спорт & Тренировки</h1>
-      <p>Выберите программу или свяжитесь с нами</p>
+      <p>Выберите подходящую программу</p>
     </header>
 
-    <!-- Переключатель редактора -->
-    <div class="admin-panel">
-      <span>⚙️ Режим редактирования</span>
-      <label class="switch">
-        <input type="checkbox" id="adminToggle" onchange="toggleAdminMode()">
-        <span class="slider"></span>
-      </label>
-    </div>
+    <div class="products" id="productList"></div>
 
-    <!-- Список товаров в 1 столбец по порядку вниз -->
-    <div class="column-list" id="productList"></div>
   </div>
 
-  <!-- Кнопка связи -->
   <div class="contact-bar">
-    <button onclick="contactAdmin()" style="background-color: #10b981;">💬 Написать в Telegram</button>
+    <button class="contact-btn" onclick="contactAdmin()">
+      💬 Написать в Telegram
+    </button>
   </div>
 
-  <!-- Модальное окно: Подробности -->
-  <div class="modal" id="detailsModal">
-    <div class="modal-content">
-      <div class="close-btn" onclick="closeModal('detailsModal')">✕</div>
-      <img id="modalImg" src="" alt="">
-      <h2 id="modalTitle" style="margin: 0 0 8px 0; font-size: 18px;"></h2>
-      <div class="price" id="modalPrice" style="font-size: 16px;"></div>
-      <p id="modalDesc" style="font-size: 13px; opacity: 0.8; line-height: 1.4;"></p>
-      <div style="display: flex; gap: 8px; margin-top: 16px;">
-        <button id="modalBuyBtn">Купить / Записаться</button>
-        <button class="secondary" onclick="contactAdmin()">Спросить</button>
+
+  <!-- ОКНО ОПЛАТЫ -->
+
+  <div class="modal" id="paymentModal">
+
+    <div class="payment-box">
+
+      <button class="close" onclick="closePayment()">✕</button>
+
+      <div id="paymentContent">
+
+        <h2 class="payment-title">💳 Оплата</h2>
+
+        <p class="payment-subtitle">
+          Переведите необходимую сумму на карту
+        </p>
+
+        <div class="selected-product">
+          <div class="selected-product-name" id="paymentProduct"></div>
+          <div class="selected-product-price" id="paymentPrice"></div>
+        </div>
+
+        <div class="timer-box">
+          <div class="timer-label">Время на оплату</div>
+          <div id="timer">15:00</div>
+        </div>
+
+        <div class="bank-card">
+
+          <div class="bank-top">
+
+            <div class="bank-logo">
+              <div class="card-icon"></div>
+              <span>Банковская карта</span>
+            </div>
+
+            <div class="bank-name">
+              Тинькофф
+            </div>
+
+          </div>
+
+          <div class="card-number" id="cardNumber">
+            2200 7021 9498 5615
+          </div>
+
+          <div class="card-hint">
+            Переводите ровно указанную сумму
+          </div>
+
+        </div>
+
+        <button class="copy-btn" onclick="copyCard()">
+          📋 Скопировать номер карты
+        </button>
+
+        <div class="instruction">
+          <b>📌 После оплаты</b><br><br>
+
+          После поступления оплаты вам будет предоставлена
+          приобретённая услуга.
+          <br><br>
+
+          Нажмите кнопку <b>«Я оплатил»</b> после совершения перевода,
+          чтобы отправить заявку администратору.
+        </div>
+
+        <button class="paid-btn" onclick="paid()">
+          ✅ Я оплатил
+        </button>
+
+        <div class="warning">
+          ⚠️ Не закрывайте это окно до завершения оплаты.
+          После окончания таймера создайте новую заявку.
+        </div>
+
       </div>
+
+
+      <div class="success" id="successContent">
+
+        <div class="success-icon">✅</div>
+
+        <h2>Заявка отправлена</h2>
+
+        <p>
+          Информация о вашей оплате отправлена администратору.
+          После проверки платежа с вами свяжутся в Telegram
+          и предоставят приобретённую услугу.
+        </p>
+
+        <button onclick="closePayment()">
+          Закрыть
+        </button>
+
+      </div>
+
     </div>
+
   </div>
 
-  <!-- Модальное окно: Редактирование -->
-  <div class="modal" id="editModal">
-    <div class="modal-content">
-      <div class="close-btn" onclick="closeModal('editModal')">✕</div>
-      <h3 style="margin-top: 0;">Редактирование товара</h3>
-      <input type="hidden" id="editId">
-      
-      <div class="form-group">
-        <label>Название</label>
-        <input type="text" id="editTitle">
-      </div>
-      <div class="form-group">
-        <label>Цена (руб / ⭐)</label>
-        <input type="text" id="editPrice">
-      </div>
-      <div class="form-group">
-        <label>Ссылка на фото (URL)</label>
-        <input type="text" id="editImg">
-      </div>
-      <div class="form-group">
-        <label>Описание</label>
-        <textarea id="editDesc" rows="4"></textarea>
-      </div>
-      
-      <button onclick="saveProduct()" style="background-color: #10b981; margin-top: 10px;">Сохранить изменения</button>
-    </div>
-  </div>
 
   <script>
+
     const tg = window.Telegram.WebApp;
+
     tg.ready();
     tg.expand();
 
-    // Замените Beriman1 на ваш username без @
-    const MY_TELEGRAM_USERNAME = "Beriman1"; 
 
-    const defaultProducts = [
-      { id: 1, title: "1. 🥊 Разовая тренировка", price: "500 ₽ / 500 ⭐", img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=500", desc: "Персональное занятие с тренером, вводный инструктаж и составление плана на первое время." },
-      { id: 2, title: "2. 🏋️ Месячный абонемент", price: "3 500 ₽ / 3 500 ⭐", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500", desc: "Безлимитное посещение тренажерного зала в течение 30 дней. Раздевалка и шкафчик включены." },
-      { id: 3, title: "3. 🏆 Персональный тренер", price: "8 000 ₽ / 8 000 ⭐", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500", desc: "10 индивидуальных занятий с топ-тренером. Полный контроль техники и питания." },
-      { id: 4, title: "4. 🥗 План питания", price: "1 500 ₽ / 1 500 ⭐", img: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=500", desc: "Расчет КБЖУ и индивидуальный рацион на 4 недели под ваши цели (похудение / набор массы)." },
-      { id: 5, title: "5. 🧘 Йога & Растяжка", price: "2 800 ₽ / 2 800 ⭐", img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=500", desc: "8 групповых занятий по растяжке и восстановлению гибкости суставов." },
-      { id: 6, title: "6. 🏊 Бассейн (10 визитов)", price: "4 000 ₽ / 4 000 ⭐", img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=500", desc: "10 посещений дорожки 25м + доступ в сауну после плавания." },
-      { id: 7, title: "7. ⚡ Онлайн-ведение", price: "5 000 ₽ / 5 000 ⭐", img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=500", desc: "Ежедневный контроль отчетов, корректировка тренировок и обратная связь в Telegram." },
-      { id: 8, title: "8. 🎁 Подарочный сертификат", price: "5 000 ₽ / 5 000 ⭐", img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=500", desc: "Сертификат на любую услугу клуба с открытой датой использования." }
+    /* НАСТРОЙКИ */
+
+    const MY_TELEGRAM_USERNAME = "Beriman1";
+
+    const CARD_NUMBER = "2200702194985615";
+
+
+    /* ТОВАРЫ */
+
+    const products = [
+
+      {
+        id: 1,
+        title: "🥊 Разовая тренировка",
+        price: "500 ₽",
+        img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800",
+        desc: "Персональное занятие с тренером, вводный инструктаж и составление плана."
+      },
+
+      {
+        id: 2,
+        title: "🏋️ Месячный абонемент",
+        price: "3 500 ₽",
+        img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800",
+        desc: "Безлимитное посещение тренажёрного зала в течение 30 дней."
+      },
+
+      {
+        id: 3,
+        title: "🏆 Персональный тренер",
+        price: "8 000 ₽",
+        img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800",
+        desc: "10 индивидуальных занятий с тренером. Контроль техники и питания."
+      },
+
+      {
+        id: 4,
+        title: "🥗 План питания",
+        price: "1 500 ₽",
+        img: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800",
+        desc: "Расчёт КБЖУ и индивидуальный рацион на 4 недели."
+      },
+
+      {
+        id: 5,
+        title: "🧘 Йога & Растяжка",
+        price: "2 800 ₽",
+        img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800",
+        desc: "8 групповых занятий по растяжке и восстановлению."
+      },
+
+      {
+        id: 6,
+        title: "🏊 Бассейн — 10 визитов",
+        price: "4 000 ₽",
+        img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800",
+        desc: "10 посещений бассейна и доступ в сауну."
+      },
+
+      {
+        id: 7,
+        title: "⚡ Онлайн-ведение",
+        price: "5 000 ₽",
+        img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800",
+        desc: "Контроль тренировок, корректировка программы и обратная связь."
+      },
+
+      {
+        id: 8,
+        title: "🎁 Подарочный сертификат",
+        price: "5 000 ₽",
+        img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800",
+        desc: "Сертификат на любую услугу клуба."
+      }
+
     ];
 
-    let products = JSON.parse(localStorage.getItem('my_products')) || defaultProducts;
+
+    let selectedProduct = null;
+    let timerInterval = null;
+    let timeLeft = 15 * 60;
+
+
+    /* РЕНДЕР ТОВАРОВ */
 
     function renderProducts() {
-      const list = document.getElementById('productList');
-      const isAdmin = document.getElementById('adminToggle').checked;
-      list.innerHTML = '';
 
-      products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'card';
+      const list = document.getElementById("productList");
+
+      list.innerHTML = "";
+
+      products.forEach(product => {
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
         card.innerHTML = `
-          <img src="${p.img}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+
+          <img
+            src="${product.img}"
+            alt="${product.title}"
+            onerror="this.src='https://via.placeholder.com/500x250?text=Sport'"
+          >
+
           <div class="card-body">
-            <h3>${p.title}</h3>
-            <div class="price">${p.price}</div>
-            <div class="btn-group">
-              <button onclick="openDetails(${p.id})">Подробнее</button>
-              <button class="secondary" onclick="selectProduct('${p.title}')">Заказать</button>
-              <button class="edit-btn" style="display: ${isAdmin ? 'block' : 'none'}" onclick="openEdit(${p.id})">✏️ Изменить</button>
+
+            <h3>${product.title}</h3>
+
+            <p class="description">
+              ${product.desc}
+            </p>
+
+            <div class="price">
+              ${product.price}
             </div>
+
+            <button onclick="openPayment(${product.id})">
+              💳 Купить
+            </button>
+
           </div>
         `;
+
         list.appendChild(card);
+
       });
+
     }
 
-    function selectProduct(title) {
-      if (tg.initDataUnsafe && tg.initDataUnsafe.query_id) {
-        tg.sendData(JSON.stringify({ action: "buy", product: title }));
-        tg.close();
-      } else {
-        alert(`Вы выбрали: ${title}`);
-      }
+
+    /* ОПЛАТА */
+
+    function openPayment(id) {
+
+      selectedProduct = products.find(p => p.id === id);
+
+      if (!selectedProduct) return;
+
+      document.getElementById("paymentProduct").textContent =
+        selectedProduct.title;
+
+      document.getElementById("paymentPrice").textContent =
+        selectedProduct.price;
+
+      document.getElementById("cardNumber").textContent =
+        formatCard(CARD_NUMBER);
+
+      document.getElementById("paymentContent").style.display = "block";
+      document.getElementById("successContent").style.display = "none";
+
+      document.getElementById("paymentModal").classList.add("active");
+
+      startTimer();
+
     }
 
-    function openDetails(id) {
-      const p = products.find(item => item.id === id);
-      if (!p) return;
-      document.getElementById('modalImg').src = p.img;
-      document.getElementById('modalTitle').innerText = p.title;
-      document.getElementById('modalPrice').innerText = p.price;
-      document.getElementById('modalDesc').innerText = p.desc;
-      
-      const buyBtn = document.getElementById('modalBuyBtn');
-      buyBtn.onclick = () => {
-        closeModal('detailsModal');
-        selectProduct(p.title);
+
+    function closePayment() {
+
+      document.getElementById("paymentModal").classList.remove("active");
+
+      clearInterval(timerInterval);
+
+    }
+
+
+    /* ТАЙМЕР 15 МИНУТ */
+
+    function startTimer() {
+
+      clearInterval(timerInterval);
+
+      timeLeft = 15 * 60;
+
+      updateTimer();
+
+      timerInterval = setInterval(() => {
+
+        timeLeft--;
+
+        updateTimer();
+
+        if (timeLeft <= 0) {
+
+          clearInterval(timerInterval);
+
+          document.getElementById("timer").textContent = "00:00";
+
+          alert("Время на оплату истекло. Создайте новую заявку.");
+
+        }
+
+      }, 1000);
+
+    }
+
+
+    function updateTimer() {
+
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+
+      document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+    }
+
+
+    /* ФОРМАТ КАРТЫ */
+
+    function formatCard(number) {
+
+      return number.replace(/(.{4})/g, "$1 ").trim();
+
+    }
+
+
+    /* КОПИРОВАНИЕ */
+
+    function copyCard() {
+
+      navigator.clipboard.writeText(CARD_NUMBER)
+        .then(() => {
+
+          const button = document.querySelector(".copy-btn");
+
+          const oldText = button.textContent;
+
+          button.textContent = "✅ Номер скопирован";
+
+          setTimeout(() => {
+
+            button.textContent = oldText;
+
+          }, 1800);
+
+        })
+        .catch(() => {
+
+          alert("Номер карты: " + formatCard(CARD_NUMBER));
+
+        });
+
+    }
+
+
+    /* Я ОПЛАТИЛ */
+
+    function paid() {
+
+      if (!selectedProduct) return;
+
+      const user = tg.initDataUnsafe?.user;
+
+      const paymentData = {
+
+        action: "payment",
+
+        product: selectedProduct.title,
+
+        price: selectedProduct.price,
+
+        username: user?.username || "",
+
+        first_name: user?.first_name || "",
+
+        user_id: user?.id || ""
+
       };
-      
-      document.getElementById('detailsModal').style.display = 'flex';
-    }
 
-    function toggleAdminMode() { renderProducts(); }
 
-    function openEdit(id) {
-      const p = products.find(item => item.id === id);
-      if (!p) return;
+      /*
+        Если Mini App открыт внутри Telegram,
+        отправляем информацию боту.
+      */
 
-      document.getElementById('editId').value = p.id;
-      document.getElementById('editTitle').value = p.title;
-      document.getElementById('editPrice').value = p.price;
-      document.getElementById('editImg').value = p.img;
-      document.getElementById('editDesc').value = p.desc;
+      if (tg.sendData) {
 
-      document.getElementById('editModal').style.display = 'flex';
-    }
+        try {
 
-    function saveProduct() {
-      const id = parseInt(document.getElementById('editId').value);
-      const p = products.find(item => item.id === id);
+          tg.sendData(JSON.stringify(paymentData));
 
-      if (p) {
-        p.title = document.getElementById('editTitle').value;
-        p.price = document.getElementById('editPrice').value;
-        p.img = document.getElementById('editImg').value;
-        p.desc = document.getElementById('editDesc').value;
+        } catch (error) {
 
-        localStorage.setItem('my_products', JSON.stringify(products));
-        renderProducts();
-        closeModal('editModal');
+          console.log(error);
+
+        }
+
       }
+
+
+      /*
+        Показываем пользователю подтверждение.
+      */
+
+      clearInterval(timerInterval);
+
+      document.getElementById("paymentContent").style.display = "none";
+
+      document.getElementById("successContent").style.display = "block";
+
     }
 
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    /* СВЯЗЬ */
 
     function contactAdmin() {
+
       if (MY_TELEGRAM_USERNAME) {
-        tg.openTelegramLink(`https://t.me/${MY_TELEGRAM_USERNAME}`);
+
+        tg.openTelegramLink(
+          "https://t.me/" + MY_TELEGRAM_USERNAME
+        );
+
       } else {
-        alert("Укажите username в коде!");
+
+        alert("Telegram администратора не указан.");
+
       }
+
     }
 
+
     renderProducts();
+
   </script>
+
 </body>
 </html>
