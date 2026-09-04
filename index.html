@@ -2,224 +2,94 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#08060d">
-<title>PRIVATE VIP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>PRIVATE ACCESS</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 *{
     box-sizing:border-box;
+    margin:0;
+    padding:0;
     -webkit-tap-highlight-color:transparent;
 }
 
-:root{
-    --bg:#07060b;
-    --card:#100d17;
-    --card2:#15111e;
-    --purple:#9b5cff;
-    --purple2:#c084fc;
-    --pink:#f05cff;
-    --text:#fff;
-    --muted:#918a9f;
-    --line:rgba(255,255,255,.08);
-}
-
-html,body{
-    margin:0;
-    padding:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
-
 body{
+    background:#080808;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     min-height:100vh;
-    overflow-x:hidden;
 }
 
-button{
-    font:inherit;
-    color:inherit;
-    border:0;
-    cursor:pointer;
-}
-
-.app{
+.container{
     width:100%;
-    max-width:650px;
+    max-width:600px;
     margin:auto;
-    padding:18px 14px 35px;
+    padding:18px 14px 40px;
 }
 
 /* HEADER */
 
 .header{
-    position:relative;
-    padding:20px 4px 18px;
-}
-
-.header-glow{
-    position:absolute;
-    width:180px;
-    height:180px;
-    right:-80px;
-    top:-100px;
-    background:#8b5cf6;
-    opacity:.16;
-    filter:blur(70px);
-    pointer-events:none;
-}
-
-.topline{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    margin-bottom:18px;
+    align-items:center;
+    margin-bottom:25px;
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:9px;
+    font-size:20px;
     font-weight:900;
-    letter-spacing:.5px;
+    letter-spacing:2px;
 }
 
-.logo-dot{
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#fff,#9b5cff);
-    box-shadow:0 0 22px #9b5cff;
-}
-
-.private{
-    font-size:10px;
-    font-weight:900;
-    color:#cba9ff;
-    padding:7px 10px;
-    border:1px solid rgba(155,92,255,.3);
-    background:rgba(155,92,255,.08);
+.vip{
+    background:#191919;
+    border:1px solid #333;
+    padding:7px 12px;
     border-radius:20px;
-}
-
-h1{
-    margin:0;
-    font-size:36px;
-    line-height:1;
-    letter-spacing:-1.7px;
-}
-
-.gradient{
-    background:linear-gradient(90deg,#fff,#b77cff,#f27aff);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.subtitle{
-    color:var(--muted);
-    margin:12px 0 0;
-    line-height:1.5;
-    font-size:14px;
+    font-size:11px;
+    font-weight:800;
 }
 
 /* HERO */
 
 .hero{
-    position:relative;
-    overflow:hidden;
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:20px;
-    margin-bottom:20px;
-    background:
-        radial-gradient(circle at 90% 10%,rgba(192,132,252,.22),transparent 35%),
-        radial-gradient(circle at 10% 100%,rgba(240,92,255,.12),transparent 40%),
-        linear-gradient(145deg,#171020,#0c0911);
+    background:linear-gradient(145deg,#151515,#0c0c0c);
+    border:1px solid #242424;
+    border-radius:22px;
+    padding:25px 20px;
+    margin-bottom:22px;
 }
 
-.hero:after{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    right:-70px;
-    bottom:-90px;
-    background:#9b5cff;
-    opacity:.12;
-    filter:blur(45px);
+.hero small{
+    color:#999;
+    font-size:11px;
+    letter-spacing:2px;
 }
 
-.hero-row{
-    position:relative;
-    z-index:2;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-}
-
-.hero-title{
-    font-size:21px;
+.hero h1{
+    margin-top:8px;
+    font-size:31px;
+    line-height:1;
     font-weight:900;
 }
 
-.hero-text{
-    color:#aaa1b6;
-    font-size:12px;
+.hero p{
+    margin-top:12px;
+    color:#888;
+    font-size:13px;
     line-height:1.5;
-    margin-top:6px;
 }
 
-.hero-badge{
-    flex:none;
-    width:55px;
-    height:55px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:18px;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.1);
-    font-size:25px;
-}
-
-/* SEARCH */
-
-.search{
-    position:relative;
-    margin:16px 0;
-}
-
-.search input{
-    width:100%;
-    height:50px;
-    border-radius:16px;
-    border:1px solid var(--line);
-    outline:none;
-    background:#0e0b13;
-    color:white;
-    padding:0 16px 0 45px;
-    font-size:14px;
-}
-
-.search span{
-    position:absolute;
-    left:16px;
-    top:15px;
-    opacity:.55;
-}
-
-/* FILTERS */
+/* FILTER */
 
 .filters{
     display:flex;
     gap:8px;
     overflow-x:auto;
-    padding-bottom:4px;
+    margin-bottom:18px;
     scrollbar-width:none;
 }
 
@@ -228,356 +98,162 @@ h1{
 }
 
 .filter{
-    white-space:nowrap;
-    padding:10px 14px;
-    border-radius:13px;
-    background:#100d16;
-    border:1px solid var(--line);
-    color:#a59dac;
+    flex:none;
+    background:#111;
+    border:1px solid #292929;
+    color:#aaa;
+    border-radius:12px;
+    padding:9px 15px;
     font-size:12px;
-    font-weight:800;
+    font-weight:700;
 }
 
 .filter.active{
-    color:#fff;
-    background:linear-gradient(135deg,#8b5cf6,#b34cff);
-    border-color:transparent;
-    box-shadow:0 8px 25px rgba(139,92,246,.25);
+    background:#fff;
+    color:#000;
 }
 
-/* SECTION */
-
-.section-head{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin:25px 2px 12px;
-}
-
-.section-title{
-    font-size:19px;
-    font-weight:900;
-}
-
-.section-count{
-    color:#716978;
-    font-size:11px;
-}
-
-/* GRID */
+/* VIDEO GRID */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:1fr 1fr;
     gap:12px;
 }
 
-/* CARD */
-
 .card{
+    background:#101010;
+    border:1px solid #252525;
+    border-radius:17px;
     overflow:hidden;
-    position:relative;
-    border-radius:19px;
-    background:linear-gradient(145deg,#15111d,#0d0a11);
-    border:1px solid var(--line);
-    transition:.2s;
-}
-
-.card:active{
-    transform:scale(.975);
 }
 
 .preview{
+    height:205px;
     position:relative;
-    height:175px;
     overflow:hidden;
-    background:#100c15;
+    background:#151515;
 }
 
-/* DIFFERENT BACKGROUNDS */
+/*
+==========================================
+ МЕСТО ДЛЯ ТВОИХ ВИДЕО
+==========================================
 
-.v1{background:radial-gradient(circle at 70% 20%,#b76aff66,transparent 35%),linear-gradient(145deg,#180d22,#08080d);}
-.v2{background:radial-gradient(circle at 20% 70%,#ff5cba55,transparent 35%),linear-gradient(145deg,#1b0b19,#09070d);}
-.v3{background:radial-gradient(circle at 75% 75%,#6e5cff66,transparent 35%),linear-gradient(145deg,#0e1024,#08080d);}
-.v4{background:radial-gradient(circle at 30% 30%,#ff8a5c55,transparent 35%),linear-gradient(145deg,#24100d,#09070d);}
-.v5{background:radial-gradient(circle at 50% 30%,#d75cff66,transparent 40%),linear-gradient(145deg,#210d24,#08080d);}
-.v6{background:radial-gradient(circle at 15% 75%,#5c8cff55,transparent 35%),linear-gradient(145deg,#0c1422,#07080d);}
-.v7{background:radial-gradient(circle at 80% 40%,#ff5c8a55,transparent 35%),linear-gradient(145deg,#220d16,#08070d);}
-.v8{background:radial-gradient(circle at 40% 80%,#9b5cff55,transparent 35%),linear-gradient(145deg,#150e20,#08080d);}
-.v9{background:radial-gradient(circle at 65% 25%,#5cfff055,transparent 35%),linear-gradient(145deg,#0a201d,#070b0b);}
-.v10{background:radial-gradient(circle at 30% 60%,#ff5cf655,transparent 35%),linear-gradient(145deg,#200c20,#08070d);}
-.v11{background:radial-gradient(circle at 80% 80%,#a855f766,transparent 35%),linear-gradient(145deg,#170c22,#08070d);}
-.v12{background:radial-gradient(circle at 15% 20%,#ff6b6b55,transparent 35%),linear-gradient(145deg,#210e14,#09070d);}
-.v13{background:radial-gradient(circle at 60% 50%,#7c5cff66,transparent 35%),linear-gradient(145deg,#110d22,#07070d);}
-.v14{background:radial-gradient(circle at 25% 80%,#ff5cdd55,transparent 35%),linear-gradient(145deg,#220d1d,#08070d);}
-.v15{background:radial-gradient(circle at 75% 25%,#5c9cff55,transparent 35%),linear-gradient(145deg,#0c1623,#07080d);}
-.v16{background:radial-gradient(circle at 45% 30%,#b85cff55,transparent 35%),linear-gradient(145deg,#1c0d23,#08070d);}
-.v17{background:radial-gradient(circle at 80% 65%,#ff5c9a55,transparent 35%),linear-gradient(145deg,#230d18,#08070d);}
-.v18{background:radial-gradient(circle at 20% 40%,#6b5cff55,transparent 35%),linear-gradient(145deg,#100e22,#08080d);}
-.v19{background:radial-gradient(circle at 65% 75%,#e85cff55,transparent 35%),linear-gradient(145deg,#200d20,#08070d);}
-.v20{background:radial-gradient(circle at 30% 25%,#8d5cff66,transparent 35%),linear-gradient(145deg,#170d23,#08070d);}
-.v21{background:radial-gradient(circle at 70% 60%,#ff7c5c55,transparent 35%),linear-gradient(145deg,#24100e,#08070d);}
-.v22{background:radial-gradient(circle at 25% 65%,#5c78ff55,transparent 35%),linear-gradient(145deg,#0d1223,#07080d);}
+Каждое видео можно вставить в HTML ниже
+вместо:
 
-/* ABSTRACT SILHOUETTES */
+VIDEO_01.mp4
+VIDEO_02.mp4
+VIDEO_03.mp4
 
-.silhouette{
-    position:absolute;
-    left:50%;
-    bottom:-12px;
-    transform:translateX(-50%);
-    width:72px;
-    height:145px;
-    background:rgba(5,4,8,.86);
-    border-radius:42px 42px 28px 28px;
-    filter:blur(10px);
-    opacity:.92;
+Например:
+
+<video src="videos/video1.mp4"></video>
+
+Если видео лежит в GitHub рядом с index.html:
+videos/video1.mp4
+
+Если у тебя есть прямая ссылка:
+https://example.com/video1.mp4
+
+==========================================
+*/
+
+/* БЛУР */
+
+.preview video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    /* Сильный blur */
+    filter:blur(18px);
+    transform:scale(1.12);
+
+    opacity:.72;
 }
 
-.silhouette:before{
+/* затемнение поверх видео */
+
+.preview::after{
     content:"";
     position:absolute;
-    width:53px;
-    height:53px;
-    border-radius:50%;
+    inset:0;
+    background:rgba(0,0,0,.38);
+    pointer-events:none;
+}
+
+.badge{
+    position:absolute;
+    top:10px;
     left:10px;
-    top:-28px;
-    background:rgba(5,4,8,.9);
+    z-index:2;
+
+    background:rgba(0,0,0,.7);
+    border:1px solid rgba(255,255,255,.15);
+
+    padding:6px 9px;
+    border-radius:8px;
+
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1px;
 }
 
-.silhouette:after{
-    content:"";
+.lock{
     position:absolute;
-    width:115px;
-    height:70px;
-    left:-22px;
-    top:42px;
-    border-radius:50%;
-    background:rgba(5,4,8,.8);
-    filter:blur(8px);
-}
-
-.s2{
-    width:54px;
-    height:142px;
-    left:35%;
-    transform:translateX(-50%) rotate(-5deg);
-}
-
-.s3{
-    width:82px;
-    height:138px;
-    left:67%;
-    transform:translateX(-50%) rotate(5deg);
-}
-
-.s4{
-    width:65px;
-    height:155px;
-    left:50%;
-    transform:translateX(-50%) rotate(8deg);
-}
-
-.s5{
-    width:48px;
-    height:135px;
-    left:43%;
-    transform:translateX(-50%) rotate(-10deg);
-}
-
-.double:before{
-    content:"";
-    position:absolute;
-    width:52px;
-    height:115px;
-    left:25px;
-    bottom:-4px;
-    background:rgba(3,3,6,.85);
-    border-radius:30px;
-    filter:blur(10px);
-}
-
-.double:after{
-    content:"";
-    position:absolute;
-    width:52px;
-    height:115px;
-    right:25px;
-    bottom:-5px;
-    background:rgba(3,3,6,.85);
-    border-radius:30px;
-    filter:blur(10px);
-}
-
-.play{
-    position:absolute;
-    z-index:5;
+    z-index:3;
     left:50%;
     top:50%;
     transform:translate(-50%,-50%);
-    width:48px;
-    height:48px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
+    width:46px;
+    height:46px;
+
     border-radius:50%;
-    background:rgba(0,0,0,.38);
-    border:1px solid rgba(255,255,255,.18);
-    backdrop-filter:blur(12px);
-    box-shadow:0 8px 30px rgba(0,0,0,.4);
-}
+    background:rgba(0,0,0,.62);
+    border:1px solid rgba(255,255,255,.25);
 
-.play:after{
-    content:"";
-    margin-left:3px;
-    border-left:11px solid white;
-    border-top:7px solid transparent;
-    border-bottom:7px solid transparent;
-}
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-.badge18{
-    position:absolute;
-    z-index:6;
-    top:10px;
-    left:10px;
-    font-size:9px;
-    font-weight:900;
-    padding:5px 7px;
-    border-radius:7px;
-    background:rgba(0,0,0,.58);
-    border:1px solid rgba(255,255,255,.12);
-    backdrop-filter:blur(8px);
+    font-size:19px;
 }
-
-.badge-hot{
-    position:absolute;
-    z-index:6;
-    top:10px;
-    right:10px;
-    font-size:9px;
-    font-weight:900;
-    padding:5px 7px;
-    border-radius:7px;
-    background:linear-gradient(135deg,#a855f7,#ec4899);
-}
-
-/* CARD INFO */
 
 .info{
-    padding:12px;
+    padding:13px;
 }
 
-.name{
+.title{
     font-size:13px;
-    font-weight:900;
+    font-weight:800;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
 
-.meta{
+.bottom{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     margin-top:9px;
 }
 
-.duration{
-    color:#77717e;
-    font-size:10px;
-}
-
 .price{
-    font-size:14px;
-    font-weight:950;
-    color:#c997ff;
-}
-
-/* VIP */
-
-.vip{
-    position:relative;
-    overflow:hidden;
-    margin-top:28px;
-    padding:18px;
-    border-radius:22px;
-    border:1px solid rgba(181,111,255,.28);
-    background:
-        radial-gradient(circle at 90% 0%,rgba(236,72,153,.18),transparent 38%),
-        linear-gradient(145deg,#17101f,#0b0910);
-}
-
-.vip:before{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    left:-90px;
-    bottom:-110px;
-    border-radius:50%;
-    background:#8b5cf6;
-    filter:blur(65px);
-    opacity:.18;
-}
-
-.vip-title{
-    position:relative;
-    z-index:2;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.vip-title strong{
-    font-size:20px;
-}
-
-.vip-title span{
-    padding:7px 10px;
-    border-radius:10px;
-    font-size:9px;
+    font-size:13px;
     font-weight:900;
-    background:rgba(192,132,252,.12);
-    color:#d4b1ff;
 }
 
-.vip p{
-    position:relative;
-    z-index:2;
-    color:#918899;
-    font-size:12px;
-    line-height:1.5;
-    margin:8px 0 14px;
-}
-
-.vip-btn{
-    position:relative;
-    z-index:2;
-    width:100%;
-    height:48px;
-    border-radius:14px;
-    font-weight:900;
-    background:linear-gradient(135deg,#8b5cf6,#c026d3);
-    box-shadow:0 10px 28px rgba(139,92,246,.24);
-}
-
-/* CONTACT */
-
-.contact{
-    width:100%;
-    height:52px;
-    margin-top:16px;
-    border-radius:16px;
-    background:#110e16;
-    border:1px solid var(--line);
-    font-weight:850;
-}
-
-.footer{
-    text-align:center;
-    color:#514c58;
+.buy{
+    border:0;
+    background:#fff;
+    color:#000;
+    padding:8px 12px;
+    border-radius:9px;
     font-size:10px;
-    margin-top:18px;
+    font-weight:900;
 }
 
 /* MODAL */
@@ -585,332 +261,257 @@ h1{
 .modal{
     position:fixed;
     inset:0;
-    z-index:100;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(12px);
+
     display:none;
     align-items:flex-end;
     justify-content:center;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(12px);
+
+    z-index:100;
 }
 
 .modal.show{
     display:flex;
 }
 
-.sheet{
+.modal-box{
     width:100%;
-    max-width:650px;
-    max-height:92vh;
-    overflow:auto;
-    padding:18px 15px 25px;
-    border-radius:27px 27px 0 0;
-    background:#0d0a12;
-    border-top:1px solid rgba(255,255,255,.1);
+    max-width:600px;
+
+    background:#111;
+    border:1px solid #292929;
+
+    border-radius:25px 25px 0 0;
+    padding:22px 18px 28px;
+
     animation:up .25s ease;
 }
 
 @keyframes up{
-    from{transform:translateY(100%)}
-    to{transform:translateY(0)}
+    from{
+        transform:translateY(100%);
+    }
+    to{
+        transform:translateY(0);
+    }
 }
 
 .close{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    float:right;
-    background:#18131e;
-    color:#aaa;
-    font-size:18px;
+    text-align:right;
+    color:#777;
+    font-size:22px;
+    margin-bottom:5px;
 }
 
 .modal-title{
-    clear:both;
-    padding-top:15px;
-    font-size:23px;
-    font-weight:950;
+    font-size:22px;
+    font-weight:900;
 }
 
 .selected{
-    margin-top:15px;
-    padding:14px;
-    border-radius:17px;
-    background:#15111c;
-    border:1px solid var(--line);
-}
-
-.selected-name{
-    font-weight:900;
-}
-
-.selected-price{
-    color:#b97cff;
-    font-size:20px;
-    font-weight:950;
+    color:#888;
+    font-size:12px;
     margin-top:5px;
 }
 
-.payment{
-    margin-top:14px;
+/* CARD PAYMENT */
+
+.payment-card{
+    margin-top:20px;
+
+    background:linear-gradient(145deg,#1b1b1b,#0d0d0d);
+
+    border:1px solid #303030;
+    border-radius:18px;
+
+    padding:20px;
 }
 
-.label{
-    color:#81798a;
+.payment-label{
+    color:#777;
     font-size:10px;
-    font-weight:900;
-    text-transform:uppercase;
-    margin-bottom:7px;
-}
-
-.card-number{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding:15px;
-    border-radius:15px;
-    background:#17121e;
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.number{
-    font-size:17px;
-    font-weight:900;
     letter-spacing:1px;
 }
 
-.copy{
-    flex:none;
-    padding:9px 10px;
-    border-radius:10px;
-    background:#241936;
-    color:#cba5ff;
-    font-size:11px;
-    font-weight:900;
+.card-number{
+    margin-top:8px;
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:2px;
 }
 
-.instructions{
-    margin-top:13px;
-    padding:13px;
-    border-radius:15px;
-    background:#100d15;
-    color:#98909f;
-    font-size:12px;
-    line-height:1.65;
+.copy{
+    margin-top:12px;
+    width:100%;
+
+    border:1px solid #333;
+    background:#171717;
+    color:#fff;
+
+    padding:11px;
+    border-radius:10px;
+
+    font-size:11px;
+    font-weight:800;
 }
+
+/* TIMER */
 
 .timer{
     text-align:center;
     margin:17px 0;
 }
 
-.timer-label{
-    color:#77707e;
+.timer span{
+    display:block;
+    font-size:26px;
+    font-weight:900;
+}
+
+.timer small{
+    color:#777;
     font-size:10px;
 }
 
-.time{
-    margin-top:3px;
-    font-size:30px;
-    font-weight:950;
-    letter-spacing:2px;
+/* INSTRUCTION */
+
+.instructions{
+    background:#181818;
+    border-radius:13px;
+    padding:14px;
+
+    color:#999;
+    font-size:11px;
+    line-height:1.6;
 }
 
-.pay-btn{
+/* BUTTON */
+
+.paid{
     width:100%;
-    height:55px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#8b5cf6,#c026d3);
-    font-weight:950;
-    box-shadow:0 12px 30px rgba(139,92,246,.25);
+    margin-top:15px;
+
+    border:0;
+    background:#fff;
+    color:#000;
+
+    padding:15px;
+    border-radius:13px;
+
+    font-size:12px;
+    font-weight:900;
 }
 
-.receipt{
-    margin-top:10px;
+/* CONTACT */
+
+.contact{
     width:100%;
-    height:50px;
-    border-radius:15px;
-    background:#18131e;
-    border:1px solid var(--line);
-    font-weight:850;
+    margin-top:12px;
+
+    border:1px solid #303030;
+    background:#121212;
+    color:#fff;
+
+    padding:13px;
+    border-radius:12px;
+
+    font-size:11px;
+    font-weight:800;
 }
+
+/* SUCCESS */
 
 .success{
+    display:none;
     text-align:center;
-    padding:35px 10px 15px;
+    padding:20px 5px;
 }
 
 .success-icon{
-    width:72px;
-    height:72px;
-    margin:auto;
+    width:65px;
+    height:65px;
     border-radius:50%;
+
+    background:#1d1d1d;
+    border:1px solid #333;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(139,92,246,.12);
-    border:1px solid rgba(139,92,246,.3);
-    font-size:30px;
+
+    margin:0 auto 15px;
+
+    font-size:28px;
 }
 
 .success h2{
-    margin:18px 0 8px;
+    font-size:22px;
 }
 
 .success p{
-    color:#8f8796;
-    font-size:13px;
+    color:#777;
+    font-size:12px;
     line-height:1.5;
+    margin-top:8px;
 }
 
 .telegram{
-    width:100%;
-    height:53px;
-    margin-top:12px;
-    border-radius:15px;
-    background:linear-gradient(135deg,#229ed9,#168bd0);
-    font-weight:950;
-}
+    display:block;
+    margin-top:18px;
 
-.hidden{
-    display:none!important;
-}
+    background:#fff;
+    color:#000;
 
-.empty{
-    grid-column:1/-1;
-    padding:35px 15px;
-    text-align:center;
-    color:#6f6877;
-    border:1px dashed #292331;
-    border-radius:18px;
-}
+    padding:14px;
+    border-radius:12px;
 
-/* TOAST */
+    text-decoration:none;
 
-.toast{
-    position:fixed;
-    z-index:300;
-    left:50%;
-    bottom:20px;
-    transform:translate(-50%,20px);
-    opacity:0;
-    pointer-events:none;
-    padding:12px 16px;
-    border-radius:13px;
-    background:#211a2b;
-    border:1px solid rgba(255,255,255,.1);
     font-size:12px;
-    transition:.25s;
+    font-weight:900;
 }
 
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
+/* FOOTER */
 
-@media(max-width:380px){
-    .grid{
-        gap:9px;
-    }
-
-    .preview{
-        height:155px;
-    }
-
-    h1{
-        font-size:31px;
-    }
+.footer{
+    text-align:center;
+    color:#555;
+    font-size:9px;
+    margin-top:28px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-    <header class="header">
-        <div class="header-glow"></div>
-
-        <div class="topline">
-            <div class="logo">
-                <div class="logo-dot"></div>
-                PRIVATE
-            </div>
-
-            <div class="private">18+ PRIVATE</div>
-        </div>
-
-        <h1>
-            VIP <span class="gradient">ACCESS</span>
-        </h1>
-
-        <p class="subtitle">
-            Закрытая премиальная коллекция.<br>
-            Выбери материал и получи доступ после оплаты.
-        </p>
-    </header>
-
-    <div class="hero">
-        <div class="hero-row">
-            <div>
-                <div class="hero-title">🔐 PRIVATE COLLECTION</div>
-                <div class="hero-text">
-                    Более 20 приватных материалов.<br>
-                    Новые публикации появляются регулярно.
-                </div>
-            </div>
-
-            <div class="hero-badge">🔞</div>
-        </div>
+    <div class="header">
+        <div class="logo">PRIVATE</div>
+        <div class="vip">18+ VIP ACCESS</div>
     </div>
 
-    <div class="search">
-        <span>⌕</span>
-        <input
-            id="search"
-            type="text"
-            placeholder="Поиск по коллекции..."
-        >
+    <div class="hero">
+        <small>PRIVATE COLLECTION</small>
+        <h1>Закрытый доступ</h1>
+        <p>
+            Приватная коллекция видео.
+            Выбери материал ниже и получи доступ после оплаты.
+        </p>
     </div>
 
     <div class="filters">
-        <button class="filter active" data-filter="all">Все</button>
-        <button class="filter" data-filter="new">NEW</button>
-        <button class="filter" data-filter="popular">🔥 Популярное</button>
-        <button class="filter" data-filter="vip">⭐ VIP</button>
+        <button class="filter active" onclick="filterVideos('all',this)">ВСЕ</button>
+        <button class="filter" onclick="filterVideos('new',this)">НОВЫЕ</button>
+        <button class="filter" onclick="filterVideos('vip',this)">VIP</button>
+        <button class="filter" onclick="filterVideos('popular',this)">ПОПУЛЯРНЫЕ</button>
     </div>
 
-    <div class="section-head">
-        <div class="section-title">Коллекция</div>
-        <div class="section-count" id="count">22 материала</div>
-    </div>
-
-    <div class="grid" id="grid"></div>
-
-    <section class="vip">
-
-        <div class="vip-title">
-            <strong>⭐ VIP COLLECTION</strong>
-            <span>PREMIUM</span>
-        </div>
-
-        <p>
-            Максимальный доступ к премиальной коллекции.
-            Выбирай отдельные материалы или собирай полный доступ.
-        </p>
-
-        <button class="vip-btn" onclick="openVip()">
-            ОТКРЫТЬ VIP ДОСТУП
-        </button>
-
-    </section>
-
-    <button class="contact" onclick="openTelegram()">
-        💬 Связаться с администратором
-    </button>
+    <div class="grid" id="videoGrid"></div>
 
     <div class="footer">
-        PRIVATE VIP • 18+ • PREMIUM ACCESS
+        PRIVATE ACCESS • 18+
     </div>
 
 </div>
@@ -920,113 +521,86 @@ h1{
 
 <div class="modal" id="modal">
 
-    <div class="sheet">
+    <div class="modal-box">
 
-        <button class="close" onclick="closeModal()">×</button>
+        <div class="close" onclick="closeModal()">×</div>
 
         <div id="paymentScreen">
 
             <div class="modal-title">
-                Получение доступа
+                Оплата доступа
             </div>
 
-            <div class="selected">
-                <div class="selected-name" id="selectedName">
-                    —
-                </div>
-
-                <div class="selected-price" id="selectedPrice">
-                    —
-                </div>
+            <div class="selected" id="selectedProduct">
+                —
             </div>
 
-            <div class="payment">
+            <div class="payment-card">
 
-                <div class="label">
-                    Банковская карта
+                <div class="payment-label">
+                    НОМЕР КАРТЫ
                 </div>
 
                 <div class="card-number">
-
-                    <div class="number">
-                        2200 7021 9498 5615
-                    </div>
-
-                    <button class="copy" onclick="copyCard()">
-                        КОПИРОВАТЬ
-                    </button>
-
+                    2200 7021 9498 5615
                 </div>
 
-                <div class="instructions">
-
-                    <b style="color:white">
-                        Как получить доступ:
-                    </b>
-
-                    <br>
-
-                    1. Скопируйте номер карты.<br>
-                    2. Переведите указанную сумму.<br>
-                    3. Нажмите «Я ОПЛАТИЛ».<br>
-                    4. Отправьте чек администратору в Telegram.
-
-                </div>
-
-                <div class="timer">
-
-                    <div class="timer-label">
-                        Время на оплату
-                    </div>
-
-                    <div class="time" id="timer">
-                        15:00
-                    </div>
-
-                </div>
-
-                <button class="pay-btn" onclick="paid()">
-                    Я ОПЛАТИЛ
-                </button>
-
-                <button class="receipt" onclick="openTelegram()">
-                    📩 Отправить чек в Telegram
+                <button class="copy" onclick="copyCard()">
+                    СКОПИРОВАТЬ НОМЕР
                 </button>
 
             </div>
+
+            <div class="timer">
+                <span id="timer">15:00</span>
+                <small>ВРЕМЯ НА ОПЛАТУ</small>
+            </div>
+
+            <div class="instructions">
+                1. Скопируй номер карты.<br>
+                2. Сделай перевод на указанную сумму.<br>
+                3. После оплаты нажми «Я ОПЛАТИЛ».<br>
+                4. Отправь чек администратору.
+            </div>
+
+            <button class="paid" onclick="paid()">
+                Я ОПЛАТИЛ
+            </button>
+
+            <button class="contact" onclick="contactAdmin()">
+                💬 СВЯЗАТЬСЯ С АДМИНИСТРАТОРОМ
+            </button>
 
         </div>
 
 
         <!-- SUCCESS -->
 
-        <div id="successScreen" class="success hidden">
+        <div class="success" id="successScreen">
 
             <div class="success-icon">
                 ✓
             </div>
 
-            <h2>
-                Заявка отправлена
-            </h2>
+            <h2>Заявка отправлена</h2>
 
             <p>
-                Теперь отправьте чек администратору.
-                После проверки оплаты вам предоставят доступ.
+                Отправь чек администратору,
+                чтобы получить доступ к выбранному видео.
             </p>
 
-            <button class="telegram" onclick="openTelegram()">
+            <a
+                class="telegram"
+                href="https://t.me/PREMDOSTUP"
+                target="_blank"
+            >
                 📩 ОТПРАВИТЬ ЧЕК В TELEGRAM
-            </button>
+            </a>
 
         </div>
 
     </div>
 
-</div>
-
-<div class="toast" id="toast">
-    Скопировано
 </div>
 
 
@@ -1040,312 +614,364 @@ if(tg){
 }
 
 
-/* ADMIN */
+/*
+=================================================
+        ВОТ ЗДЕСЬ ТЫ ВСТАВЛЯЕШЬ ВИДЕО
+=================================================
 
-const ADMIN_USERNAME = "PREMDOSTUP";
+Меняешь только:
 
-const CARD_NUMBER = "2200702194985615";
+VIDEO_01.mp4
+VIDEO_02.mp4
+VIDEO_03.mp4
 
+и т.д.
 
-/* PRODUCTS */
+Если видео находится в папке videos:
 
-const products = [
+videos/video1.mp4
 
-    {id:1,name:"PRIVATE NIGHT",price:500,duration:"08:42",tag:"new",v:"v1",s:"s1"},
-    {id:2,name:"AFTER DARK",price:700,duration:"11:27",tag:"popular",v:"v2",s:"s2"},
-    {id:3,name:"SECRET ROOM",price:900,duration:"14:08",tag:"new",v:"v3",s:"s3"},
-    {id:4,name:"PURPLE NIGHT",price:1000,duration:"09:54",tag:"vip",v:"v4",s:"s4"},
+=================================================
+*/
 
-    {id:5,name:"PRIVATE SESSION",price:1200,duration:"17:31",tag:"popular",v:"v5",s:"s5"},
-    {id:6,name:"MIDNIGHT",price:700,duration:"12:16",tag:"new",v:"v6",s:"s3"},
-    {id:7,name:"HIDDEN",price:900,duration:"10:43",tag:"popular",v:"v7",s:"s2"},
-    {id:8,name:"DARK ROOM",price:1000,duration:"15:21",tag:"vip",v:"v8",s:"s1"},
+const videos = [
 
-    {id:9,name:"VIP MOMENT",price:1500,duration:"19:02",tag:"vip",v:"v9",s:"double"},
-    {id:10,name:"AFTER HOURS",price:800,duration:"13:44",tag:"popular",v:"v10",s:"s4"},
-    {id:11,name:"SECRET VIDEO",price:1200,duration:"16:35",tag:"new",v:"v11",s:"s5"},
-    {id:12,name:"PRIVATE COLLECTION",price:1800,duration:"21:18",tag:"vip",v:"v12",s:"s3"},
+    {
+        id:1,
+        title:"PRIVATE NIGHT",
+        price:500,
+        category:"new",
+        badge:"NEW",
+        video:"VIDEO_01.mp4"
+    },
 
-    {id:13,name:"NIGHT ACCESS",price:900,duration:"10:12",tag:"new",v:"v13",s:"s1"},
-    {id:14,name:"LOCKED",price:700,duration:"07:56",tag:"popular",v:"v14",s:"s2"},
-    {id:15,name:"PREMIUM NIGHT",price:1500,duration:"18:44",tag:"vip",v:"v15",s:"s4"},
-    {id:16,name:"HIDDEN MOMENT",price:1000,duration:"14:51",tag:"new",v:"v16",s:"s5"},
+    {
+        id:2,
+        title:"AFTER DARK",
+        price:700,
+        category:"popular",
+        badge:"POPULAR",
+        video:"VIDEO_02.mp4"
+    },
 
-    {id:17,name:"VIP SESSION",price:1800,duration:"22:07",tag:"vip",v:"v17",s:"double"},
-    {id:18,name:"PRIVATE FILE",price:1200,duration:"13:29",tag:"popular",v:"v18",s:"s3"},
-    {id:19,name:"SECRET ACCESS",price:2000,duration:"24:18",tag:"vip",v:"v19",s:"s2"},
-    {id:20,name:"ULTIMATE PRIVATE",price:2500,duration:"31:42",tag:"vip",v:"v20",s:"s4"},
+    {
+        id:3,
+        title:"SECRET ROOM",
+        price:900,
+        category:"new",
+        badge:"NEW",
+        video:"VIDEO_03.mp4"
+    },
 
-    {id:21,name:"NIGHT SECRET",price:1100,duration:"16:20",tag:"new",v:"v21",s:"s1"},
-    {id:22,name:"FINAL ACCESS",price:2200,duration:"27:16",tag:"vip",v:"v22",s:"double"}
+    {
+        id:4,
+        title:"VIP MOMENT",
+        price:1000,
+        category:"vip",
+        badge:"VIP",
+        video:"VIDEO_04.mp4"
+    },
+
+    {
+        id:5,
+        title:"PRIVATE SESSION",
+        price:1200,
+        category:"popular",
+        badge:"POPULAR",
+        video:"VIDEO_05.mp4"
+    },
+
+    {
+        id:6,
+        title:"MIDNIGHT",
+        price:700,
+        category:"new",
+        badge:"NEW",
+        video:"VIDEO_06.mp4"
+    },
+
+    {
+        id:7,
+        title:"HIDDEN MOMENT",
+        price:900,
+        category:"popular",
+        badge:"POPULAR",
+        video:"VIDEO_07.mp4"
+    },
+
+    {
+        id:8,
+        title:"DARK ROOM",
+        price:1000,
+        category:"vip",
+        badge:"VIP",
+        video:"VIDEO_08.mp4"
+    },
+
+    {
+        id:9,
+        title:"VIP SESSION",
+        price:1500,
+        category:"vip",
+        badge:"VIP",
+        video:"VIDEO_09.mp4"
+    },
+
+    {
+        id:10,
+        title:"AFTER HOURS",
+        price:800,
+        category:"popular",
+        badge:"POPULAR",
+        video:"VIDEO_10.mp4"
+    },
+
+    {
+        id:11,
+        title:"SECRET VIDEO",
+        price:1200,
+        category:"new",
+        badge:"NEW",
+        video:"VIDEO_11.mp4"
+    },
+
+    {
+        id:12,
+        title:"PRIVATE COLLECTION",
+        price:1800,
+        category:"vip",
+        badge:"VIP",
+        video:"VIDEO_12.mp4"
+    },
+
+    {
+        id:13,
+        title:"NIGHT ACCESS",
+        price:900,
+        category:"new",
+        badge:"NEW",
+        video:"VIDEO_13.mp4"
+    },
+
+    {
+        id:14,
+        title:"LOCKED",
+        price:700,
+        category:"popular",
+        badge:"POPULAR",
+        video:"VIDEO_14.mp4"
+    },
+
+    {
+        id:15,
+        title:"PREMIUM NIGHT",
+        price:1500,
+        category:"vip",
+        badge:"VIP",
+        video:"VIDEO_15.mp4"
+    },
+
+    {
+        id:16,
+        title:"HIDDEN",
+        price:1000,
+        category:"new",
+        badge:"NEW",
+        video:"VIDEO_16.mp4"
+    }
 
 ];
 
 
 let currentProduct = null;
-let currentFilter = "all";
+let timerSeconds = 900;
 let timerInterval = null;
-let secondsLeft = 900;
 
 
 /* RENDER */
 
-function render(){
+function renderVideos(list = videos){
 
-    const query =
-        document
-        .getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
+    const grid = document.getElementById("videoGrid");
 
-    const filtered = products.filter(p=>{
+    grid.innerHTML = "";
 
-        const searchMatch =
-            p.name.toLowerCase().includes(query);
+    list.forEach(video => {
 
-        let filterMatch = true;
+        const card = document.createElement("div");
 
-        if(currentFilter !== "all"){
-            filterMatch = p.tag === currentFilter;
-        }
+        card.className = "card";
 
-        return searchMatch && filterMatch;
+        card.innerHTML = `
 
-    });
+            <div class="preview">
 
-    const grid = document.getElementById("grid");
+                <video
+                    src="${video.video}"
+                    muted
+                    playsinline
+                    preload="metadata"
+                ></video>
 
-    if(!filtered.length){
-
-        grid.innerHTML =
-            `<div class="empty">
-                Ничего не найдено
-            </div>`;
-
-        document.getElementById("count").textContent =
-            "0 материалов";
-
-        return;
-    }
-
-    grid.innerHTML = filtered.map(p=>`
-
-        <div class="card" onclick="selectProduct(${p.id})">
-
-            <div class="preview ${p.v}">
-
-                <div class="silhouette ${p.s}"></div>
-
-                <div class="badge18">
-                    18+ • PRIVATE
+                <div class="badge">
+                    ${video.badge}
                 </div>
 
-                ${
-                    p.tag === "popular"
-                    ?
-                    `<div class="badge-hot">🔥 POPULAR</div>`
-                    :
-                    p.tag === "vip"
-                    ?
-                    `<div class="badge-hot">⭐ VIP</div>`
-                    :
-                    `<div class="badge-hot">NEW</div>`
-                }
-
-                <div class="play"></div>
+                <div class="lock">
+                    🔒
+                </div>
 
             </div>
 
             <div class="info">
 
-                <div class="name">
-                    ${p.name}
+                <div class="title">
+                    ${video.title}
                 </div>
 
-                <div class="meta">
-
-                    <div class="duration">
-                        ▶ ${p.duration}
-                    </div>
+                <div class="bottom">
 
                     <div class="price">
-                        ${p.price.toLocaleString("ru-RU")} ₽
+                        ${video.price} ₽
                     </div>
+
+                    <button
+                        class="buy"
+                        onclick="openPayment(${video.id})"
+                    >
+                        ОТКРЫТЬ
+                    </button>
 
                 </div>
 
             </div>
 
-        </div>
+        `;
 
-    `).join("");
+        grid.appendChild(card);
 
-    document.getElementById("count").textContent =
-        filtered.length + " материалов";
+    });
+
 }
 
 
 /* FILTER */
 
-document.querySelectorAll(".filter").forEach(btn=>{
+function filterVideos(category, button){
 
-    btn.addEventListener("click",()=>{
+    document.querySelectorAll(".filter")
+        .forEach(x => x.classList.remove("active"));
 
-        document
-        .querySelectorAll(".filter")
-        .forEach(x=>x.classList.remove("active"));
+    button.classList.add("active");
 
-        btn.classList.add("active");
-
-        currentFilter =
-            btn.dataset.filter;
-
-        render();
-
-    });
-
-});
-
-
-document
-.getElementById("search")
-.addEventListener("input",render);
-
-
-/* PRODUCT */
-
-function selectProduct(id){
-
-    currentProduct =
-        products.find(p=>p.id === id);
-
-    document.getElementById("selectedName")
-        .textContent =
-        currentProduct.name;
-
-    document.getElementById("selectedPrice")
-        .textContent =
-        currentProduct.price.toLocaleString("ru-RU") + " ₽";
-
-    document.getElementById("paymentScreen")
-        .classList.remove("hidden");
-
-    document.getElementById("successScreen")
-        .classList.add("hidden");
-
-    secondsLeft = 900;
-
-    updateTimer();
-
-    clearInterval(timerInterval);
-
-    timerInterval =
-        setInterval(updateTimer,1000);
-
-    document
-        .getElementById("modal")
-        .classList.add("show");
-
-}
-
-
-/* VIP */
-
-function openVip(){
-
-    currentProduct = {
-        id:"vip",
-        name:"ULTIMATE VIP ACCESS",
-        price:2500
-    };
-
-    document.getElementById("selectedName")
-        .textContent =
-        currentProduct.name;
-
-    document.getElementById("selectedPrice")
-        .textContent =
-        currentProduct.price.toLocaleString("ru-RU") + " ₽";
-
-    document.getElementById("paymentScreen")
-        .classList.remove("hidden");
-
-    document.getElementById("successScreen")
-        .classList.add("hidden");
-
-    secondsLeft = 900;
-
-    updateTimer();
-
-    clearInterval(timerInterval);
-
-    timerInterval =
-        setInterval(updateTimer,1000);
-
-    document
-        .getElementById("modal")
-        .classList.add("show");
-
-}
-
-
-/* TIMER */
-
-function updateTimer(){
-
-    const minutes =
-        Math.floor(secondsLeft / 60);
-
-    const seconds =
-        secondsLeft % 60;
-
-    document.getElementById("timer")
-        .textContent =
-        String(minutes).padStart(2,"0")
-        + ":"
-        +
-        String(seconds).padStart(2,"0");
-
-    if(secondsLeft <= 0){
-
-        clearInterval(timerInterval);
-
-        document.getElementById("timer")
-            .textContent = "00:00";
-
-        document.querySelector(".pay-btn")
-            .disabled = true;
-
-        document.querySelector(".pay-btn")
-            .style.opacity = ".45";
-
-        return;
+    if(category === "all"){
+        renderVideos(videos);
+    }else{
+        renderVideos(
+            videos.filter(x => x.category === category)
+        );
     }
-
-    secondsLeft--;
 
 }
 
 
 /* PAYMENT */
 
-function paid(){
+function openPayment(id){
 
-    if(!currentProduct){
-        return;
-    }
+    currentProduct = videos.find(x => x.id === id);
+
+    if(!currentProduct) return;
+
+    document.getElementById("selectedProduct").innerText =
+        `${currentProduct.title} • ${currentProduct.price} ₽`;
+
+    document.getElementById("paymentScreen").style.display = "block";
+    document.getElementById("successScreen").style.display = "none";
+
+    document.getElementById("modal").classList.add("show");
+
+    startTimer();
+
+}
+
+
+function closeModal(){
+
+    document.getElementById("modal")
+        .classList.remove("show");
+
+}
+
+
+/* TIMER */
+
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+    timerSeconds = 900;
+
+    updateTimer();
+
+    timerInterval = setInterval(() => {
+
+        timerSeconds--;
+
+        updateTimer();
+
+        if(timerSeconds <= 0){
+
+            clearInterval(timerInterval);
+
+        }
+
+    },1000);
+
+}
+
+
+function updateTimer(){
+
+    const minutes =
+        Math.floor(timerSeconds / 60);
+
+    const seconds =
+        timerSeconds % 60;
+
+    document.getElementById("timer").innerText =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+}
+
+
+/* COPY CARD */
+
+function copyCard(){
+
+    navigator.clipboard.writeText(
+        "2200702194985615"
+    );
+
+    alert("Номер карты скопирован");
+
+}
+
+
+/* PAID */
+
+function paid(){
 
     const user =
         tg?.initDataUnsafe?.user || {};
 
-    const payload = {
+    const data = {
 
         action:"payment_submitted",
 
         product_id:currentProduct.id,
 
-        product:currentProduct.name,
+        product:currentProduct.title,
 
         price:currentProduct.price,
 
@@ -1360,152 +986,39 @@ function paid(){
     };
 
 
-    try{
+    if(tg && tg.sendData){
 
-        if(
-            tg &&
-            typeof tg.sendData === "function"
-        ){
-
-            tg.sendData(
-                JSON.stringify(payload)
-            );
-
-        }
-
-    }catch(e){
-
-        console.log(e);
-
-    }
-
-
-    clearInterval(timerInterval);
-
-    document
-        .getElementById("paymentScreen")
-        .classList.add("hidden");
-
-    document
-        .getElementById("successScreen")
-        .classList.remove("hidden");
-
-}
-
-
-/* COPY */
-
-async function copyCard(){
-
-    try{
-
-        await navigator.clipboard.writeText(
-            CARD_NUMBER
+        tg.sendData(
+            JSON.stringify(data)
         );
 
-        showToast("Номер карты скопирован");
-
-    }catch(e){
-
-        const temp =
-            document.createElement("textarea");
-
-        temp.value = CARD_NUMBER;
-
-        document.body.appendChild(temp);
-
-        temp.select();
-
-        document.execCommand("copy");
-
-        temp.remove();
-
-        showToast("Номер карты скопирован");
-
     }
 
-}
 
+    document.getElementById("paymentScreen")
+        .style.display = "none";
 
-/* TELEGRAM */
-
-function openTelegram(){
-
-    const url =
-        "https://t.me/" +
-        ADMIN_USERNAME;
-
-    try{
-
-        if(
-            tg &&
-            typeof tg.openTelegramLink === "function"
-        ){
-
-            tg.openTelegramLink(url);
-
-        }else{
-
-            window.open(url,"_blank");
-
-        }
-
-    }catch(e){
-
-        window.open(url,"_blank");
-
-    }
+    document.getElementById("successScreen")
+        .style.display = "block";
 
 }
 
 
-/* CLOSE */
+/* ADMIN */
 
-function closeModal(){
+function contactAdmin(){
 
-    document
-        .getElementById("modal")
-        .classList.remove("show");
-
-    clearInterval(timerInterval);
-
-}
-
-
-/* TOAST */
-
-function showToast(text){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = text;
-
-    toast.classList.add("show");
-
-    setTimeout(()=>{
-        toast.classList.remove("show");
-    },1800);
+    window.open(
+        "https://t.me/PREMDOSTUP",
+        "_blank"
+    );
 
 }
-
-
-/* OUTSIDE CLICK */
-
-document
-.getElementById("modal")
-.addEventListener("click",e=>{
-
-    if(e.target.id === "modal"){
-        closeModal();
-    }
-
-});
 
 
 /* START */
 
-render();
+renderVideos();
 
 </script>
 
