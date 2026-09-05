@@ -2,12 +2,14 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>PRIVATE 18+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>PRIVATE ACCESS</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -16,182 +18,227 @@
 }
 
 :root{
-    --bg:#08060a;
-    --card:#151016;
-    --purple:#b72b96;
-    --pink:#df55bd;
-    --text:#fff;
-    --muted:#a99daa;
-    --line:rgba(255,255,255,.08);
+    --black:#070707;
+    --black2:#101010;
+    --card:#141414;
+    --line:#292929;
+    --white:#f7f7f7;
+    --muted:#8d8d8d;
+
+    --yellow:#ffd600;
+    --yellow2:#ffb800;
 }
 
 body{
     min-height:100vh;
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+    color:var(--white);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+
     background:
-        radial-gradient(circle at 50% -15%,rgba(157,32,127,.38),transparent 38%),
-        radial-gradient(circle at 100% 50%,rgba(107,18,91,.12),transparent 30%),
-        var(--bg);
-    padding-bottom:100px;
+        radial-gradient(
+            circle at 50% -15%,
+            rgba(255,214,0,.10),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #070707,
+            #090909 45%,
+            #050505
+        );
+
+    padding-bottom:105px;
 }
 
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.25));
-}
+
+/* ================= HEADER ================= */
 
 .container{
     width:100%;
     max-width:620px;
     margin:auto;
-    padding:18px 14px 30px;
+    padding:16px 14px 30px;
 }
-
-/* HEADER */
 
 .header{
     text-align:center;
-    padding:12px 0 25px;
+    padding:10px 0 27px;
 }
 
 .logo{
-    width:72px;
-    height:72px;
+    width:68px;
+    height:68px;
+
     margin:auto;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:23px;
+
+    border-radius:20px;
 
     background:
-        radial-gradient(circle at 35% 25%,rgba(255,255,255,.12),transparent 25%),
-        linear-gradient(145deg,#39172f,#140b16);
+        linear-gradient(
+            145deg,
+            #202020,
+            #0d0d0d
+        );
 
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid #303030;
 
     box-shadow:
-        0 15px 50px rgba(182,40,150,.22),
-        inset 0 0 25px rgba(255,255,255,.03);
+        0 15px 45px rgba(0,0,0,.55),
+        0 0 35px rgba(255,214,0,.07);
 
-    font-size:31px;
+    font-size:29px;
 }
 
 .header h1{
     margin-top:17px;
+
     font-size:29px;
-    font-weight:800;
+    font-weight:900;
+
     letter-spacing:4px;
 }
 
 .subtitle{
     margin-top:7px;
-    color:var(--muted);
+
+    color:#999;
+
     font-size:13px;
 }
 
-.private{
+.status{
     display:inline-flex;
+
     align-items:center;
-    gap:6px;
-    margin-top:12px;
-    padding:7px 13px;
+    gap:7px;
+
+    margin-top:13px;
+
+    padding:7px 12px;
+
     border-radius:30px;
 
-    background:rgba(192,43,158,.09);
-    border:1px solid rgba(218,73,188,.2);
+    background:#111;
 
-    color:#e9a7db;
+    border:1px solid #292929;
+
+    color:#bdbdbd;
+
     font-size:10px;
     font-weight:700;
-    letter-spacing:1.5px;
+
+    letter-spacing:1px;
 }
 
-/* CARD */
+.status-dot{
+    width:6px;
+    height:6px;
 
-.card{
-    position:relative;
+    border-radius:50%;
+
+    background:#68d391;
+
+    box-shadow:0 0 10px rgba(104,211,145,.7);
+}
+
+
+/* ================= CARDS ================= */
+
+.product{
     overflow:hidden;
+
     margin-bottom:18px;
 
     background:
-        linear-gradient(180deg,rgba(28,18,28,.96),rgba(17,11,18,.98));
+        linear-gradient(
+            180deg,
+            #151515,
+            #101010
+        );
 
     border:1px solid var(--line);
-    border-radius:24px;
+
+    border-radius:23px;
 
     box-shadow:
-        0 18px 55px rgba(0,0,0,.34),
-        inset 0 1px rgba(255,255,255,.025);
+        0 16px 45px rgba(0,0,0,.35);
 
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
+    transition:.2s;
 }
 
-.card:active{
+.product:active{
     transform:scale(.985);
 }
 
+
+/* PHOTO */
+
 .preview{
     position:relative;
-    height:255px;
+
+    height:245px;
+
     overflow:hidden;
-    background:#100a11;
+
+    background:#111;
 }
 
 .preview img{
     position:absolute;
-    inset:-7%;
-    width:114%;
-    height:114%;
+
+    width:116%;
+    height:116%;
+
+    left:-8%;
+    top:-8%;
+
     object-fit:cover;
 
     filter:
         blur(17px)
-        brightness(.57)
-        contrast(1.14)
-        saturate(.72);
+        brightness(.58)
+        contrast(1.15)
+        saturate(.65);
 
     transform:scale(1.08);
+
+    transition:
+        transform .6s ease,
+        filter .6s ease;
+}
+
+.product:active .preview img{
+    transform:scale(1.15);
 }
 
 .preview:after{
     content:"";
+
     position:absolute;
+
     inset:0;
 
     background:
         linear-gradient(
             180deg,
-            rgba(7,4,8,.05) 0%,
-            rgba(8,5,9,.05) 35%,
-            rgba(8,5,9,.62) 100%
+            rgba(0,0,0,.05),
+            rgba(0,0,0,.10) 35%,
+            rgba(0,0,0,.82)
         );
 }
 
-.preview:before{
-    content:"";
-    position:absolute;
-    z-index:2;
-    inset:0;
 
-    background:
-        radial-gradient(
-            ellipse at center,
-            transparent 15%,
-            rgba(92,18,78,.12) 65%,
-            rgba(0,0,0,.45) 100%
-        );
-}
+/* BADGE */
 
 .badge{
     position:absolute;
+
     z-index:5;
+
     top:14px;
     left:14px;
 
@@ -199,27 +246,60 @@ body:before{
 
     border-radius:20px;
 
-    background:rgba(8,6,9,.68);
-    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,.65);
 
-    border:1px solid rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.13);
 
-    color:#ddd0dc;
+    backdrop-filter:blur(12px);
+
+    color:#eee;
+
     font-size:9px;
-    font-weight:700;
-    letter-spacing:1.2px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
 }
+
+
+/* DURATION */
+
+.duration{
+    position:absolute;
+
+    z-index:5;
+
+    right:14px;
+    bottom:14px;
+
+    padding:6px 8px;
+
+    border-radius:8px;
+
+    background:rgba(0,0,0,.7);
+
+    color:#ddd;
+
+    font-size:9px;
+
+    font-weight:700;
+}
+
+
+/* PLAY */
 
 .play{
     position:absolute;
+
     z-index:5;
+
     top:50%;
     left:50%;
 
-    width:64px;
-    height:64px;
-
     transform:translate(-50%,-50%);
+
+    width:61px;
+    height:61px;
 
     display:flex;
     align-items:center;
@@ -227,131 +307,134 @@ body:before{
 
     border-radius:50%;
 
-    background:rgba(10,6,11,.64);
+    background:rgba(8,8,8,.7);
+
+    border:1px solid rgba(255,255,255,.2);
+
     backdrop-filter:blur(12px);
 
-    border:1px solid rgba(255,255,255,.17);
-
     box-shadow:
-        0 0 0 7px rgba(255,255,255,.025),
-        0 12px 35px rgba(0,0,0,.4);
+        0 12px 35px rgba(0,0,0,.5);
 
-    font-size:21px;
+    font-size:19px;
+
     padding-left:3px;
 }
 
+
+/* INFO */
+
 .info{
-    padding:18px;
+    padding:17px;
 }
 
-.title-row{
+.title-line{
     display:flex;
+
     align-items:center;
     justify-content:space-between;
+
     gap:12px;
 }
 
 .title{
-    font-size:18px;
-    font-weight:800;
-    letter-spacing:.3px;
+    font-size:17px;
+
+    font-weight:850;
 }
 
 .price{
-    color:#eda6df;
+    color:var(--yellow);
+
     font-size:15px;
-    font-weight:800;
+
+    font-weight:900;
+
     white-space:nowrap;
 }
 
-.desc{
-    margin-top:8px;
-    color:#9e929f;
-    font-size:12.5px;
+.description{
+    margin-top:7px;
+
+    color:#8d8d8d;
+
+    font-size:12px;
+
     line-height:1.5;
 }
 
-.tease{
-    margin-top:13px;
-    padding:11px 12px;
+.meta{
+    display:flex;
 
-    border-radius:12px;
+    gap:7px;
 
-    background:rgba(185,43,153,.055);
-    border:1px solid rgba(205,54,170,.08);
-
-    color:#cdb6c9;
-    font-size:12px;
-    font-style:italic;
-    line-height:1.4;
+    margin-top:12px;
 }
+
+.meta span{
+    padding:5px 8px;
+
+    border-radius:7px;
+
+    background:#1b1b1b;
+
+    border:1px solid #282828;
+
+    color:#a7a7a7;
+
+    font-size:9px;
+
+    font-weight:700;
+}
+
+
+/* BUTTON */
 
 .buy{
     position:relative;
+
     overflow:hidden;
 
     width:100%;
+
     margin-top:14px;
+
     padding:14px;
 
     border:0;
-    border-radius:14px;
 
-    color:white;
+    border-radius:13px;
+
     background:
         linear-gradient(
             135deg,
-            #962276,
-            #d03aa9
+            #ffd600,
+            #ffb900
         );
 
-    box-shadow:
-        0 9px 24px rgba(192,42,157,.2);
+    color:#111;
 
     font-size:13px;
-    font-weight:800;
+
+    font-weight:900;
+
+    box-shadow:
+        0 9px 25px rgba(255,194,0,.13);
 
     cursor:pointer;
-
-    transition:
-        transform .18s ease,
-        filter .18s ease;
-}
-
-.buy:after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-80%;
-    width:45%;
-    height:100%;
-
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.16),
-        transparent
-    );
-
-    transform:skewX(-20deg);
-    animation:shine 4s infinite;
-}
-
-@keyframes shine{
-    0%,65%{left:-80%}
-    85%,100%{left:130%}
 }
 
 .buy:active{
-    transform:scale(.975);
-    filter:brightness(.92);
+    transform:scale(.98);
 }
 
-/* CONTACT */
+
+/* ================= BOTTOM ================= */
 
 .contact{
     position:fixed;
-    z-index:20;
+
+    z-index:30;
 
     left:50%;
     bottom:max(12px,env(safe-area-inset-bottom));
@@ -362,46 +445,49 @@ body:before{
     max-width:592px;
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
     padding:15px;
 
-    border-radius:17px;
-
-    text-decoration:none;
-    color:#fff;
+    border-radius:16px;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(39,22,40,.96),
-            rgba(24,13,25,.97)
-        );
+        rgba(20,20,20,.94);
+
+    border:1px solid #303030;
 
     backdrop-filter:blur(18px);
 
-    border:1px solid rgba(255,255,255,.1);
+    color:#fff;
 
-    box-shadow:
-        0 12px 45px rgba(0,0,0,.55);
+    text-decoration:none;
 
     font-size:13px;
-    font-weight:700;
+
+    font-weight:800;
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.65);
 }
 
-/* MODAL */
+
+/* ================= MODAL ================= */
 
 .modal{
     position:fixed;
+
     z-index:100;
+
     inset:0;
 
     display:none;
+
     align-items:flex-end;
     justify-content:center;
 
-    background:rgba(0,0,0,.76);
+    background:rgba(0,0,0,.82);
+
     backdrop-filter:blur(10px);
 }
 
@@ -414,6 +500,7 @@ body:before{
     max-width:620px;
 
     max-height:94vh;
+
     overflow:auto;
 
     padding:19px;
@@ -423,23 +510,25 @@ body:before{
     background:
         linear-gradient(
             180deg,
-            #1c121e,
-            #0e090f
+            #171717,
+            #0a0a0a
         );
 
-    border:1px solid rgba(255,255,255,.1);
+    border:1px solid #303030;
 
     box-shadow:
-        0 -20px 70px rgba(0,0,0,.65);
+        0 -25px 70px rgba(0,0,0,.7);
 
-    animation:up .28s ease;
+    animation:slideUp .25s ease;
 }
 
-@keyframes up{
+@keyframes slideUp{
+
     from{
-        transform:translateY(30px);
+        transform:translateY(50px);
         opacity:0;
     }
+
     to{
         transform:translateY(0);
         opacity:1;
@@ -448,209 +537,514 @@ body:before{
 
 .modal-head{
     display:flex;
+
     align-items:center;
     justify-content:space-between;
 }
 
 .modal-title{
     font-size:19px;
-    font-weight:800;
+
+    font-weight:900;
 }
 
 .close{
-    width:38px;
-    height:38px;
+    width:37px;
+    height:37px;
 
-    border:1px solid rgba(255,255,255,.08);
     border-radius:50%;
 
-    background:#251726;
-    color:#fff;
+    border:1px solid #303030;
+
+    background:#202020;
+
+    color:white;
 
     font-size:20px;
 }
 
-/* CARD PAYMENT */
+
+/* SELECTED PRODUCT */
+
+.selected{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:#111;
+
+    border:1px solid #292929;
+}
+
+.selected-name{
+    font-size:12px;
+
+    font-weight:800;
+}
+
+.selected-price{
+    color:var(--yellow);
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+
+/* ================= CARD ================= */
 
 .bank-card{
     position:relative;
+
     overflow:hidden;
 
-    height:190px;
-    margin-top:17px;
+    height:205px;
+
+    margin-top:15px;
+
     padding:21px;
 
-    border-radius:21px;
+    border-radius:23px;
 
     background:
         radial-gradient(
-            circle at 85% 15%,
-            rgba(255,255,255,.18),
+            circle at 90% 10%,
+            rgba(255,255,255,.13),
             transparent 25%
-        ),
-        radial-gradient(
-            circle at 10% 100%,
-            rgba(205,48,168,.2),
-            transparent 35%
         ),
         linear-gradient(
             135deg,
-            #39253b,
-            #171019 55%,
-            #461637
+            #191919,
+            #090909
         );
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid #333;
 
     box-shadow:
-        0 18px 45px rgba(0,0,0,.45),
-        inset 0 1px rgba(255,255,255,.08);
+        0 18px 50px rgba(0,0,0,.6);
 }
 
-.bank-name{
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:2px;
-    opacity:.72;
+.bank-card:after{
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:400px;
+
+    top:-100px;
+    left:-150px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,214,0,.14),
+            transparent
+        );
+
+    transform:rotate(25deg);
+
+    animation:cardLight 5s infinite;
+}
+
+@keyframes cardLight{
+
+    0%{
+        left:-180px;
+    }
+
+    55%,100%{
+        left:600px;
+    }
+}
+
+.bank-top{
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+.bank-logo{
+    font-size:17px;
+
+    font-weight:900;
+
+    letter-spacing:-.5px;
+}
+
+.bank-logo span{
+    color:var(--yellow);
+}
+
+.card-type{
+    font-size:9px;
+
+    color:#888;
+
+    letter-spacing:1px;
 }
 
 .chip{
-    width:43px;
-    height:31px;
-    margin-top:23px;
+    position:relative;
+
+    z-index:2;
+
+    width:44px;
+    height:32px;
+
+    margin-top:28px;
 
     border-radius:7px;
 
     background:
         linear-gradient(
             135deg,
-            #e0d0aa,
-            #887852
+            #e7d8a7,
+            #8c7c55
         );
-
-    box-shadow:
-        inset 0 0 0 1px rgba(0,0,0,.12);
 
     opacity:.9;
 }
 
 .card-number{
-    margin-top:20px;
+    position:relative;
+
+    z-index:2;
+
+    margin-top:19px;
 
     font-size:19px;
+
     font-weight:800;
+
     letter-spacing:2px;
 }
 
 .card-bottom{
     position:absolute;
+
+    z-index:2;
+
     left:21px;
     right:21px;
-    bottom:17px;
+    bottom:18px;
 
     display:flex;
+
     justify-content:space-between;
 
-    font-size:9px;
+    color:#888;
+
+    font-size:8px;
+
     letter-spacing:1px;
-    opacity:.62;
 }
 
-.payment-note{
-    margin-top:14px;
 
-    padding:12px;
+/* ================= INSTRUCTIONS ================= */
 
-    border-radius:13px;
-
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.06);
-
-    color:#aaa0ab;
-    font-size:11px;
-    line-height:1.45;
-}
-
-.timer{
-    margin-top:14px;
-
-    text-align:center;
-
-    color:#d7c2d4;
-    font-size:12px;
-}
-
-.timer b{
-    color:#ef9bda;
-}
-
-.copy{
-    width:100%;
-    margin-top:11px;
-    padding:13px;
-
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:13px;
-
-    background:#211621;
-    color:#eee;
-
-    font-size:12px;
-    font-weight:700;
-}
-
-.steps{
-    display:flex;
-    gap:5px;
+.instructions{
     margin-top:16px;
 }
 
-.step{
-    flex:1;
-    height:4px;
-    border-radius:10px;
-    background:#362536;
+.instruction{
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    margin-top:9px;
+
+    padding:11px;
+
+    border-radius:12px;
+
+    background:#111;
+
+    border:1px solid #242424;
 }
 
-.step.active{
-    background:#c334a4;
+.instruction-number{
+    width:26px;
+    height:26px;
+
+    flex:none;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:#252525;
+
+    color:var(--yellow);
+
+    font-size:11px;
+
+    font-weight:900;
 }
+
+.instruction-text{
+    color:#b0b0b0;
+
+    font-size:11px;
+
+    line-height:1.4;
+}
+
+.instruction-text b{
+    color:#eee;
+}
+
+
+/* COPY */
+
+.copy{
+    width:100%;
+
+    margin-top:12px;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:#202020;
+
+    border:1px solid #303030;
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+
+/* TIMER */
+
+.timer{
+    margin-top:13px;
+
+    text-align:center;
+
+    color:#858585;
+
+    font-size:11px;
+}
+
+.timer b{
+    color:var(--yellow);
+}
+
+
+/* PAID */
 
 .paid{
     width:100%;
+
     margin-top:13px;
+
     padding:15px;
 
     border:0;
-    border-radius:14px;
 
-    color:#fff;
+    border-radius:13px;
 
     background:
         linear-gradient(
             135deg,
-            #9d267d,
-            #d23cac
+            #ffd600,
+            #ffb900
         );
 
-    box-shadow:
-        0 10px 25px rgba(199,47,163,.22);
+    color:#111;
 
     font-size:13px;
-    font-weight:800;
+
+    font-weight:900;
 }
+
+
+/* ================= RECEIPT ================= */
+
+.receipt{
+    display:none;
+
+    text-align:center;
+
+    padding:12px 3px 8px;
+}
+
+.receipt-icon{
+    width:72px;
+    height:72px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:22px;
+
+    background:#1b1b1b;
+
+    border:1px solid #343434;
+
+    font-size:31px;
+}
+
+.receipt h2{
+    margin-top:17px;
+
+    font-size:21px;
+
+    font-weight:900;
+}
+
+.receipt-sub{
+    margin-top:9px;
+
+    color:#999;
+
+    font-size:12px;
+
+    line-height:1.55;
+}
+
+
+/* RECEIPT BOX */
+
+.receipt-box{
+    margin-top:17px;
+
+    padding:15px;
+
+    text-align:left;
+
+    border-radius:15px;
+
+    background:#111;
+
+    border:1px solid #292929;
+}
+
+.receipt-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:8px 0;
+
+    border-bottom:1px solid #202020;
+
+    font-size:11px;
+}
+
+.receipt-row:last-child{
+    border-bottom:0;
+}
+
+.receipt-row span:first-child{
+    color:#777;
+}
+
+.receipt-row span:last-child{
+    color:#eee;
+
+    font-weight:800;
+
+    text-align:right;
+}
+
+
+/* TELEGRAM BUTTON */
+
+.telegram{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    width:100%;
+
+    margin-top:13px;
+
+    padding:15px;
+
+    border-radius:13px;
+
+    background:#229ED9;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+.telegram small{
+    margin-left:6px;
+
+    opacity:.75;
+}
+
+
+/* WARNING */
+
+.warning{
+    margin-top:11px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:#181818;
+
+    border:1px solid #292929;
+
+    color:#888;
+
+    font-size:10px;
+
+    line-height:1.45;
+}
+
 
 /* SUCCESS */
 
 .success{
     display:none;
-    padding:25px 8px 12px;
+
     text-align:center;
+
+    padding:18px 4px 8px;
 }
 
 .success-icon{
-    width:70px;
-    height:70px;
+    width:72px;
+    height:72px;
+
     margin:auto;
 
     display:flex;
@@ -659,52 +1053,60 @@ body:before{
 
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(210,53,174,.2),
-            rgba(151,31,121,.08)
-        );
+    background:#171717;
 
-    border:1px solid rgba(219,70,186,.28);
+    border:1px solid #333;
 
-    font-size:29px;
+    color:var(--yellow);
 
-    box-shadow:
-        0 0 40px rgba(190,41,157,.18);
+    font-size:31px;
 }
 
 .success h2{
     margin-top:17px;
+
     font-size:21px;
 }
 
 .success p{
     margin-top:9px;
 
-    color:#a99ca8;
-    font-size:12.5px;
+    color:#929292;
+
+    font-size:12px;
+
     line-height:1.55;
 }
 
-.intimate{
+.access{
+    display:block;
+
     margin-top:16px;
-    padding:14px;
 
-    border-radius:14px;
+    padding:15px;
 
-    background:rgba(190,43,158,.07);
-    border:1px solid rgba(205,54,170,.09);
+    border-radius:13px;
 
-    color:#d8b8d3;
-    font-size:12px;
-    line-height:1.5;
-    font-style:italic;
+    background:
+        linear-gradient(
+            135deg,
+            #ffd600,
+            #ffb900
+        );
+
+    color:#111;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:900;
 }
+
 
 /* MOBILE */
 
-@media(max-width:430px){
+@media(max-width:420px){
 
     .container{
         padding-left:11px;
@@ -712,44 +1114,36 @@ body:before{
     }
 
     .preview{
-        height:230px;
-    }
-
-    .card{
-        border-radius:21px;
-    }
-
-    .info{
-        padding:16px;
-    }
-
-    .title{
-        font-size:17px;
-    }
-
-    .price{
-        font-size:14px;
+        height:225px;
     }
 
     .bank-card{
-        height:180px;
+        height:190px;
     }
 
     .card-number{
         font-size:16px;
-        letter-spacing:1.5px;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
+
 
 <div class="container">
 
+
+<!-- HEADER -->
+
 <div class="header">
 
-    <div class="logo">🔒</div>
+    <div class="logo">
+        🔒
+    </div>
 
     <h1>PRIVATE</h1>
 
@@ -757,40 +1151,59 @@ body:before{
         Закрытая коллекция
     </div>
 
-    <div class="private">
-        🔞 18+ · PRIVATE ACCESS
+    <div class="status">
+        <span class="status-dot"></span>
+        PRIVATE ACCESS
     </div>
 
 </div>
 
 
-<!-- CARD 1 -->
 
-<div class="card">
+<!-- PRODUCT 1 -->
+
+<div class="product">
 
     <div class="preview">
 
         <img src="https://images.pexels.com/photos/24018725/pexels-photo-24018725.jpeg?auto=compress&cs=tinysrgb&w=900">
 
-        <div class="badge">PRIVATE #01</div>
+        <div class="badge">
+            NEW
+        </div>
 
-        <div class="play">▶</div>
+        <div class="play">
+            ▶
+        </div>
+
+        <div class="duration">
+            08:42
+        </div>
 
     </div>
 
     <div class="info">
 
-        <div class="title-row">
-            <div class="title">PRIVATE NIGHT</div>
-            <div class="price">500 ₽</div>
+        <div class="title-line">
+
+            <div class="title">
+                PRIVATE NIGHT
+            </div>
+
+            <div class="price">
+                500 ₽
+            </div>
+
         </div>
 
-        <div class="desc">
+        <div class="description">
             Закрытый материал из приватной коллекции.
         </div>
 
-        <div class="tease">
-            «Некоторые моменты лучше оставить только для своих…»
+        <div class="meta">
+            <span>18+</span>
+            <span>VIDEO</span>
+            <span>PRIVATE</span>
         </div>
 
         <button class="buy" onclick="openPayment(1)">
@@ -802,33 +1215,51 @@ body:before{
 </div>
 
 
-<!-- CARD 2 -->
 
-<div class="card">
+<!-- PRODUCT 2 -->
+
+<div class="product">
 
     <div class="preview">
 
         <img src="https://images.pexels.com/photos/7823971/pexels-photo-7823971.jpeg?auto=compress&cs=tinysrgb&w=900">
 
-        <div class="badge">PRIVATE #02</div>
+        <div class="badge">
+            PRIVATE
+        </div>
 
-        <div class="play">▶</div>
+        <div class="play">
+            ▶
+        </div>
+
+        <div class="duration">
+            11:25
+        </div>
 
     </div>
 
     <div class="info">
 
-        <div class="title-row">
-            <div class="title">AFTER DARK</div>
-            <div class="price">700 ₽</div>
+        <div class="title-line">
+
+            <div class="title">
+                AFTER DARK
+            </div>
+
+            <div class="price">
+                700 ₽
+            </div>
+
         </div>
 
-        <div class="desc">
-            Приватная запись из закрытой коллекции.
+        <div class="description">
+            Атмосферная приватная запись из закрытого архива.
         </div>
 
-        <div class="tease">
-            «Когда свет становится тише, атмосфера меняется…»
+        <div class="meta">
+            <span>18+</span>
+            <span>VIDEO</span>
+            <span>PRIVATE</span>
         </div>
 
         <button class="buy" onclick="openPayment(2)">
@@ -840,33 +1271,51 @@ body:before{
 </div>
 
 
-<!-- CARD 3 -->
 
-<div class="card">
+<!-- PRODUCT 3 -->
+
+<div class="product">
 
     <div class="preview">
 
         <img src="https://images.pexels.com/photos/9269403/pexels-photo-9269403.jpeg?auto=compress&cs=tinysrgb&w=900">
 
-        <div class="badge">PRIVATE #03</div>
+        <div class="badge">
+            HOT
+        </div>
 
-        <div class="play">▶</div>
+        <div class="play">
+            ▶
+        </div>
+
+        <div class="duration">
+            14:07
+        </div>
 
     </div>
 
     <div class="info">
 
-        <div class="title-row">
-            <div class="title">SECRET MOMENT</div>
-            <div class="price">1 000 ₽</div>
+        <div class="title-line">
+
+            <div class="title">
+                SECRET MOMENT
+            </div>
+
+            <div class="price">
+                1 000 ₽
+            </div>
+
         </div>
 
-        <div class="desc">
+        <div class="description">
             Материал, который не публикуется открыто.
         </div>
 
-        <div class="tease">
-            «То, что остаётся за закрытой дверью…»
+        <div class="meta">
+            <span>18+</span>
+            <span>VIDEO</span>
+            <span>VIP</span>
         </div>
 
         <button class="buy" onclick="openPayment(3)">
@@ -878,33 +1327,51 @@ body:before{
 </div>
 
 
-<!-- CARD 4 -->
 
-<div class="card">
+<!-- PRODUCT 4 -->
+
+<div class="product">
 
     <div class="preview">
 
         <img src="https://images.pexels.com/photos/10221307/pexels-photo-10221307.jpeg?auto=compress&cs=tinysrgb&w=900">
 
-        <div class="badge">PRIVATE #04</div>
+        <div class="badge">
+            VIP
+        </div>
 
-        <div class="play">▶</div>
+        <div class="play">
+            ▶
+        </div>
+
+        <div class="duration">
+            19:31
+        </div>
 
     </div>
 
     <div class="info">
 
-        <div class="title-row">
-            <div class="title">HOT COLLECTION</div>
-            <div class="price">1 500 ₽</div>
+        <div class="title-line">
+
+            <div class="title">
+                HOT COLLECTION
+            </div>
+
+            <div class="price">
+                1 500 ₽
+            </div>
+
         </div>
 
-        <div class="desc">
+        <div class="description">
             Расширенная приватная коллекция.
         </div>
 
-        <div class="tease">
-            «Здесь начинается то, что обычно не показывают всем.»
+        <div class="meta">
+            <span>18+</span>
+            <span>VIDEO</span>
+            <span>VIP</span>
         </div>
 
         <button class="buy" onclick="openPayment(4)">
@@ -916,33 +1383,51 @@ body:before{
 </div>
 
 
-<!-- CARD 5 -->
 
-<div class="card">
+<!-- PRODUCT 5 -->
+
+<div class="product">
 
     <div class="preview">
 
         <img src="https://images.pexels.com/photos/13295344/pexels-photo-13295344.jpeg?auto=compress&cs=tinysrgb&w=900">
 
-        <div class="badge">PRIVATE #05</div>
+        <div class="badge">
+            VIP
+        </div>
 
-        <div class="play">▶</div>
+        <div class="play">
+            ▶
+        </div>
+
+        <div class="duration">
+            22:18
+        </div>
 
     </div>
 
     <div class="info">
 
-        <div class="title-row">
-            <div class="title">PRIVATE VIP</div>
-            <div class="price">2 000 ₽</div>
+        <div class="title-line">
+
+            <div class="title">
+                PRIVATE VIP
+            </div>
+
+            <div class="price">
+                2 000 ₽
+            </div>
+
         </div>
 
-        <div class="desc">
+        <div class="description">
             Особый материал для приватного доступа.
         </div>
 
-        <div class="tease">
-            «Самое интересное редко бывает публичным.»
+        <div class="meta">
+            <span>18+</span>
+            <span>VIDEO</span>
+            <span>VIP</span>
         </div>
 
         <button class="buy" onclick="openPayment(5)">
@@ -954,33 +1439,51 @@ body:before{
 </div>
 
 
-<!-- CARD 6 -->
 
-<div class="card">
+<!-- PRODUCT 6 -->
+
+<div class="product">
 
     <div class="preview">
 
         <img src="https://images.pexels.com/photos/14510299/pexels-photo-14510299.jpeg?auto=compress&cs=tinysrgb&w=900">
 
-        <div class="badge">PRIVATE #06</div>
+        <div class="badge">
+            ULTIMATE
+        </div>
 
-        <div class="play">▶</div>
+        <div class="play">
+            ▶
+        </div>
+
+        <div class="duration">
+            27:54
+        </div>
 
     </div>
 
     <div class="info">
 
-        <div class="title-row">
-            <div class="title">ULTIMATE PRIVATE</div>
-            <div class="price">2 500 ₽</div>
+        <div class="title-line">
+
+            <div class="title">
+                ULTIMATE PRIVATE
+            </div>
+
+            <div class="price">
+                2 500 ₽
+            </div>
+
         </div>
 
-        <div class="desc">
+        <div class="description">
             Премиальный материал из закрытого архива.
         </div>
 
-        <div class="tease">
-            «Если ты дошёл сюда — ты знаешь, зачем пришёл.»
+        <div class="meta">
+            <span>18+</span>
+            <span>VIDEO</span>
+            <span>VIP</span>
         </div>
 
         <button class="buy" onclick="openPayment(6)">
@@ -991,21 +1494,32 @@ body:before{
 
 </div>
 
+
 </div>
 
 
-<a class="contact" href="https://t.me/Beriman1">
+
+<!-- CONTACT -->
+
+<a
+    class="contact"
+    href="https://t.me/Beriman1"
+>
     💬 Связаться с администратором
 </a>
 
 
-<!-- PAYMENT -->
 
-<div class="modal" id="paymentModal">
+<!-- PAYMENT MODAL -->
+
+<div class="modal" id="modal">
 
 <div class="modal-box">
 
-<div id="paymentContent">
+
+<!-- PAYMENT SCREEN -->
+
+<div id="paymentScreen">
 
     <div class="modal-head">
 
@@ -1013,41 +1527,109 @@ body:before{
             Оплата доступа
         </div>
 
-        <button class="close" onclick="closePayment()">
+        <button class="close" onclick="closeModal()">
             ×
         </button>
 
     </div>
 
 
-    <div class="bank-card">
+    <div class="selected">
 
-        <div class="bank-name">
-            PRIVATE ACCESS
+        <div class="selected-name" id="selectedName">
+            PRIVATE NIGHT
         </div>
 
+        <div class="selected-price" id="selectedPrice">
+            500 ₽
+        </div>
+
+    </div>
+
+
+    <!-- PREMIUM CARD -->
+
+    <div class="bank-card">
+
+        <div class="bank-top">
+
+            <div class="bank-logo">
+                T<span>•</span>BANK
+            </div>
+
+            <div class="card-type">
+                PRIVATE ACCESS
+            </div>
+
+        </div>
+
+
         <div class="chip"></div>
+
 
         <div class="card-number">
             2200 7021 9498 5615
         </div>
 
+
         <div class="card-bottom">
-            <span>PRIVATE</span>
-            <span>••• 5615</span>
+
+            <span>
+                PRIVATE
+            </span>
+
+            <span>
+                •••• 5615
+            </span>
+
         </div>
 
     </div>
 
 
-    <div class="payment-note">
-        После оплаты нажми кнопку ниже. Заявка будет отправлена администратору для проверки.
-    </div>
+    <div class="instructions">
+
+        <div class="instruction">
+
+            <div class="instruction-number">
+                1
+            </div>
+
+            <div class="instruction-text">
+                <b>Скопируй номер карты</b><br>
+                и переведи точную сумму.
+            </div>
+
+        </div>
 
 
-    <div class="timer">
-        Счёт действителен ещё:
-        <b id="timer">15:00</b>
+        <div class="instruction">
+
+            <div class="instruction-number">
+                2
+            </div>
+
+            <div class="instruction-text">
+                <b>После оплаты сохрани чек.</b><br>
+                Он понадобится для проверки.
+            </div>
+
+        </div>
+
+
+        <div class="instruction">
+
+            <div class="instruction-number">
+                3
+            </div>
+
+            <div class="instruction-text">
+                <b>Нажми «Я оплатил»</b><br>
+                и отправь чек администратору.
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -1056,89 +1638,267 @@ body:before{
     </button>
 
 
-    <div class="steps">
-        <div class="step active"></div>
-        <div class="step"></div>
-        <div class="step"></div>
+    <div class="timer">
+        Номер заказа активен:
+        <b id="timer">15:00</b>
     </div>
 
 
     <button class="paid" onclick="paid()">
-        🔐 Я оплатил — получить доступ
+        ✓ Я оплатил
     </button>
 
 </div>
 
 
-<div class="success" id="success">
+
+<!-- RECEIPT SCREEN -->
+
+<div class="receipt" id="receiptScreen">
+
+    <div class="receipt-icon">
+        🧾
+    </div>
+
+    <h2>
+        Отлично, осталось главное
+    </h2>
+
+    <div class="receipt-sub">
+
+        После оплаты обязательно отправь
+        <b>чек администратору в Telegram</b>.
+
+        <br><br>
+
+        Без проверки чека доступ в закрытый чат
+        автоматически не открывается.
+
+    </div>
+
+
+    <div class="receipt-box">
+
+        <div class="receipt-row">
+
+            <span>
+                Материал
+            </span>
+
+            <span id="receiptProduct">
+                PRIVATE NIGHT
+            </span>
+
+        </div>
+
+
+        <div class="receipt-row">
+
+            <span>
+                Сумма
+            </span>
+
+            <span id="receiptPrice">
+                500 ₽
+            </span>
+
+        </div>
+
+
+        <div class="receipt-row">
+
+            <span>
+                Статус
+            </span>
+
+            <span>
+                ЧЕК НЕ ОТПРАВЛЕН
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <a
+        class="telegram"
+        href="https://t.me/Beriman1"
+        target="_blank"
+    >
+        ✈️ Отправить чек в Telegram
+        <small>→</small>
+    </a>
+
+
+    <div class="warning">
+
+        После перехода в Telegram прикрепи фотографию
+        или файл чека и напиши название оплаченного
+        материала. После проверки администратор
+        выдаст доступ в закрытый чат.
+
+    </div>
+
+</div>
+
+
+
+<!-- SUCCESS -->
+
+<div class="success" id="successScreen">
 
     <div class="success-icon">
         ✓
     </div>
 
     <h2>
-        Заявка отправлена
+        Доступ подтверждён
     </h2>
 
     <p>
-        Администратор проверит оплату и отправит
-        информацию о доступе в личное сообщение.
+        Оплата проверена. Ниже находится
+        ссылка на закрытый Telegram-чат.
     </p>
 
-    <div class="intimate">
-        🤫 Всё готово. Осталось совсем немного —
-        скоро приватная коллекция будет доступна тебе.
-    </div>
+    <a
+        class="access"
+        id="accessLink"
+        href="https://t.me/Beriman1"
+        target="_blank"
+    >
+        🔓 Войти в закрытый чат
+    </a>
+
+</div>
+
 
 </div>
 
 </div>
-</div>
+
 
 
 <script>
 
+
+/* ================= TELEGRAM ================= */
+
 const tg = window.Telegram?.WebApp;
 
 if(tg){
+
     tg.ready();
+
     tg.expand();
+
 }
 
 
-const CARD_NUMBER = "2200702194985615";
+/* ================= SETTINGS ================= */
+
+const CARD_NUMBER =
+    "2200702194985615";
+
+const ADMIN_CHAT =
+    "https://t.me/Beriman1";
+
+
+/*
+ВАЖНО:
+
+ЭТО ССЫЛКА АДМИНИСТРАТОРА.
+
+После проверки чека администратор
+выдаёт пользователю персональную
+ссылку-приглашение в закрытый чат.
+
+Сам HTML НЕ МОЖЕТ проверить банковскую
+операцию самостоятельно.
+Для автоматической проверки нужен Telegram-бот
++ сервер/бэкенд.
+*/
+
+
+/* ================= PRODUCTS ================= */
 
 const products = {
-    1:{title:"PRIVATE NIGHT",price:"500 ₽"},
-    2:{title:"AFTER DARK",price:"700 ₽"},
-    3:{title:"SECRET MOMENT",price:"1 000 ₽"},
-    4:{title:"HOT COLLECTION",price:"1 500 ₽"},
-    5:{title:"PRIVATE VIP",price:"2 000 ₽"},
-    6:{title:"ULTIMATE PRIVATE",price:"2 500 ₽"}
+
+    1:{
+        title:"PRIVATE NIGHT",
+        price:"500 ₽"
+    },
+
+    2:{
+        title:"AFTER DARK",
+        price:"700 ₽"
+    },
+
+    3:{
+        title:"SECRET MOMENT",
+        price:"1 000 ₽"
+    },
+
+    4:{
+        title:"HOT COLLECTION",
+        price:"1 500 ₽"
+    },
+
+    5:{
+        title:"PRIVATE VIP",
+        price:"2 000 ₽"
+    },
+
+    6:{
+        title:"ULTIMATE PRIVATE",
+        price:"2 500 ₽"
+    }
+
 };
 
-let selectedProduct = null;
+
 let selectedId = null;
+
+let selectedProduct = null;
+
 let seconds = 900;
+
 let timerInterval;
 
+
+/* ================= OPEN PAYMENT ================= */
 
 function openPayment(id){
 
     selectedId = id;
+
     selectedProduct = products[id];
 
-    document
-        .getElementById("paymentModal")
+
+    document.getElementById("selectedName")
+        .textContent =
+        selectedProduct.title;
+
+
+    document.getElementById("selectedPrice")
+        .textContent =
+        selectedProduct.price;
+
+
+    document.getElementById("modal")
         .classList.add("show");
 
-    document
-        .getElementById("paymentContent")
+
+    document.getElementById("paymentScreen")
         .style.display="block";
 
-    document
-        .getElementById("success")
+
+    document.getElementById("receiptScreen")
         .style.display="none";
+
+
+    document.getElementById("successScreen")
+        .style.display="none";
+
 
     seconds = 900;
 
@@ -1146,60 +1906,76 @@ function openPayment(id){
 
     updateTimer();
 
-    timerInterval = setInterval(()=>{
 
-        seconds--;
+    timerInterval =
+        setInterval(()=>{
 
-        updateTimer();
+            seconds--;
 
-        if(seconds <= 0){
-            clearInterval(timerInterval);
-        }
+            updateTimer();
 
-    },1000);
+            if(seconds <= 0){
+
+                clearInterval(timerInterval);
+
+            }
+
+        },1000);
+
 }
 
 
-function closePayment(){
+/* ================= CLOSE ================= */
 
-    document
-        .getElementById("paymentModal")
+function closeModal(){
+
+    document.getElementById("modal")
         .classList.remove("show");
 
     clearInterval(timerInterval);
+
 }
 
 
+/* ================= TIMER ================= */
+
 function updateTimer(){
 
-    const minutes =
+    const min =
         Math.floor(seconds / 60)
         .toString()
         .padStart(2,"0");
 
-    const secs =
+    const sec =
         (seconds % 60)
         .toString()
         .padStart(2,"0");
 
-    document
-        .getElementById("timer")
+
+    document.getElementById("timer")
         .textContent =
-        `${minutes}:${secs}`;
+        `${min}:${sec}`;
+
 }
 
+
+/* ================= COPY ================= */
 
 async function copyCard(){
 
     try{
 
-        await navigator.clipboard.writeText(CARD_NUMBER);
+        await navigator.clipboard
+            .writeText(CARD_NUMBER);
+
 
         const button =
             document.querySelector(".copy");
 
+
         button.textContent =
             "✓ Номер карты скопирован";
+
 
         setTimeout(()=>{
 
@@ -1208,28 +1984,58 @@ async function copyCard(){
 
         },1800);
 
+
     }catch(error){
 
-        alert(CARD_NUMBER);
+        alert(
+            "Номер карты:\n\n" +
+            CARD_NUMBER
+        );
 
     }
+
 }
 
 
+/* ================= PAID ================= */
+
 function paid(){
+
+    if(!selectedProduct){
+        return;
+    }
+
+
+    /*
+    Отправляем данные в Telegram Mini App.
+
+    Бот может получить:
+
+    - Telegram ID
+    - username
+    - товар
+    - сумму
+    - время
+    - действие payment
+
+    После этого бот/админ может
+    проверить чек и выдать invite link.
+    */
+
 
     const user =
         tg?.initDataUnsafe?.user || {};
 
-    const data = {
+
+    const paymentData = {
 
         action:"payment",
 
         product_id:selectedId,
 
-        product:selectedProduct?.title || "",
+        product:selectedProduct.title,
 
-        price:selectedProduct?.price || "",
+        price:selectedProduct.price,
 
         user_id:user.id || "",
 
@@ -1245,21 +2051,54 @@ function paid(){
     if(tg){
 
         try{
-            tg.sendData(JSON.stringify(data));
+
+            tg.sendData(
+                JSON.stringify(paymentData)
+            );
+
         }catch(error){}
 
     }
 
 
-    document
-        .getElementById("paymentContent")
+    /*
+    Показываем экран чека.
+    */
+
+    document.getElementById("paymentScreen")
         .style.display="none";
 
-    document
-        .getElementById("success")
+
+    document.getElementById("receiptScreen")
         .style.display="block";
 
+
+    document.getElementById("receiptProduct")
+        .textContent =
+        selectedProduct.title;
+
+
+    document.getElementById("receiptPrice")
+        .textContent =
+        selectedProduct.price;
+
 }
+
+
+/* ================= OUTSIDE CLICK ================= */
+
+document
+    .getElementById("modal")
+    .addEventListener("click",function(event){
+
+        if(event.target === this){
+
+            closeModal();
+
+        }
+
+    });
+
 
 </script>
 
