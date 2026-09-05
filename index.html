@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRIVATE ACCESS</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -19,11 +19,9 @@ body{
     background:#080808;
     color:#fff;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    min-height:100vh;
 }
 
-.container{
-    width:100%;
+.app{
     max-width:600px;
     margin:auto;
     padding:18px 14px 40px;
@@ -35,7 +33,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:25px;
+    margin-bottom:22px;
 }
 
 .logo{
@@ -44,53 +42,69 @@ body{
     letter-spacing:2px;
 }
 
-.vip{
-    background:#191919;
+.badge18{
+    padding:7px 11px;
     border:1px solid #333;
-    padding:7px 12px;
     border-radius:20px;
-    font-size:11px;
+    font-size:10px;
     font-weight:800;
+    color:#aaa;
 }
 
 /* HERO */
 
 .hero{
-    background:linear-gradient(145deg,#151515,#0c0c0c);
-    border:1px solid #242424;
+    position:relative;
+    overflow:hidden;
     border-radius:22px;
+    border:1px solid #252525;
+    background:#111;
     padding:25px 20px;
-    margin-bottom:22px;
+    margin-bottom:20px;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-70px;
+    top:-80px;
+    background:#6f3cff;
+    filter:blur(90px);
+    opacity:.15;
 }
 
 .hero small{
-    color:#999;
-    font-size:11px;
+    position:relative;
+    color:#888;
+    font-size:10px;
     letter-spacing:2px;
 }
 
 .hero h1{
+    position:relative;
     margin-top:8px;
-    font-size:31px;
-    line-height:1;
+    font-size:30px;
     font-weight:900;
 }
 
 .hero p{
-    margin-top:12px;
-    color:#888;
-    font-size:13px;
+    position:relative;
+    margin-top:10px;
+    color:#777;
+    font-size:12px;
     line-height:1.5;
 }
 
-/* FILTER */
+/* FILTERS */
 
 .filters{
     display:flex;
     gap:8px;
     overflow-x:auto;
-    margin-bottom:18px;
     scrollbar-width:none;
+    margin-bottom:18px;
 }
 
 .filters::-webkit-scrollbar{
@@ -101,11 +115,11 @@ body{
     flex:none;
     background:#111;
     border:1px solid #292929;
-    color:#aaa;
-    border-radius:12px;
-    padding:9px 15px;
-    font-size:12px;
-    font-weight:700;
+    color:#888;
+    padding:9px 14px;
+    border-radius:11px;
+    font-size:10px;
+    font-weight:800;
 }
 
 .filter.active{
@@ -113,7 +127,7 @@ body{
     color:#000;
 }
 
-/* VIDEO GRID */
+/* GRID */
 
 .grid{
     display:grid;
@@ -122,137 +136,145 @@ body{
 }
 
 .card{
-    background:#101010;
-    border:1px solid #252525;
-    border-radius:17px;
     overflow:hidden;
+    background:#101010;
+    border:1px solid #242424;
+    border-radius:17px;
 }
 
 .preview{
     height:205px;
     position:relative;
     overflow:hidden;
-    background:#151515;
+    background:#111;
 }
 
 /*
-==========================================
- МЕСТО ДЛЯ ТВОИХ ВИДЕО
-==========================================
+================================================
+          ВИДЕО ПРЕВЬЮ
+================================================
 
-Каждое видео можно вставить в HTML ниже
-вместо:
+ТВОИ ВИДЕО ВСТАВЛЯЮТСЯ НИЖЕ В JAVASCRIPT.
 
-VIDEO_01.mp4
-VIDEO_02.mp4
-VIDEO_03.mp4
+Видео автоматически:
+• сильно размывается
+• затемняется
+• масштабируется
+• остаётся движущимся превью
 
-Например:
-
-<video src="videos/video1.mp4"></video>
-
-Если видео лежит в GitHub рядом с index.html:
-videos/video1.mp4
-
-Если у тебя есть прямая ссылка:
-https://example.com/video1.mp4
-
-==========================================
+================================================
 */
 
-/* БЛУР */
-
 .preview video{
-    width:100%;
-    height:100%;
+    position:absolute;
+    inset:-12%;
+    width:124%;
+    height:124%;
+
     object-fit:cover;
 
-    /* Сильный blur */
     filter:blur(18px);
-    transform:scale(1.12);
+    transform:scale(1.08);
 
-    opacity:.72;
+    opacity:.65;
 }
 
-/* затемнение поверх видео */
+/* тёмная маска */
 
-.preview::after{
-    content:"";
+.preview .dark{
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,.38);
-    pointer-events:none;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.55)
+        );
+    z-index:2;
 }
 
-.badge{
+/* BADGE */
+
+.video-badge{
     position:absolute;
-    top:10px;
-    left:10px;
-    z-index:2;
+    left:9px;
+    top:9px;
+    z-index:4;
 
-    background:rgba(0,0,0,.7);
-    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.72);
+    border:1px solid rgba(255,255,255,.12);
 
-    padding:6px 9px;
-    border-radius:8px;
+    padding:6px 8px;
+    border-radius:7px;
 
-    font-size:9px;
+    font-size:8px;
     font-weight:900;
     letter-spacing:1px;
 }
 
+/* LOCK */
+
 .lock{
     position:absolute;
-    z-index:3;
+    z-index:4;
+
     left:50%;
     top:50%;
+
     transform:translate(-50%,-50%);
 
-    width:46px;
-    height:46px;
-
-    border-radius:50%;
-    background:rgba(0,0,0,.62);
-    border:1px solid rgba(255,255,255,.25);
+    width:43px;
+    height:43px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-size:19px;
+    border-radius:50%;
+
+    background:rgba(0,0,0,.62);
+    border:1px solid rgba(255,255,255,.2);
+
+    font-size:17px;
 }
 
+/* CARD INFO */
+
 .info{
-    padding:13px;
+    padding:12px;
 }
 
 .title{
-    font-size:13px;
+    font-size:12px;
     font-weight:800;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
 
-.bottom{
+.meta{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    margin-top:9px;
+    align-items:center;
+
+    margin-top:10px;
 }
 
 .price{
-    font-size:13px;
+    font-size:12px;
     font-weight:900;
 }
 
-.buy{
+.open{
     border:0;
     background:#fff;
     color:#000;
-    padding:8px 12px;
-    border-radius:9px;
-    font-size:10px;
+
+    padding:8px 11px;
+    border-radius:8px;
+
+    font-size:9px;
     font-weight:900;
 }
 
@@ -261,12 +283,12 @@ https://example.com/video1.mp4
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.82);
-    backdrop-filter:blur(12px);
 
     display:none;
     align-items:flex-end;
-    justify-content:center;
+
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(10px);
 
     z-index:100;
 }
@@ -280,18 +302,19 @@ https://example.com/video1.mp4
     max-width:600px;
 
     background:#111;
+
     border:1px solid #292929;
+    border-radius:24px 24px 0 0;
 
-    border-radius:25px 25px 0 0;
-    padding:22px 18px 28px;
-
-    animation:up .25s ease;
+    padding:18px;
+    animation:slideUp .25s ease;
 }
 
-@keyframes up{
+@keyframes slideUp{
     from{
         transform:translateY(100%);
     }
+
     to{
         transform:translateY(0);
     }
@@ -300,59 +323,60 @@ https://example.com/video1.mp4
 .close{
     text-align:right;
     color:#777;
-    font-size:22px;
-    margin-bottom:5px;
+    font-size:25px;
+    cursor:pointer;
 }
 
 .modal-title{
-    font-size:22px;
+    font-size:21px;
     font-weight:900;
 }
 
 .selected{
-    color:#888;
-    font-size:12px;
+    color:#777;
+    font-size:11px;
     margin-top:5px;
 }
 
-/* CARD PAYMENT */
+/* PAYMENT */
 
 .payment-card{
-    margin-top:20px;
+    margin-top:18px;
 
-    background:linear-gradient(145deg,#1b1b1b,#0d0d0d);
+    padding:19px;
 
+    border-radius:17px;
     border:1px solid #303030;
-    border-radius:18px;
 
-    padding:20px;
+    background:#0c0c0c;
 }
 
-.payment-label{
-    color:#777;
-    font-size:10px;
+.label{
+    color:#666;
+    font-size:9px;
     letter-spacing:1px;
 }
 
 .card-number{
     margin-top:8px;
-    font-size:21px;
+
+    font-size:20px;
     font-weight:800;
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 }
 
 .copy{
-    margin-top:12px;
     width:100%;
+    margin-top:12px;
 
-    border:1px solid #333;
     background:#171717;
+    border:1px solid #303030;
     color:#fff;
 
     padding:11px;
     border-radius:10px;
 
-    font-size:11px;
+    font-size:10px;
     font-weight:800;
 }
 
@@ -360,63 +384,65 @@ https://example.com/video1.mp4
 
 .timer{
     text-align:center;
-    margin:17px 0;
+    margin:16px 0;
 }
 
-.timer span{
-    display:block;
-    font-size:26px;
+.timer-number{
+    font-size:27px;
     font-weight:900;
 }
 
-.timer small{
-    color:#777;
-    font-size:10px;
+.timer-text{
+    display:block;
+    color:#666;
+    font-size:9px;
 }
 
-/* INSTRUCTION */
+/* INSTRUCTIONS */
 
 .instructions{
-    background:#181818;
-    border-radius:13px;
-    padding:14px;
+    padding:13px;
 
-    color:#999;
-    font-size:11px;
-    line-height:1.6;
+    background:#181818;
+    border-radius:12px;
+
+    color:#888;
+
+    font-size:10px;
+    line-height:1.65;
 }
 
-/* BUTTON */
+/* BUTTONS */
 
 .paid{
     width:100%;
-    margin-top:15px;
+    margin-top:13px;
+
+    padding:15px;
 
     border:0;
+    border-radius:12px;
+
     background:#fff;
     color:#000;
 
-    padding:15px;
-    border-radius:13px;
-
-    font-size:12px;
+    font-size:11px;
     font-weight:900;
 }
 
-/* CONTACT */
-
-.contact{
+.admin{
     width:100%;
-    margin-top:12px;
+    margin-top:10px;
+
+    padding:13px;
 
     border:1px solid #303030;
+    border-radius:12px;
+
     background:#121212;
     color:#fff;
 
-    padding:13px;
-    border-radius:12px;
-
-    font-size:11px;
+    font-size:10px;
     font-weight:800;
 }
 
@@ -425,50 +451,54 @@ https://example.com/video1.mp4
 .success{
     display:none;
     text-align:center;
-    padding:20px 5px;
+    padding:20px 0 5px;
 }
 
 .success-icon{
-    width:65px;
-    height:65px;
-    border-radius:50%;
+    width:60px;
+    height:60px;
 
-    background:#1d1d1d;
-    border:1px solid #333;
+    margin:auto;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    margin:0 auto 15px;
+    border-radius:50%;
 
-    font-size:28px;
+    background:#191919;
+    border:1px solid #333;
+
+    font-size:25px;
 }
 
 .success h2{
-    font-size:22px;
+    margin-top:14px;
+    font-size:21px;
 }
 
 .success p{
-    color:#777;
-    font-size:12px;
-    line-height:1.5;
     margin-top:8px;
+    color:#777;
+    font-size:11px;
+    line-height:1.5;
 }
 
 .telegram{
     display:block;
-    margin-top:18px;
+
+    margin-top:17px;
+
+    padding:14px;
+
+    border-radius:12px;
 
     background:#fff;
     color:#000;
 
-    padding:14px;
-    border-radius:12px;
-
     text-decoration:none;
 
-    font-size:12px;
+    font-size:11px;
     font-weight:900;
 }
 
@@ -476,39 +506,89 @@ https://example.com/video1.mp4
 
 .footer{
     text-align:center;
-    color:#555;
-    font-size:9px;
     margin-top:28px;
+
+    color:#444;
+    font-size:8px;
+    letter-spacing:1px;
 }
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="app">
 
     <div class="header">
-        <div class="logo">PRIVATE</div>
-        <div class="vip">18+ VIP ACCESS</div>
+
+        <div class="logo">
+            PRIVATE
+        </div>
+
+        <div class="badge18">
+            18+ ACCESS
+        </div>
+
     </div>
+
 
     <div class="hero">
-        <small>PRIVATE COLLECTION</small>
-        <h1>Закрытый доступ</h1>
+
+        <small>
+            PRIVATE COLLECTION
+        </small>
+
+        <h1>
+            Закрытый доступ
+        </h1>
+
         <p>
-            Приватная коллекция видео.
-            Выбери материал ниже и получи доступ после оплаты.
+            Выбери видео из приватной коллекции
+            и получи доступ после оплаты.
         </p>
+
     </div>
+
 
     <div class="filters">
-        <button class="filter active" onclick="filterVideos('all',this)">ВСЕ</button>
-        <button class="filter" onclick="filterVideos('new',this)">НОВЫЕ</button>
-        <button class="filter" onclick="filterVideos('vip',this)">VIP</button>
-        <button class="filter" onclick="filterVideos('popular',this)">ПОПУЛЯРНЫЕ</button>
+
+        <button
+            class="filter active"
+            onclick="filterVideos('all',this)"
+        >
+            ВСЕ
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterVideos('new',this)"
+        >
+            НОВЫЕ
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterVideos('vip',this)"
+        >
+            VIP
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterVideos('popular',this)"
+        >
+            ПОПУЛЯРНЫЕ
+        </button>
+
     </div>
 
-    <div class="grid" id="videoGrid"></div>
+
+    <div
+        class="grid"
+        id="videoGrid"
+    ></div>
+
 
     <div class="footer">
         PRIVATE ACCESS • 18+
@@ -519,11 +599,20 @@ https://example.com/video1.mp4
 
 <!-- PAYMENT MODAL -->
 
-<div class="modal" id="modal">
+<div
+    class="modal"
+    id="modal"
+>
 
     <div class="modal-box">
 
-        <div class="close" onclick="closeModal()">×</div>
+        <div
+            class="close"
+            onclick="closeModal()"
+        >
+            ×
+        </div>
+
 
         <div id="paymentScreen">
 
@@ -531,13 +620,17 @@ https://example.com/video1.mp4
                 Оплата доступа
             </div>
 
-            <div class="selected" id="selectedProduct">
+            <div
+                class="selected"
+                id="selectedProduct"
+            >
                 —
             </div>
 
+
             <div class="payment-card">
 
-                <div class="payment-label">
+                <div class="label">
                     НОМЕР КАРТЫ
                 </div>
 
@@ -545,29 +638,54 @@ https://example.com/video1.mp4
                     2200 7021 9498 5615
                 </div>
 
-                <button class="copy" onclick="copyCard()">
+                <button
+                    class="copy"
+                    onclick="copyCard()"
+                >
                     СКОПИРОВАТЬ НОМЕР
                 </button>
 
             </div>
 
+
             <div class="timer">
-                <span id="timer">15:00</span>
-                <small>ВРЕМЯ НА ОПЛАТУ</small>
+
+                <div
+                    class="timer-number"
+                    id="timer"
+                >
+                    15:00
+                </div>
+
+                <span class="timer-text">
+                    ВРЕМЯ НА ОПЛАТУ
+                </span>
+
             </div>
+
 
             <div class="instructions">
+
                 1. Скопируй номер карты.<br>
-                2. Сделай перевод на указанную сумму.<br>
-                3. После оплаты нажми «Я ОПЛАТИЛ».<br>
+                2. Переведи нужную сумму.<br>
+                3. Нажми «Я ОПЛАТИЛ».<br>
                 4. Отправь чек администратору.
+
             </div>
 
-            <button class="paid" onclick="paid()">
+
+            <button
+                class="paid"
+                onclick="paid()"
+            >
                 Я ОПЛАТИЛ
             </button>
 
-            <button class="contact" onclick="contactAdmin()">
+
+            <button
+                class="admin"
+                onclick="contactAdmin()"
+            >
                 💬 СВЯЗАТЬСЯ С АДМИНИСТРАТОРОМ
             </button>
 
@@ -576,17 +694,22 @@ https://example.com/video1.mp4
 
         <!-- SUCCESS -->
 
-        <div class="success" id="successScreen">
+        <div
+            class="success"
+            id="successScreen"
+        >
 
             <div class="success-icon">
                 ✓
             </div>
 
-            <h2>Заявка отправлена</h2>
+            <h2>
+                Заявка отправлена
+            </h2>
 
             <p>
-                Отправь чек администратору,
-                чтобы получить доступ к выбранному видео.
+                Отправь чек администратору
+                для подтверждения оплаты.
             </p>
 
             <a
@@ -594,7 +717,7 @@ https://example.com/video1.mp4
                 href="https://t.me/PREMDOSTUP"
                 target="_blank"
             >
-                📩 ОТПРАВИТЬ ЧЕК В TELEGRAM
+                📩 ОТПРАВИТЬ ЧЕК
             </a>
 
         </div>
@@ -615,24 +738,48 @@ if(tg){
 
 
 /*
-=================================================
-        ВОТ ЗДЕСЬ ТЫ ВСТАВЛЯЕШЬ ВИДЕО
-=================================================
+====================================================
+                НАСТРОЙКИ
+====================================================
 
-Меняешь только:
+КАРТУ НЕ ТРОГАЙ, ЕСЛИ ОНА ТЕБЕ НУЖНА.
 
-VIDEO_01.mp4
-VIDEO_02.mp4
-VIDEO_03.mp4
+АДМИН:
+PREMDOSTUP
 
-и т.д.
-
-Если видео находится в папке videos:
-
-videos/video1.mp4
-
-=================================================
+====================================================
 */
+
+
+const ADMIN_USERNAME = "PREMDOSTUP";
+
+const CARD_NUMBER = "2200702194985615";
+
+
+/*
+====================================================
+              ВОТ ЗДЕСЬ ВИДЕО
+====================================================
+
+ТЕБЕ НУЖНО МЕНЯТЬ ТОЛЬКО video:
+
+video:"VIDEO_01.mp4"
+
+Например, если у тебя в GitHub есть:
+
+videos/1.mp4
+
+пишешь:
+
+video:"videos/1.mp4"
+
+Если у тебя есть прямая ссылка:
+
+video:"https://site.com/video.mp4"
+
+====================================================
+*/
+
 
 const videos = [
 
@@ -778,29 +925,52 @@ const videos = [
         category:"new",
         badge:"NEW",
         video:"VIDEO_16.mp4"
+    },
+
+    {
+        id:17,
+        title:"PRIVATE FILE",
+        price:1200,
+        category:"popular",
+        badge:"POPULAR",
+        video:"VIDEO_17.mp4"
+    },
+
+    {
+        id:18,
+        title:"VIP ACCESS",
+        price:1800,
+        category:"vip",
+        badge:"VIP",
+        video:"VIDEO_18.mp4"
     }
 
 ];
 
 
 let currentProduct = null;
+
 let timerSeconds = 900;
+
 let timerInterval = null;
 
 
 /* RENDER */
 
-function renderVideos(list = videos){
+function renderVideos(list){
 
-    const grid = document.getElementById("videoGrid");
+    const grid =
+        document.getElementById("videoGrid");
 
     grid.innerHTML = "";
 
     list.forEach(video => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
         card.className = "card";
+
 
         card.innerHTML = `
 
@@ -808,12 +978,16 @@ function renderVideos(list = videos){
 
                 <video
                     src="${video.video}"
+                    autoplay
                     muted
+                    loop
                     playsinline
                     preload="metadata"
                 ></video>
 
-                <div class="badge">
+                <div class="dark"></div>
+
+                <div class="video-badge">
                     ${video.badge}
                 </div>
 
@@ -823,20 +997,21 @@ function renderVideos(list = videos){
 
             </div>
 
+
             <div class="info">
 
                 <div class="title">
                     ${video.title}
                 </div>
 
-                <div class="bottom">
+                <div class="meta">
 
                     <div class="price">
                         ${video.price} ₽
                     </div>
 
                     <button
-                        class="buy"
+                        class="open"
                         onclick="openPayment(${video.id})"
                     >
                         ОТКРЫТЬ
@@ -848,6 +1023,7 @@ function renderVideos(list = videos){
 
         `;
 
+
         grid.appendChild(card);
 
     });
@@ -857,48 +1033,79 @@ function renderVideos(list = videos){
 
 /* FILTER */
 
-function filterVideos(category, button){
+function filterVideos(category,button){
 
-    document.querySelectorAll(".filter")
-        .forEach(x => x.classList.remove("active"));
+    document
+        .querySelectorAll(".filter")
+        .forEach(el =>
+            el.classList.remove("active")
+        );
 
     button.classList.add("active");
 
+
     if(category === "all"){
+
         renderVideos(videos);
+
     }else{
+
         renderVideos(
-            videos.filter(x => x.category === category)
+            videos.filter(
+                video =>
+                    video.category === category
+            )
         );
+
     }
 
 }
 
 
-/* PAYMENT */
+/* OPEN PAYMENT */
 
 function openPayment(id){
 
-    currentProduct = videos.find(x => x.id === id);
+    currentProduct =
+        videos.find(video =>
+            video.id === id
+        );
 
     if(!currentProduct) return;
 
-    document.getElementById("selectedProduct").innerText =
+
+    document.getElementById(
+        "selectedProduct"
+    ).innerText =
         `${currentProduct.title} • ${currentProduct.price} ₽`;
 
-    document.getElementById("paymentScreen").style.display = "block";
-    document.getElementById("successScreen").style.display = "none";
 
-    document.getElementById("modal").classList.add("show");
+    document.getElementById(
+        "paymentScreen"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "successScreen"
+    ).style.display = "none";
+
+
+    document
+        .getElementById("modal")
+        .classList.add("show");
+
 
     startTimer();
 
 }
 
 
+/* CLOSE */
+
 function closeModal(){
 
-    document.getElementById("modal")
+    document
+        .getElementById("modal")
         .classList.remove("show");
 
 }
@@ -914,19 +1121,22 @@ function startTimer(){
 
     updateTimer();
 
-    timerInterval = setInterval(() => {
 
-        timerSeconds--;
+    timerInterval =
+        setInterval(() => {
 
-        updateTimer();
+            timerSeconds--;
 
-        if(timerSeconds <= 0){
+            updateTimer();
 
-            clearInterval(timerInterval);
 
-        }
+            if(timerSeconds <= 0){
 
-    },1000);
+                clearInterval(timerInterval);
+
+            }
+
+        },1000);
 
 }
 
@@ -939,18 +1149,21 @@ function updateTimer(){
     const seconds =
         timerSeconds % 60;
 
-    document.getElementById("timer").innerText =
+
+    document.getElementById(
+        "timer"
+    ).innerText =
         `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
 
 }
 
 
-/* COPY CARD */
+/* COPY */
 
 function copyCard(){
 
     navigator.clipboard.writeText(
-        "2200702194985615"
+        CARD_NUMBER
     );
 
     alert("Номер карты скопирован");
@@ -962,26 +1175,37 @@ function copyCard(){
 
 function paid(){
 
+    if(!currentProduct) return;
+
+
     const user =
         tg?.initDataUnsafe?.user || {};
 
-    const data = {
+
+    const paymentData = {
 
         action:"payment_submitted",
 
-        product_id:currentProduct.id,
+        product_id:
+            currentProduct.id,
 
-        product:currentProduct.title,
+        product:
+            currentProduct.title,
 
-        price:currentProduct.price,
+        price:
+            currentProduct.price,
 
-        user_id:user.id || null,
+        user_id:
+            user.id || null,
 
-        username:user.username || null,
+        username:
+            user.username || null,
 
-        first_name:user.first_name || null,
+        first_name:
+            user.first_name || null,
 
-        timestamp:new Date().toISOString()
+        timestamp:
+            new Date().toISOString()
 
     };
 
@@ -989,17 +1213,20 @@ function paid(){
     if(tg && tg.sendData){
 
         tg.sendData(
-            JSON.stringify(data)
+            JSON.stringify(paymentData)
         );
 
     }
 
 
-    document.getElementById("paymentScreen")
-        .style.display = "none";
+    document.getElementById(
+        "paymentScreen"
+    ).style.display = "none";
 
-    document.getElementById("successScreen")
-        .style.display = "block";
+
+    document.getElementById(
+        "successScreen"
+    ).style.display = "block";
 
 }
 
@@ -1009,7 +1236,8 @@ function paid(){
 function contactAdmin(){
 
     window.open(
-        "https://t.me/PREMDOSTUP",
+        "https://t.me/" +
+        ADMIN_USERNAME,
         "_blank"
     );
 
@@ -1018,7 +1246,7 @@ function contactAdmin(){
 
 /* START */
 
-renderVideos();
+renderVideos(videos);
 
 </script>
 
