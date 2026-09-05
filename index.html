@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PRIVATE 18+</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -12,268 +12,166 @@
     box-sizing:border-box;
     margin:0;
     padding:0;
-    -webkit-tap-highlight-color:transparent;
 }
 
 body{
-    background:#080609;
-    color:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-family:Arial,sans-serif;
+    background:
+        radial-gradient(circle at 50% -10%,#5b174f 0%,transparent 38%),
+        linear-gradient(180deg,#09070b,#120912 55%,#080609);
+    color:white;
     min-height:100vh;
-    padding-bottom:95px;
+    padding-bottom:90px;
 }
 
-body:before{
-    content:"";
-    position:fixed;
-    width:420px;
-    height:420px;
-    background:#8b1cff;
-    filter:blur(180px);
-    opacity:.14;
-    top:-160px;
-    left:-120px;
-    pointer-events:none;
+.container{
+    max-width:620px;
+    margin:auto;
+    padding:22px 14px;
 }
 
 .header{
     text-align:center;
-    padding:30px 20px 22px;
+    padding:18px 0 26px;
 }
 
 .logo{
-    width:62px;
-    height:62px;
+    width:74px;
+    height:74px;
     margin:auto;
-    border-radius:21px;
+    border-radius:23px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:29px;
-    background:linear-gradient(145deg,#351047,#120d18);
-    border:1px solid rgba(255,255,255,.09);
-    box-shadow:0 15px 45px rgba(135,25,255,.22);
+    font-size:34px;
+    background:linear-gradient(145deg,#35152f,#170b18);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:
+        0 0 45px rgba(196,39,159,.28),
+        inset 0 0 25px rgba(255,255,255,.04);
 }
 
-.header h1{
-    margin-top:17px;
+h1{
+    margin-top:18px;
     font-size:28px;
-    letter-spacing:3px;
-    font-weight:800;
+    letter-spacing:2px;
 }
 
-.header p{
-    margin-top:7px;
-    color:#9e97a5;
+.subtitle{
+    margin-top:8px;
+    color:#bcaebe;
     font-size:13px;
 }
 
-.container{
-    width:min(560px,calc(100% - 28px));
-    margin:auto;
+.private{
+    display:inline-block;
+    margin-top:12px;
+    padding:6px 13px;
+    border-radius:30px;
+    background:rgba(198,39,160,.12);
+    border:1px solid rgba(218,61,181,.28);
+    color:#e79bd4;
+    font-size:11px;
+    letter-spacing:1.5px;
 }
 
+/* CARDS */
+
 .card{
+    background:rgba(25,16,25,.88);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
     overflow:hidden;
     margin-bottom:18px;
-    border-radius:23px;
-    background:linear-gradient(145deg,#171219,#0e0b10);
-    border:1px solid rgba(255,255,255,.07);
-    box-shadow:0 18px 55px rgba(0,0,0,.35);
+    box-shadow:0 18px 45px rgba(0,0,0,.32);
 }
 
 .preview{
-    height:275px;
+    height:250px;
     position:relative;
     overflow:hidden;
-    background:
-        radial-gradient(circle at 30% 35%,rgba(177,49,255,.32),transparent 30%),
-        radial-gradient(circle at 75% 65%,rgba(255,42,125,.22),transparent 34%),
-        #120d14;
+    background:#100a11;
 }
 
-.preview:after{
+.preview img{
+    position:absolute;
+    width:115%;
+    height:115%;
+    left:-7.5%;
+    top:-7.5%;
+    object-fit:cover;
+
+    filter:
+        blur(18px)
+        brightness(.55)
+        contrast(1.18)
+        saturate(.72);
+
+    transform:scale(1.1);
+}
+
+.preview::after{
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(
-        180deg,
-        rgba(0,0,0,.04),
-        rgba(0,0,0,.12) 55%,
-        rgba(0,0,0,.7)
-    );
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10,5,11,.05),
+            rgba(10,5,11,.35) 60%,
+            rgba(10,5,11,.92)
+        );
 }
 
-/* Общий человек */
-.person{
+.preview::before{
+    content:"";
     position:absolute;
-    width:155px;
-    height:270px;
-    left:50%;
-    bottom:-30px;
-    transform:translateX(-50%);
-    filter:blur(11px) brightness(.62) contrast(1.35);
-    opacity:.95;
-}
+    z-index:2;
+    inset:0;
 
-/* голова */
-.head{
-    position:absolute;
-    width:62px;
-    height:73px;
-    border-radius:48% 48% 45% 45%;
-    background:#d8c1d0;
-    left:47px;
-    top:15px;
-}
-
-/* волосы */
-.hair{
-    position:absolute;
-    width:86px;
-    height:103px;
-    left:35px;
-    top:2px;
-    border-radius:48% 52% 40% 40%;
-    background:#171019;
-}
-
-/* шея */
-.neck{
-    position:absolute;
-    width:36px;
-    height:48px;
-    left:60px;
-    top:77px;
-    background:#bca6b7;
-}
-
-/* корпус */
-.body{
-    position:absolute;
-    width:142px;
-    height:170px;
-    left:7px;
-    top:105px;
-    border-radius:47% 47% 12% 12%;
-    background:#baa5b4;
-}
-
-/* руки */
-.arm1,
-.arm2{
-    position:absolute;
-    width:36px;
-    height:132px;
-    background:#ad98a8;
-    border-radius:30px;
-    top:112px;
-}
-
-.arm1{
-    left:-5px;
-    transform:rotate(15deg);
-}
-
-.arm2{
-    right:-5px;
-    transform:rotate(-15deg);
-}
-
-/* разные позы */
-.p1{
-    transform:translateX(-50%) rotate(-7deg) scale(1.05);
-}
-
-.p2{
-    transform:translateX(-50%) rotate(9deg) scale(.94);
-}
-
-.p3{
-    transform:translateX(-50%) scale(1.16);
-}
-
-.p4{
-    transform:translateX(-50%) rotate(-15deg) scale(.9);
-}
-
-.p5{
-    transform:translateX(-50%) rotate(13deg) scale(1.02);
-}
-
-.p6{
-    transform:translateX(-50%) rotate(-4deg) scale(.86);
-}
-
-/* второй человек */
-.person.second{
-    left:67%;
-    bottom:-45px;
-    transform:translateX(-50%) scale(.82) rotate(8deg);
-    opacity:.75;
-}
-
-.person.second .head{
-    background:#b9a8b4;
-}
-
-.person.second .body{
-    background:#a895a5;
-}
-
-.person.second .hair{
-    background:#211722;
-}
-
-/* дополнительные волосы */
-.longhair .hair{
-    width:105px;
-    height:155px;
-    left:25px;
-    top:0;
-    border-radius:48% 52% 35% 35%;
-}
-
-.short .hair{
-    width:76px;
-    height:72px;
-    left:40px;
-    top:5px;
-    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 25%,
+            rgba(80,15,75,.20) 65%,
+            rgba(0,0,0,.55)
+        );
 }
 
 .badge{
     position:absolute;
+    z-index:5;
     top:15px;
     left:15px;
-    z-index:5;
     padding:7px 11px;
-    border-radius:10px;
-    background:rgba(10,7,12,.72);
-    backdrop-filter:blur(15px);
+    border-radius:20px;
+    background:rgba(10,7,11,.72);
+    border:1px solid rgba(255,255,255,.13);
     font-size:10px;
-    font-weight:800;
-    letter-spacing:1.2px;
-    border:1px solid rgba(255,255,255,.08);
+    letter-spacing:1px;
 }
 
 .play{
     position:absolute;
     z-index:5;
-    left:50%;
     top:50%;
+    left:50%;
     transform:translate(-50%,-50%);
-    width:65px;
-    height:65px;
+
+    width:62px;
+    height:62px;
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    background:rgba(18,10,23,.6);
-    border:1px solid rgba(255,255,255,.16);
-    backdrop-filter:blur(15px);
-    font-size:25px;
-    box-shadow:0 10px 35px rgba(0,0,0,.35);
+
+    background:rgba(17,8,17,.72);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 0 30px rgba(215,48,181,.28);
+
+    font-size:24px;
 }
 
 .info{
@@ -284,182 +182,219 @@ body:before{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
+    gap:12px;
 }
 
 .title{
-    font-size:18px;
-    font-weight:800;
-    letter-spacing:.4px;
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:.5px;
 }
 
 .price{
-    font-weight:800;
-    font-size:16px;
-    color:#e9baff;
+    color:#ef9cdd;
+    font-weight:bold;
     white-space:nowrap;
 }
 
 .desc{
-    color:#938c98;
+    margin-top:9px;
+    color:#a99ca9;
     font-size:13px;
     line-height:1.45;
-    margin:9px 0 15px;
 }
 
 .tease{
+    margin-top:12px;
+    padding:11px 13px;
+    border-left:2px solid #c733a5;
+    background:rgba(190,43,157,.07);
+    color:#d6b6d1;
     font-size:12px;
-    color:#b8a9bd;
     font-style:italic;
-    margin-bottom:15px;
+    border-radius:0 10px 10px 0;
 }
 
 .buy{
     width:100%;
-    height:49px;
+    margin-top:15px;
+    padding:14px;
+
     border:0;
-    border-radius:15px;
-    color:#fff;
+    border-radius:14px;
+
+    color:white;
+    font-weight:bold;
     font-size:14px;
-    font-weight:800;
+
+    background:linear-gradient(
+        135deg,
+        #9d257f,
+        #d038a9
+    );
+
+    box-shadow:
+        0 8px 22px rgba(197,44,161,.22);
+
     cursor:pointer;
-    background:linear-gradient(135deg,#8c22d9,#c12872);
-    box-shadow:0 10px 25px rgba(148,26,194,.2);
 }
 
 .buy:active{
     transform:scale(.98);
 }
 
-.bottom{
-    position:fixed;
-    z-index:20;
-    bottom:0;
-    left:0;
-    right:0;
-    padding:12px 14px 15px;
-    background:linear-gradient(180deg,transparent,#080609 25%);
-}
+/* BOTTOM */
 
 .contact{
-    display:block;
-    width:min(560px,100%);
-    margin:auto;
-    text-align:center;
-    text-decoration:none;
-    color:#fff;
+    position:fixed;
+    z-index:20;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:calc(100% - 28px);
+    max-width:592px;
+
     padding:15px;
-    border-radius:16px;
-    background:#171219;
-    border:1px solid rgba(255,255,255,.08);
-    font-weight:700;
-    font-size:13px;
+    text-align:center;
+
+    text-decoration:none;
+    color:white;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(48,24,48,.97),
+            rgba(35,15,35,.97)
+        );
+
+    border:1px solid rgba(255,255,255,.12);
+
+    box-shadow:0 10px 40px rgba(0,0,0,.5);
 }
 
 /* MODAL */
 
 .modal{
     position:fixed;
-    inset:0;
     z-index:100;
+    inset:0;
+
     display:none;
     align-items:flex-end;
     justify-content:center;
+
     background:rgba(0,0,0,.78);
-    backdrop-filter:blur(14px);
+    backdrop-filter:blur(9px);
 }
 
 .modal.show{
     display:flex;
 }
 
-.sheet{
-    width:min(560px,100%);
-    max-height:94vh;
-    overflow:auto;
-    background:linear-gradient(145deg,#171219,#0d0a0f);
-    border-radius:30px 30px 0 0;
-    padding:22px 18px 30px;
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 -20px 80px rgba(0,0,0,.6);
-    animation:up .3s ease;
+.modal-box{
+    width:100%;
+    max-width:620px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #1c111d,
+            #100a11
+        );
+
+    border-radius:28px 28px 0 0;
+
+    padding:20px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    box-shadow:0 -20px 70px rgba(0,0,0,.55);
 }
 
-@keyframes up{
-    from{transform:translateY(100%)}
-    to{transform:translateY(0)}
-}
-
-.close{
-    float:right;
-    width:35px;
-    height:35px;
-    border:0;
-    border-radius:50%;
-    color:#aaa;
-    background:#211a23;
-    font-size:20px;
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .modal-title{
-    clear:both;
-    padding-top:15px;
-    font-size:22px;
-    font-weight:800;
+    font-size:20px;
+    font-weight:bold;
 }
 
-.modal-sub{
-    color:#918995;
-    font-size:13px;
-    margin-top:5px;
+.close{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#291929;
+    color:white;
+    font-size:20px;
 }
 
-/* КАРТА */
+/* BANK CARD */
 
 .bank-card{
-    margin-top:20px;
-    height:190px;
-    border-radius:22px;
+    margin-top:18px;
     padding:22px;
+
+    height:190px;
+
+    border-radius:22px;
+
     position:relative;
     overflow:hidden;
+
     background:
-        radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 25%),
-        linear-gradient(135deg,#24142e,#111014 55%,#38122d);
-    border:1px solid rgba(255,255,255,.13);
-    box-shadow:0 20px 45px rgba(0,0,0,.4);
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(255,255,255,.22),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #352237,
+            #161018 55%,
+            #421538
+        );
+
+    border:1px solid rgba(255,255,255,.16);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.45),
+        inset 0 0 30px rgba(255,255,255,.04);
 }
 
-.bank-card:before{
-    content:"";
-    position:absolute;
-    width:230px;
-    height:230px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:50%;
-    right:-80px;
-    bottom:-110px;
-}
-
-.card-bank{
-    font-size:15px;
-    font-weight:800;
-    letter-spacing:1px;
+.bank-name{
+    font-size:12px;
+    letter-spacing:2px;
+    opacity:.75;
 }
 
 .chip{
-    margin-top:27px;
-    width:43px;
+    margin-top:24px;
+    width:44px;
     height:32px;
     border-radius:7px;
-    background:linear-gradient(135deg,#d7c58b,#817044);
+
+    background:
+        linear-gradient(
+            135deg,
+            #d7c49b,
+            #806e4e
+        );
+
+    opacity:.85;
 }
 
 .card-number{
-    margin-top:18px;
+    margin-top:20px;
     font-size:20px;
     letter-spacing:2px;
-    font-weight:700;
+    font-weight:bold;
 }
 
 .card-bottom{
@@ -467,349 +402,459 @@ body:before{
     bottom:18px;
     left:22px;
     right:22px;
+
     display:flex;
     justify-content:space-between;
-    color:#bdb5c0;
-    font-size:9px;
-    text-transform:uppercase;
-    letter-spacing:1px;
+
+    font-size:10px;
+    opacity:.7;
+}
+
+/* PAYMENT */
+
+.timer{
+    text-align:center;
+    margin-top:17px;
+    color:#f0a8df;
+    font-size:14px;
 }
 
 .copy{
     width:100%;
-    height:45px;
-    margin-top:11px;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
-    background:#1b151d;
-    color:#fff;
-    font-weight:700;
-}
+    margin-top:12px;
+    padding:13px;
 
-.timer{
-    text-align:center;
-    margin:17px 0;
-    color:#ff9acb;
-    font-size:13px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.1);
+
+    background:#211521;
+    color:#eee;
+
+    font-weight:bold;
 }
 
 .steps{
     display:flex;
-    gap:8px;
-    margin:17px 0;
+    gap:5px;
+    margin-top:18px;
 }
 
 .step{
-    flex:1;
     height:4px;
-    border-radius:10px;
-    background:#28212b;
+    flex:1;
+    border-radius:5px;
+    background:#392538;
 }
 
 .step.active{
-    background:linear-gradient(90deg,#8c22d9,#d12a76);
+    background:#c832a3;
 }
 
-.pay-btn{
+.paid{
     width:100%;
-    height:54px;
+    margin-top:14px;
+    padding:15px;
+
     border:0;
-    border-radius:16px;
-    color:#fff;
-    font-size:15px;
-    font-weight:800;
-    background:linear-gradient(135deg,#8b21d8,#c52a75);
-    box-shadow:0 12px 30px rgba(158,28,183,.25);
-}
+    border-radius:15px;
 
-.note{
-    text-align:center;
-    color:#716a74;
-    font-size:11px;
-    margin-top:12px;
-    line-height:1.4;
-}
+    background:linear-gradient(135deg,#a52785,#d53bad);
 
-/* SUCCESS */
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+}
 
 .success{
     display:none;
     text-align:center;
-    padding:25px 5px 10px;
+    padding:25px 10px 12px;
 }
 
 .success-icon{
-    width:72px;
-    height:72px;
-    border-radius:50%;
-    margin:0 auto 18px;
+    width:70px;
+    height:70px;
+    margin:auto;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(135deg,#7020a8,#bd286f);
+
+    border-radius:50%;
+
+    background:rgba(195,45,161,.15);
+    border:1px solid rgba(218,69,185,.35);
+
     font-size:30px;
-    box-shadow:0 15px 40px rgba(153,27,190,.3);
 }
 
 .success h2{
-    font-size:22px;
+    margin-top:18px;
+    font-size:21px;
 }
 
 .success p{
-    color:#99919d;
+    margin-top:10px;
+    color:#b9aab8;
     line-height:1.5;
     font-size:13px;
-    margin-top:9px;
 }
 
-.wait{
-    margin-top:18px;
+.intimate{
+    margin-top:16px;
     padding:14px;
-    border-radius:15px;
-    background:#151017;
-    border:1px solid rgba(255,255,255,.06);
-    color:#c5b5ca;
-    font-size:12px;
+
+    border-radius:14px;
+
+    background:rgba(194,43,158,.08);
+    color:#e0b9d9;
+
+    font-style:italic;
+    font-size:13px;
+}
+
+@media(max-width:420px){
+    .preview{
+        height:225px;
+    }
+
+    .card-number{
+        font-size:17px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-    <div class="logo">🔒</div>
-    <h1>PRIVATE</h1>
-    <p>Закрытый контент • 18+ • PRIVATE ACCESS</p>
-</header>
+<div class="container">
 
-<main class="container">
+    <div class="header">
 
-<!-- 1 -->
-<div class="card">
-    <div class="preview">
-        <span class="badge">PRIVATE #01</span>
+        <div class="logo">🔒</div>
 
-        <div class="person p1 longhair">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
+        <h1>PRIVATE</h1>
+
+        <div class="subtitle">
+            Закрытая коллекция
         </div>
 
-        <div class="play">▶</div>
+        <div class="private">
+            18+ • PRIVATE ACCESS
+        </div>
+
     </div>
 
-    <div class="info">
-        <div class="title-row">
-            <div class="title">PRIVATE NIGHT</div>
-            <div class="price">500 ₽</div>
+
+    <!-- 1 -->
+
+    <div class="card">
+
+        <div class="preview">
+
+            <img
+                src="https://images.pexels.com/photos/24018725/pexels-photo-24018725.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt=""
+            >
+
+            <div class="badge">
+                PRIVATE #01
+            </div>
+
+            <div class="play">
+                ▶
+            </div>
+
         </div>
-        <div class="desc">Закрытый материал из приватной коллекции.</div>
-        <div class="tease">«Некоторые моменты лучше оставить только для своих…»</div>
-        <button class="buy" onclick="openPay(1)">🔐 Получить доступ</button>
+
+        <div class="info">
+
+            <div class="title-row">
+                <div class="title">PRIVATE NIGHT</div>
+                <div class="price">500 ₽</div>
+            </div>
+
+            <div class="desc">
+                Закрытый материал из приватной коллекции.
+            </div>
+
+            <div class="tease">
+                «Некоторые моменты лучше оставить только для своих…»
+            </div>
+
+            <button class="buy" onclick="openPayment(1)">
+                🔐 Получить доступ
+            </button>
+
+        </div>
+
     </div>
+
+
+    <!-- 2 -->
+
+    <div class="card">
+
+        <div class="preview">
+
+            <img
+                src="https://images.pexels.com/photos/7823971/pexels-photo-7823971.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt=""
+            >
+
+            <div class="badge">
+                PRIVATE #02
+            </div>
+
+            <div class="play">
+                ▶
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <div class="title-row">
+                <div class="title">AFTER DARK</div>
+                <div class="price">700 ₽</div>
+            </div>
+
+            <div class="desc">
+                Атмосферный приватный материал.
+            </div>
+
+            <div class="tease">
+                «Когда свет выключается, всё становится немного интереснее.»
+            </div>
+
+            <button class="buy" onclick="openPayment(2)">
+                🔐 Получить доступ
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- 3 -->
+
+    <div class="card">
+
+        <div class="preview">
+
+            <img
+                src="https://images.pexels.com/photos/9269403/pexels-photo-9269403.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt=""
+            >
+
+            <div class="badge">
+                PRIVATE #03
+            </div>
+
+            <div class="play">
+                ▶
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <div class="title-row">
+                <div class="title">SECRET MOMENT</div>
+                <div class="price">1 000 ₽</div>
+            </div>
+
+            <div class="desc">
+                Материал, который не публикуется открыто.
+            </div>
+
+            <div class="tease">
+                «Ты увидишь только маленькую часть того, что находится внутри…»
+            </div>
+
+            <button class="buy" onclick="openPayment(3)">
+                🔐 Получить доступ
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- 4 -->
+
+    <div class="card">
+
+        <div class="preview">
+
+            <img
+                src="https://images.pexels.com/photos/10221307/pexels-photo-10221307.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt=""
+            >
+
+            <div class="badge">
+                PRIVATE #04
+            </div>
+
+            <div class="play">
+                ▶
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <div class="title-row">
+                <div class="title">HOT COLLECTION</div>
+                <div class="price">1 500 ₽</div>
+            </div>
+
+            <div class="desc">
+                Расширенная закрытая коллекция.
+            </div>
+
+            <div class="tease">
+                «Любопытство иногда действительно стоит того.»
+            </div>
+
+            <button class="buy" onclick="openPayment(4)">
+                🔐 Получить доступ
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- 5 -->
+
+    <div class="card">
+
+        <div class="preview">
+
+            <img
+                src="https://images.pexels.com/photos/13295344/pexels-photo-13295344.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt=""
+            >
+
+            <div class="badge">
+                PRIVATE #05
+            </div>
+
+            <div class="play">
+                ▶
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <div class="title-row">
+                <div class="title">PRIVATE VIP</div>
+                <div class="price">2 000 ₽</div>
+            </div>
+
+            <div class="desc">
+                Особый материал для приватного доступа.
+            </div>
+
+            <div class="tease">
+                «Самое интересное редко бывает публичным.»
+            </div>
+
+            <button class="buy" onclick="openPayment(5)">
+                🔐 Получить доступ
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- 6 -->
+
+    <div class="card">
+
+        <div class="preview">
+
+            <img
+                src="https://images.pexels.com/photos/14510299/pexels-photo-14510299.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt=""
+            >
+
+            <div class="badge">
+                PRIVATE #06
+            </div>
+
+            <div class="play">
+                ▶
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <div class="title-row">
+                <div class="title">ULTIMATE PRIVATE</div>
+                <div class="price">2 500 ₽</div>
+            </div>
+
+            <div class="desc">
+                Премиальный материал из закрытого архива.
+            </div>
+
+            <div class="tease">
+                «Если ты дошёл сюда — ты знаешь, зачем пришёл.»
+            </div>
+
+            <button class="buy" onclick="openPayment(6)">
+                🔐 Получить доступ
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
-<!-- 2 -->
-<div class="card">
-    <div class="preview">
-        <span class="badge">PRIVATE #02</span>
 
-        <div class="person p3 short">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
+<a
+    class="contact"
+    href="https://t.me/Beriman1"
+>
+    💬 Связаться с администратором
+</a>
 
-        <div class="person second p7 longhair">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
 
-        <div class="play">▶</div>
-    </div>
+<!-- PAYMENT MODAL -->
 
-    <div class="info">
-        <div class="title-row">
-            <div class="title">AFTER DARK</div>
-            <div class="price">700 ₽</div>
-        </div>
-        <div class="desc">Приватная запись из закрытой коллекции.</div>
-        <div class="tease">«Ночь только начинается.»</div>
-        <button class="buy" onclick="openPay(2)">🔐 Получить доступ</button>
-    </div>
-</div>
+<div class="modal" id="paymentModal">
 
-<!-- 3 -->
-<div class="card">
-    <div class="preview">
-        <span class="badge">PRIVATE #03</span>
-
-        <div class="person p5 longhair">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
-
-        <div class="play">▶</div>
-    </div>
-
-    <div class="info">
-        <div class="title-row">
-            <div class="title">SECRET MOMENT</div>
-            <div class="price">1 000 ₽</div>
-        </div>
-        <div class="desc">Материал, который не публикуется открыто.</div>
-        <div class="tease">«То, что происходит за закрытой дверью…»</div>
-        <button class="buy" onclick="openPay(3)">🔐 Получить доступ</button>
-    </div>
-</div>
-
-<!-- 4 -->
-<div class="card">
-    <div class="preview">
-        <span class="badge">PRIVATE #04</span>
-
-        <div class="person p2">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
-
-        <div class="person second p6 short">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
-
-        <div class="play">▶</div>
-    </div>
-
-    <div class="info">
-        <div class="title-row">
-            <div class="title">HOT COLLECTION</div>
-            <div class="price">1 500 ₽</div>
-        </div>
-        <div class="desc">Расширенная закрытая коллекция.</div>
-        <div class="tease">«Любопытство иногда действительно стоит того.»</div>
-        <button class="buy" onclick="openPay(4)">🔐 Получить доступ</button>
-    </div>
-</div>
-
-<!-- 5 -->
-<div class="card">
-    <div class="preview">
-        <span class="badge">PRIVATE #05</span>
-
-        <div class="person p4 short">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
-
-        <div class="play">▶</div>
-    </div>
-
-    <div class="info">
-        <div class="title-row">
-            <div class="title">PRIVATE VIP</div>
-            <div class="price">2 000 ₽</div>
-        </div>
-        <div class="desc">Особый материал для приватного доступа.</div>
-        <div class="tease">«Самое интересное редко бывает публичным.»</div>
-        <button class="buy" onclick="openPay(5)">🔐 Получить доступ</button>
-    </div>
-</div>
-
-<!-- 6 -->
-<div class="card">
-    <div class="preview">
-        <span class="badge">PRIVATE #06</span>
-
-        <div class="person p3 longhair">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
-
-        <div class="person second p5">
-            <div class="hair"></div>
-            <div class="head"></div>
-            <div class="neck"></div>
-            <div class="body"></div>
-            <div class="arm1"></div>
-            <div class="arm2"></div>
-        </div>
-
-        <div class="play">▶</div>
-    </div>
-
-    <div class="info">
-        <div class="title-row">
-            <div class="title">ULTIMATE PRIVATE</div>
-            <div class="price">2 500 ₽</div>
-        </div>
-        <div class="desc">Премиальный материал из закрытого архива.</div>
-        <div class="tease">«Если ты дошёл сюда — ты знаешь, зачем пришёл.»</div>
-        <button class="buy" onclick="openPay(6)">🔐 Получить доступ</button>
-    </div>
-</div>
-
-</main>
-
-<div class="bottom">
-    <a class="contact" href="https://t.me/Beriman1">
-        💬 Связаться с администратором
-    </a>
-</div>
-
-<!-- PAYMENT -->
-
-<div class="modal" id="modal">
-    <div class="sheet">
-
-        <button class="close" onclick="closePay()">×</button>
+    <div class="modal-box">
 
         <div id="paymentContent">
 
-            <div class="modal-title">Оплата доступа</div>
-            <div class="modal-sub" id="selectedText">
-                PRIVATE ACCESS
+            <div class="modal-head">
+
+                <div class="modal-title">
+                    Оплата доступа
+                </div>
+
+                <button
+                    class="close"
+                    onclick="closePayment()"
+                >
+                    ×
+                </button>
+
             </div>
 
-            <div class="steps">
-                <div class="step active"></div>
-                <div class="step active"></div>
-                <div class="step"></div>
-            </div>
 
             <div class="bank-card">
 
-                <div class="card-bank">BANK CARD</div>
+                <div class="bank-name">
+                    PRIVATE BANK
+                </div>
 
                 <div class="chip"></div>
 
@@ -819,52 +864,66 @@ body:before{
 
                 <div class="card-bottom">
                     <span>PRIVATE ACCESS</span>
-                    <span>VIRTUAL</span>
+                    <span>VISA / MIR</span>
                 </div>
 
             </div>
+
+
+            <div class="timer">
+                Оплатите в течение <b id="timer">15:00</b>
+            </div>
+
 
             <button class="copy" onclick="copyCard()">
                 📋 Скопировать номер карты
             </button>
 
-            <div class="timer">
-                ⏱ Резерв платежа: <b id="timer">15:00</b>
+
+            <div class="steps">
+                <div class="step active"></div>
+                <div class="step"></div>
+                <div class="step"></div>
             </div>
 
-            <button class="pay-btn" onclick="paid()">
-                Я оплатил — получить доступ
+
+            <button class="paid" onclick="paid()">
+                🔐 Я оплатил — получить доступ
             </button>
-
-            <div class="note">
-                После оплаты нажми кнопку выше.<br>
-                Администратор проверит перевод и выдаст доступ.
-            </div>
 
         </div>
 
+
         <div class="success" id="success">
 
-            <div class="success-icon">✓</div>
+            <div class="success-icon">
+                ✓
+            </div>
 
-            <h2>Оплата отправлена</h2>
+            <h2>
+                Оплата отправлена
+            </h2>
 
             <p>
-                Заявка уже передана администратору.
-                После проверки оплаты доступ будет выдан в личном сообщении.
+                Заявка передана администратору.
+                После проверки оплаты доступ будет выдан
+                в личном сообщении.
             </p>
 
-            <div class="wait">
-                🤫 Твой приватный момент уже совсем близко…<br>
-                Осталось немного подождать.
+            <div class="intimate">
+                🤫 Твой приватный момент уже совсем близко…
+                Осталось совсем немного подождать.
             </div>
 
         </div>
 
     </div>
+
 </div>
 
+
 <script>
+
 const tg = window.Telegram?.WebApp;
 
 if(tg){
@@ -872,110 +931,201 @@ if(tg){
     tg.expand();
 }
 
+
 const CARD_NUMBER = "2200702194985615";
 
+
 const products = {
-    1:{title:"PRIVATE NIGHT",price:"500 ₽"},
-    2:{title:"AFTER DARK",price:"700 ₽"},
-    3:{title:"SECRET MOMENT",price:"1 000 ₽"},
-    4:{title:"HOT COLLECTION",price:"1 500 ₽"},
-    5:{title:"PRIVATE VIP",price:"2 000 ₽"},
-    6:{title:"ULTIMATE PRIVATE",price:"2 500 ₽"}
+
+    1:{
+        title:"PRIVATE NIGHT",
+        price:"500 ₽"
+    },
+
+    2:{
+        title:"AFTER DARK",
+        price:"700 ₽"
+    },
+
+    3:{
+        title:"SECRET MOMENT",
+        price:"1 000 ₽"
+    },
+
+    4:{
+        title:"HOT COLLECTION",
+        price:"1 500 ₽"
+    },
+
+    5:{
+        title:"PRIVATE VIP",
+        price:"2 000 ₽"
+    },
+
+    6:{
+        title:"ULTIMATE PRIVATE",
+        price:"2 500 ₽"
+    }
+
 };
 
-let selected = null;
-let time = 900;
-let interval = null;
 
-function openPay(id){
+let selectedProduct = null;
+let seconds = 900;
+let timerInterval;
 
-    selected = products[id];
 
-    document.getElementById("selectedText").innerHTML =
-        selected.title + " • " + selected.price;
+function openPayment(id){
 
-    document.getElementById("paymentContent").style.display="block";
-    document.getElementById("success").style.display="none";
+    selectedProduct = products[id];
 
-    document.getElementById("modal").classList.add("show");
+    document
+        .getElementById("paymentModal")
+        .classList.add("show");
 
-    time=900;
+    document
+        .getElementById("paymentContent")
+        .style.display="block";
+
+    document
+        .getElementById("success")
+        .style.display="none";
+
+    seconds = 900;
+
+    clearInterval(timerInterval);
+
     updateTimer();
 
-    clearInterval(interval);
+    timerInterval = setInterval(()=>{
 
-    interval=setInterval(()=>{
-        time--;
-
-        if(time<0){
-            time=0;
-            clearInterval(interval);
-        }
+        seconds--;
 
         updateTimer();
+
+        if(seconds <= 0){
+            clearInterval(timerInterval);
+        }
 
     },1000);
 }
 
+
+function closePayment(){
+
+    document
+        .getElementById("paymentModal")
+        .classList.remove("show");
+
+    clearInterval(timerInterval);
+}
+
+
 function updateTimer(){
 
-    const min=Math.floor(time/60)
+    const min =
+        Math.floor(seconds / 60)
         .toString()
         .padStart(2,"0");
 
-    const sec=(time%60)
+    const sec =
+        (seconds % 60)
         .toString()
         .padStart(2,"0");
 
-    document.getElementById("timer").textContent =
-        min+":"+sec;
+    document
+        .getElementById("timer")
+        .textContent =
+        `${min}:${sec}`;
 }
 
-function closePay(){
 
-    document.getElementById("modal").classList.remove("show");
+async function copyCard(){
 
-    clearInterval(interval);
+    try{
+
+        await navigator.clipboard.writeText(CARD_NUMBER);
+
+        const btn =
+            document.querySelector(".copy");
+
+        btn.textContent =
+            "✓ Номер скопирован";
+
+        setTimeout(()=>{
+
+            btn.textContent =
+                "📋 Скопировать номер карты";
+
+        },1800);
+
+    }catch(e){
+
+        alert(CARD_NUMBER);
+
+    }
+
 }
 
-function copyCard(){
-
-    navigator.clipboard.writeText(CARD_NUMBER);
-
-    const btn=document.querySelector(".copy");
-
-    btn.textContent="✓ Номер скопирован";
-
-    setTimeout(()=>{
-        btn.textContent="📋 Скопировать номер карты";
-    },1800);
-}
 
 function paid(){
 
-    document.getElementById("paymentContent").style.display="none";
-    document.getElementById("success").style.display="block";
+    const user =
+        tg?.initDataUnsafe?.user || {};
 
-    clearInterval(interval);
+    const data = {
 
-    const user=tg?.initDataUnsafe?.user || {};
-
-    const data={
         action:"payment",
-        product:selected?.title || "",
-        price:selected?.price || "",
-        user_id:user.id || "",
-        username:user.username || "",
-        first_name:user.first_name || "",
-        timestamp:new Date().toISOString()
+
+        product_id:
+            Object.keys(products)
+            .find(
+                key =>
+                products[key] === selectedProduct
+            ),
+
+        product:
+            selectedProduct?.title || "",
+
+        price:
+            selectedProduct?.price || "",
+
+        user_id:
+            user.id || "",
+
+        username:
+            user.username || "",
+
+        first_name:
+            user.first_name || "",
+
+        timestamp:
+            new Date().toISOString()
+
     };
 
+
     if(tg){
+
         try{
-            tg.sendData(JSON.stringify(data));
+            tg.sendData(
+                JSON.stringify(data)
+            );
         }catch(e){}
+
     }
+
+
+    document
+        .getElementById("paymentContent")
+        .style.display="none";
+
+    document
+        .getElementById("success")
+        .style.display="block";
+
 }
+
 </script>
 
 </body>
