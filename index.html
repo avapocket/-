@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>PRIVATE 18+</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -16,96 +17,114 @@
 }
 
 body{
-    background:#08070a;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(145,55,255,.28),transparent 38%),
+        #070509;
     color:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    padding-bottom:90px;
+    min-height:100vh;
+    padding-bottom:100px;
 }
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 10% 30%,rgba(126,35,255,.08),transparent 25%),
+        radial-gradient(circle at 90% 70%,rgba(255,0,132,.06),transparent 25%);
+    z-index:-1;
+}
+
+/* HEADER */
 
 .header{
     text-align:center;
-    padding:30px 20px 18px;
+    padding:28px 18px 20px;
 }
 
 .logo{
-    width:70px;
-    height:70px;
+    width:72px;
+    height:72px;
     margin:auto;
+    border-radius:23px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:22px;
-    background:linear-gradient(145deg,#351147,#120b17);
-    border:1px solid #63287d;
-    box-shadow:0 15px 45px #8d18ff25;
-    font-size:31px;
+    font-size:34px;
+    background:linear-gradient(145deg,#2b123f,#100a17);
+    border:1px solid rgba(190,100,255,.35);
+    box-shadow:
+        0 0 35px rgba(146,45,255,.2),
+        inset 0 0 25px rgba(255,255,255,.03);
 }
 
-h1{
-    margin-top:17px;
+.header h1{
+    margin-top:15px;
     font-size:27px;
-    letter-spacing:4px;
+    letter-spacing:2px;
+    font-weight:800;
 }
 
-.subtitle{
+.header .sub{
     margin-top:7px;
-    color:#99929f;
-    font-size:13px;
+    color:#a9a2b2;
+    font-size:14px;
 }
 
 .private{
-    margin-top:7px;
-    color:#c349ff;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:2px;
+    display:inline-block;
+    margin-top:12px;
+    padding:7px 13px;
+    border-radius:20px;
+    background:rgba(157,64,255,.12);
+    border:1px solid rgba(180,90,255,.25);
+    color:#c991ff;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
 }
 
-.container{
-    width:min(560px,calc(100% - 24px));
+/* PRODUCTS */
+
+.products{
+    width:min(650px,calc(100% - 24px));
     margin:auto;
 }
 
 .card{
     overflow:hidden;
-    margin:16px 0;
-    border-radius:22px;
-    background:#111015;
-    border:1px solid #29232e;
-    box-shadow:0 15px 45px #0009;
+    margin-bottom:18px;
+    border-radius:23px;
+    background:
+        linear-gradient(145deg,rgba(35,20,43,.92),rgba(12,9,15,.97));
+    border:1px solid rgba(255,255,255,.075);
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.35),
+        0 0 30px rgba(118,34,255,.04);
 }
+
+/* PREVIEW */
 
 .preview{
-    height:250px;
     position:relative;
+    height:250px;
     overflow:hidden;
-    background:#141016;
+    background:
+        radial-gradient(circle at 50% 40%,#54266e,#130c18 65%,#070509);
 }
-
-/*
-    Здесь используются реальные изображения.
-    Они специально сильно размываются.
-*/
 
 .preview img{
-    position:absolute;
-    inset:-8%;
-    width:116%;
-    height:116%;
+    width:100%;
+    height:100%;
     object-fit:cover;
-
+    transform:scale(1.12);
     filter:
-        blur(22px)
-        brightness(.70)
+        blur(20px)
+        brightness(.65)
         contrast(1.15)
-        saturate(.75);
-
-    transform:scale(1.08);
-    transition:transform 6s ease;
-}
-
-.card:hover .preview img{
-    transform:scale(1.15);
+        saturate(.8);
 }
 
 .preview:after{
@@ -113,49 +132,56 @@ h1{
     position:absolute;
     inset:0;
     background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.08),
-            rgba(0,0,0,.15) 45%,
-            rgba(5,4,7,.92)
-        );
+        linear-gradient(to bottom,transparent 35%,rgba(7,5,9,.85) 100%);
 }
 
-.badge{
+.preview-number{
     position:absolute;
-    z-index:3;
-    top:14px;
-    left:14px;
-    padding:7px 11px;
+    top:13px;
+    left:13px;
+    z-index:2;
+    padding:7px 10px;
     border-radius:10px;
-    background:#08070ad9;
-    border:1px solid #ffffff20;
-    backdrop-filter:blur(12px);
-    font-size:10px;
-    letter-spacing:1.5px;
-    font-weight:800;
+    background:rgba(0,0,0,.5);
+    backdrop-filter:blur(10px);
+    font-size:11px;
+    color:#ddd;
 }
 
-.lock{
+.blur-label{
     position:absolute;
-    z-index:3;
-    top:50%;
+    z-index:2;
     left:50%;
+    top:50%;
     transform:translate(-50%,-50%);
-    width:58px;
-    height:58px;
+    width:62px;
+    height:62px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#08070ac7;
-    border:1px solid #ffffff28;
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(255,255,255,.16);
     backdrop-filter:blur(12px);
-    font-size:24px;
-    box-shadow:0 12px 40px #000;
+    font-size:23px;
 }
 
-.info{
+.badge{
+    position:absolute;
+    right:13px;
+    top:13px;
+    z-index:2;
+    padding:7px 11px;
+    border-radius:10px;
+    background:rgba(133,42,255,.7);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+/* CONTENT */
+
+.content{
     padding:18px;
 }
 
@@ -167,251 +193,306 @@ h1{
 }
 
 .title{
-    font-size:18px;
+    font-size:19px;
     font-weight:800;
 }
 
 .price{
-    color:#d258ff;
+    color:#c78aff;
     font-weight:800;
     white-space:nowrap;
 }
 
 .desc{
     margin-top:8px;
-    color:#918b98;
-    font-size:13px;
+    color:#9f98a7;
     line-height:1.5;
+    font-size:13px;
 }
 
 .tease{
-    margin-top:13px;
-    padding:12px;
+    margin-top:12px;
+    padding:11px 13px;
     border-radius:12px;
-    background:#18121c;
-    border:1px solid #302137;
-    color:#c0b6c6;
+    background:rgba(150,54,255,.07);
+    border:1px solid rgba(150,54,255,.12);
+    color:#c8bfce;
     font-size:12px;
     font-style:italic;
 }
 
 .buy{
     width:100%;
+    border:0;
     margin-top:14px;
     padding:14px;
-    border:0;
-    border-radius:13px;
+    border-radius:14px;
     color:#fff;
-    background:linear-gradient(135deg,#b32dff,#7420b8);
     font-size:14px;
     font-weight:800;
-    box-shadow:0 10px 30px #8b16ff28;
+    cursor:pointer;
+    background:linear-gradient(135deg,#9b3dff,#6b20d7);
+    box-shadow:0 8px 25px rgba(123,35,220,.25);
 }
 
 .buy:active{
     transform:scale(.98);
 }
 
+/* BOTTOM */
+
 .bottom{
     position:fixed;
+    left:12px;
+    right:12px;
+    bottom:12px;
     z-index:20;
-    left:0;
-    right:0;
-    bottom:0;
-    padding:12px;
-    background:#08070af2;
-    border-top:1px solid #241e29;
-    backdrop-filter:blur(18px);
 }
 
 .contact{
-    display:block;
-    width:min(560px,100%);
-    margin:auto;
-    padding:14px;
-    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:54px;
+    border-radius:17px;
     text-decoration:none;
     color:#fff;
-    border-radius:14px;
-    background:#151218;
-    border:1px solid #332a39;
-    font-size:13px;
+    font-size:14px;
     font-weight:700;
+    background:rgba(20,15,25,.92);
+    border:1px solid rgba(178,81,255,.25);
+    backdrop-filter:blur(20px);
+    box-shadow:0 10px 35px rgba(0,0,0,.5);
 }
 
-
-/* PAYMENT */
+/* MODAL */
 
 .modal{
     position:fixed;
-    z-index:100;
     inset:0;
+    z-index:100;
     display:none;
     align-items:flex-end;
     justify-content:center;
-    background:#000c;
-    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(10px);
 }
 
 .modal.show{
     display:flex;
 }
 
-.modal-box{
-    width:min(560px,100%);
-    max-height:93vh;
+.sheet{
+    width:min(650px,100%);
+    max-height:94vh;
     overflow:auto;
-    padding:22px;
-    border-radius:27px 27px 0 0;
-    background:#0f0d12;
-    border:1px solid #302737;
-    box-shadow:0 -20px 80px #000;
-}
-
-.modal-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:20px;
-}
-
-.modal-head h2{
-    font-size:19px;
+    padding:22px 18px 30px;
+    border-radius:28px 28px 0 0;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(137,45,255,.16),transparent 38%),
+        #0d0a10;
+    border:1px solid rgba(255,255,255,.08);
 }
 
 .close{
     width:38px;
     height:38px;
+    float:right;
+    border:0;
     border-radius:50%;
-    background:#18151b;
-    border:1px solid #302a34;
     color:#aaa;
-    font-size:21px;
+    background:#19141d;
+    font-size:20px;
 }
 
+.sheet h2{
+    clear:both;
+    padding-top:12px;
+    font-size:22px;
+}
 
-/* CARD */
+.selected{
+    color:#a99fac;
+    font-size:13px;
+    margin-top:5px;
+}
+
+/* PAYMENT CARD */
 
 .bank-card{
     position:relative;
     height:205px;
-    padding:22px;
+    margin-top:20px;
+    padding:23px;
+    border-radius:23px;
     overflow:hidden;
-    border-radius:21px;
     background:
-        radial-gradient(circle at 80% 15%,#bd31ff55,transparent 30%),
-        radial-gradient(circle at 10% 90%,#6b20a855,transparent 35%),
-        linear-gradient(135deg,#211527,#0c0a0f);
-    border:1px solid #ffffff18;
-    box-shadow:0 20px 45px #0009;
+        radial-gradient(circle at 80% 20%,rgba(255,255,255,.16),transparent 25%),
+        linear-gradient(135deg,#24102f,#111018 55%,#321044);
+    border:1px solid rgba(255,255,255,.13);
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.45),
+        0 0 35px rgba(134,40,220,.13);
 }
 
-.bank-name{
-    font-size:17px;
+.bank-card:after{
+    content:"";
+    position:absolute;
+    width:170px;
+    height:170px;
+    right:-60px;
+    bottom:-80px;
+    border-radius:50%;
+    background:rgba(190,70,255,.18);
+    filter:blur(20px);
+}
+
+.card-bank{
+    font-size:14px;
     font-weight:800;
+    letter-spacing:1px;
 }
 
-.card-type{
-    margin-top:4px;
-    color:#9d94a5;
-    font-size:9px;
-    letter-spacing:2px;
-}
-
-.chip{
-    width:42px;
+.card-chip{
+    width:43px;
     height:32px;
-    margin-top:30px;
+    margin-top:27px;
     border-radius:8px;
-    background:linear-gradient(135deg,#d2d2d2,#777);
+    background:linear-gradient(135deg,#aaa,#e7e7e7,#777);
 }
 
 .card-number{
-    margin-top:18px;
-    font-family:monospace;
+    margin-top:21px;
     font-size:18px;
     letter-spacing:2px;
+    font-family:monospace;
 }
 
 .card-bottom{
     position:absolute;
-    left:22px;
-    right:22px;
-    bottom:18px;
+    left:23px;
+    right:23px;
+    bottom:19px;
     display:flex;
     justify-content:space-between;
-    color:#aaa2ae;
-    font-size:9px;
-    letter-spacing:1px;
+    color:#aaa;
+    font-size:10px;
+    text-transform:uppercase;
 }
 
-.copy{
-    width:100%;
-    margin-top:10px;
-    padding:13px;
-    border-radius:12px;
-    background:#17131a;
-    color:#d8d0dc;
-    border:1px solid #35283d;
-    font-weight:700;
-}
+/* TIMER */
 
 .timer{
-    margin:17px 0;
+    margin-top:17px;
+    padding:13px;
     text-align:center;
-    color:#ff75d9;
+    border-radius:14px;
+    background:rgba(255,255,255,.035);
+    color:#bcaec5;
     font-size:13px;
 }
 
-.steps{
+.timer span{
+    color:#d18aff;
+    font-weight:800;
+    font-size:17px;
+}
+
+/* COPY */
+
+.copy-row{
     display:flex;
-    gap:8px;
-    margin-bottom:17px;
+    gap:9px;
+    margin-top:12px;
+}
+
+.copy-number{
+    flex:1;
+    padding:14px;
+    border-radius:13px;
+    color:#ddd;
+    background:#17121b;
+    border:1px solid rgba(255,255,255,.07);
+    font-family:monospace;
+    font-size:13px;
+}
+
+.copy-btn{
+    border:0;
+    padding:0 16px;
+    border-radius:13px;
+    color:#fff;
+    background:#251531;
+    border:1px solid rgba(180,80,255,.2);
+    font-weight:700;
+}
+
+/* STEPS */
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    margin-top:16px;
 }
 
 .step{
-    flex:1;
     padding:10px 5px;
     text-align:center;
-    border-radius:10px;
-    background:#17131a;
-    color:#77707d;
+    border-radius:12px;
+    background:#131017;
+    color:#807887;
     font-size:10px;
 }
 
 .step.active{
-    color:#fff;
-    background:#24172b;
-    border:1px solid #71318b;
+    color:#d096ff;
+    background:rgba(151,52,255,.1);
+    border:1px solid rgba(151,52,255,.16);
 }
 
-.pay{
+/* PAID */
+
+.paid{
     width:100%;
+    margin-top:16px;
     padding:16px;
     border:0;
-    border-radius:14px;
-    background:linear-gradient(135deg,#b72cff,#7c20c5);
+    border-radius:15px;
+    background:linear-gradient(135deg,#a43eff,#7124db);
     color:#fff;
     font-size:14px;
     font-weight:800;
+    box-shadow:0 10px 30px rgba(119,31,216,.25);
 }
+
+.note{
+    margin-top:11px;
+    color:#77707e;
+    text-align:center;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* SUCCESS */
 
 .success{
     display:none;
     text-align:center;
-    padding:20px 5px;
+    padding:25px 5px 10px;
 }
 
 .success-icon{
-    width:68px;
-    height:68px;
+    width:72px;
+    height:72px;
     margin:auto;
+    border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:50%;
-    background:#281633;
-    font-size:30px;
+    background:rgba(151,54,255,.12);
+    border:1px solid rgba(176,83,255,.25);
+    font-size:32px;
 }
 
 .success h2{
@@ -420,19 +501,40 @@ h1{
 
 .success p{
     margin-top:10px;
-    color:#938b99;
-    font-size:13px;
+    color:#aaa1ae;
     line-height:1.6;
+    font-size:13px;
 }
 
 .intimate{
     margin-top:18px;
-    padding:15px;
-    border-radius:14px;
-    background:#19121d;
-    border:1px solid #32223a;
-    color:#c8bdcd;
+    padding:16px;
+    border-radius:16px;
+    background:linear-gradient(
+        135deg,
+        rgba(142,48,255,.12),
+        rgba(255,50,164,.05)
+    );
+    border:1px solid rgba(170,67,255,.14);
+    color:#d6c3dc;
     font-size:13px;
+    line-height:1.55;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:420px){
+    .preview{
+        height:225px;
+    }
+
+    .bank-card{
+        height:190px;
+    }
+
+    .card-number{
+        font-size:16px;
+    }
 }
 </style>
 </head>
@@ -445,8 +547,8 @@ h1{
 
     <h1>PRIVATE</h1>
 
-    <div class="subtitle">
-        Закрытая коллекция
+    <div class="sub">
+        Закрытый контент
     </div>
 
     <div class="private">
@@ -456,85 +558,68 @@ h1{
 </header>
 
 
-<main class="container" id="products"></main>
+<main class="products" id="products"></main>
 
 
 <div class="bottom">
-
-    <a
-        class="contact"
-        href="https://t.me/Beriman1"
-        target="_blank">
-
+    <a class="contact" href="https://t.me/Beriman1" target="_blank">
         💬 Связаться с администратором
-
     </a>
-
 </div>
 
 
+<!-- PAYMENT -->
+
 <div class="modal" id="modal">
 
-    <div class="modal-box">
+    <div class="sheet">
 
-        <div class="modal-head">
+        <button class="close" onclick="closeModal()">×</button>
 
-            <h2>
-                🔐 PRIVATE ACCESS
-            </h2>
+        <div id="paymentContent">
 
-            <button
-                class="close"
-                onclick="closeModal()">
+            <h2>Получение доступа</h2>
 
-                ×
+            <div class="selected" id="selectedProduct">
+                Выбранный материал
+            </div>
 
-            </button>
-
-        </div>
-
-
-        <div id="payment">
 
             <div class="bank-card">
 
-                <div class="bank-name">
-                    Т-БАНК
+                <div class="card-bank">
+                    T-BANK
                 </div>
 
-                <div class="card-type">
-                    PRIVATE ACCESS
-                </div>
-
-                <div class="chip"></div>
+                <div class="card-chip"></div>
 
                 <div class="card-number">
                     2200 7021 9498 5615
                 </div>
 
                 <div class="card-bottom">
-
-                    <span>PRIVATE</span>
-                    <span>VALID</span>
-
+                    <span>PRIVATE ACCESS</span>
+                    <span>VIP</span>
                 </div>
 
             </div>
 
 
-            <button
-                class="copy"
-                onclick="copyCard()">
-
-                📋 Скопировать номер карты
-
-            </button>
-
-
             <div class="timer">
+                Реквизиты действуют:
+                <span id="timer">15:00</span>
+            </div>
 
-                ⏱ Оплата зарезервирована на
-                <b id="timer">15:00</b>
+
+            <div class="copy-row">
+
+                <div class="copy-number">
+                    2200702194985615
+                </div>
+
+                <button class="copy-btn" onclick="copyCard()">
+                    Копировать
+                </button>
 
             </div>
 
@@ -542,27 +627,28 @@ h1{
             <div class="steps">
 
                 <div class="step active">
-                    1. Оплата
+                    ① Оплата
                 </div>
 
                 <div class="step">
-                    2. Проверка
+                    ② Проверка
                 </div>
 
                 <div class="step">
-                    3. Доступ
+                    ③ Доступ
                 </div>
 
             </div>
 
 
-            <button
-                class="pay"
-                onclick="paid()">
-
+            <button class="paid" onclick="paid()">
                 🔐 Я оплатил — получить доступ
-
             </button>
+
+            <div class="note">
+                После оплаты заявка отправляется администратору
+                для проверки.
+            </div>
 
         </div>
 
@@ -579,15 +665,14 @@ h1{
 
             <p>
                 Заявка передана администратору.
-                После проверки оплаты доступ будет
-                выдан в личном сообщении.
+                После проверки оплаты доступ будет выдан
+                в личном сообщении.
             </p>
 
             <div class="intimate">
-
                 🤫 Твой приватный момент уже совсем близко…
-                Осталось немного подождать.
-
+                <br><br>
+                Осталось совсем немного подождать.
             </div>
 
         </div>
@@ -602,24 +687,34 @@ h1{
 const tg = window.Telegram?.WebApp;
 
 if(tg){
-
     tg.ready();
     tg.expand();
-
 }
 
 
-const CARD_NUMBER =
-    "2200702194985615";
+const CARD_NUMBER = "2200702194985615";
 
 
 /*
-    Замени эти URL на свои лицензированные
-    изображения при необходимости.
+    ВАЖНО:
 
-    Они используются только как визуальные
-    размытые превью.
+    Для превью можешь положить свои обычные,
+    неоткровенные фотографии силуэтов в папку:
+
+    images/
+
+    и назвать их:
+
+    preview1.jpg
+    preview2.jpg
+    preview3.jpg
+    preview4.jpg
+    preview5.jpg
+    preview6.jpg
+
+    Все шесть карточек используют разные изображения.
 */
+
 
 const products = [
 
@@ -627,7 +722,7 @@ const products = [
         id:1,
         title:"PRIVATE NIGHT",
         price:"500 ₽",
-        image:"https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg",
+        image:"images/preview1.jpg",
         desc:"Закрытый материал из приватной коллекции.",
         tease:"«Некоторые моменты лучше оставить только для своих…»"
     },
@@ -636,7 +731,7 @@ const products = [
         id:2,
         title:"AFTER DARK",
         price:"700 ₽",
-        image:"https://images.pexels.com/photos/1759533/pexels-photo-1759533.jpeg",
+        image:"images/preview2.jpg",
         desc:"Приватная запись из закрытой коллекции.",
         tease:"«Ночь только начинается.»"
     },
@@ -645,7 +740,7 @@ const products = [
         id:3,
         title:"SECRET MOMENT",
         price:"1 000 ₽",
-        image:"https://images.pexels.com/photos/1025469/pexels-photo-1025469.jpeg",
+        image:"images/preview3.jpg",
         desc:"Материал, который не публикуется открыто.",
         tease:"«То, что происходит за закрытой дверью…»"
     },
@@ -654,7 +749,7 @@ const products = [
         id:4,
         title:"HOT COLLECTION",
         price:"1 500 ₽",
-        image:"https://images.pexels.com/photos/697244/pexels-photo-697244.jpeg",
+        image:"images/preview4.jpg",
         desc:"Расширенная закрытая коллекция.",
         tease:"«Любопытство иногда действительно стоит того.»"
     },
@@ -663,7 +758,7 @@ const products = [
         id:5,
         title:"PRIVATE VIP",
         price:"2 000 ₽",
-        image:"https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg",
+        image:"images/preview5.jpg",
         desc:"Особый материал для приватного доступа.",
         tease:"«Самое интересное редко бывает публичным.»"
     },
@@ -672,7 +767,7 @@ const products = [
         id:6,
         title:"ULTIMATE PRIVATE",
         price:"2 500 ₽",
-        image:"https://images.pexels.com/photos/206064/pexels-photo-206064.jpeg",
+        image:"images/preview6.jpg",
         desc:"Премиальный материал из закрытого архива.",
         tease:"«Если ты дошёл сюда — ты знаешь, зачем пришёл.»"
     }
@@ -680,14 +775,12 @@ const products = [
 ];
 
 
-const container =
-    document.getElementById("products");
+const container = document.getElementById("products");
 
 
-products.forEach(product => {
+products.forEach((product,index)=>{
 
-    const card =
-        document.createElement("div");
+    const card = document.createElement("article");
 
     card.className = "card";
 
@@ -699,20 +792,24 @@ products.forEach(product => {
                 src="${product.image}"
                 alt=""
                 loading="lazy"
+                onerror="this.style.display='none'"
             >
 
-            <div class="badge">
-                🔒 PRIVATE
+            <div class="preview-number">
+                PRIVATE #${String(index+1).padStart(2,"0")}
             </div>
 
-            <div class="lock">
-                🔐
+            <div class="badge">
+                18+
+            </div>
+
+            <div class="blur-label">
+                🔒
             </div>
 
         </div>
 
-
-        <div class="info">
+        <div class="content">
 
             <div class="title-row">
 
@@ -726,27 +823,22 @@ products.forEach(product => {
 
             </div>
 
-
             <div class="desc">
                 ${product.desc}
             </div>
-
 
             <div class="tease">
                 ${product.tease}
             </div>
 
-
             <button
                 class="buy"
-                onclick="openPayment(${product.id})">
-
+                onclick="openModal(${product.id})"
+            >
                 🔐 Получить доступ
-
             </button>
 
         </div>
-
     `;
 
     container.appendChild(card);
@@ -755,47 +847,54 @@ products.forEach(product => {
 
 
 let selectedProduct = null;
-let seconds = 900;
 let timerInterval = null;
+let seconds = 900;
 
 
-function openPayment(id){
+function openModal(id){
 
     selectedProduct =
-        products.find(x => x.id === id);
+        products.find(product => product.id === id);
 
-    document
-        .getElementById("modal")
-        .classList.add("show");
+    document.getElementById("selectedProduct").textContent =
+        selectedProduct.title + " • " + selectedProduct.price;
 
-    document
-        .getElementById("payment")
-        .style.display = "block";
+    document.getElementById("modal").classList.add("show");
 
-    document
-        .getElementById("success")
-        .style.display = "none";
+    document.getElementById("paymentContent").style.display = "block";
+    document.getElementById("success").style.display = "none";
 
-    seconds = 900;
-
-    clearInterval(timerInterval);
-
-    timerInterval =
-        setInterval(updateTimer,1000);
-
-    updateTimer();
-
+    startTimer();
 }
 
 
 function closeModal(){
 
-    document
-        .getElementById("modal")
-        .classList.remove("show");
+    document.getElementById("modal").classList.remove("show");
+
+    clearInterval(timerInterval);
+}
+
+
+function startTimer(){
 
     clearInterval(timerInterval);
 
+    seconds = 900;
+
+    updateTimer();
+
+    timerInterval = setInterval(()=>{
+
+        seconds--;
+
+        updateTimer();
+
+        if(seconds <= 0){
+            clearInterval(timerInterval);
+        }
+
+    },1000);
 }
 
 
@@ -811,19 +910,8 @@ function updateTimer(){
         .toString()
         .padStart(2,"0");
 
-    document
-        .getElementById("timer")
-        .textContent =
+    document.getElementById("timer").textContent =
         `${minutes}:${secs}`;
-
-    if(seconds <= 0){
-
-        clearInterval(timerInterval);
-
-    }
-
-    seconds--;
-
 }
 
 
@@ -831,26 +919,22 @@ async function copyCard(){
 
     try{
 
-        await navigator
-            .clipboard
-            .writeText(CARD_NUMBER);
+        await navigator.clipboard.writeText(CARD_NUMBER);
 
-        const button =
-            document.querySelector(".copy");
+        const btn =
+            document.querySelector(".copy-btn");
 
-        button.textContent =
-            "✓ Номер скопирован";
+        const oldText = btn.textContent;
 
-        setTimeout(() => {
+        btn.textContent = "✓ Скопировано";
 
-            button.textContent =
-                "📋 Скопировать номер карты";
+        setTimeout(()=>{
+            btn.textContent = oldText;
+        },1800);
 
-        },2000);
+    }catch(error){
 
-    }catch(e){
-
-        alert(CARD_NUMBER);
+        alert("Номер карты: " + CARD_NUMBER);
 
     }
 
@@ -883,26 +967,41 @@ function paid(){
     };
 
 
+    /*
+        Отправляем информацию в Telegram Mini App.
+    */
+
     if(tg){
 
-        tg.sendData(
-            JSON.stringify(data)
-        );
+        try{
+            tg.sendData(JSON.stringify(data));
+        }catch(error){
+            console.log(error);
+        }
 
     }
 
 
-    document
-        .getElementById("payment")
-        .style.display = "none";
+    document.getElementById("paymentContent").style.display =
+        "none";
 
-    document
-        .getElementById("success")
-        .style.display = "block";
+    document.getElementById("success").style.display =
+        "block";
 
     clearInterval(timerInterval);
 
 }
+
+
+/* Закрытие по клику вне окна */
+
+document.getElementById("modal").addEventListener("click",(event)=>{
+
+    if(event.target.id === "modal"){
+        closeModal();
+    }
+
+});
 
 </script>
 
