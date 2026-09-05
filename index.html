@@ -2,10 +2,9 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRIVATE ACCESS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>PRIVATE ROOM</title>
 
 <style>
 *{
@@ -19,212 +18,147 @@ body{
     background:#080808;
     color:#fff;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    min-height:100vh;
 }
 
-.app{
-    max-width:600px;
-    margin:auto;
-    padding:18px 14px 40px;
-}
-
-/* HEADER */
-
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:22px;
+header{
+    padding:22px 18px 12px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(8,8,8,.94);
+    backdrop-filter:blur(18px);
 }
 
 .logo{
-    font-size:20px;
+    font-size:25px;
     font-weight:900;
-    letter-spacing:2px;
+    letter-spacing:1.5px;
 }
 
-.badge18{
-    padding:7px 11px;
-    border:1px solid #333;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:800;
-    color:#aaa;
+.sub{
+    margin-top:5px;
+    color:#8e8e8e;
+    font-size:13px;
 }
 
-/* HERO */
-
-.hero{
-    position:relative;
-    overflow:hidden;
-    border-radius:22px;
-    border:1px solid #252525;
-    background:#111;
-    padding:25px 20px;
-    margin-bottom:20px;
-}
-
-.hero:before{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    right:-70px;
-    top:-80px;
-    background:#6f3cff;
-    filter:blur(90px);
-    opacity:.15;
-}
-
-.hero small{
-    position:relative;
-    color:#888;
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-.hero h1{
-    position:relative;
-    margin-top:8px;
-    font-size:30px;
-    font-weight:900;
-}
-
-.hero p{
-    position:relative;
-    margin-top:10px;
-    color:#777;
-    font-size:12px;
-    line-height:1.5;
-}
-
-/* FILTERS */
-
-.filters{
+.categories{
     display:flex;
     gap:8px;
+    margin-top:18px;
     overflow-x:auto;
     scrollbar-width:none;
-    margin-bottom:18px;
 }
 
-.filters::-webkit-scrollbar{
+.categories::-webkit-scrollbar{
     display:none;
 }
 
-.filter{
+.cat{
     flex:none;
-    background:#111;
     border:1px solid #292929;
-    color:#888;
-    padding:9px 14px;
-    border-radius:11px;
-    font-size:10px;
-    font-weight:800;
+    background:#111;
+    color:#999;
+    padding:9px 15px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:700;
 }
 
-.filter.active{
+.cat.active{
     background:#fff;
     color:#000;
+    border-color:#fff;
 }
 
-/* GRID */
+.container{
+    padding:12px;
+}
 
 .grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
 }
 
 .card{
+    background:#111;
+    border:1px solid #202020;
+    border-radius:15px;
     overflow:hidden;
-    background:#101010;
-    border:1px solid #242424;
-    border-radius:17px;
+    position:relative;
+    cursor:pointer;
 }
 
 .preview{
-    height:205px;
+    height:250px;
     position:relative;
     overflow:hidden;
-    background:#111;
+    background:
+        radial-gradient(circle at 50% 35%,#383838 0%,#151515 35%,#080808 75%);
 }
-
-/*
-================================================
-          ВИДЕО ПРЕВЬЮ
-================================================
-
-ТВОИ ВИДЕО ВСТАВЛЯЮТСЯ НИЖЕ В JAVASCRIPT.
-
-Видео автоматически:
-• сильно размывается
-• затемняется
-• масштабируется
-• остаётся движущимся превью
-
-================================================
-*/
 
 .preview video{
     position:absolute;
-    inset:-12%;
-    width:124%;
-    height:124%;
-
+    inset:-18%;
+    width:136%;
+    height:136%;
     object-fit:cover;
 
-    filter:blur(18px);
-    transform:scale(1.08);
+    filter:
+        blur(23px)
+        brightness(.78)
+        contrast(1.08);
 
-    opacity:.65;
+    transform:scale(1.12);
+    opacity:0;
+    transition:opacity .5s ease;
 }
 
-/* тёмная маска */
+.preview video.ready{
+    opacity:1;
+}
 
-.preview .dark{
+.blur-overlay{
     position:absolute;
     inset:0;
+    z-index:2;
+
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,.15),
-            rgba(0,0,0,.55)
+            rgba(0,0,0,.05),
+            rgba(0,0,0,.18) 45%,
+            rgba(0,0,0,.72)
         );
-    z-index:2;
 }
 
-/* BADGE */
-
-.video-badge{
+.badge{
     position:absolute;
-    left:9px;
-    top:9px;
-    z-index:4;
+    top:10px;
+    left:10px;
+    z-index:5;
 
-    background:rgba(0,0,0,.72);
-    border:1px solid rgba(255,255,255,.12);
-
-    padding:6px 8px;
+    padding:5px 8px;
     border-radius:7px;
 
-    font-size:8px;
-    font-weight:900;
-    letter-spacing:1px;
-}
+    background:rgba(0,0,0,.72);
+    border:1px solid rgba(255,255,255,.15);
 
-/* LOCK */
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.8px;
+}
 
 .lock{
     position:absolute;
-    z-index:4;
-
+    z-index:5;
     left:50%;
     top:50%;
-
     transform:translate(-50%,-50%);
 
-    width:43px;
-    height:43px;
+    width:48px;
+    height:48px;
 
     display:flex;
     align-items:center;
@@ -232,37 +166,44 @@ body{
 
     border-radius:50%;
 
-    background:rgba(0,0,0,.62);
-    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.58);
+    border:1px solid rgba(255,255,255,.22);
 
-    font-size:17px;
+    backdrop-filter:blur(8px);
+
+    font-size:20px;
 }
 
-/* CARD INFO */
-
-.info{
-    padding:12px;
+.card-info{
+    padding:11px 10px 13px;
 }
 
 .title{
-    font-size:12px;
+    font-size:13px;
     font-weight:800;
-
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
 
-.meta{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.desc{
+    color:#777;
+    font-size:10px;
+    margin-top:4px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
 
-    margin-top:10px;
+.bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:11px;
 }
 
 .price{
-    font-size:12px;
+    font-size:13px;
     font-weight:900;
 }
 
@@ -270,154 +211,125 @@ body{
     border:0;
     background:#fff;
     color:#000;
-
-    padding:8px 11px;
+    padding:7px 10px;
     border-radius:8px;
-
-    font-size:9px;
+    font-size:10px;
     font-weight:900;
 }
 
 /* MODAL */
 
 .modal{
+    display:none;
     position:fixed;
     inset:0;
-
-    display:none;
-    align-items:flex-end;
+    z-index:100;
 
     background:rgba(0,0,0,.82);
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(15px);
 
-    z-index:100;
-}
-
-.modal.show{
-    display:flex;
+    align-items:flex-end;
+    justify-content:center;
 }
 
 .modal-box{
     width:100%;
-    max-width:600px;
+    max-width:500px;
 
     background:#111;
-
     border:1px solid #292929;
-    border-radius:24px 24px 0 0;
+    border-radius:25px 25px 0 0;
 
-    padding:18px;
-    animation:slideUp .25s ease;
+    padding:22px 18px 30px;
+
+    animation:up .25s ease;
 }
 
-@keyframes slideUp{
+@keyframes up{
     from{
         transform:translateY(100%);
     }
-
     to{
         transform:translateY(0);
     }
 }
 
 .close{
-    text-align:right;
-    color:#777;
-    font-size:25px;
-    cursor:pointer;
+    float:right;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    border:1px solid #333;
+    background:#1b1b1b;
+    color:#aaa;
+    font-size:18px;
 }
 
 .modal-title{
     font-size:21px;
     font-weight:900;
+    margin-top:6px;
 }
 
-.selected{
-    color:#777;
-    font-size:11px;
-    margin-top:5px;
+.modal-desc{
+    color:#888;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:7px;
 }
 
-/* PAYMENT */
-
-.payment-card{
+.hot-text{
     margin-top:18px;
+    padding:13px;
+    border-radius:13px;
+    background:#191919;
+    border:1px solid #292929;
 
-    padding:19px;
+    color:#d0d0d0;
+    font-size:12px;
+    line-height:1.45;
+}
 
-    border-radius:17px;
-    border:1px solid #303030;
-
-    background:#0c0c0c;
+.payment{
+    margin-top:16px;
 }
 
 .label{
-    color:#666;
-    font-size:9px;
+    color:#777;
+    font-size:10px;
+    text-transform:uppercase;
     letter-spacing:1px;
 }
 
 .card-number{
-    margin-top:8px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    font-size:20px;
+    margin-top:7px;
+    padding:13px;
+
+    border-radius:11px;
+    background:#080808;
+    border:1px solid #282828;
+
+    font-size:16px;
     font-weight:800;
-    letter-spacing:1.5px;
+    letter-spacing:1px;
 }
 
 .copy{
-    width:100%;
-    margin-top:12px;
-
-    background:#171717;
-    border:1px solid #303030;
+    background:#222;
     color:#fff;
-
-    padding:11px;
-    border-radius:10px;
-
+    border:0;
+    padding:8px 10px;
+    border-radius:7px;
     font-size:10px;
-    font-weight:800;
 }
 
-/* TIMER */
-
-.timer{
-    text-align:center;
-    margin:16px 0;
-}
-
-.timer-number{
-    font-size:27px;
-    font-weight:900;
-}
-
-.timer-text{
-    display:block;
-    color:#666;
-    font-size:9px;
-}
-
-/* INSTRUCTIONS */
-
-.instructions{
-    padding:13px;
-
-    background:#181818;
-    border-radius:12px;
-
-    color:#888;
-
-    font-size:10px;
-    line-height:1.65;
-}
-
-/* BUTTONS */
-
-.paid{
+.pay-btn{
     width:100%;
-    margin-top:13px;
-
+    margin-top:14px;
     padding:15px;
 
     border:0;
@@ -426,306 +338,100 @@ body{
     background:#fff;
     color:#000;
 
-    font-size:11px;
     font-weight:900;
+    font-size:14px;
 }
 
-.admin{
+.telegram{
     width:100%;
-    margin-top:10px;
-
+    margin-top:9px;
     padding:13px;
 
     border:1px solid #303030;
     border-radius:12px;
 
-    background:#121212;
+    background:#171717;
     color:#fff;
 
-    font-size:10px;
     font-weight:800;
 }
 
-/* SUCCESS */
-
-.success{
-    display:none;
+.timer{
     text-align:center;
-    padding:20px 0 5px;
-}
-
-.success-icon{
-    width:60px;
-    height:60px;
-
-    margin:auto;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#191919;
-    border:1px solid #333;
-
-    font-size:25px;
-}
-
-.success h2{
-    margin-top:14px;
-    font-size:21px;
-}
-
-.success p{
-    margin-top:8px;
     color:#777;
     font-size:11px;
-    line-height:1.5;
+    margin-top:12px;
 }
 
-.telegram{
-    display:block;
-
-    margin-top:17px;
-
-    padding:14px;
-
-    border-radius:12px;
-
-    background:#fff;
-    color:#000;
-
-    text-decoration:none;
-
-    font-size:11px;
-    font-weight:900;
-}
-
-/* FOOTER */
-
-.footer{
+.empty{
+    grid-column:1/-1;
     text-align:center;
-    margin-top:28px;
-
-    color:#444;
-    font-size:8px;
-    letter-spacing:1px;
+    padding:60px 20px;
+    color:#666;
 }
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
+<header>
+    <div class="logo">PRIVATE ROOM</div>
+    <div class="sub">Закрытая коллекция • Только для своих</div>
 
-    <div class="header">
-
-        <div class="logo">
-            PRIVATE
-        </div>
-
-        <div class="badge18">
-            18+ ACCESS
-        </div>
-
+    <div class="categories">
+        <button class="cat active" onclick="filterVideos('all',this)">ВСЁ</button>
+        <button class="cat" onclick="filterVideos('new',this)">NEW</button>
+        <button class="cat" onclick="filterVideos('hot',this)">HOT</button>
+        <button class="cat" onclick="filterVideos('vip',this)">VIP</button>
     </div>
+</header>
 
+<main class="container">
+    <div class="grid" id="grid"></div>
+</main>
 
-    <div class="hero">
-
-        <small>
-            PRIVATE COLLECTION
-        </small>
-
-        <h1>
-            Закрытый доступ
-        </h1>
-
-        <p>
-            Выбери видео из приватной коллекции
-            и получи доступ после оплаты.
-        </p>
-
-    </div>
-
-
-    <div class="filters">
-
-        <button
-            class="filter active"
-            onclick="filterVideos('all',this)"
-        >
-            ВСЕ
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterVideos('new',this)"
-        >
-            НОВЫЕ
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterVideos('vip',this)"
-        >
-            VIP
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterVideos('popular',this)"
-        >
-            ПОПУЛЯРНЫЕ
-        </button>
-
-    </div>
-
-
-    <div
-        class="grid"
-        id="videoGrid"
-    ></div>
-
-
-    <div class="footer">
-        PRIVATE ACCESS • 18+
-    </div>
-
-</div>
-
-
-<!-- PAYMENT MODAL -->
-
-<div
-    class="modal"
-    id="modal"
->
-
+<div class="modal" id="modal" onclick="outside(event)">
     <div class="modal-box">
 
-        <div
-            class="close"
-            onclick="closeModal()"
-        >
-            ×
-        </div>
+        <button class="close" onclick="closeModal()">×</button>
 
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-desc" id="modalDesc"></div>
 
-        <div id="paymentScreen">
+        <div class="hot-text" id="modalText"></div>
 
-            <div class="modal-title">
-                Оплата доступа
+        <div class="payment">
+
+            <div class="label">Стоимость доступа</div>
+
+            <div class="card-number">
+                <span id="modalPrice"></span>
             </div>
 
-            <div
-                class="selected"
-                id="selectedProduct"
-            >
-                —
+            <div class="label" style="margin-top:14px">
+                Перевод на карту
             </div>
 
-
-            <div class="payment-card">
-
-                <div class="label">
-                    НОМЕР КАРТЫ
-                </div>
-
-                <div class="card-number">
-                    2200 7021 9498 5615
-                </div>
-
-                <button
-                    class="copy"
-                    onclick="copyCard()"
-                >
-                    СКОПИРОВАТЬ НОМЕР
-                </button>
-
+            <div class="card-number">
+                <span>2200 7021 9498 5615</span>
+                <button class="copy" onclick="copyCard()">КОПИРОВАТЬ</button>
             </div>
 
-
-            <div class="timer">
-
-                <div
-                    class="timer-number"
-                    id="timer"
-                >
-                    15:00
-                </div>
-
-                <span class="timer-text">
-                    ВРЕМЯ НА ОПЛАТУ
-                </span>
-
-            </div>
-
-
-            <div class="instructions">
-
-                1. Скопируй номер карты.<br>
-                2. Переведи нужную сумму.<br>
-                3. Нажми «Я ОПЛАТИЛ».<br>
-                4. Отправь чек администратору.
-
-            </div>
-
-
-            <button
-                class="paid"
-                onclick="paid()"
-            >
+            <button class="pay-btn" onclick="paid()">
                 Я ОПЛАТИЛ
             </button>
 
-
-            <button
-                class="admin"
-                onclick="contactAdmin()"
-            >
-                💬 СВЯЗАТЬСЯ С АДМИНИСТРАТОРОМ
+            <button class="telegram" onclick="telegram()">
+                НАПИСАТЬ АДМИНУ
             </button>
 
-        </div>
-
-
-        <!-- SUCCESS -->
-
-        <div
-            class="success"
-            id="successScreen"
-        >
-
-            <div class="success-icon">
-                ✓
+            <div class="timer">
+                Ссылка на доступ будет активна после подтверждения оплаты
             </div>
 
-            <h2>
-                Заявка отправлена
-            </h2>
-
-            <p>
-                Отправь чек администратору
-                для подтверждения оплаты.
-            </p>
-
-            <a
-                class="telegram"
-                href="https://t.me/PREMDOSTUP"
-                target="_blank"
-            >
-                📩 ОТПРАВИТЬ ЧЕК
-            </a>
-
         </div>
-
     </div>
-
 </div>
-
 
 <script>
 
@@ -736,284 +442,167 @@ if(tg){
     tg.expand();
 }
 
-
 /*
-====================================================
-                НАСТРОЙКИ
-====================================================
+==================================================
+ВАЖНО:
+КЛАДИ ВИДЕО В ПАПКУ videos
 
-КАРТУ НЕ ТРОГАЙ, ЕСЛИ ОНА ТЕБЕ НУЖНА.
+Например:
 
-АДМИН:
-PREMDOSTUP
+videos/video1.mp4
+videos/video2.mp4
+videos/video3.mp4
 
-====================================================
+Именно такие имена указывай ниже.
+==================================================
 */
-
-
-const ADMIN_USERNAME = "PREMDOSTUP";
-
-const CARD_NUMBER = "2200702194985615";
-
-
-/*
-====================================================
-              ВОТ ЗДЕСЬ ВИДЕО
-====================================================
-
-ТЕБЕ НУЖНО МЕНЯТЬ ТОЛЬКО video:
-
-video:"VIDEO_01.mp4"
-
-Например, если у тебя в GitHub есть:
-
-videos/1.mp4
-
-пишешь:
-
-video:"videos/1.mp4"
-
-Если у тебя есть прямая ссылка:
-
-video:"https://site.com/video.mp4"
-
-====================================================
-*/
-
 
 const videos = [
 
     {
         id:1,
-        title:"PRIVATE NIGHT",
-        price:500,
+        title:"AFTER DARK",
         category:"new",
         badge:"NEW",
-        video:"VIDEO_01.mp4"
+        price:500,
+        video:"videos/video1.mp4",
+        desc:"Новая приватная запись",
+        text:"Тёмная атмосфера, близкий кадр и ощущение настоящего private moment."
     },
 
     {
         id:2,
-        title:"AFTER DARK",
+        title:"MIDNIGHT",
+        category:"hot",
+        badge:"HOT",
         price:700,
-        category:"popular",
-        badge:"POPULAR",
-        video:"VIDEO_02.mp4"
+        video:"videos/video2.mp4",
+        desc:"Ночной приватный момент",
+        text:"Такие моменты не выставляют напоказ. Только для тех, кто получил доступ."
     },
 
     {
         id:3,
-        title:"SECRET ROOM",
-        price:900,
-        category:"new",
-        badge:"NEW",
-        video:"VIDEO_03.mp4"
+        title:"PRIVATE MOOD",
+        category:"hot",
+        badge:"HOT",
+        price:700,
+        video:"videos/video3.mp4",
+        desc:"Закрытая запись",
+        text:"Тихая ночь, приглушённый свет и та самая атмосфера, которую хочется пересмотреть."
     },
 
     {
         id:4,
-        title:"VIP MOMENT",
-        price:1000,
-        category:"vip",
-        badge:"VIP",
-        video:"VIDEO_04.mp4"
+        title:"SECRET ROOM",
+        category:"new",
+        badge:"NEW",
+        price:900,
+        video:"videos/video4.mp4",
+        desc:"Секретная коллекция",
+        text:"Кадры, которые остаются только между своими."
     },
 
     {
         id:5,
-        title:"PRIVATE SESSION",
-        price:1200,
-        category:"popular",
-        badge:"POPULAR",
-        video:"VIDEO_05.mp4"
+        title:"DARK DESIRE",
+        category:"hot",
+        badge:"HOT",
+        price:1000,
+        video:"videos/video5.mp4",
+        desc:"Особая запись",
+        text:"Больше атмосферы. Больше интриги. Меньше лишних слов."
     },
 
     {
         id:6,
-        title:"MIDNIGHT",
-        price:700,
-        category:"new",
-        badge:"NEW",
-        video:"VIDEO_06.mp4"
+        title:"PRIVATE NIGHT",
+        category:"vip",
+        badge:"VIP",
+        price:1200,
+        video:"videos/video6.mp4",
+        desc:"VIP collection",
+        text:"Эксклюзивный материал для тех, кто хочет попасть глубже в закрытую коллекцию."
     },
 
     {
         id:7,
-        title:"HIDDEN MOMENT",
-        price:900,
-        category:"popular",
-        badge:"POPULAR",
-        video:"VIDEO_07.mp4"
+        title:"NO LIGHTS",
+        category:"vip",
+        badge:"VIP",
+        price:1400,
+        video:"videos/video7.mp4",
+        desc:"Dark collection",
+        text:"Только силуэты, настроение и полная атмосфера закрытой комнаты."
     },
 
     {
         id:8,
-        title:"DARK ROOM",
-        price:1000,
+        title:"SECRET TAPE",
         category:"vip",
         badge:"VIP",
-        video:"VIDEO_08.mp4"
-    },
-
-    {
-        id:9,
-        title:"VIP SESSION",
-        price:1500,
-        category:"vip",
-        badge:"VIP",
-        video:"VIDEO_09.mp4"
-    },
-
-    {
-        id:10,
-        title:"AFTER HOURS",
-        price:800,
-        category:"popular",
-        badge:"POPULAR",
-        video:"VIDEO_10.mp4"
-    },
-
-    {
-        id:11,
-        title:"SECRET VIDEO",
-        price:1200,
-        category:"new",
-        badge:"NEW",
-        video:"VIDEO_11.mp4"
-    },
-
-    {
-        id:12,
-        title:"PRIVATE COLLECTION",
-        price:1800,
-        category:"vip",
-        badge:"VIP",
-        video:"VIDEO_12.mp4"
-    },
-
-    {
-        id:13,
-        title:"NIGHT ACCESS",
-        price:900,
-        category:"new",
-        badge:"NEW",
-        video:"VIDEO_13.mp4"
-    },
-
-    {
-        id:14,
-        title:"LOCKED",
-        price:700,
-        category:"popular",
-        badge:"POPULAR",
-        video:"VIDEO_14.mp4"
-    },
-
-    {
-        id:15,
-        title:"PREMIUM NIGHT",
-        price:1500,
-        category:"vip",
-        badge:"VIP",
-        video:"VIDEO_15.mp4"
-    },
-
-    {
-        id:16,
-        title:"HIDDEN",
-        price:1000,
-        category:"new",
-        badge:"NEW",
-        video:"VIDEO_16.mp4"
-    },
-
-    {
-        id:17,
-        title:"PRIVATE FILE",
-        price:1200,
-        category:"popular",
-        badge:"POPULAR",
-        video:"VIDEO_17.mp4"
-    },
-
-    {
-        id:18,
-        title:"VIP ACCESS",
-        price:1800,
-        category:"vip",
-        badge:"VIP",
-        video:"VIDEO_18.mp4"
+        price:1600,
+        video:"videos/video8.mp4",
+        desc:"Private archive",
+        text:"Архивная запись из закрытой коллекции."
     }
 
 ];
 
-
 let currentProduct = null;
+let currentFilter = "all";
 
-let timerSeconds = 900;
+function render(){
 
-let timerInterval = null;
+    const grid = document.getElementById("grid");
 
+    let list = videos.filter(v =>
+        currentFilter === "all" || v.category === currentFilter
+    );
 
-/* RENDER */
+    if(!list.length){
+        grid.innerHTML = `<div class="empty">В этой категории пока ничего нет</div>`;
+        return;
+    }
 
-function renderVideos(list){
+    grid.innerHTML = list.map(video => `
 
-    const grid =
-        document.getElementById("videoGrid");
-
-    grid.innerHTML = "";
-
-    list.forEach(video => {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "card";
-
-
-        card.innerHTML = `
+        <div class="card" onclick="openModal(${video.id})">
 
             <div class="preview">
 
                 <video
                     src="${video.video}"
-                    autoplay
                     muted
+                    autoplay
                     loop
                     playsinline
                     preload="metadata"
                 ></video>
 
-                <div class="dark"></div>
+                <div class="blur-overlay"></div>
 
-                <div class="video-badge">
-                    ${video.badge}
-                </div>
+                <div class="badge">${video.badge}</div>
 
-                <div class="lock">
-                    🔒
-                </div>
+                <div class="lock">🔒</div>
 
             </div>
 
+            <div class="card-info">
 
-            <div class="info">
+                <div class="title">${video.title}</div>
 
-                <div class="title">
-                    ${video.title}
+                <div class="desc">
+                    ${video.desc}
                 </div>
 
-                <div class="meta">
+                <div class="bottom">
 
                     <div class="price">
-                        ${video.price} ₽
+                        ${video.price} сом
                     </div>
 
-                    <button
-                        class="open"
-                        onclick="openPayment(${video.id})"
-                    >
+                    <button class="open">
                         ОТКРЫТЬ
                     </button>
 
@@ -1021,194 +610,119 @@ function renderVideos(list){
 
             </div>
 
-        `;
+        </div>
 
+    `).join("");
 
-        grid.appendChild(card);
+    document.querySelectorAll(".preview video").forEach(video => {
+
+        video.addEventListener("loadeddata", () => {
+            video.classList.add("ready");
+            video.play().catch(()=>{});
+        });
+
+        video.addEventListener("error", () => {
+            /*
+            Если видео не найдено,
+            оставляем красивый фон вместо
+            полностью чёрного квадрата.
+            */
+            video.style.display = "none";
+        });
 
     });
 
 }
 
-
-/* FILTER */
-
 function filterVideos(category,button){
 
-    document
-        .querySelectorAll(".filter")
-        .forEach(el =>
-            el.classList.remove("active")
-        );
+    currentFilter = category;
+
+    document.querySelectorAll(".cat")
+        .forEach(x => x.classList.remove("active"));
 
     button.classList.add("active");
 
+    render();
+}
 
-    if(category === "all"){
+function openModal(id){
 
-        renderVideos(videos);
+    currentProduct = videos.find(v => v.id === id);
 
-    }else{
+    if(!currentProduct) return;
 
-        renderVideos(
-            videos.filter(
-                video =>
-                    video.category === category
-            )
-        );
+    document.getElementById("modalTitle").textContent =
+        currentProduct.title;
 
+    document.getElementById("modalDesc").textContent =
+        currentProduct.desc;
+
+    document.getElementById("modalText").textContent =
+        currentProduct.text;
+
+    document.getElementById("modalPrice").textContent =
+        currentProduct.price + " сом";
+
+    document.getElementById("modal").style.display = "flex";
+
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+}
+
+function outside(e){
+
+    if(e.target.id === "modal"){
+        closeModal();
     }
 
 }
 
-
-/* OPEN PAYMENT */
-
-function openPayment(id){
-
-    currentProduct =
-        videos.find(video =>
-            video.id === id
-        );
-
-    if(!currentProduct) return;
-
-
-    document.getElementById(
-        "selectedProduct"
-    ).innerText =
-        `${currentProduct.title} • ${currentProduct.price} ₽`;
-
-
-    document.getElementById(
-        "paymentScreen"
-    ).style.display = "block";
-
-
-    document.getElementById(
-        "successScreen"
-    ).style.display = "none";
-
-
-    document
-        .getElementById("modal")
-        .classList.add("show");
-
-
-    startTimer();
-
-}
-
-
-/* CLOSE */
-
-function closeModal(){
-
-    document
-        .getElementById("modal")
-        .classList.remove("show");
-
-}
-
-
-/* TIMER */
-
-function startTimer(){
-
-    clearInterval(timerInterval);
-
-    timerSeconds = 900;
-
-    updateTimer();
-
-
-    timerInterval =
-        setInterval(() => {
-
-            timerSeconds--;
-
-            updateTimer();
-
-
-            if(timerSeconds <= 0){
-
-                clearInterval(timerInterval);
-
-            }
-
-        },1000);
-
-}
-
-
-function updateTimer(){
-
-    const minutes =
-        Math.floor(timerSeconds / 60);
-
-    const seconds =
-        timerSeconds % 60;
-
-
-    document.getElementById(
-        "timer"
-    ).innerText =
-        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
-
-}
-
-
-/* COPY */
-
 function copyCard(){
 
-    navigator.clipboard.writeText(
-        CARD_NUMBER
-    );
+    navigator.clipboard.writeText("2200702194985615");
 
     alert("Номер карты скопирован");
 
 }
 
+function telegram(){
 
-/* PAID */
+    window.open(
+        "https://t.me/PREMDOSTUP",
+        "_blank"
+    );
+
+}
 
 function paid(){
 
     if(!currentProduct) return;
 
-
     const user =
         tg?.initDataUnsafe?.user || {};
-
 
     const paymentData = {
 
         action:"payment_submitted",
 
-        product_id:
-            currentProduct.id,
+        product_id:currentProduct.id,
 
-        product:
-            currentProduct.title,
+        product:currentProduct.title,
 
-        price:
-            currentProduct.price,
+        price:currentProduct.price,
 
-        user_id:
-            user.id || null,
+        user_id:user.id || null,
 
-        username:
-            user.username || null,
+        username:user.username || null,
 
-        first_name:
-            user.first_name || null,
+        first_name:user.first_name || null,
 
-        timestamp:
-            new Date().toISOString()
+        timestamp:new Date().toISOString()
 
     };
-
 
     if(tg && tg.sendData){
 
@@ -1218,35 +732,15 @@ function paid(){
 
     }
 
-
-    document.getElementById(
-        "paymentScreen"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "successScreen"
-    ).style.display = "block";
-
-}
-
-
-/* ADMIN */
-
-function contactAdmin(){
-
-    window.open(
-        "https://t.me/" +
-        ADMIN_USERNAME,
-        "_blank"
+    alert(
+        "Заявка отправлена. После проверки оплаты администратор выдаст доступ."
     );
 
+    closeModal();
+
 }
 
-
-/* START */
-
-renderVideos(videos);
+render();
 
 </script>
 
