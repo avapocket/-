@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#090713">
+<meta name="theme-color" content="#08060f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>AVA — Trading Academy</title>
 
@@ -14,18 +14,15 @@
   --card:rgba(255,255,255,.065);
   --card2:rgba(255,255,255,.035);
   --border:rgba(255,255,255,.105);
-  --purple:#9b5cff;
-  --purple2:#c46cff;
-  --purple3:#6331ff;
-  --pink:#ff5fba;
-  --blue:#6ca8ff;
-  --green:#36e29a;
+  --purple:#9555ff;
+  --purple2:#c66cff;
+  --pink:#ff65bd;
+  --green:#35e39a;
   --red:#ff5877;
   --yellow:#ffd166;
-  --white:#fff;
-  --text:#fdfcff;
+  --text:#fff;
   --muted:#aaa5b8;
-  --muted2:#716c7d;
+  --muted2:#726d7e;
   --radius:24px;
 }
 
@@ -36,7 +33,6 @@
 
 html,body{
   margin:0;
-  padding:0;
   min-height:100%;
   background:var(--bg);
   color:var(--text);
@@ -53,8 +49,12 @@ button,input,select,textarea{
 
 button{
   border:0;
-  cursor:pointer;
   color:inherit;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
 }
 
 .hidden{
@@ -68,106 +68,106 @@ button{
 .bg{
   position:fixed;
   inset:0;
+  z-index:0;
   overflow:hidden;
   pointer-events:none;
-  z-index:0;
   background:
-    radial-gradient(circle at 50% -15%,rgba(155,92,255,.25),transparent 38%),
-    radial-gradient(circle at -10% 50%,rgba(255,95,186,.10),transparent 30%),
+    radial-gradient(circle at 50% -15%,rgba(155,92,255,.24),transparent 38%),
+    radial-gradient(circle at -10% 55%,rgba(255,95,186,.10),transparent 30%),
     radial-gradient(circle at 110% 70%,rgba(99,49,255,.14),transparent 32%),
     var(--bg);
 }
 
 .glow{
   position:absolute;
-  width:330px;
-  height:330px;
+  width:340px;
+  height:340px;
   border-radius:50%;
-  filter:blur(100px);
-  opacity:.22;
-  animation:glowMove 10s ease-in-out infinite alternate;
+  filter:blur(110px);
+  opacity:.2;
+  animation:glowMove 11s ease-in-out infinite alternate;
 }
 
 .glow.a{
-  left:-130px;
-  top:-100px;
-  background:#8d4cff;
+  left:-150px;
+  top:-110px;
+  background:#914cff;
 }
 
 .glow.b{
-  right:-140px;
-  top:28%;
-  background:#ff3fae;
+  right:-150px;
+  top:32%;
+  background:#ff42b2;
   animation-delay:-3s;
 }
 
 .glow.c{
-  left:25%;
-  bottom:-180px;
+  left:20%;
+  bottom:-190px;
   background:#4c2bff;
   animation-delay:-6s;
 }
 
 @keyframes glowMove{
   from{transform:translate(0,0) scale(1)}
-  to{transform:translate(40px,30px) scale(1.18)}
+  to{transform:translate(45px,35px) scale(1.18)}
+}
+
+.watermark{
+  position:absolute;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.035);
+  font-size:130px;
+  font-weight:1000;
+  letter-spacing:-10px;
+  transform:rotate(-12deg);
 }
 
 .candles{
   position:absolute;
   inset:0;
-  opacity:.13;
+  opacity:.10;
 }
 
 .candle{
   position:absolute;
   width:6px;
   border-radius:5px;
-  animation:candleMove 5s ease-in-out infinite;
+  animation:floatCandle 5s ease-in-out infinite;
 }
 
 .candle:before,
 .candle:after{
   content:"";
   position:absolute;
-  left:2px;
   width:2px;
+  left:2px;
   background:currentColor;
 }
 
 .candle:before{
-  top:-20px;
-  height:20px;
+  top:-18px;
+  height:18px;
 }
 
 .candle:after{
-  bottom:-20px;
-  height:20px;
+  bottom:-18px;
+  height:18px;
 }
 
-.candle.up{
+.upc{
   background:var(--green);
   color:var(--green);
 }
 
-.candle.down{
+.downc{
   background:var(--red);
   color:var(--red);
 }
 
-@keyframes candleMove{
+@keyframes floatCandle{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-24px)}
-}
-
-.ava-watermark{
-  position:absolute;
-  font-size:120px;
-  font-weight:1000;
-  letter-spacing:-8px;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.035);
-  transform:rotate(-12deg);
+  50%{transform:translateY(-20px)}
 }
 
 /* =========================
@@ -182,145 +182,146 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:30px 18px;
+  padding:30px 17px;
   background:
-    radial-gradient(circle at 50% 0%,rgba(155,92,255,.24),transparent 38%),
+    radial-gradient(circle at 50% 0%,rgba(155,92,255,.25),transparent 38%),
     #08060f;
 }
 
 .access{
   width:100%;
-  max-width:460px;
+  max-width:470px;
   text-align:center;
-  animation:fadeUp .7s ease;
-}
-
-@keyframes fadeUp{
-  from{
-    opacity:0;
-    transform:translateY(25px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+  animation:fadeUp .6s ease;
 }
 
 .access-logo{
-  width:105px;
-  height:105px;
-  margin:0 auto 24px;
-  border-radius:33px;
+  width:94px;
+  height:94px;
+  margin:0 auto 22px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(145deg,#8d4dff,#c66cff);
+  border-radius:29px;
+  background:linear-gradient(145deg,#8b4cff,#c76cff);
   box-shadow:
-    0 20px 80px rgba(142,77,255,.42),
-    inset 0 1px 1px rgba(255,255,255,.45);
+    0 20px 70px rgba(140,76,255,.38),
+    inset 0 1px 1px rgba(255,255,255,.4);
   animation:logoFloat 4s ease-in-out infinite;
 }
 
 @keyframes logoFloat{
-  0%,100%{transform:translateY(0) rotate(-1deg)}
-  50%{transform:translateY(-9px) rotate(1deg)}
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
 }
 
 .bot-face{
+  width:44px;
+  height:51px;
   position:relative;
-  width:49px;
-  height:57px;
   border:4px solid white;
-  border-radius:18px;
+  border-radius:16px;
 }
 
 .bot-face:before,
 .bot-face:after{
   content:"";
   position:absolute;
-  top:19px;
+  top:17px;
   width:6px;
   height:6px;
   border-radius:50%;
-  background:white;
+  background:#fff;
 }
 
-.bot-face:before{left:10px}
-.bot-face:after{right:10px}
+.bot-face:before{left:8px}
+.bot-face:after{right:8px}
 
 .bot-mouth{
   position:absolute;
-  width:22px;
-  height:10px;
-  left:10px;
-  top:31px;
+  left:9px;
+  top:28px;
+  width:18px;
+  height:9px;
   border-bottom:3px solid white;
   border-radius:50%;
 }
 
-.access h1{
+.access-title{
   margin:0;
-  font-size:42px;
+  font-size:39px;
+  line-height:1.02;
+  font-weight:1000;
   letter-spacing:-2px;
-  font-weight:950;
 }
 
-.access h1 span{
-  background:linear-gradient(90deg,#fff,#c177ff,#ff72c4);
+.access-title span{
+  background:linear-gradient(90deg,#fff,#c078ff,#ff73c2);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 }
 
 .access-sub{
-  margin:12px auto 25px;
+  max-width:420px;
+  margin:14px auto 23px;
   color:var(--muted);
-  font-size:14px;
+  font-size:13px;
   line-height:1.6;
-  max-width:390px;
 }
 
 .access-card{
-  padding:22px;
-  border-radius:27px;
+  padding:21px;
   border:1px solid var(--border);
-  background:rgba(17,12,28,.82);
-  backdrop-filter:blur(25px);
-  box-shadow:0 30px 100px rgba(0,0,0,.35);
+  border-radius:28px;
+  background:rgba(16,11,27,.84);
+  backdrop-filter:blur(28px);
+  box-shadow:0 30px 100px rgba(0,0,0,.4);
 }
 
 .input{
   width:100%;
-  height:57px;
-  padding:0 17px;
-  color:white;
+  height:56px;
+  padding:0 16px;
+  color:#fff;
   outline:none;
-  border-radius:17px;
   border:1px solid var(--border);
+  border-radius:17px;
   background:rgba(255,255,255,.055);
 }
 
 .input:focus{
   border-color:rgba(155,92,255,.7);
-  box-shadow:0 0 0 4px rgba(155,92,255,.08);
+  box-shadow:0 0 0 4px rgba(155,92,255,.09);
 }
 
 .primary{
   width:100%;
-  height:57px;
-  margin-top:11px;
+  min-height:56px;
+  margin-top:10px;
+  padding:0 17px;
   border-radius:17px;
-  font-weight:800;
-  background:linear-gradient(100deg,#8c4fff,#c36cff);
-  box-shadow:0 15px 35px rgba(140,79,255,.25);
+  color:white;
+  font-weight:850;
+  background:linear-gradient(100deg,#8b4cff,#c76cff);
+  box-shadow:0 14px 35px rgba(140,76,255,.25);
+}
+
+.secondary{
+  width:100%;
+  min-height:50px;
+  margin-top:9px;
+  border-radius:16px;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--border);
 }
 
 .status{
   display:none;
-  margin-top:12px;
-  padding:13px;
-  border-radius:14px;
-  font-size:12px;
+  margin-top:11px;
+  padding:13px 14px;
+  border-radius:15px;
+  font-size:11px;
   line-height:1.5;
 }
 
@@ -329,25 +330,61 @@ button{
 }
 
 .status.loading{
-  display:block;
-  color:#cebaff;
-  background:rgba(155,92,255,.08);
+  color:#d1baff;
+  background:rgba(155,92,255,.09);
 }
 
 .status.error{
-  color:#ff9bad;
-  background:rgba(255,88,119,.08);
+  color:#ff9bac;
+  background:rgba(255,88,119,.09);
 }
 
 .status.success{
   color:#75efb4;
-  background:rgba(54,226,154,.08);
+  background:rgba(54,226,154,.09);
+}
+
+.register-box{
+  display:none;
+  margin-top:11px;
+  padding:15px;
+  text-align:left;
+  border-radius:18px;
+  background:rgba(155,92,255,.075);
+  border:1px solid rgba(155,92,255,.16);
+}
+
+.register-box.show{
+  display:block;
+  animation:fadeUp .35s ease;
+}
+
+.register-title{
+  font-size:13px;
+  font-weight:850;
+}
+
+.register-text{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+.register-btn{
+  width:100%;
+  min-height:48px;
+  margin-top:10px;
+  border-radius:14px;
+  background:linear-gradient(100deg,#6331ff,#a957ff);
+  font-size:11px;
+  font-weight:800;
 }
 
 .secure{
-  margin-top:15px;
+  margin-top:14px;
   color:var(--muted2);
-  font-size:10px;
+  font-size:9px;
   line-height:1.5;
 }
 
@@ -364,10 +401,10 @@ button{
 
 .shell{
   width:100%;
-  max-width:720px;
+  max-width:760px;
   margin:auto;
   min-height:100vh;
-  padding-bottom:110px;
+  padding-bottom:112px;
 }
 
 .topbar{
@@ -375,7 +412,7 @@ button{
   align-items:center;
   justify-content:space-between;
   padding:
-    calc(env(safe-area-inset-top) + 16px)
+    calc(env(safe-area-inset-top) + 14px)
     16px
     10px;
 }
@@ -383,31 +420,31 @@ button{
 .top-left{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:10px;
 }
 
 .mini-logo{
-  width:45px;
-  height:45px;
-  border-radius:15px;
+  width:44px;
+  height:44px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(145deg,#8d4fff,#c36cff);
-  box-shadow:0 10px 30px rgba(140,79,255,.25);
-  font-size:15px;
-  font-weight:950;
+  border-radius:15px;
+  background:linear-gradient(145deg,#8b4cff,#c76cff);
+  font-size:12px;
+  font-weight:1000;
+  box-shadow:0 10px 30px rgba(140,76,255,.25);
 }
 
 .top-name{
-  font-size:16px;
+  font-size:15px;
   font-weight:850;
 }
 
 .top-sub{
-  color:var(--muted);
-  font-size:10px;
   margin-top:2px;
+  color:var(--muted);
+  font-size:9px;
 }
 
 .top-actions{
@@ -437,7 +474,7 @@ button{
 
 .view{
   display:none;
-  animation:viewIn .35s ease;
+  animation:viewIn .3s ease;
 }
 
 .view.active{
@@ -461,13 +498,12 @@ button{
   backdrop-filter:blur(22px);
   -webkit-backdrop-filter:blur(22px);
   border-radius:var(--radius);
-  box-shadow:0 18px 60px rgba(0,0,0,.18);
 }
 
 .section-head{
   display:flex;
-  justify-content:space-between;
   align-items:end;
+  justify-content:space-between;
   margin:25px 2px 13px;
 }
 
@@ -479,7 +515,7 @@ button{
 
 .section-head span{
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
 }
 
 /* =========================
@@ -489,8 +525,8 @@ button{
 .hero{
   position:relative;
   overflow:hidden;
+  min-height:260px;
   padding:24px;
-  min-height:250px;
   background:
     radial-gradient(circle at 100% 0%,rgba(255,95,186,.17),transparent 33%),
     radial-gradient(circle at 0% 100%,rgba(99,49,255,.16),transparent 35%),
@@ -501,30 +537,30 @@ button{
   content:"AVA";
   position:absolute;
   right:-22px;
-  bottom:-42px;
-  font-size:125px;
-  font-weight:1000;
+  bottom:-48px;
   color:rgba(255,255,255,.025);
+  font-size:130px;
+  font-weight:1000;
 }
 
-.online-badge{
+.online{
   display:inline-flex;
   align-items:center;
-  gap:7px;
-  padding:7px 11px;
+  gap:6px;
+  padding:7px 10px;
   border-radius:999px;
-  color:#cdb9ff;
+  color:#cbb6ff;
   background:rgba(155,92,255,.11);
-  font-size:10px;
+  font-size:9px;
   font-weight:800;
 }
 
 .online-dot{
-  width:7px;
-  height:7px;
+  width:6px;
+  height:6px;
   border-radius:50%;
   background:var(--green);
-  box-shadow:0 0 12px rgba(54,226,154,.8);
+  box-shadow:0 0 10px rgba(54,226,154,.8);
 }
 
 .hero h1{
@@ -536,19 +572,20 @@ button{
   letter-spacing:-1.5px;
 }
 
-.hero h1 span{
-  background:linear-gradient(90deg,#fff,#bd83ff,#ff75c4);
+.gradient{
+  background:linear-gradient(90deg,#fff,#be83ff,#ff72c1);
   -webkit-background-clip:text;
+  background-clip:text;
   color:transparent;
 }
 
 .hero p{
   position:relative;
   z-index:1;
+  max-width:520px;
   color:var(--muted);
-  line-height:1.55;
-  font-size:13px;
-  max-width:500px;
+  font-size:12px;
+  line-height:1.6;
 }
 
 .hero-btn{
@@ -556,24 +593,23 @@ button{
   z-index:2;
   display:inline-flex;
   align-items:center;
-  gap:9px;
   min-height:47px;
   padding:0 18px;
   border-radius:15px;
-  background:linear-gradient(100deg,#8c4fff,#c36cff);
-  font-size:13px;
-  font-weight:800;
+  background:linear-gradient(100deg,#8b4cff,#c76cff);
+  font-size:12px;
+  font-weight:850;
 }
 
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:9px;
-  margin-top:11px;
+  margin-top:10px;
 }
 
 .stat{
-  padding:15px 10px;
+  padding:15px 9px;
   text-align:center;
 }
 
@@ -586,7 +622,7 @@ button{
   display:block;
   margin-top:4px;
   color:var(--muted);
-  font-size:9px;
+  font-size:8px;
 }
 
 .progress-card{
@@ -596,11 +632,11 @@ button{
 .progress-top{
   display:flex;
   justify-content:space-between;
-  font-size:12px;
+  font-size:11px;
 }
 
 .progress-top span{
-  color:#c49dff;
+  color:#c59bff;
 }
 
 .progress-track{
@@ -612,26 +648,26 @@ button{
 }
 
 .progress-fill{
+  width:0;
   height:100%;
-  width:0%;
   border-radius:20px;
-  background:linear-gradient(90deg,#8c4fff,#c36cff);
+  background:linear-gradient(90deg,#8b4cff,#c76cff);
   transition:.6s;
 }
 
 .quick-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:9px;
 }
 
 .quick{
   min-height:126px;
-  padding:17px;
+  padding:16px;
   text-align:left;
+  border:1px solid var(--border);
   border-radius:21px;
   background:var(--card);
-  border:1px solid var(--border);
   transition:.2s;
 }
 
@@ -640,55 +676,59 @@ button{
 }
 
 .quick-icon{
-  width:42px;
-  height:42px;
+  width:41px;
+  height:41px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:14px;
-  color:#c79dff;
+  color:#c69dff;
   background:rgba(155,92,255,.13);
 }
 
 .quick-icon svg{
-  width:22px;
-  height:22px;
+  width:21px;
+  height:21px;
 }
 
 .quick strong{
   display:block;
-  margin-top:13px;
-  font-size:13px;
+  margin-top:12px;
+  font-size:12px;
 }
 
 .quick small{
   display:block;
   margin-top:4px;
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
 }
 
 /* =========================
-   ACADEMY
+   SEARCH
 ========================= */
 
 .search{
   width:100%;
   height:49px;
-  margin-bottom:11px;
-  padding:0 15px;
-  color:white;
+  margin-bottom:10px;
+  padding:0 14px;
+  color:#fff;
   outline:none;
   border:1px solid var(--border);
   border-radius:15px;
   background:rgba(255,255,255,.045);
 }
 
+/* =========================
+   ACADEMY
+========================= */
+
 .module{
-  margin-bottom:10px;
+  margin-bottom:9px;
   overflow:hidden;
-  border-radius:21px;
   border:1px solid var(--border);
+  border-radius:21px;
   background:var(--card);
 }
 
@@ -696,23 +736,24 @@ button{
   width:100%;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:17px;
-  background:none;
+  gap:11px;
+  padding:16px;
   text-align:left;
+  background:none;
 }
 
 .module-number{
-  width:42px;
-  height:42px;
+  width:41px;
+  height:41px;
   flex:none;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:14px;
-  color:#c49dff;
+  color:#c79eff;
   background:rgba(155,92,255,.13);
-  font-weight:850;
+  font-size:11px;
+  font-weight:900;
 }
 
 .module-info{
@@ -721,22 +762,22 @@ button{
 
 .module-info b{
   display:block;
-  font-size:14px;
+  font-size:13px;
 }
 
 .module-info small{
   display:block;
   margin-top:4px;
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
 }
 
-.module-arrow{
+.arrow{
   color:var(--muted);
   transition:.25s;
 }
 
-.module.open .module-arrow{
+.module.open .arrow{
   transform:rotate(180deg);
 }
 
@@ -753,10 +794,10 @@ button{
   width:100%;
   display:flex;
   align-items:center;
-  gap:11px;
-  padding:13px 15px;
-  background:none;
+  gap:10px;
+  padding:12px 14px;
   text-align:left;
+  background:none;
   border-bottom:1px solid rgba(255,255,255,.045);
 }
 
@@ -764,17 +805,17 @@ button{
   border-bottom:0;
 }
 
-.lesson-number{
-  width:30px;
-  height:30px;
+.lesson-num{
+  width:29px;
+  height:29px;
   flex:none;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:10px;
-  background:rgba(255,255,255,.05);
+  border-radius:9px;
   color:var(--muted);
-  font-size:10px;
+  background:rgba(255,255,255,.05);
+  font-size:9px;
 }
 
 .lesson-info{
@@ -783,39 +824,39 @@ button{
 
 .lesson-info b{
   display:block;
-  font-size:12px;
+  font-size:11px;
 }
 
 .lesson-info small{
   display:block;
-  color:var(--muted);
   margin-top:3px;
-  font-size:9px;
+  color:var(--muted);
+  font-size:8px;
 }
 
 .lesson-check{
-  width:27px;
-  height:27px;
-  border-radius:50%;
+  width:26px;
+  height:26px;
   display:flex;
   align-items:center;
   justify-content:center;
   border:1px solid var(--border);
+  border-radius:50%;
   color:var(--muted);
 }
 
 .lesson.done .lesson-check{
-  background:var(--green);
   color:#07140d;
+  background:var(--green);
   border-color:var(--green);
 }
 
 /* =========================
-   BOT / AI
+   AI
 ========================= */
 
 .ai-card{
-  padding:20px;
+  padding:19px;
   background:
     radial-gradient(circle at 100% 0%,rgba(255,95,186,.12),transparent 35%),
     radial-gradient(circle at 0% 100%,rgba(99,49,255,.12),transparent 35%),
@@ -825,70 +866,88 @@ button{
 .ai-head{
   display:flex;
   align-items:center;
-  gap:13px;
+  gap:12px;
 }
 
 .ai-avatar{
-  width:57px;
-  height:57px;
+  width:56px;
+  height:56px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:19px;
-  background:linear-gradient(145deg,#8d4fff,#c46cff);
-  box-shadow:0 12px 35px rgba(140,79,255,.3);
-  font-weight:950;
+  background:linear-gradient(145deg,#8b4cff,#c76cff);
+  box-shadow:0 12px 35px rgba(140,76,255,.3);
+  font-size:12px;
+  font-weight:1000;
 }
 
 .ai-name{
-  font-size:18px;
-  font-weight:850;
+  font-size:17px;
+  font-weight:900;
 }
 
 .ai-status{
   margin-top:3px;
   color:var(--green);
-  font-size:10px;
+  font-size:9px;
 }
 
 .chat{
-  height:350px;
+  height:330px;
   overflow:auto;
-  margin-top:17px;
+  margin-top:16px;
   padding:3px;
 }
 
 .message{
-  max-width:87%;
-  margin-bottom:10px;
-  padding:12px 14px;
+  max-width:88%;
+  margin-bottom:9px;
+  padding:12px 13px;
   border-radius:17px;
-  font-size:12px;
+  font-size:11px;
   line-height:1.55;
 }
 
 .message.ava{
-  background:rgba(155,92,255,.11);
   border:1px solid rgba(155,92,255,.15);
   border-bottom-left-radius:6px;
+  background:rgba(155,92,255,.10);
 }
 
 .message.user{
   margin-left:auto;
-  background:rgba(255,255,255,.075);
   border-bottom-right-radius:6px;
+  background:rgba(255,255,255,.075);
+}
+
+.chips{
+  display:flex;
+  gap:6px;
+  overflow:auto;
+  padding:9px 0 2px;
+}
+
+.chip{
+  white-space:nowrap;
+  padding:8px 10px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  color:#c8b7e6;
+  background:rgba(255,255,255,.05);
+  font-size:9px;
 }
 
 .chat-input{
   display:flex;
   gap:7px;
-  margin-top:10px;
+  margin-top:9px;
 }
 
 .chat-input input{
   flex:1;
   min-width:0;
-  height:49px;
+  height:48px;
   padding:0 13px;
   color:white;
   outline:none;
@@ -898,50 +957,35 @@ button{
 }
 
 .send{
-  width:49px;
-  height:49px;
+  width:48px;
+  height:48px;
   flex:none;
   border-radius:15px;
-  background:linear-gradient(135deg,#8d4fff,#c46cff);
+  background:linear-gradient(135deg,#8b4cff,#c76cff);
 }
 
-.chips{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  padding:10px 0 2px;
-}
-
-.chip{
-  white-space:nowrap;
-  padding:9px 11px;
-  border-radius:11px;
-  color:#c8b7e6;
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--border);
-  font-size:10px;
-}
-
-/* BOT SIGNAL */
+/* =========================
+   BOT
+========================= */
 
 .bot-panel{
   padding:19px;
 }
 
 .field{
-  margin-bottom:11px;
+  margin-bottom:10px;
 }
 
 .field label{
   display:block;
   margin:0 0 6px 2px;
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
 }
 
 .select{
   width:100%;
-  height:50px;
+  height:49px;
   padding:0 12px;
   color:white;
   outline:none;
@@ -957,26 +1001,26 @@ button{
 }
 
 .mode button{
-  height:46px;
+  height:45px;
+  border:1px solid var(--border);
   border-radius:14px;
   color:var(--muted);
   background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
 }
 
 .mode button.active{
-  color:white;
-  background:rgba(155,92,255,.14);
+  color:#fff;
   border-color:rgba(155,92,255,.5);
+  background:rgba(155,92,255,.14);
 }
 
 .signal{
   display:none;
-  margin-top:13px;
-  padding:17px;
-  border-radius:20px;
-  background:rgba(255,255,255,.045);
+  margin-top:12px;
+  padding:16px;
   border:1px solid var(--border);
+  border-radius:19px;
+  background:rgba(255,255,255,.045);
 }
 
 .signal.show{
@@ -985,48 +1029,59 @@ button{
 }
 
 @keyframes signalIn{
-  from{opacity:0;transform:scale(.97)}
-  to{opacity:1;transform:none}
+  from{
+    opacity:0;
+    transform:scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 .signal-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
 }
 
 .signal-pair{
-  font-size:17px;
-  font-weight:800;
+  font-size:16px;
+  font-weight:850;
 }
 
 .signal-meta{
-  color:var(--muted);
-  font-size:9px;
   margin-top:4px;
+  color:var(--muted);
+  font-size:8px;
 }
 
 .direction{
-  font-size:24px;
-  font-weight:950;
+  font-size:22px;
+  font-weight:1000;
 }
 
-.up{color:var(--green)}
-.down{color:var(--red)}
+.direction.up{
+  color:var(--green);
+}
+
+.direction.down{
+  color:var(--red);
+}
 
 .conf-track{
   height:6px;
-  margin-top:15px;
-  border-radius:20px;
+  margin-top:13px;
   overflow:hidden;
+  border-radius:20px;
   background:rgba(255,255,255,.06);
 }
 
 .conf-fill{
-  height:100%;
   width:0;
+  height:100%;
   border-radius:20px;
-  background:linear-gradient(90deg,#8d4fff,#36e29a);
+  background:linear-gradient(90deg,#8b4cff,#35e39a);
   transition:1s;
 }
 
@@ -1040,33 +1095,34 @@ button{
 
 .chart-top{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  padding:18px;
+  justify-content:space-between;
+  gap:10px;
+  padding:17px;
 }
 
 .chart-pair{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
 .chart-price{
   margin-top:3px;
-  font-size:26px;
-  font-weight:900;
+  font-size:25px;
+  font-weight:950;
 }
 
 .chart-change{
   margin-top:2px;
   color:var(--green);
-  font-size:10px;
+  font-size:9px;
 }
 
 .chart-area{
   position:relative;
   height:260px;
   overflow:hidden;
-  margin:0 12px;
+  margin:0 11px;
   border-radius:17px;
   background:
     linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
@@ -1085,17 +1141,17 @@ button{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
-  margin-top:10px;
+  margin-top:9px;
 }
 
 .indicator{
-  padding:14px 9px;
+  padding:13px 8px;
   text-align:center;
 }
 
 .indicator b{
   display:block;
-  font-size:13px;
+  font-size:12px;
 }
 
 .indicator span{
@@ -1112,29 +1168,28 @@ button{
 .pattern-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:9px;
 }
 
 .pattern{
-  padding:16px;
-  min-height:145px;
+  min-height:140px;
+  padding:15px;
 }
 
 .pattern-icon{
-  height:65px;
+  height:60px;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:8px;
 }
 
 .pattern-icon svg{
   width:100%;
-  height:65px;
+  height:60px;
 }
 
 .pattern b{
-  font-size:13px;
+  font-size:12px;
 }
 
 .pattern p{
@@ -1145,98 +1200,57 @@ button{
 }
 
 /* =========================
-   DICTIONARY / FAQ
+   DICTIONARY
 ========================= */
 
 .term{
-  padding:16px;
-  margin-bottom:9px;
+  padding:15px;
+  margin-bottom:8px;
 }
 
 .term b{
-  font-size:13px;
+  font-size:12px;
 }
 
 .term p{
-  margin:6px 0 0;
+  margin:5px 0 0;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
   line-height:1.5;
 }
 
+/* =========================
+   FAQ
+========================= */
+
 .faq{
   overflow:hidden;
-  margin-bottom:9px;
+  margin-bottom:8px;
 }
 
 .faq-question{
   width:100%;
-  padding:16px;
   display:flex;
+  align-items:center;
   justify-content:space-between;
   gap:10px;
-  background:none;
+  padding:15px;
   text-align:left;
-  font-size:12px;
-  font-weight:750;
+  background:none;
+  font-size:11px;
+  font-weight:800;
 }
 
 .faq-answer{
   display:none;
-  padding:0 16px 16px;
+  padding:0 15px 15px;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
   line-height:1.6;
 }
 
 .faq.open .faq-answer{
   display:block;
-}
-
-/* =========================
-   TESTS
-========================= */
-
-.quiz-card{
-  padding:20px;
-}
-
-.quiz-number{
-  color:#c49dff;
-  font-size:10px;
-  font-weight:800;
-}
-
-.question{
-  margin:13px 0 18px;
-  font-size:19px;
-  line-height:1.35;
-  font-weight:850;
-}
-
-.answers{
-  display:grid;
-  gap:8px;
-}
-
-.answer{
-  width:100%;
-  padding:15px;
-  border-radius:15px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.045);
-  text-align:left;
-  font-size:12px;
-}
-
-.answer.correct{
-  background:rgba(54,226,154,.1);
-  border-color:rgba(54,226,154,.5);
-}
-
-.answer.wrong{
-  background:rgba(255,88,119,.1);
-  border-color:rgba(255,88,119,.5);
 }
 
 /* =========================
@@ -1269,7 +1283,7 @@ button{
 
 .train-candle{
   position:relative;
-  width:9px;
+  width:8px;
   border-radius:4px;
 }
 
@@ -1278,28 +1292,74 @@ button{
   content:"";
   position:absolute;
   width:2px;
-  left:3.5px;
+  left:3px;
   background:currentColor;
 }
 
 .train-candle:before{
-  top:-18px;
-  height:18px;
+  top:-17px;
+  height:17px;
 }
 
 .train-candle:after{
-  bottom:-18px;
-  height:18px;
+  bottom:-17px;
+  height:17px;
 }
 
 .train-green{
-  background:var(--green);
   color:var(--green);
+  background:var(--green);
 }
 
 .train-red{
-  background:var(--red);
   color:var(--red);
+  background:var(--red);
+}
+
+/* =========================
+   QUIZ
+========================= */
+
+.quiz-card{
+  padding:19px;
+}
+
+.quiz-number{
+  color:#c49cff;
+  font-size:9px;
+  font-weight:850;
+}
+
+.question{
+  margin:12px 0 17px;
+  font-size:18px;
+  line-height:1.35;
+  font-weight:900;
+}
+
+.answers{
+  display:grid;
+  gap:8px;
+}
+
+.answer{
+  width:100%;
+  padding:14px;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  font-size:11px;
+}
+
+.answer.correct{
+  border-color:rgba(54,226,154,.5);
+  background:rgba(54,226,154,.10);
+}
+
+.answer.wrong{
+  border-color:rgba(255,88,119,.5);
+  background:rgba(255,88,119,.10);
 }
 
 /* =========================
@@ -1307,64 +1367,64 @@ button{
 ========================= */
 
 .profile{
-  padding:23px;
+  padding:22px;
   text-align:center;
 }
 
 .avatar-wrap{
   position:relative;
-  width:96px;
-  height:96px;
+  width:95px;
+  height:95px;
   margin:0 auto 13px;
 }
 
 .profile-avatar{
-  width:96px;
-  height:96px;
+  width:95px;
+  height:95px;
   object-fit:cover;
-  border-radius:31px;
-  background:linear-gradient(145deg,#8d4fff,#ff62b9);
   border:2px solid rgba(255,255,255,.15);
+  border-radius:30px;
+  background:linear-gradient(145deg,#8b4cff,#ff62b9);
 }
 
 .avatar-edit{
   position:absolute;
   right:-4px;
   bottom:-4px;
-  width:32px;
-  height:32px;
-  border-radius:11px;
-  background:white;
+  width:31px;
+  height:31px;
+  border-radius:10px;
   color:#111;
+  background:white;
 }
 
 .profile-name{
-  font-size:21px;
-  font-weight:850;
+  font-size:20px;
+  font-weight:900;
 }
 
 .profile-id{
   margin-top:4px;
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
 }
 
 .level{
   display:inline-flex;
-  margin-top:11px;
-  padding:7px 11px;
+  margin-top:10px;
+  padding:7px 10px;
   border-radius:999px;
   color:#d0b6ff;
   background:rgba(155,92,255,.11);
-  font-size:10px;
+  font-size:9px;
   font-weight:800;
 }
 
 .setting{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:15px;
+  gap:11px;
+  padding:14px;
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 
@@ -1373,18 +1433,14 @@ button{
 }
 
 .setting-icon{
-  width:39px;
-  height:39px;
+  width:38px;
+  height:38px;
   display:flex;
   align-items:center;
   justify-content:center;
   flex:none;
-  border-radius:13px;
+  border-radius:12px;
   background:rgba(255,255,255,.05);
-}
-
-.setting-icon svg{
-  width:19px;
 }
 
 .setting-info{
@@ -1394,32 +1450,69 @@ button{
 
 .setting-info b{
   display:block;
-  font-size:12px;
+  font-size:11px;
 }
 
 .setting-info small{
   display:block;
   margin-top:3px;
   color:var(--muted);
-  font-size:9px;
+  font-size:8px;
 }
 
-.language-buttons{
+.languages{
   display:flex;
-  gap:5px;
+  gap:4px;
 }
 
-.language-button{
+.lang{
   padding:7px 8px;
   border-radius:9px;
   color:var(--muted);
   background:rgba(255,255,255,.05);
+  font-size:8px;
+}
+
+.lang.active{
+  color:white;
+  background:#8b4cff;
+}
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+.achievements{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+}
+
+.achievement{
+  padding:13px 7px;
+  text-align:center;
+}
+
+.achievement-icon{
+  font-size:25px;
+}
+
+.achievement b{
+  display:block;
+  margin-top:5px;
   font-size:9px;
 }
 
-.language-button.active{
-  color:white;
-  background:#8d4fff;
+.achievement small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:7px;
+}
+
+.achievement.locked{
+  opacity:.35;
+  filter:grayscale(1);
 }
 
 /* =========================
@@ -1427,48 +1520,52 @@ button{
 ========================= */
 
 .contact{
-  padding:18px;
+  padding:17px;
 }
 
 .contact-buttons{
   display:grid;
-  gap:9px;
-  margin-top:12px;
+  gap:8px;
+  margin-top:11px;
 }
 
 .contact-button{
+  width:100%;
   display:flex;
   align-items:center;
-  gap:12px;
-  width:100%;
-  padding:13px;
+  gap:11px;
+  padding:12px;
+  text-align:left;
+  border:1px solid var(--border);
   border-radius:16px;
   background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
-  text-align:left;
 }
 
 .contact-icon{
-  width:42px;
-  height:42px;
+  width:41px;
+  height:41px;
   display:flex;
   align-items:center;
   justify-content:center;
+  flex:none;
   border-radius:13px;
   background:rgba(155,92,255,.13);
-  color:#c69dff;
 }
 
-.contact-button b{
-  display:block;
-  font-size:12px;
+.contact-text{
+  flex:1;
 }
 
-.contact-button small{
+.contact-text b{
   display:block;
-  color:var(--muted);
+  font-size:11px;
+}
+
+.contact-text small{
+  display:block;
   margin-top:3px;
-  font-size:9px;
+  color:var(--muted);
+  font-size:8px;
 }
 
 /* =========================
@@ -1481,7 +1578,7 @@ button{
   z-index:80;
   display:none;
   align-items:flex-end;
-  background:rgba(3,2,7,.72);
+  background:rgba(3,2,7,.73);
   backdrop-filter:blur(15px);
 }
 
@@ -1491,15 +1588,15 @@ button{
 
 .sheet{
   width:100%;
-  max-width:720px;
+  max-width:760px;
   max-height:88vh;
   overflow:auto;
   margin:auto;
-  padding:22px 18px calc(25px + env(safe-area-inset-bottom));
-  border-radius:30px 30px 0 0;
+  padding:21px 18px calc(24px + env(safe-area-inset-bottom));
   border:1px solid var(--border);
+  border-radius:29px 29px 0 0;
   background:#100c1b;
-  animation:sheetUp .35s ease;
+  animation:sheetUp .32s ease;
 }
 
 @keyframes sheetUp{
@@ -1512,32 +1609,33 @@ button{
   width:35px;
   height:35px;
   border-radius:11px;
+  color:#aaa;
   background:rgba(255,255,255,.06);
 }
 
 .lesson-modal h2{
-  margin:12px 0;
-  font-size:24px;
+  margin:13px 0;
+  font-size:23px;
 }
 
 .lesson-modal h3{
-  margin-top:23px;
-  color:#c79eff;
-  font-size:15px;
+  margin-top:21px;
+  color:#c69cff;
+  font-size:14px;
 }
 
 .lesson-modal p,
 .lesson-modal li{
   color:#c4bfce;
-  font-size:13px;
+  font-size:11px;
   line-height:1.7;
 }
 
 .tip{
-  padding:15px;
-  border-radius:17px;
-  background:rgba(155,92,255,.08);
+  padding:14px;
   border:1px solid rgba(155,92,255,.15);
+  border-radius:16px;
+  background:rgba(155,92,255,.08);
 }
 
 /* =========================
@@ -1548,22 +1646,22 @@ button{
   position:fixed;
   z-index:30;
   left:50%;
-  bottom:calc(9px + env(safe-area-inset-bottom));
+  bottom:calc(8px + env(safe-area-inset-bottom));
   transform:translateX(-50%);
-  width:min(690px,calc(100% - 14px));
+  width:min(720px,calc(100% - 14px));
   display:grid;
   grid-template-columns:repeat(5,1fr);
   gap:3px;
   padding:7px;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.10);
   border-radius:25px;
-  background:rgba(13,9,23,.86);
+  background:rgba(13,9,23,.88);
   backdrop-filter:blur(30px);
   box-shadow:0 20px 70px rgba(0,0,0,.45);
 }
 
 .nav{
-  min-height:58px;
+  min-height:57px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1580,8 +1678,8 @@ button{
 }
 
 .nav span{
-  font-size:8px;
-  font-weight:700;
+  font-size:7px;
+  font-weight:750;
 }
 
 .nav.active{
@@ -1591,7 +1689,7 @@ button{
 
 .nav.active svg{
   color:#c69eff;
-  filter:drop-shadow(0 0 8px rgba(155,92,255,.6));
+  filter:drop-shadow(0 0 8px rgba(155,92,255,.55));
 }
 
 /* =========================
@@ -1601,16 +1699,16 @@ button{
 #toast{
   position:fixed;
   z-index:200;
-  top:calc(env(safe-area-inset-top) + 13px);
+  top:calc(env(safe-area-inset-top) + 12px);
   left:50%;
   transform:translate(-50%,-15px);
   opacity:0;
   pointer-events:none;
   padding:11px 15px;
+  border:1px solid var(--border);
   border-radius:14px;
   background:rgba(30,26,41,.96);
-  border:1px solid var(--border);
-  font-size:11px;
+  font-size:10px;
   transition:.3s;
 }
 
@@ -1619,9 +1717,16 @@ button{
   transform:translate(-50%,0);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
 
 @media(min-width:700px){
   .page{
@@ -1639,16 +1744,16 @@ button{
 }
 
 @media(max-width:380px){
+  .access-title{
+    font-size:34px;
+  }
+
   .hero h1{
     font-size:28px;
   }
 
   .nav{
     min-height:53px;
-  }
-
-  .nav span{
-    font-size:7px;
   }
 }
 </style>
@@ -1666,21 +1771,21 @@ button{
   <div class="glow b"></div>
   <div class="glow c"></div>
 
-  <div class="ava-watermark" style="left:-20px;top:23%">AVA</div>
-  <div class="ava-watermark" style="right:-45px;top:62%">AVA</div>
+  <div class="watermark" style="left:-20px;top:24%">AVA</div>
+  <div class="watermark" style="right:-45px;top:63%">AVA</div>
 
   <div class="candles">
 
-    <div class="candle up" style="left:6%;top:18%;height:60px"></div>
-    <div class="candle down" style="left:14%;top:31%;height:90px;animation-delay:-1s"></div>
-    <div class="candle up" style="left:23%;top:22%;height:105px;animation-delay:-2s"></div>
-    <div class="candle up" style="left:31%;top:42%;height:65px;animation-delay:-3s"></div>
-    <div class="candle down" style="left:40%;top:19%;height:115px;animation-delay:-1.5s"></div>
-    <div class="candle up" style="left:49%;top:35%;height:75px;animation-delay:-2.5s"></div>
-    <div class="candle up" style="left:58%;top:16%;height:100px;animation-delay:-4s"></div>
-    <div class="candle down" style="left:67%;top:39%;height:72px;animation-delay:-3.2s"></div>
-    <div class="candle up" style="left:76%;top:24%;height:110px;animation-delay:-1.2s"></div>
-    <div class="candle down" style="left:86%;top:44%;height:63px;animation-delay:-2s"></div>
+    <div class="candle upc" style="left:6%;top:18%;height:60px"></div>
+    <div class="candle downc" style="left:15%;top:30%;height:85px;animation-delay:-1s"></div>
+    <div class="candle upc" style="left:24%;top:22%;height:105px;animation-delay:-2s"></div>
+    <div class="candle upc" style="left:33%;top:42%;height:65px;animation-delay:-3s"></div>
+    <div class="candle downc" style="left:42%;top:19%;height:110px;animation-delay:-1.5s"></div>
+    <div class="candle upc" style="left:51%;top:34%;height:75px;animation-delay:-2.5s"></div>
+    <div class="candle upc" style="left:60%;top:16%;height:100px;animation-delay:-4s"></div>
+    <div class="candle downc" style="left:69%;top:39%;height:72px;animation-delay:-3.2s"></div>
+    <div class="candle upc" style="left:78%;top:24%;height:110px;animation-delay:-1.2s"></div>
+    <div class="candle downc" style="left:87%;top:44%;height:63px;animation-delay:-2s"></div>
 
   </div>
 
@@ -1697,12 +1802,16 @@ button{
   <div class="access">
 
     <div class="access-logo">
+
       <div class="bot-face">
         <div class="bot-mouth"></div>
       </div>
+
     </div>
 
-    <h1>AVA <span>TRADING ACADEMY</span></h1>
+    <h1 class="access-title">
+      AVA <span>TRADING<br>ACADEMY</span>
+    </h1>
 
     <p class="access-sub">
       Образовательная платформа нового поколения.
@@ -1712,23 +1821,60 @@ button{
     <div class="access-card">
 
       <input
-        id="traderIdInput"
+        id="accessId"
         class="input"
         type="text"
-        inputmode="numeric"
+        inputmode="text"
         autocomplete="off"
-        placeholder="Введите Pocket Option Trader ID"
+        placeholder="Trader ID или Owner ID"
+        onkeydown="if(event.key==='Enter')checkAccess()"
       >
 
-      <button class="primary" onclick="checkAccess()">
+      <button
+        class="primary"
+        onclick="checkAccess()">
         Проверить доступ
       </button>
 
-      <div id="accessStatus" class="status"></div>
+      <div
+        id="accessStatus"
+        class="status">
+      </div>
+
+      <!-- REGISTER BLOCK -->
+
+      <div
+        id="registerBox"
+        class="register-box">
+
+        <div class="register-title">
+          Аккаунт не найден
+        </div>
+
+        <div class="register-text">
+          Если у тебя ещё нет подходящего аккаунта,
+          зарегистрируй новый через реферальную ссылку,
+          затем вернись сюда и введи новый Trader ID.
+        </div>
+
+        <button
+          class="register-btn"
+          onclick="registerAccount()">
+          ↗ Зарегистрировать новый аккаунт
+        </button>
+
+        <button
+          class="secondary"
+          style="margin-top:7px"
+          onclick="focusAccessInput()">
+          Ввести другой Trader ID
+        </button>
+
+      </div>
 
       <div class="secure">
         🔐 Проверка выполняется через защищённый сервер.<br>
-        API-токен не передаётся в браузер.
+        API-токен и Owner ID не находятся в браузере.
       </div>
 
     </div>
@@ -1743,1023 +1889,47 @@ button{
 
 <div id="app">
 
-  <div class="shell">
+<div class="shell">
 
-    <!-- HEADER -->
+<header class="topbar">
 
-    <header class="topbar">
+  <div class="top-left">
 
-      <div class="top-left">
+    <div class="mini-logo">
+      AVA
+    </div>
 
-        <div class="mini-logo">AVA</div>
-
-        <div>
-          <div class="top-name">AVA Trading Academy</div>
-          <div class="top-sub">Образовательная платформа</div>
-        </div>
-
+    <div>
+      <div class="top-name">
+        AVA Trading Academy
       </div>
 
-      <div class="top-actions">
-
-        <button class="icon-btn" onclick="showToast('Уведомления пока пусты')">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"/>
-          </svg>
-        </button>
-
-        <button class="icon-btn" onclick="openView('profile')">
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="8" r="4"
-              stroke="currentColor"
-              stroke-width="1.8"/>
-            <path d="M4 21c1-4 3.6-6 8-6s7 2 8 6"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"/>
-          </svg>
-        </button>
-
+      <div class="top-sub">
+        Образовательная платформа
       </div>
-
-    </header>
-
-    <main class="page">
-
-      <!-- =====================
-           HOME
-      ====================== -->
-
-      <section id="home" class="view active">
-
-        <div class="card hero">
-
-          <div class="online-badge">
-            <span class="online-dot"></span>
-            AVA ONLINE
-          </div>
-
-          <h1>
-            Добро пожаловать<br>
-            в <span>AVA Academy</span>
-          </h1>
-
-          <p>
-            Учись понимать график, находить рыночные сценарии,
-            работать с индикаторами, паттернами и риск-менеджментом.
-          </p>
-
-          <button class="hero-btn" onclick="openView('academy')">
-            Начать обучение →
-          </button>
-
-        </div>
-
-        <div class="stats">
-
-          <div class="card stat">
-            <b id="statLessons">0</b>
-            <span>уроков</span>
-          </div>
-
-          <div class="card stat">
-            <b id="statProgress">0%</b>
-            <span>прогресс</span>
-          </div>
-
-          <div class="card stat">
-            <b id="statStreak">1</b>
-            <span>серия дней</span>
-          </div>
-
-        </div>
-
-        <div class="section-head">
-          <h2>Быстрый доступ</h2>
-        </div>
-
-        <div class="quick-grid">
-
-          <button class="quick" onclick="openView('ava')">
-
-            <div class="quick-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"
-                  stroke="currentColor" stroke-width="1.8"/>
-                <path d="M8 12h.01M16 12h.01M9 16c2 1.4 4 1.4 6 0"
-                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-
-            <strong>AVA AI</strong>
-            <small>Задай вопрос AVA</small>
-
-          </button>
-
-          <button class="quick" onclick="openView('bot')">
-
-            <div class="quick-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 19V5M4 19h16"
-                  stroke="currentColor" stroke-width="1.8"/>
-                <path d="m7 15 4-5 3 3 5-7"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            <strong>AVA Bot</strong>
-            <small>Учебный сигнал</small>
-
-          </button>
-
-          <button class="quick" onclick="openView('patterns')">
-
-            <div class="quick-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 18 9 11l4 4 7-9"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            <strong>Паттерны</strong>
-            <small>Фигуры графика</small>
-
-          </button>
-
-          <button class="quick" onclick="openView('tests')">
-
-            <div class="quick-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M5 4h14v16H5z"
-                  stroke="currentColor" stroke-width="1.8"/>
-                <path d="m8 12 2 2 5-5M8 8h8M8 17h5"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"/>
-              </svg>
-            </div>
-
-            <strong>Тесты</strong>
-            <small>Проверь знания</small>
-
-          </button>
-
-        </div>
-
-        <div class="section-head">
-          <h2>Твой прогресс</h2>
-          <span id="progressLabel">0 / 100</span>
-        </div>
-
-        <div class="card progress-card">
-
-          <div class="progress-top">
-            <b>Обучение AVA</b>
-            <span id="progressPercent">0%</span>
-          </div>
-
-          <div class="progress-track">
-            <div id="progressFill" class="progress-fill"></div>
-          </div>
-
-        </div>
-
-        <div class="section-head">
-          <h2>Разделы AVA</h2>
-        </div>
-
-        <div class="quick-grid">
-
-          <button class="quick" onclick="openView('academy')">
-            <div class="quick-icon">🎓</div>
-            <strong>Академия</strong>
-            <small>100 уроков</small>
-          </button>
-
-          <button class="quick" onclick="openView('analysis')">
-            <div class="quick-icon">📊</div>
-            <strong>Анализ</strong>
-            <small>Учебный график</small>
-          </button>
-
-          <button class="quick" onclick="openView('dictionary')">
-            <div class="quick-icon">📖</div>
-            <strong>Термины</strong>
-            <small>Словарь трейдера</small>
-          </button>
-
-          <button class="quick" onclick="openView('faq')">
-            <div class="quick-icon">❓</div>
-            <strong>FAQ</strong>
-            <small>Частые вопросы</small>
-          </button>
-
-        </div>
-
-      </section>
-
-      <!-- =====================
-           ACADEMY
-      ====================== -->
-
-      <section id="academy" class="view">
-
-        <div class="section-head">
-          <h2>Академия</h2>
-          <span>100 уроков</span>
-        </div>
-
-        <input
-          id="lessonSearch"
-          class="search"
-          placeholder="🔎 Поиск урока..."
-          oninput="searchLessons(this.value)"
-        >
-
-        <div id="modules"></div>
-
-      </section>
-
-      <!-- =====================
-           AVA AI
-      ====================== -->
-
-      <section id="ava" class="view">
-
-        <div class="section-head">
-          <h2>AVA AI</h2>
-          <span>Твой помощник</span>
-        </div>
-
-        <div class="card ai-card">
-
-          <div class="ai-head">
-
-            <div class="ai-avatar">AVA</div>
-
-            <div>
-              <div class="ai-name">AVA</div>
-              <div class="ai-status">● Онлайн · готова помочь</div>
-            </div>
-
-          </div>
-
-          <div id="chat" class="chat">
-
-            <div class="message ava">
-              Привет! Я AVA 👋<br><br>
-              Могу объяснить трейдинг простыми словами,
-              рассказать о паттернах, свечах, индикаторах,
-              риск-менеджменте и помочь разобраться с платформой.
-            </div>
-
-          </div>
-
-          <div class="chips">
-
-            <button class="chip" onclick="quickAsk('Что такое тренд?')">
-              Что такое тренд?
-            </button>
-
-            <button class="chip" onclick="quickAsk('Объясни RSI')">
-              Объясни RSI
-            </button>
-
-            <button class="chip" onclick="quickAsk('Что такое OTC?')">
-              Что такое OTC?
-            </button>
-
-            <button class="chip" onclick="quickAsk('Что изучать новичку?')">
-              Что изучать?
-            </button>
-
-          </div>
-
-          <div class="chat-input">
-
-            <input
-              id="chatInput"
-              placeholder="Напиши вопрос AVA..."
-              onkeydown="if(event.key==='Enter')sendMessage()"
-            >
-
-            <button class="send" onclick="sendMessage()">
-              ➤
-            </button>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- =====================
-           BOT
-      ====================== -->
-
-      <section id="bot" class="view">
-
-        <div class="section-head">
-          <h2>AVA Bot</h2>
-          <span>Учебный режим</span>
-        </div>
-
-        <div class="card bot-panel">
-
-          <div class="ai-head">
-
-            <div class="ai-avatar">AVA</div>
-
-            <div>
-              <div class="ai-name">AVA Bot</div>
-              <div class="ai-status">● Анализатор активен</div>
-            </div>
-
-          </div>
-
-          <p style="color:var(--muted);font-size:11px;line-height:1.5">
-            Выбери инструмент и параметры. AVA создаст
-            виртуальный учебный сценарий для практики.
-          </p>
-
-          <div class="field">
-
-            <label>Валютная пара</label>
-
-            <select id="botPair" class="select"></select>
-
-          </div>
-
-          <div class="field">
-
-            <label>Режим</label>
-
-            <div class="mode">
-
-              <button
-                id="marketButton"
-                class="active"
-                onclick="setMarket('market')">
-                MARKET
-              </button>
-
-              <button
-                id="otcButton"
-                onclick="setMarket('otc')">
-                OTC
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="field">
-
-            <label>Экспирация / период</label>
-
-            <select id="botTime" class="select">
-
-              <option value="1">1 минута</option>
-              <option value="3">3 минуты</option>
-              <option value="5">5 минут</option>
-              <option value="15">15 минут</option>
-
-            </select>
-
-          </div>
-
-          <button class="primary" onclick="generateSignal()">
-            ✦ Получить учебный сигнал
-          </button>
-
-          <div id="signal" class="signal">
-
-            <div class="signal-head">
-
-              <div>
-                <div id="signalPair" class="signal-pair">
-                  EUR/USD
-                </div>
-
-                <div id="signalMeta" class="signal-meta">
-                  MARKET · 1 минута
-                </div>
-              </div>
-
-              <div id="signalDirection" class="direction up">
-                UP
-              </div>
-
-            </div>
-
-            <div style="margin-top:16px">
-
-              <div style="display:flex;justify-content:space-between;font-size:10px">
-
-                <span style="color:var(--muted)">
-                  Учебная уверенность
-                </span>
-
-                <b id="signalConfidence">0%</b>
-
-              </div>
-
-              <div class="conf-track">
-                <div id="confidenceFill" class="conf-fill"></div>
-              </div>
-
-            </div>
-
-            <div style="margin-top:13px;color:var(--muted);font-size:9px;line-height:1.5">
-              Это виртуальный учебный сценарий AVA.
-              Он не является гарантированным прогнозом рынка
-              или финансовой рекомендацией.
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- =====================
-           ANALYSIS
-      ====================== -->
-
-      <section id="analysis" class="view">
-
-        <div class="section-head">
-          <h2>Market Analysis</h2>
-          <span>Учебный график</span>
-        </div>
-
-        <div class="card chart-card">
-
-          <div class="chart-top">
-
-            <div>
-              <div id="analysisPair" class="chart-pair">
-                EUR/USD
-              </div>
-
-              <div id="analysisPrice" class="chart-price">
-                1.0842
-              </div>
-
-              <div class="chart-change">
-                +0.42%
-              </div>
-            </div>
-
-            <select
-              class="select"
-              style="width:130px"
-              onchange="changeAnalysisPair(this.value)"
-            >
-
-              <option>EUR/USD</option>
-              <option>GBP/USD</option>
-              <option>USD/JPY</option>
-              <option>AUD/USD</option>
-              <option>USD/CAD</option>
-              <option>USD/CHF</option>
-              <option>NZD/USD</option>
-
-            </select>
-
-          </div>
-
-          <div class="chart-area">
-
-            <svg
-              class="chart-svg"
-              viewBox="0 0 600 240"
-              preserveAspectRatio="none"
-            >
-
-              <defs>
-
-                <linearGradient id="chartGradient" x1="0" x2="1">
-
-                  <stop offset="0%" stop-color="#8d4fff"/>
-                  <stop offset="100%" stop-color="#36e29a"/>
-
-                </linearGradient>
-
-              </defs>
-
-              <path
-                d="M0 185
-                   C35 170 50 188 80 155
-                   S130 130 155 165
-                   S205 180 230 115
-                   S280 85 305 120
-                   S350 140 380 80
-                   S430 65 455 95
-                   S510 105 535 50
-                   S575 35 600 18"
-                fill="none"
-                stroke="url(#chartGradient)"
-                stroke-width="5"
-                stroke-linecap="round"
-              />
-
-            </svg>
-
-          </div>
-
-        </div>
-
-        <div class="indicator-grid">
-
-          <div class="card indicator">
-            <b>RSI 58</b>
-            <span>Нейтрально</span>
-          </div>
-
-          <div class="card indicator">
-            <b>MACD ↑</b>
-            <span>Импульс</span>
-          </div>
-
-          <div class="card indicator">
-            <b>EMA 20</b>
-            <span>Тренд</span>
-          </div>
-
-        </div>
-
-        <div class="section-head">
-          <h2>Учебный разбор</h2>
-        </div>
-
-        <div class="card" style="padding:18px">
-
-          <p style="margin:0;color:var(--muted);font-size:12px;line-height:1.65">
-            Не рассматривай один индикатор как самостоятельную систему.
-            Сначала оцени структуру рынка, тренд и уровни,
-            затем используй индикаторы как дополнительное подтверждение.
-          </p>
-
-        </div>
-
-      </section>
-
-      <!-- =====================
-           PATTERNS
-      ====================== -->
-
-      <section id="patterns" class="view">
-
-        <div class="section-head">
-          <h2>Паттерны</h2>
-          <span>Библиотека</span>
-        </div>
-
-        <input
-          id="patternSearch"
-          class="search"
-          placeholder="🔎 Найти паттерн..."
-          oninput="renderPatterns(this.value)"
-        >
-
-        <div id="patternsList" class="pattern-grid"></div>
-
-      </section>
-
-      <!-- =====================
-           DICTIONARY
-      ====================== -->
-
-      <section id="dictionary" class="view">
-
-        <div class="section-head">
-          <h2>Термины</h2>
-          <span>Словарь трейдера</span>
-        </div>
-
-        <input
-          class="search"
-          placeholder="🔎 Поиск термина..."
-          oninput="renderDictionary(this.value)"
-        >
-
-        <div id="dictionaryList"></div>
-
-      </section>
-
-      <!-- =====================
-           FAQ
-      ====================== -->
-
-      <section id="faq" class="view">
-
-        <div class="section-head">
-          <h2>FAQ</h2>
-          <span>Частые вопросы</span>
-        </div>
-
-        <div id="faqList"></div>
-
-      </section>
-
-      <!-- =====================
-           TRAINER
-      ====================== -->
-
-      <section id="trainer" class="view">
-
-        <div class="section-head">
-          <h2>Тренажёр</h2>
-          <span>Практика</span>
-        </div>
-
-        <div class="card training">
-
-          <div style="font-size:13px;font-weight:800">
-            Куда пойдёт следующий сценарий?
-          </div>
-
-          <div style="color:var(--muted);font-size:10px;margin-top:4px">
-            Проанализируй виртуальный график.
-          </div>
-
-          <div class="training-chart">
-
-            <div id="trainingCandles" class="training-candles"></div>
-
-          </div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-
-            <button
-              class="primary"
-              style="margin:0"
-              onclick="trainerAnswer('UP')">
-              ↑ Рост
-            </button>
-
-            <button
-              class="primary"
-              style="margin:0;background:linear-gradient(100deg,#ff526f,#ff7090)"
-              onclick="trainerAnswer('DOWN')">
-              ↓ Падение
-            </button>
-
-          </div>
-
-          <div id="trainerResult"
-            style="margin-top:12px;color:var(--muted);font-size:11px;text-align:center">
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- =====================
-           TESTS
-      ====================== -->
-
-      <section id="tests" class="view">
-
-        <div class="section-head">
-          <h2>Тесты</h2>
-          <span id="quizCounter">1 / 10</span>
-        </div>
-
-        <div class="card quiz-card">
-
-          <div class="quiz-number">
-            KNOWLEDGE CHECK
-          </div>
-
-          <div id="question" class="question"></div>
-
-          <div id="answers" class="answers"></div>
-
-          <button
-            id="nextQuizButton"
-            class="primary"
-            style="display:none"
-            onclick="nextQuiz()">
-            Следующий вопрос →
-          </button>
-
-        </div>
-
-      </section>
-
-      <!-- =====================
-           PROFILE
-      ====================== -->
-
-      <section id="profile" class="view">
-
-        <div class="card profile">
-
-          <div class="avatar-wrap">
-
-            <img
-              id="profileAvatar"
-              class="profile-avatar"
-              alt="Профиль"
-            >
-
-            <button
-              class="avatar-edit"
-              onclick="document.getElementById('avatarInput').click()">
-              ✎
-            </button>
-
-            <input
-              id="avatarInput"
-              type="file"
-              accept="image/*"
-              style="display:none"
-              onchange="changeAvatar(event)"
-            >
-
-          </div>
-
-          <div class="profile-name">
-            AVA Trader
-          </div>
-
-          <div class="profile-id">
-            Trader ID:
-            <span id="profileTraderId">—</span>
-          </div>
-
-          <div id="profileLevel" class="level">
-            Новичок
-          </div>
-
-        </div>
-
-        <div class="section-head">
-          <h2>Настройки</h2>
-        </div>
-
-        <div class="card">
-
-          <div class="setting">
-
-            <div class="setting-icon">
-              🌐
-            </div>
-
-            <div class="setting-info">
-
-              <b>Язык</b>
-              <small>Язык интерфейса AVA</small>
-
-            </div>
-
-            <div class="language-buttons">
-
-              <button
-                class="language-button active"
-                data-lang="ru"
-                onclick="setLanguage('ru',this)">
-                RU
-              </button>
-
-              <button
-                class="language-button"
-                data-lang="en"
-                onclick="setLanguage('en',this)">
-                EN
-              </button>
-
-              <button
-                class="language-button"
-                data-lang="uk"
-                onclick="setLanguage('uk',this)">
-                UA
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="setting">
-
-            <div class="setting-icon">
-              🎓
-            </div>
-
-            <div class="setting-info">
-
-              <b>Пройдено уроков</b>
-
-              <small id="profileLessons">
-                0 из 100
-              </small>
-
-            </div>
-
-          </div>
-
-          <div class="setting">
-
-            <div class="setting-icon">
-              🏆
-            </div>
-
-            <div class="setting-info">
-
-              <b>Уровень</b>
-
-              <small id="profileLevelText">
-                Новичок
-              </small>
-
-            </div>
-
-          </div>
-
-          <div class="setting">
-
-            <div class="setting-icon">
-              🔥
-            </div>
-
-            <div class="setting-info">
-
-              <b>Серия обучения</b>
-
-              <small>
-                Продолжай обучение каждый день
-              </small>
-
-            </div>
-
-            <b id="profileStreak">1</b>
-
-          </div>
-
-        </div>
-
-        <div class="section-head">
-          <h2>Связь с автором</h2>
-        </div>
-
-        <div class="card contact">
-
-          <div style="color:var(--muted);font-size:11px;line-height:1.5">
-            Есть вопрос по AVA или нужна помощь?
-            Свяжись с автором напрямую.
-          </div>
-
-          <div class="contact-buttons">
-
-            <button
-              class="contact-button"
-              onclick="openTelegramChat()">
-
-              <div class="contact-icon">
-                💬
-              </div>
-
-              <div>
-
-                <b>Написать мне</b>
-
-                <small>
-                  Личный Telegram-чат
-                </small>
-
-              </div>
-
-              <span style="margin-left:auto">›</span>
-
-            </button>
-
-            <button
-              class="contact-button"
-              onclick="openTelegramChannel()">
-
-              <div class="contact-icon">
-                📢
-              </div>
-
-              <div>
-
-                <b>Telegram-канал</b>
-
-                <small>
-                  Новости и материалы AVA
-                </small>
-
-              </div>
-
-              <span style="margin-left:auto">›</span>
-
-            </button>
-
-          </div>
-
-        </div>
-
-        <button
-          class="primary"
-          style="margin-top:11px;background:rgba(255,255,255,.055);border:1px solid var(--border)"
-          onclick="logout()">
-          Выйти из AVA
-        </button>
-
-      </section>
-
-    </main>
+    </div>
 
   </div>
 
-  <!-- =====================
-       NAVIGATION
-  ====================== -->
+  <div class="top-actions">
 
-  <nav class="bottom-nav">
-
-    <button class="nav active" data-view="home" onclick="openView('home')">
+    <button
+      class="icon-btn"
+      onclick="showToast('Уведомления пока пусты')">
 
       <svg viewBox="0 0 24 24" fill="none">
         <path
-          d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linejoin="round"/>
-      </svg>
-
-      <span>Главная</span>
-
-    </button>
-
-    <button class="nav" data-view="academy" onclick="openView('academy')">
-
-      <svg viewBox="0 0 24 24" fill="none">
-        <path
-          d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z"
-          stroke="currentColor"
-          stroke-width="1.8"/>
-        <path
-          d="M8 7h8M8 11h8M8 15h5"
+          d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"
           stroke="currentColor"
           stroke-width="1.8"
           stroke-linecap="round"/>
       </svg>
 
-      <span>Академия</span>
-
     </button>
 
-    <button class="nav" data-view="ava" onclick="openView('ava')">
-
-      <svg viewBox="0 0 24 24" fill="none">
-        <path
-          d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"
-          stroke="currentColor"
-          stroke-width="1.8"/>
-        <path
-          d="M8 12h.01M16 12h.01M9 16c2 1.4 4 1.4 6 0"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"/>
-      </svg>
-
-      <span>AVA AI</span>
-
-    </button>
-
-    <button class="nav" data-view="analysis" onclick="openView('analysis')">
-
-      <svg viewBox="0 0 24 24" fill="none">
-        <path
-          d="M4 19V5M4 19h16"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"/>
-        <path
-          d="m7 15 4-5 3 3 5-7"
-          stroke="currentColor"
-          stroke-width="1.8"
-          stroke-linecap="round"
-          stroke-linejoin="round"/>
-      </svg>
-
-      <span>Анализ</span>
-
-    </button>
-
-    <button class="nav" data-view="profile" onclick="openView('profile')">
+    <button
+      class="icon-btn"
+      onclick="openView('profile')">
 
       <svg viewBox="0 0 24 24" fill="none">
         <circle
@@ -2775,11 +1945,1140 @@ button{
           stroke-linecap="round"/>
       </svg>
 
-      <span>Профиль</span>
+    </button>
+
+  </div>
+
+</header>
+
+<main class="page">
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home" class="view active">
+
+  <div class="card hero">
+
+    <div class="online">
+      <span class="online-dot"></span>
+      AVA ONLINE
+    </div>
+
+    <h1>
+      Добро пожаловать<br>
+      в <span class="gradient">AVA Academy</span>
+    </h1>
+
+    <p>
+      Учись понимать график, тренируйся на виртуальных
+      сценариях, изучай свечи, паттерны, индикаторы,
+      Price Action и риск-менеджмент.
+    </p>
+
+    <button
+      class="hero-btn"
+      onclick="openView('academy')">
+      Начать обучение →
+    </button>
+
+  </div>
+
+  <div class="stats">
+
+    <div class="card stat">
+      <b id="statLessons">0</b>
+      <span>уроков</span>
+    </div>
+
+    <div class="card stat">
+      <b id="statProgress">0%</b>
+      <span>прогресс</span>
+    </div>
+
+    <div class="card stat">
+      <b id="statStreak">1</b>
+      <span>серия дней</span>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Быстрый доступ</h2>
+  </div>
+
+  <div class="quick-grid">
+
+    <button
+      class="quick"
+      onclick="openView('ava')">
+
+      <div class="quick-icon">
+        🤖
+      </div>
+
+      <strong>AVA AI</strong>
+      <small>Задать вопрос</small>
 
     </button>
 
-  </nav>
+    <button
+      class="quick"
+      onclick="openView('bot')">
+
+      <div class="quick-icon">
+        📈
+      </div>
+
+      <strong>AVA Bot</strong>
+      <small>Учебный сценарий</small>
+
+    </button>
+
+    <button
+      class="quick"
+      onclick="openView('patterns')">
+
+      <div class="quick-icon">
+        ◇
+      </div>
+
+      <strong>Паттерны</strong>
+      <small>Библиотека</small>
+
+    </button>
+
+    <button
+      class="quick"
+      onclick="openView('tests')">
+
+      <div class="quick-icon">
+        ✓
+      </div>
+
+      <strong>Тесты</strong>
+      <small>Проверить знания</small>
+
+    </button>
+
+  </div>
+
+  <div class="section-head">
+
+    <h2>Твой прогресс</h2>
+
+    <span id="progressLabel">
+      0 / 100
+    </span>
+
+  </div>
+
+  <div class="card progress-card">
+
+    <div class="progress-top">
+      <b>Обучение AVA</b>
+      <span id="progressPercent">0%</span>
+    </div>
+
+    <div class="progress-track">
+      <div
+        id="progressFill"
+        class="progress-fill">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Разделы</h2>
+  </div>
+
+  <div class="quick-grid">
+
+    <button
+      class="quick"
+      onclick="openView('academy')">
+      <div class="quick-icon">🎓</div>
+      <strong>Академия</strong>
+      <small>100 уроков</small>
+    </button>
+
+    <button
+      class="quick"
+      onclick="openView('analysis')">
+      <div class="quick-icon">📊</div>
+      <strong>Анализ</strong>
+      <small>График</small>
+    </button>
+
+    <button
+      class="quick"
+      onclick="openView('dictionary')">
+      <div class="quick-icon">📖</div>
+      <strong>Термины</strong>
+      <small>Словарь</small>
+    </button>
+
+    <button
+      class="quick"
+      onclick="openView('trainer')">
+      <div class="quick-icon">🎯</div>
+      <strong>Тренажёр</strong>
+      <small>Практика</small>
+    </button>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     ACADEMY
+========================= -->
+
+<section id="academy" class="view">
+
+  <div class="section-head">
+    <h2>Академия</h2>
+    <span>100 уроков</span>
+  </div>
+
+  <input
+    id="lessonSearch"
+    class="search"
+    placeholder="🔎 Поиск урока..."
+    oninput="renderModules(this.value)"
+  >
+
+  <div id="modules"></div>
+
+</section>
+
+<!-- =========================
+     AVA AI
+========================= -->
+
+<section id="ava" class="view">
+
+  <div class="section-head">
+    <h2>AVA AI</h2>
+    <span>Помощник</span>
+  </div>
+
+  <div class="card ai-card">
+
+    <div class="ai-head">
+
+      <div class="ai-avatar">
+        AVA
+      </div>
+
+      <div>
+        <div class="ai-name">
+          AVA
+        </div>
+
+        <div class="ai-status">
+          ● Онлайн · готова помочь
+        </div>
+      </div>
+
+    </div>
+
+    <div id="chat" class="chat">
+
+      <div class="message ava">
+        Привет! 👋<br><br>
+        Я AVA. Могу помочь разобраться со свечами,
+        трендами, уровнями, индикаторами, паттернами,
+        Price Action, риск-менеджментом и функциями
+        самой академии.
+      </div>
+
+    </div>
+
+    <div class="chips">
+
+      <button
+        class="chip"
+        onclick="quickAsk('Что такое тренд?')">
+        Что такое тренд?
+      </button>
+
+      <button
+        class="chip"
+        onclick="quickAsk('Что такое RSI?')">
+        RSI
+      </button>
+
+      <button
+        class="chip"
+        onclick="quickAsk('Что такое OTC?')">
+        OTC
+      </button>
+
+      <button
+        class="chip"
+        onclick="quickAsk('Что изучать новичку?')">
+        Что изучать?
+      </button>
+
+    </div>
+
+    <div class="chat-input">
+
+      <input
+        id="chatInput"
+        placeholder="Напиши вопрос AVA..."
+        onkeydown="if(event.key==='Enter')sendMessage()"
+      >
+
+      <button
+        class="send"
+        onclick="sendMessage()">
+        ➤
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     BOT
+========================= -->
+
+<section id="bot" class="view">
+
+  <div class="section-head">
+    <h2>AVA Bot</h2>
+    <span>Учебный режим</span>
+  </div>
+
+  <div class="card bot-panel">
+
+    <div class="ai-head">
+
+      <div class="ai-avatar">
+        AVA
+      </div>
+
+      <div>
+        <div class="ai-name">
+          AVA Bot
+        </div>
+
+        <div class="ai-status">
+          ● Анализатор активен
+        </div>
+      </div>
+
+    </div>
+
+    <p style="color:var(--muted);font-size:10px;line-height:1.6">
+      Выбери пару, режим и период. AVA создаст
+      виртуальный учебный сценарий.
+    </p>
+
+    <div class="field">
+
+      <label>Валютная пара</label>
+
+      <select
+        id="botPair"
+        class="select">
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>Режим</label>
+
+      <div class="mode">
+
+        <button
+          id="marketButton"
+          class="active"
+          onclick="setMarket('market')">
+          MARKET
+        </button>
+
+        <button
+          id="otcButton"
+          onclick="setMarket('otc')">
+          OTC
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="field">
+
+      <label>Период</label>
+
+      <select
+        id="botTime"
+        class="select">
+
+        <option value="1">1 минута</option>
+        <option value="3">3 минуты</option>
+        <option value="5">5 минут</option>
+        <option value="15">15 минут</option>
+
+      </select>
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="generateSignal()">
+      ✦ Получить учебный сигнал
+    </button>
+
+    <div id="signal" class="signal">
+
+      <div class="signal-head">
+
+        <div>
+
+          <div
+            id="signalPair"
+            class="signal-pair">
+            EUR/USD
+          </div>
+
+          <div
+            id="signalMeta"
+            class="signal-meta">
+            MARKET · 1 минута
+          </div>
+
+        </div>
+
+        <div
+          id="signalDirection"
+          class="direction up">
+          UP
+        </div>
+
+      </div>
+
+      <div style="margin-top:15px">
+
+        <div style="display:flex;justify-content:space-between;font-size:9px">
+
+          <span style="color:var(--muted)">
+            Учебная уверенность
+          </span>
+
+          <b id="signalConfidence">
+            0%
+          </b>
+
+        </div>
+
+        <div class="conf-track">
+          <div
+            id="confidenceFill"
+            class="conf-fill">
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:12px;color:var(--muted);font-size:8px;line-height:1.6">
+        Виртуальный образовательный сценарий.
+        Не является гарантией результата или финансовой рекомендацией.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     ANALYSIS
+========================= -->
+
+<section id="analysis" class="view">
+
+  <div class="section-head">
+    <h2>Market Analysis</h2>
+    <span>Учебный график</span>
+  </div>
+
+  <div class="card chart-card">
+
+    <div class="chart-top">
+
+      <div>
+
+        <div
+          id="analysisPair"
+          class="chart-pair">
+          EUR/USD
+        </div>
+
+        <div
+          id="analysisPrice"
+          class="chart-price">
+          1.0842
+        </div>
+
+        <div class="chart-change">
+          +0.42%
+        </div>
+
+      </div>
+
+      <select
+        class="select"
+        style="width:130px"
+        onchange="changeAnalysisPair(this.value)">
+
+        <option>EUR/USD</option>
+        <option>GBP/USD</option>
+        <option>USD/JPY</option>
+        <option>AUD/USD</option>
+        <option>USD/CAD</option>
+        <option>USD/CHF</option>
+        <option>NZD/USD</option>
+
+      </select>
+
+    </div>
+
+    <div class="chart-area">
+
+      <svg
+        class="chart-svg"
+        viewBox="0 0 600 240"
+        preserveAspectRatio="none">
+
+        <path
+          d="M0 185
+             C35 170 50 188 80 155
+             S130 130 155 165
+             S205 180 230 115
+             S280 85 305 120
+             S350 140 380 80
+             S430 65 455 95
+             S510 105 535 50
+             S575 35 600 18"
+          fill="none"
+          stroke="#a765ff"
+          stroke-width="5"
+          stroke-linecap="round"/>
+
+      </svg>
+
+    </div>
+
+  </div>
+
+  <div class="indicator-grid">
+
+    <div class="card indicator">
+      <b>RSI 58</b>
+      <span>Нейтрально</span>
+    </div>
+
+    <div class="card indicator">
+      <b>MACD ↑</b>
+      <span>Импульс</span>
+    </div>
+
+    <div class="card indicator">
+      <b>EMA 20</b>
+      <span>Контекст</span>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Разбор AVA</h2>
+  </div>
+
+  <div
+    class="card"
+    style="padding:17px">
+
+    <p style="margin:0;color:var(--muted);font-size:10px;line-height:1.7">
+      Сначала оцени структуру рынка, тренд и ключевые области.
+      После этого можно использовать индикаторы как дополнительные
+      подтверждения. Один индикатор не должен рассматриваться
+      как гарантия будущего движения.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     PATTERNS
+========================= -->
+
+<section id="patterns" class="view">
+
+  <div class="section-head">
+    <h2>Паттерны</h2>
+    <span>Библиотека</span>
+  </div>
+
+  <input
+    id="patternSearch"
+    class="search"
+    placeholder="🔎 Найти паттерн..."
+    oninput="renderPatterns(this.value)"
+  >
+
+  <div
+    id="patternsList"
+    class="pattern-grid">
+  </div>
+
+</section>
+
+<!-- =========================
+     DICTIONARY
+========================= -->
+
+<section id="dictionary" class="view">
+
+  <div class="section-head">
+    <h2>Словарь</h2>
+    <span>Термины</span>
+  </div>
+
+  <input
+    class="search"
+    placeholder="🔎 Поиск термина..."
+    oninput="renderDictionary(this.value)"
+  >
+
+  <div id="dictionaryList"></div>
+
+</section>
+
+<!-- =========================
+     FAQ
+========================= -->
+
+<section id="faq" class="view">
+
+  <div class="section-head">
+    <h2>FAQ</h2>
+    <span>Помощь</span>
+  </div>
+
+  <div id="faqList"></div>
+
+</section>
+
+<!-- =========================
+     TRAINER
+========================= -->
+
+<section id="trainer" class="view">
+
+  <div class="section-head">
+    <h2>Тренажёр</h2>
+    <span>Практика</span>
+  </div>
+
+  <div class="card training">
+
+    <div style="font-size:12px;font-weight:850">
+      Куда пойдёт следующий сценарий?
+    </div>
+
+    <div style="margin-top:4px;color:var(--muted);font-size:9px">
+      Проанализируй виртуальный график.
+    </div>
+
+    <div class="training-chart">
+
+      <div
+        id="trainingCandles"
+        class="training-candles">
+      </div>
+
+    </div>
+
+    <div
+      style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px">
+
+      <button
+        class="primary"
+        style="margin:0"
+        onclick="trainerAnswer('UP')">
+        ↑ Рост
+      </button>
+
+      <button
+        class="primary"
+        style="margin:0;background:linear-gradient(100deg,#ff526f,#ff7090)"
+        onclick="trainerAnswer('DOWN')">
+        ↓ Падение
+      </button>
+
+    </div>
+
+    <div
+      id="trainerResult"
+      style="margin-top:11px;color:var(--muted);font-size:9px;text-align:center">
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     TESTS
+========================= -->
+
+<section id="tests" class="view">
+
+  <div class="section-head">
+
+    <h2>Тесты</h2>
+
+    <span id="quizCounter">
+      1 / 10
+    </span>
+
+  </div>
+
+  <div class="card quiz-card">
+
+    <div class="quiz-number">
+      KNOWLEDGE CHECK
+    </div>
+
+    <div
+      id="question"
+      class="question">
+    </div>
+
+    <div
+      id="answers"
+      class="answers">
+    </div>
+
+    <button
+      id="nextQuizButton"
+      class="primary"
+      style="display:none"
+      onclick="nextQuiz()">
+      Следующий вопрос →
+    </button>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section id="profile" class="view">
+
+  <div class="card profile">
+
+    <div class="avatar-wrap">
+
+      <img
+        id="profileAvatar"
+        class="profile-avatar"
+        alt="Профиль">
+
+      <button
+        class="avatar-edit"
+        onclick="document.getElementById('avatarInput').click()">
+        ✎
+      </button>
+
+      <input
+        id="avatarInput"
+        type="file"
+        accept="image/*"
+        style="display:none"
+        onchange="changeAvatar(event)">
+
+    </div>
+
+    <div class="profile-name">
+      AVA Trader
+    </div>
+
+    <div class="profile-id">
+      Trader ID:
+      <span id="profileTraderId">—</span>
+    </div>
+
+    <div
+      id="profileLevel"
+      class="level">
+      Новичок
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Достижения</h2>
+  </div>
+
+  <div class="achievements">
+
+    <div
+      id="achievement1"
+      class="card achievement">
+
+      <div class="achievement-icon">
+        🌱
+      </div>
+
+      <b>Первый шаг</b>
+
+      <small>
+        1 урок
+      </small>
+
+    </div>
+
+    <div
+      id="achievement2"
+      class="card achievement locked">
+
+      <div class="achievement-icon">
+        🎓
+      </div>
+
+      <b>Ученик</b>
+
+      <small>
+        10 уроков
+      </small>
+
+    </div>
+
+    <div
+      id="achievement3"
+      class="card achievement locked">
+
+      <div class="achievement-icon">
+        🏆
+      </div>
+
+      <b>Мастер</b>
+
+      <small>
+        90 уроков
+      </small>
+
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Настройки</h2>
+  </div>
+
+  <div class="card">
+
+    <div class="setting">
+
+      <div class="setting-icon">
+        🌐
+      </div>
+
+      <div class="setting-info">
+
+        <b>Язык</b>
+
+        <small>
+          Язык интерфейса
+        </small>
+
+      </div>
+
+      <div class="languages">
+
+        <button
+          class="lang active"
+          data-lang="ru"
+          onclick="setLanguage('ru',this)">
+          RU
+        </button>
+
+        <button
+          class="lang"
+          data-lang="en"
+          onclick="setLanguage('en',this)">
+          EN
+        </button>
+
+        <button
+          class="lang"
+          data-lang="uk"
+          onclick="setLanguage('uk',this)">
+          UA
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-icon">
+        🎓
+      </div>
+
+      <div class="setting-info">
+
+        <b>Пройдено уроков</b>
+
+        <small id="profileLessons">
+          0 из 100
+        </small>
+
+      </div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-icon">
+        🏆
+      </div>
+
+      <div class="setting-info">
+
+        <b>Уровень</b>
+
+        <small id="profileLevelText">
+          Новичок
+        </small>
+
+      </div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-icon">
+        🔥
+      </div>
+
+      <div class="setting-info">
+
+        <b>Серия обучения</b>
+
+        <small>
+          Продолжай обучение
+        </small>
+
+      </div>
+
+      <b id="profileStreak">
+        1
+      </b>
+
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <h2>Связь с автором</h2>
+  </div>
+
+  <div class="card contact">
+
+    <div style="color:var(--muted);font-size:10px;line-height:1.6">
+      Есть вопрос по AVA или нужна помощь?
+      Свяжись с автором напрямую.
+    </div>
+
+    <div class="contact-buttons">
+
+      <button
+        class="contact-button"
+        onclick="openTelegramChat()">
+
+        <div class="contact-icon">
+          💬
+        </div>
+
+        <div class="contact-text">
+
+          <b>Написать мне</b>
+
+          <small>
+            Личный Telegram
+          </small>
+
+        </div>
+
+        <span>›</span>
+
+      </button>
+
+      <button
+        class="contact-button"
+        onclick="openTelegramChannel()">
+
+        <div class="contact-icon">
+          📢
+        </div>
+
+        <div class="contact-text">
+
+          <b>Telegram-канал</b>
+
+          <small>
+            Материалы AVA
+          </small>
+
+        </div>
+
+        <span>›</span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <button
+    class="primary"
+    style="margin-top:10px;background:rgba(255,255,255,.055);border:1px solid var(--border)"
+    onclick="logout()">
+    Выйти из AVA
+  </button>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+  <button
+    class="nav active"
+    data-view="home"
+    onclick="openView('home')">
+
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linejoin="round"/>
+    </svg>
+
+    <span>Главная</span>
+
+  </button>
+
+  <button
+    class="nav"
+    data-view="academy"
+    onclick="openView('academy')">
+
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z"
+        stroke="currentColor"
+        stroke-width="1.8"/>
+      <path
+        d="M8 7h8M8 11h8M8 15h5"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"/>
+    </svg>
+
+    <span>Академия</span>
+
+  </button>
+
+  <button
+    class="nav"
+    data-view="ava"
+    onclick="openView('ava')">
+
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"
+        stroke="currentColor"
+        stroke-width="1.8"/>
+      <path
+        d="M8 12h.01M16 12h.01M9 16c2 1.4 4 1.4 6 0"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"/>
+    </svg>
+
+    <span>AVA AI</span>
+
+  </button>
+
+  <button
+    class="nav"
+    data-view="analysis"
+    onclick="openView('analysis')">
+
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M4 19V5M4 19h16"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"/>
+      <path
+        d="m7 15 4-5 3 3 5-7"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    </svg>
+
+    <span>Анализ</span>
+
+  </button>
+
+  <button
+    class="nav"
+    data-view="profile"
+    onclick="openView('profile')">
+
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle
+        cx="12"
+        cy="8"
+        r="4"
+        stroke="currentColor"
+        stroke-width="1.8"/>
+      <path
+        d="M4 21c1-4 3.6-6 8-6s7 2 8 6"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"/>
+    </svg>
+
+    <span>Профиль</span>
+
+  </button>
+
+</nav>
 
 </div>
 
@@ -2790,8 +3089,7 @@ button{
 <div
   id="lessonModal"
   class="modal"
-  onclick="closeLesson(event)"
->
+  onclick="closeLesson(event)">
 
   <div class="sheet">
 
@@ -2801,7 +3099,10 @@ button{
       ×
     </button>
 
-    <div id="lessonContent" class="lesson-modal"></div>
+    <div
+      id="lessonContent"
+      class="lesson-modal">
+    </div>
 
     <button
       id="completeLessonButton"
@@ -2817,10 +3118,17 @@ button{
 <script>
 
 /* =========================================================
+   CONFIG
+========================================================= */
+
+const REGISTER_LINK =
+  "https://u3.shortink.io/register?utm_campaign=787509&utm_source=affiliate&utm_medium=sr&a=o7nD89164UWb0o&ac=avatrader&code=WELCOME50";
+
+/* =========================================================
    DATA
 ========================================================= */
 
-const pairs = [
+const pairs=[
   "EUR/USD",
   "GBP/USD",
   "USD/JPY",
@@ -2853,13 +3161,11 @@ const pairs = [
   "GBP/NZD"
 ];
 
-const otcPairs = pairs.map(pair => pair + " OTC");
+const otcPairs=pairs.map(p=>p+" OTC");
 
-const moduleData = [
-
+const modules=[
   {
     title:"Основы трейдинга",
-    icon:"01",
     desc:"Фундаментальные понятия",
     lessons:[
       "Что такое трейдинг",
@@ -2874,10 +3180,8 @@ const moduleData = [
       "Как читать OHLC"
     ]
   },
-
   {
     title:"Свечной анализ",
-    icon:"02",
     desc:"Учимся читать свечи",
     lessons:[
       "Бычья свеча",
@@ -2892,10 +3196,8 @@ const moduleData = [
       "Свечные комбинации"
     ]
   },
-
   {
     title:"Тренд и структура",
-    icon:"03",
     desc:"Понимание движения цены",
     lessons:[
       "Что такое тренд",
@@ -2910,10 +3212,8 @@ const moduleData = [
       "Изменение структуры"
     ]
   },
-
   {
     title:"Уровни",
-    icon:"04",
     desc:"Поддержка и сопротивление",
     lessons:[
       "Поддержка",
@@ -2928,10 +3228,8 @@ const moduleData = [
       "Практика уровней"
     ]
   },
-
   {
     title:"Индикаторы",
-    icon:"05",
     desc:"Основные инструменты",
     lessons:[
       "Что такое индикаторы",
@@ -2946,10 +3244,8 @@ const moduleData = [
       "Сочетание индикаторов"
     ]
   },
-
   {
     title:"Price Action",
-    icon:"06",
     desc:"Анализ движения цены",
     lessons:[
       "Основы Price Action",
@@ -2964,10 +3260,8 @@ const moduleData = [
       "Практика Price Action"
     ]
   },
-
   {
     title:"Риск-менеджмент",
-    icon:"07",
     desc:"Контроль риска",
     lessons:[
       "Что такое риск",
@@ -2982,10 +3276,8 @@ const moduleData = [
       "Торговый план"
     ]
   },
-
   {
     title:"Психология",
-    icon:"08",
     desc:"Дисциплина трейдера",
     lessons:[
       "Страх",
@@ -3000,10 +3292,8 @@ const moduleData = [
       "Психологический чек-лист"
     ]
   },
-
   {
     title:"Практика",
-    icon:"09",
     desc:"Закрепляем знания",
     lessons:[
       "Разбор тренда",
@@ -3018,10 +3308,8 @@ const moduleData = [
       "Финальный разбор"
     ]
   },
-
   {
     title:"Продвинутый уровень",
-    icon:"10",
     desc:"Собираем торговую систему",
     lessons:[
       "Мультифрейм-анализ",
@@ -3036,121 +3324,101 @@ const moduleData = [
       "Финальный экзамен AVA"
     ]
   }
-
 ];
 
-const dictionaryData = [
-
+const dictionary=[
   ["Ask","Цена, по которой можно купить актив."],
   ["Bid","Цена, по которой можно продать актив."],
   ["Breakout","Пробой важной ценовой области."],
-  ["Candle","Свеча, показывающая движение цены за определённый период."],
+  ["Candle","Свеча, показывающая движение цены за период."],
   ["EMA","Экспоненциальная скользящая средняя."],
   ["FOMO","Страх пропустить движение рынка."],
   ["Flat","Боковое движение без выраженного направления."],
-  ["Liquidity","Ликвидность и доступный объём интереса на рынке."],
+  ["Liquidity","Ликвидность и доступный объём интереса."],
   ["MACD","Индикатор импульса и направления движения."],
-  ["OTC","Внебиржевой режим, который может отличаться от обычного рынка."],
-  ["Price Action","Изучение движения самой цены."],
-  ["Pullback","Коррекционное движение против основного импульса."],
+  ["OTC","Внебиржевой режим."],
+  ["Price Action","Изучение поведения самой цены."],
+  ["Pullback","Коррекционное движение."],
   ["Resistance","Область потенциального сопротивления."],
   ["RSI","Индикатор относительной силы."],
   ["Support","Область потенциальной поддержки."],
   ["Spread","Разница между Bid и Ask."],
-  ["Trend","Преимущественное направление движения цены."],
+  ["Trend","Преимущественное направление цены."],
   ["Volatility","Интенсивность изменения цены."],
   ["Volume","Объём торговой активности."],
   ["Risk/Reward","Соотношение потенциального риска и результата."],
   ["Doji","Свеча с близкими ценами открытия и закрытия."],
   ["Engulfing","Свечная модель поглощения."],
-  ["Pin Bar","Свеча с выраженной тенью и небольшим телом."],
-  ["Retest","Повторная проверка ранее пробитой области."],
+  ["Pin Bar","Свеча с длинной тенью и небольшим телом."],
+  ["Retest","Повторная проверка пробитой области."],
   ["Momentum","Сила и скорость текущего движения."]
 ];
 
-const patternData = [
-
-  ["Двойная вершина","Потенциальная разворотная структура после роста.","double"],
-  ["Двойное дно","Потенциальная разворотная структура после снижения.","double"],
+const patterns=[
+  ["Двойная вершина","Разворотная структура после роста.","double"],
+  ["Двойное дно","Разворотная структура после снижения.","double"],
   ["Голова и плечи","Модель возможного изменения структуры.","head"],
-  ["Треугольник","Сжатие диапазона перед возможным расширением.","triangle"],
+  ["Треугольник","Сжатие диапазона цены.","triangle"],
   ["Флаг","Короткая коррекция после импульса.","flag"],
-  ["Клин","Сходящиеся линии движения цены.","wedge"],
-  ["Поглощение","Свечная модель смены краткосрочного импульса.","engulf"],
-  ["Pin Bar","Свеча с длинной тенью и небольшим телом.","pin"],
+  ["Клин","Сходящиеся линии движения.","wedge"],
+  ["Поглощение","Свечная модель смены импульса.","engulf"],
+  ["Pin Bar","Свеча с длинной тенью.","pin"],
   ["Doji","Свеча неопределённости.","doji"],
-  ["Hammer","Модель с длинной нижней тенью.","hammer"],
-  ["Morning Star","Трёхсвечная модель возможного разворота.","star"],
-  ["Three Soldiers","Последовательность сильных бычьих свечей.","soldiers"]
+  ["Hammer","Свеча с длинной нижней тенью.","hammer"],
+  ["Morning Star","Трёхсвечная разворотная модель.","star"],
+  ["Three Soldiers","Последовательность сильных свечей.","soldiers"]
 ];
 
-const faqData = [
-
+const faqs=[
   [
     "Что такое Trader ID?",
     "Trader ID — идентификатор аккаунта трейдера. AVA использует его для проверки доступа через серверную интеграцию."
   ],
-
+  [
+    "Что делать, если ID не найден?",
+    "Если аккаунт не найден, AVA покажет кнопку регистрации через партнёрскую ссылку. После регистрации нужно вернуться и ввести Trader ID нового аккаунта."
+  ],
   [
     "Что такое OTC?",
-    "OTC — внебиржевой режим. Условия и характер движения цены могут отличаться от обычного рыночного режима."
+    "OTC — внебиржевой режим. Его характеристики могут отличаться от обычного рыночного режима."
   ],
-
   [
     "Что изучать новичку?",
     "Начни с основ, свечей, трендов, уровней и риск-менеджмента. После этого переходи к индикаторам и Price Action."
   ],
-
   [
-    "Можно ли доверять одному индикатору?",
-    "Нет. Индикатор лучше рассматривать как один элемент анализа, а не как гарантию будущего движения."
+    "AVA Bot гарантирует результат?",
+    "Нет. В этой версии AVA Bot создаёт виртуальные образовательные сценарии."
   ],
-
-  [
-    "AVA Bot гарантирует прибыль?",
-    "Нет. AVA Bot в этой версии создаёт учебные виртуальные сценарии. Никакой сигнал не гарантирует результат."
-  ],
-
   [
     "Что такое риск-менеджмент?",
-    "Это система правил, которая помогает контролировать потенциальные потери и не принимать решения под влиянием эмоций."
+    "Это система правил контроля потенциальных потерь и торговой дисциплины."
   ],
-
-  [
-    "Зачем нужен торговый план?",
-    "Чтобы заранее определить условия анализа, допустимый риск и действия в разных рыночных сценариях."
-  ],
-
-  [
-    "Можно ли торговать без обучения?",
-    "Технически возможно, но отсутствие знаний и контроля риска значительно увеличивает вероятность необдуманных решений."
-  ],
-
   [
     "Что такое Price Action?",
-    "Это подход к анализу, в котором большое внимание уделяется структуре и поведению самой цены."
+    "Подход к анализу, при котором большое внимание уделяется структуре и поведению цены."
   ],
-
   [
-    "Где связаться с автором?",
-    "В профиле AVA есть кнопки личного Telegram-чата и Telegram-канала."
+    "Можно ли использовать один индикатор?",
+    "Индикатор лучше рассматривать как дополнительный фактор, а не как самостоятельную гарантию."
+  ],
+  [
+    "Где написать автору?",
+    "В профиле AVA находятся кнопки личного Telegram и Telegram-канала."
   ]
-
 ];
 
-const quizData = [
-
+const quiz=[
   {
     q:"Что показывает зелёная свеча?",
     a:[
-      "Цена закрытия выше цены открытия",
-      "Цена закрытия ниже цены открытия",
+      "Цена закрытия выше открытия",
+      "Цена закрытия ниже открытия",
       "Всегда сильный рост",
       "Объём рынка"
     ],
     correct:0
   },
-
   {
     q:"Что такое поддержка?",
     a:[
@@ -3161,7 +3429,6 @@ const quizData = [
     ],
     correct:1
   },
-
   {
     q:"Что показывает RSI?",
     a:[
@@ -3172,51 +3439,46 @@ const quizData = [
     ],
     correct:1
   },
-
   {
     q:"Что такое тренд?",
     a:[
-      "Преимущественное направление движения цены",
+      "Преимущественное направление цены",
       "Размер свечи",
       "Комиссия",
       "Время открытия"
     ],
     correct:0
   },
-
   {
     q:"Что означает FOMO?",
     a:[
-      "Тип индикатора",
+      "Индикатор",
       "Страх пропустить движение",
       "Тип ордера",
-      "Валютную пару"
+      "Валютная пара"
     ],
     correct:1
   },
-
   {
     q:"Для чего нужен риск-менеджмент?",
     a:[
-      "Чтобы гарантировать прибыль",
-      "Чтобы контролировать потенциальные потери",
-      "Чтобы увеличить каждую сделку",
-      "Чтобы убрать волатильность"
+      "Гарантировать прибыль",
+      "Контролировать потенциальные потери",
+      "Увеличивать каждую сделку",
+      "Убрать волатильность"
     ],
     correct:1
   },
-
   {
     q:"Что такое EMA?",
     a:[
       "Скользящая средняя",
       "Осциллятор",
       "Валютная пара",
-      "Тип свечи"
+      "Свеча"
     ],
     correct:0
   },
-
   {
     q:"Что такое флэт?",
     a:[
@@ -3227,7 +3489,6 @@ const quizData = [
     ],
     correct:1
   },
-
   {
     q:"Что такое ретест?",
     a:[
@@ -3238,7 +3499,6 @@ const quizData = [
     ],
     correct:0
   },
-
   {
     q:"Зачем нужен торговый план?",
     a:[
@@ -3249,28 +3509,32 @@ const quizData = [
     ],
     correct:1
   }
-
 ];
 
 /* =========================================================
    STATE
 ========================================================= */
 
-let traderId = localStorage.getItem("avaTraderId") || "";
+let traderId=
+  localStorage.getItem("avaTraderId") || "";
 
-let completedLessons = JSON.parse(
-  localStorage.getItem("avaCompletedLessons") || "[]"
-);
+let ownerSession=
+  localStorage.getItem("avaOwnerSession") === "true";
 
-let currentLesson = null;
+let completed=
+  JSON.parse(
+    localStorage.getItem("avaCompletedLessons") || "[]"
+  );
 
-let marketMode = "market";
+let currentLesson=null;
 
-let quizIndex = 0;
-let quizScore = 0;
+let marketMode="market";
 
-let language =
-  localStorage.getItem("avaLanguage") || "ru";
+let quizIndex=0;
+let quizScore=0;
+
+let trainerDirection=
+  Math.random()>.5 ? "UP":"DOWN";
 
 /* =========================================================
    ACCESS
@@ -3278,52 +3542,109 @@ let language =
 
 async function checkAccess(){
 
-  const input =
-    document.getElementById("traderIdInput");
+  const input=
+    document.getElementById("accessId");
 
-  const status =
-    document.getElementById("accessStatus");
-
-  const id =
+  const id=
     input.value.trim();
 
   if(!id){
 
-    setAccessStatus(
-      "Введите Trader ID.",
+    setStatus(
+      "Введите Trader ID или Owner ID.",
       "error"
     );
 
     return;
   }
 
-  setAccessStatus(
-    "Проверяем аккаунт…",
+  hideRegister();
+
+  setStatus(
+    "Проверяем доступ…",
     "loading"
   );
 
+  /*
+    Сначала проверяем Owner ID.
+    Сам секрет находится только в Vercel.
+  */
+
   try{
 
-    const response =
+    const ownerResponse=
       await fetch(
-        "/api/pocket-check?trader_id="+
-        encodeURIComponent(id),
-        {
-          method:"GET",
-          headers:{
-            "Accept":"application/json"
-          }
-        }
+        "/api/owner-check?id="+
+        encodeURIComponent(id)
       );
 
-    const data =
-      await response.json().catch(()=>({}));
+    const ownerData=
+      await ownerResponse
+        .json()
+        .catch(()=>({}));
+
+    if(
+      ownerResponse.ok &&
+      ownerData.success &&
+      ownerData.allowed
+    ){
+
+      ownerSession=true;
+      traderId=id;
+
+      localStorage.setItem(
+        "avaOwnerSession",
+        "true"
+      );
+
+      localStorage.setItem(
+        "avaTraderId",
+        id
+      );
+
+      enterApp();
+
+      showToast(
+        "Owner Access активирован ✓"
+      );
+
+      return;
+    }
+
+  }catch(error){
+
+    /*
+      Ошибка Owner endpoint не должна
+      мешать обычной проверке Trader ID.
+    */
+
+  }
+
+  /*
+    Если это не Owner ID,
+    проверяем обычный Trader ID.
+  */
+
+  try{
+
+    const response=
+      await fetch(
+        "/api/pocket-check?trader_id="+
+        encodeURIComponent(id)
+      );
+
+    const data=
+      await response
+        .json()
+        .catch(()=>({}));
 
     if(!response.ok){
 
-      setAccessStatus(
+      showRegister();
+
+      setStatus(
         data.error ||
-        "Не удалось проверить аккаунт.",
+        "Аккаунт не найден.",
         "error"
       );
 
@@ -3332,9 +3653,11 @@ async function checkAccess(){
 
     if(!data.success){
 
-      setAccessStatus(
+      showRegister();
+
+      setStatus(
         data.error ||
-        "Проверка не выполнена.",
+        "Не удалось проверить аккаунт.",
         "error"
       );
 
@@ -3343,40 +3666,38 @@ async function checkAccess(){
 
     if(!data.allowed){
 
-      setAccessStatus(
-        "Доступ не подтверждён. Проверь Trader ID и условия доступа.",
+      showRegister();
+
+      setStatus(
+        "Этот Trader ID не имеет необходимого доступа.",
         "error"
       );
 
       return;
     }
 
-    traderId = id;
+    traderId=id;
+
+    ownerSession=false;
 
     localStorage.setItem(
       "avaTraderId",
       id
     );
 
-    document.getElementById(
-      "accessScreen"
-    ).style.display="none";
+    localStorage.removeItem(
+      "avaOwnerSession"
+    );
 
-    document.getElementById(
-      "app"
-    ).style.display="block";
+    enterApp();
 
-    document.getElementById(
-      "profileTraderId"
-    ).textContent=id;
-
-    updateStats();
-
-    showToast("Доступ подтверждён ✓");
+    showToast(
+      "Доступ подтверждён ✓"
+    );
 
   }catch(error){
 
-    setAccessStatus(
+    setStatus(
       "Ошибка соединения с сервером. Попробуйте ещё раз.",
       "error"
     );
@@ -3385,15 +3706,72 @@ async function checkAccess(){
 
 }
 
-function setAccessStatus(text,type){
+function enterApp(){
 
-  const element =
-    document.getElementById("accessStatus");
+  document.getElementById(
+    "accessScreen"
+  ).style.display="none";
 
-  element.textContent=text;
+  document.getElementById(
+    "app"
+  ).style.display="block";
 
-  element.className=
+  document.getElementById(
+    "profileTraderId"
+  ).textContent=
+    ownerSession
+    ? "OWNER"
+    : traderId;
+
+  updateStats();
+
+}
+
+function setStatus(text,type){
+
+  const el=
+    document.getElementById(
+      "accessStatus"
+    );
+
+  el.textContent=text;
+
+  el.className=
     "status show "+type;
+
+}
+
+function showRegister(){
+
+  document.getElementById(
+    "registerBox"
+  ).classList.add("show");
+
+}
+
+function hideRegister(){
+
+  document.getElementById(
+    "registerBox"
+  ).classList.remove("show");
+
+}
+
+function focusAccessInput(){
+
+  document.getElementById(
+    "accessId"
+  ).focus();
+
+}
+
+function registerAccount(){
+
+  window.open(
+    REGISTER_LINK,
+    "_blank",
+    "noopener,noreferrer"
+  );
 
 }
 
@@ -3403,46 +3781,32 @@ function setAccessStatus(text,type){
 
 function openView(view){
 
-  document.querySelectorAll(".view")
-    .forEach(section=>{
-      section.classList.remove("active");
-    });
+  document.querySelectorAll(
+    ".view"
+  ).forEach(el=>{
+    el.classList.remove("active");
+  });
 
-  const target =
+  const target=
     document.getElementById(view);
 
   if(target){
     target.classList.add("active");
   }
 
-  document.querySelectorAll(".nav")
-    .forEach(button=>{
-      button.classList.toggle(
-        "active",
-        button.dataset.view===view
-      );
-    });
+  document.querySelectorAll(
+    ".nav"
+  ).forEach(nav=>{
+    nav.classList.toggle(
+      "active",
+      nav.dataset.view===view
+    );
+  });
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
-
-  if(view==="patterns"){
-    renderPatterns();
-  }
-
-  if(view==="dictionary"){
-    renderDictionary();
-  }
-
-  if(view==="faq"){
-    renderFAQ();
-  }
-
-  if(view==="tests"){
-    renderQuiz();
-  }
 
 }
 
@@ -3452,16 +3816,20 @@ function openView(view){
 
 function renderModules(filter=""){
 
-  const container =
+  const container=
     document.getElementById("modules");
+
+  if(!container)return;
 
   container.innerHTML="";
 
-  let lessonNumber=1;
+  let number=1;
 
-  moduleData.forEach((module,moduleIndex)=>{
+  modules.forEach((module,moduleIndex)=>{
 
-    const matchingLessons =
+    const startNumber=number;
+
+    const filtered=
       module.lessons
       .map((title,index)=>({
         title,
@@ -3469,23 +3837,28 @@ function renderModules(filter=""){
       }))
       .filter(item=>
         !filter ||
-        item.title.toLowerCase()
-          .includes(filter.toLowerCase()) ||
-        module.title.toLowerCase()
-          .includes(filter.toLowerCase())
+        item.title
+          .toLowerCase()
+          .includes(
+            filter.toLowerCase()
+          ) ||
+        module.title
+          .toLowerCase()
+          .includes(
+            filter.toLowerCase()
+          )
       );
 
-    if(!matchingLessons.length){
-      lessonNumber += module.lessons.length;
-      return;
-    }
+    number += module.lessons.length;
 
-    const moduleElement =
+    if(!filtered.length)return;
+
+    const box=
       document.createElement("div");
 
-    moduleElement.className="module";
+    box.className="module";
 
-    const header =
+    const header=
       document.createElement("button");
 
     header.className="module-header";
@@ -3493,7 +3866,7 @@ function renderModules(filter=""){
     header.innerHTML=`
 
       <div class="module-number">
-        ${module.icon}
+        ${String(moduleIndex+1).padStart(2,"0")}
       </div>
 
       <div class="module-info">
@@ -3506,36 +3879,35 @@ function renderModules(filter=""){
 
       </div>
 
-      <div class="module-arrow">
+      <div class="arrow">
         ▼
       </div>
     `;
 
-    const list =
+    const list=
       document.createElement("div");
 
     list.className="lesson-list";
 
-    matchingLessons.forEach(item=>{
+    filtered.forEach(item=>{
 
-      const id =
-        lessonNumber +
-        module.lessons.indexOf(item.title);
+      const id=
+        startNumber+item.index;
 
-      const lesson =
+      const lesson=
         document.createElement("button");
 
       lesson.className=
         "lesson "+
         (
-          completedLessons.includes(id)
+          completed.includes(id)
           ? "done"
           : ""
         );
 
       lesson.innerHTML=`
 
-        <div class="lesson-number">
+        <div class="lesson-num">
           ${id}
         </div>
 
@@ -3551,11 +3923,12 @@ function renderModules(filter=""){
 
         <div class="lesson-check">
           ${
-            completedLessons.includes(id)
+            completed.includes(id)
             ? "✓"
             : "›"
           }
         </div>
+
       `;
 
       lesson.onclick=()=>{
@@ -3573,31 +3946,19 @@ function renderModules(filter=""){
     });
 
     header.onclick=()=>{
-      moduleElement.classList.toggle("open");
+      box.classList.toggle("open");
     };
 
-    moduleElement.appendChild(header);
-    moduleElement.appendChild(list);
+    box.appendChild(header);
+    box.appendChild(list);
 
-    container.appendChild(moduleElement);
-
-    lessonNumber += module.lessons.length;
+    container.appendChild(box);
 
   });
 
 }
 
-function searchLessons(value){
-
-  renderModules(value.trim());
-
-}
-
-function openLesson(
-  id,
-  title,
-  moduleTitle
-){
+function openLesson(id,title,moduleTitle){
 
   currentLesson={
     id,
@@ -3605,15 +3966,14 @@ function openLesson(
     moduleTitle
   };
 
-  const modal =
-    document.getElementById("lessonModal");
-
-  const content =
-    document.getElementById("lessonContent");
+  const content=
+    document.getElementById(
+      "lessonContent"
+    );
 
   content.innerHTML=`
 
-    <div class="online-badge">
+    <div class="online">
       УРОК ${id} · ${moduleTitle}
     </div>
 
@@ -3621,14 +3981,14 @@ function openLesson(
 
     <p>
       AVA разбирает эту тему простым языком,
-      чтобы ты мог не просто запомнить термин,
-      а понимать его применение на графике.
+      чтобы ты мог не только запомнить определение,
+      но и понимать его применение на графике.
     </p>
 
     <h3>Главная идея</h3>
 
     <p>
-      ${lessonExplanation(title)}
+      ${explainLesson(title)}
     </p>
 
     <div class="tip">
@@ -3636,8 +3996,8 @@ function openLesson(
       <b>💡 Совет AVA</b>
 
       <p>
-        Не пытайся принимать решение только на основании
-        одного признака. Сначала оцени общий контекст рынка.
+        Не принимай решение только по одному признаку.
+        Сначала оцени общий контекст рынка.
       </p>
 
     </div>
@@ -3645,18 +4005,17 @@ function openLesson(
     <h3>Практика</h3>
 
     <p>
-      Открой учебный график в разделе «Анализ»
-      и попробуй найти несколько примеров этой ситуации.
-      Затем объясни самому себе, почему ты считаешь их подходящими.
+      Открой раздел «Анализ» и попробуй найти
+      несколько виртуальных примеров этой ситуации.
     </p>
 
-    <h3>Что нужно запомнить</h3>
+    <h3>Что запомнить</h3>
 
     <ul>
-      <li>Изучай контекст, а не одну свечу.</li>
-      <li>Используй несколько факторов анализа.</li>
-      <li>Не воспринимай паттерн как гарантию.</li>
-      <li>Контролируй риск и свои эмоции.</li>
+      <li>Анализируй контекст.</li>
+      <li>Используй несколько факторов.</li>
+      <li>Паттерн не является гарантией.</li>
+      <li>Контролируй риск и эмоции.</li>
     </ul>
 
   `;
@@ -3664,76 +4023,78 @@ function openLesson(
   document.getElementById(
     "completeLessonButton"
   ).textContent=
-    completedLessons.includes(id)
+    completed.includes(id)
     ? "Урок уже завершён ✓"
     : "Завершить урок ✓";
 
-  modal.classList.add("show");
+  document.getElementById(
+    "lessonModal"
+  ).classList.add("show");
 
 }
 
-function lessonExplanation(title){
+function explainLesson(title){
 
-  const explanations={
-
+  const answers={
     "Что такое трейдинг":
-      "Трейдинг — это работа с изменением стоимости финансовых инструментов. Важная часть обучения — научиться оценивать сценарии, неопределённость и риск.",
+      "Трейдинг связан с работой с изменением стоимости финансовых инструментов. Важная часть обучения — понимание сценариев, неопределённости и риска.",
 
     "Что такое тренд":
-      "Тренд показывает преимущественное направление движения цены. Для его определения важно смотреть на последовательность максимумов и минимумов.",
+      "Тренд показывает преимущественное направление движения цены. Для его оценки полезно смотреть на последовательность максимумов и минимумов.",
 
     "Поддержка":
-      "Поддержка — ценовая область, в которой ранее наблюдался повышенный интерес покупателей. Это зона, а не гарантированная точка разворота.",
+      "Поддержка — область, где ранее наблюдался повышенный интерес покупателей. Это зона, а не гарантированная точка разворота.",
 
     "Сопротивление":
       "Сопротивление — область, где рост цены ранее встречал повышенное предложение.",
 
     "RSI":
-      "RSI помогает оценивать относительную силу движения. Его лучше использовать вместе со структурой рынка и другими признаками.",
+      "RSI помогает оценивать относительную силу движения. Его лучше использовать вместе со структурой и контекстом.",
 
     "EMA":
-      "EMA — скользящая средняя, которая сильнее учитывает последние значения цены.",
+      "EMA — экспоненциальная скользящая средняя, которая сильнее учитывает последние значения цены.",
 
     "FOMO":
-      "FOMO — эмоциональное состояние, когда человек боится пропустить движение и принимает решение вне своего плана.",
+      "FOMO — состояние, когда человек боится пропустить движение и начинает принимать решения вне собственного плана.",
 
     "Что такое риск":
-      "Риск — потенциальная величина потери в торговом сценарии. Контроль риска является одной из главных частей дисциплины трейдера."
-
+      "Риск — потенциальная величина потери в торговом сценарии. Контроль риска является одной из главных частей дисциплины."
   };
 
-  return explanations[title] ||
-    `Тема «${title}» является частью модуля «${currentLesson?.moduleTitle || "AVA Academy"}». Изучи определение, посмотри примеры и попробуй найти аналогичную ситуацию на учебном графике.`;
+  return answers[title] ||
+    `Тема «${title}» входит в модуль «${currentLesson?.moduleTitle || "AVA Academy"}». Изучи определение, посмотри примеры и закрепи материал практикой.`;
 
 }
 
 function completeLesson(){
 
-  if(!currentLesson){
-    return;
-  }
+  if(!currentLesson)return;
 
-  if(!completedLessons.includes(
+  if(!completed.includes(
     currentLesson.id
   )){
 
-    completedLessons.push(
+    completed.push(
       currentLesson.id
     );
 
     localStorage.setItem(
       "avaCompletedLessons",
-      JSON.stringify(completedLessons)
+      JSON.stringify(completed)
     );
 
-    showToast("Урок завершён ✓");
+    showToast(
+      "Урок завершён ✓"
+    );
 
   }
 
   closeLesson();
 
   renderModules(
-    document.getElementById("lessonSearch")?.value || ""
+    document.getElementById(
+      "lessonSearch"
+    )?.value || ""
   );
 
   updateStats();
@@ -3762,15 +4123,15 @@ function closeLesson(event){
 
 function sendMessage(){
 
-  const input =
-    document.getElementById("chatInput");
+  const input=
+    document.getElementById(
+      "chatInput"
+    );
 
-  const text =
+  const text=
     input.value.trim();
 
-  if(!text){
-    return;
-  }
+  if(!text)return;
 
   addMessage(
     text,
@@ -3781,15 +4142,12 @@ function sendMessage(){
 
   setTimeout(()=>{
 
-    const answer =
-      avaAnswer(text);
-
     addMessage(
-      answer,
+      avaAnswer(text),
       "ava"
     );
 
-  },450);
+  },400);
 
 }
 
@@ -3803,98 +4161,67 @@ function quickAsk(text){
 
 }
 
-function addMessage(
-  text,
-  type
-){
+function addMessage(text,type){
 
-  const chat =
+  const chat=
     document.getElementById("chat");
 
-  const message =
+  const message=
     document.createElement("div");
 
   message.className=
     "message "+type;
 
-  message.innerHTML=
-    text.replace(/\n/g,"<br>");
+  message.textContent=text;
 
   chat.appendChild(message);
 
-  chat.scrollTop =
+  chat.scrollTop=
     chat.scrollHeight;
 
 }
 
 function avaAnswer(question){
 
-  const q =
+  const q=
     question.toLowerCase();
 
   if(
     q.includes("привет") ||
     q.includes("здравств")
   ){
+    return "Привет 👋 Я AVA. Спрашивай о трейдинге, обучении и функциях академии.";
+  }
 
-    return "Привет 👋 Я AVA. Спрашивай что угодно о трейдинге, обучении и функциях платформы.";
+  if(q.includes("тренд")){
+    return "Тренд — преимущественное направление движения цены. Обычно выделяют восходящий, нисходящий и боковой рынок.";
+  }
 
+  if(q.includes("rsi")){
+    return "RSI — осциллятор относительной силы. Он помогает оценивать состояние движения, но сам по себе не гарантирует разворот.";
+  }
+
+  if(q.includes("ema")){
+    return "EMA — экспоненциальная скользящая средняя. Она сильнее учитывает последние значения цены.";
+  }
+
+  if(q.includes("otc")){
+    return "OTC — внебиржевой режим. Его характеристики могут отличаться от обычного рынка.";
+  }
+
+  if(q.includes("свеч")){
+    return "Свеча показывает открытие, максимум, минимум и закрытие цены за определённый период.";
+  }
+
+  if(q.includes("паттер")){
+    return "Паттерн — определённая структура цены. В AVA есть библиотека двойной вершины, двойного дна, треугольников, флагов, клиньев и свечных моделей.";
   }
 
   if(
-    q.includes("тренд")
+    q.includes("риск") ||
+    q.includes("риск-менеджмент")
   ){
-
-    return "Тренд — преимущественное направление движения цены. Обычно выделяют восходящий, нисходящий и боковой рынок. Для анализа полезно смотреть на последовательность максимумов и минимумов.";
-
-  }
-
-  if(
-    q.includes("rsi")
-  ){
-
-    return "RSI — осциллятор относительной силы. Он помогает оценивать состояние движения, но сам по себе не является гарантией разворота.";
-
-  }
-
-  if(
-    q.includes("ema")
-  ){
-
-    return "EMA — экспоненциальная скользящая средняя. Она сильнее учитывает последние значения цены и может использоваться для оценки контекста тренда.";
-
-  }
-
-  if(
-    q.includes("otc")
-  ){
-
-    return "OTC — внебиржевой режим. Его характеристики могут отличаться от обычного рынка, поэтому относись к нему как к отдельному режиму для анализа.";
-
-  }
-
-  if(
-    q.includes("свеч")
-  ){
-
-    return "Свеча показывает движение цены за определённый период: открытие, максимум, минимум и закрытие. Тело показывает разницу между открытием и закрытием, а тени — экстремумы периода.";
-
-  }
-
-  if(
-    q.includes("паттер")
-  ){
-
-    return "Паттерн — определённая структура движения цены. В AVA есть отдельная библиотека паттернов: двойная вершина, двойное дно, треугольники, флаги, клинья и свечные модели.";
-
-  }
-
-  if(
-    q.includes("риск")
-  ){
-
-    return "Риск-менеджмент помогает контролировать потенциальные потери. Никогда не воспринимай один сигнал как гарантию результата и не пытайся отыгрывать убыток увеличением риска.";
-
+    return "Риск-менеджмент помогает контролировать потенциальные потери. Не пытайся отыгрывать убытки увеличением риска.";
   }
 
   if(
@@ -3902,30 +4229,10 @@ function avaAnswer(question){
     q.includes("начать") ||
     q.includes("изучать")
   ){
-
-    return "Я бы начала так: 1) основы рынка → 2) свечи → 3) тренды → 4) уровни → 5) индикаторы → 6) Price Action → 7) риск-менеджмент → 8) практика.";
-
+    return "Рекомендую порядок: основы → свечи → тренды → уровни → индикаторы → Price Action → риск-менеджмент → практика.";
   }
 
-  if(
-    q.includes("ava") ||
-    q.includes("платформ")
-  ){
-
-    return "В AVA есть Академия, AVA AI, AVA Bot, Market Analysis, паттерны, словарь, FAQ, тренажёр, тесты и профиль. Если хочешь разобраться с конкретной функцией — спроси меня.";
-
-  }
-
-  if(
-    q.includes("telegram") ||
-    q.includes("связ")
-  ){
-
-    return "Связаться с автором можно через раздел «Профиль». Там есть личный Telegram-чат и Telegram-канал.";
-
-  }
-
-  return "Хороший вопрос. Попробуй уточнить тему: свечи, тренд, уровни, RSI, EMA, MACD, Price Action, OTC, паттерны, риск-менеджмент или функции AVA.";
+  return "Уточни тему: свечи, тренд, уровни, RSI, EMA, MACD, Price Action, OTC, паттерны, риск-менеджмент или функции AVA.";
 
 }
 
@@ -3935,22 +4242,7 @@ function avaAnswer(question){
 
 function renderPairs(){
 
-  const select =
-    document.getElementById("botPair");
-
-  select.innerHTML="";
-
-  pairs.forEach(pair=>{
-
-    const option =
-      document.createElement("option");
-
-    option.value=pair;
-    option.textContent=pair;
-
-    select.appendChild(option);
-
-  });
+  setMarket("market");
 
 }
 
@@ -3972,22 +4264,19 @@ function setMarket(mode){
     mode==="otc"
   );
 
-  const select =
+  const select=
     document.getElementById("botPair");
-
-  const current =
-    select.value.replace(" OTC","");
 
   select.innerHTML="";
 
-  const list =
+  const list=
     mode==="otc"
     ? otcPairs
     : pairs;
 
   list.forEach(pair=>{
 
-    const option =
+    const option=
       document.createElement("option");
 
     option.value=pair;
@@ -3997,36 +4286,34 @@ function setMarket(mode){
 
   });
 
-  if(list.includes(current)){
-    select.value=current;
-  }
-
 }
 
 function generateSignal(){
 
-  const pair =
+  const pair=
     document.getElementById(
       "botPair"
     ).value;
 
-  const time =
+  const time=
     document.getElementById(
       "botTime"
     ).value;
 
-  const direction =
-    Math.random() > .5
+  const direction=
+    Math.random()>.5
     ? "UP"
     : "DOWN";
 
-  const confidence =
+  const confidence=
     Math.floor(
-      62 + Math.random()*26
+      62+Math.random()*25
     );
 
-  const signal =
-    document.getElementById("signal");
+  const signal=
+    document.getElementById(
+      "signal"
+    );
 
   signal.classList.remove("show");
 
@@ -4048,15 +4335,14 @@ function generateSignal(){
       time+
       " минута";
 
-    const directionElement =
+    const dir=
       document.getElementById(
         "signalDirection"
       );
 
-    directionElement.textContent=
-      direction;
+    dir.textContent=direction;
 
-    directionElement.className=
+    dir.className=
       "direction "+
       (
         direction==="UP"
@@ -4076,7 +4362,7 @@ function generateSignal(){
 
     signal.classList.add("show");
 
-  },350);
+  },300);
 
 }
 
@@ -4084,8 +4370,7 @@ function generateSignal(){
    ANALYSIS
 ========================================================= */
 
-const analysisPrices={
-
+const prices={
   "EUR/USD":"1.0842",
   "GBP/USD":"1.2714",
   "USD/JPY":"149.28",
@@ -4093,7 +4378,6 @@ const analysisPrices={
   "USD/CAD":"1.3562",
   "USD/CHF":"0.8834",
   "NZD/USD":"0.6034"
-
 };
 
 function changeAnalysisPair(pair){
@@ -4105,8 +4389,7 @@ function changeAnalysisPair(pair){
   document.getElementById(
     "analysisPrice"
   ).textContent=
-    analysisPrices[pair] ||
-    "1.0000";
+    prices[pair] || "1.0000";
 
 }
 
@@ -4117,7 +4400,6 @@ function changeAnalysisPair(pair){
 function patternSVG(type){
 
   if(type==="double"){
-
     return `
       <svg viewBox="0 0 180 70" fill="none">
         <path
@@ -4131,11 +4413,9 @@ function patternSVG(type){
           stroke-linecap="round"/>
       </svg>
     `;
-
   }
 
   if(type==="head"){
-
     return `
       <svg viewBox="0 0 180 70" fill="none">
         <path
@@ -4149,11 +4429,9 @@ function patternSVG(type){
           stroke-linecap="round"/>
       </svg>
     `;
-
   }
 
   if(type==="triangle"){
-
     return `
       <svg viewBox="0 0 180 70" fill="none">
         <path
@@ -4167,11 +4445,9 @@ function patternSVG(type){
           stroke-linecap="round"/>
       </svg>
     `;
-
   }
 
   if(type==="flag"){
-
     return `
       <svg viewBox="0 0 180 70" fill="none">
         <path
@@ -4188,24 +4464,6 @@ function patternSVG(type){
           stroke-width="3"/>
       </svg>
     `;
-
-  }
-
-  if(type==="wedge"){
-
-    return `
-      <svg viewBox="0 0 180 70" fill="none">
-        <path
-          d="M8 12L172 55M8 55L172 62"
-          stroke="#a86cff"
-          stroke-width="2"/>
-        <path
-          d="M12 48l22-18 20 15 22-11 20 9 20-7 20 5 25-4"
-          stroke="#36e29a"
-          stroke-width="3"/>
-      </svg>
-    `;
-
   }
 
   return `
@@ -4223,50 +4481,50 @@ function patternSVG(type){
 
 function renderPatterns(search=""){
 
-  const container =
+  const container=
     document.getElementById(
       "patternsList"
     );
 
-  if(!container){
-    return;
-  }
+  if(!container)return;
 
-  const query =
+  const q=
     search.toLowerCase().trim();
-
-  const data =
-    patternData.filter(item=>
-      item[0].toLowerCase()
-        .includes(query) ||
-      item[1].toLowerCase()
-        .includes(query)
-    );
 
   container.innerHTML="";
 
-  data.forEach(item=>{
+  patterns
+    .filter(item=>
+      item[0]
+        .toLowerCase()
+        .includes(q) ||
+      item[1]
+        .toLowerCase()
+        .includes(q)
+    )
+    .forEach(item=>{
 
-    const element =
-      document.createElement("div");
+      const el=
+        document.createElement("div");
 
-    element.className="card pattern";
+      el.className=
+        "card pattern";
 
-    element.innerHTML=`
+      el.innerHTML=`
 
-      <div class="pattern-icon">
-        ${patternSVG(item[2])}
-      </div>
+        <div class="pattern-icon">
+          ${patternSVG(item[2])}
+        </div>
 
-      <b>${item[0]}</b>
+        <b>${item[0]}</b>
 
-      <p>${item[1]}</p>
+        <p>${item[1]}</p>
 
-    `;
+      `;
 
-    container.appendChild(element);
+      container.appendChild(el);
 
-  });
+    });
 
 }
 
@@ -4276,46 +4534,45 @@ function renderPatterns(search=""){
 
 function renderDictionary(search=""){
 
-  const container =
+  const container=
     document.getElementById(
       "dictionaryList"
     );
 
-  if(!container){
-    return;
-  }
+  if(!container)return;
 
-  const query =
+  const q=
     search.toLowerCase().trim();
-
-  const data =
-    dictionaryData.filter(item=>
-      item[0].toLowerCase()
-        .includes(query) ||
-      item[1].toLowerCase()
-        .includes(query)
-    );
 
   container.innerHTML="";
 
-  data.forEach(item=>{
+  dictionary
+    .filter(item=>
+      item[0]
+        .toLowerCase()
+        .includes(q) ||
+      item[1]
+        .toLowerCase()
+        .includes(q)
+    )
+    .forEach(item=>{
 
-    const element =
-      document.createElement("div");
+      const el=
+        document.createElement("div");
 
-    element.className="card term";
+      el.className=
+        "card term";
 
-    element.innerHTML=`
+      el.innerHTML=`
 
-      <b>${item[0]}</b>
+        <b>${item[0]}</b>
+        <p>${item[1]}</p>
 
-      <p>${item[1]}</p>
+      `;
 
-    `;
+      container.appendChild(el);
 
-    container.appendChild(element);
-
-  });
+    });
 
 }
 
@@ -4325,33 +4582,30 @@ function renderDictionary(search=""){
 
 function renderFAQ(){
 
-  const container =
+  const container=
     document.getElementById(
       "faqList"
     );
 
-  if(!container){
-    return;
-  }
+  if(!container)return;
 
   container.innerHTML="";
 
-  faqData.forEach(item=>{
+  faqs.forEach(item=>{
 
-    const element =
+    const el=
       document.createElement("div");
 
-    element.className=
+    el.className=
       "card faq";
 
-    element.innerHTML=`
+    el.innerHTML=`
 
       <button
         class="faq-question"
         onclick="this.parentElement.classList.toggle('open')">
 
         <span>${item[0]}</span>
-
         <span>⌄</span>
 
       </button>
@@ -4362,9 +4616,87 @@ function renderFAQ(){
 
     `;
 
-    container.appendChild(element);
+    container.appendChild(el);
 
   });
+
+}
+
+/* =========================================================
+   TRAINER
+========================================================= */
+
+function renderTrainingChart(){
+
+  const container=
+    document.getElementById(
+      "trainingCandles"
+    );
+
+  if(!container)return;
+
+  container.innerHTML="";
+
+  for(let i=0;i<14;i++){
+
+    const candle=
+      document.createElement("div");
+
+    const green=
+      Math.random()>.45;
+
+    candle.className=
+      "train-candle "+
+      (
+        green
+        ? "train-green"
+        : "train-red"
+      );
+
+    candle.style.height=
+      (35+Math.random()*100)+"px";
+
+    container.appendChild(candle);
+
+  }
+
+}
+
+function trainerAnswer(answer){
+
+  const result=
+    document.getElementById(
+      "trainerResult"
+    );
+
+  if(answer===trainerDirection){
+
+    result.textContent=
+      "✓ В этом учебном сценарии направление совпало.";
+
+    result.style.color=
+      "var(--green)";
+
+  }else{
+
+    result.textContent=
+      "Не совпало. Помни: реальные рыночные движения не гарантированы.";
+
+    result.style.color=
+      "var(--red)";
+
+  }
+
+  setTimeout(()=>{
+
+    trainerDirection=
+      Math.random()>.5
+      ? "UP"
+      : "DOWN";
+
+    renderTrainingChart();
+
+  },900);
 
 }
 
@@ -4374,39 +4706,35 @@ function renderFAQ(){
 
 function renderQuiz(){
 
-  const data =
-    quizData[quizIndex];
+  const data=
+    quiz[quizIndex];
 
   document.getElementById(
     "quizCounter"
   ).textContent=
-    `${quizIndex+1} / ${quizData.length}`;
+    `${quizIndex+1} / ${quiz.length}`;
 
   document.getElementById(
     "question"
   ).textContent=data.q;
 
-  const answers =
+  const answers=
     document.getElementById(
       "answers"
     );
 
   answers.innerHTML="";
 
-  data.a.forEach((answer,index)=>{
+  data.a.forEach((text,index)=>{
 
-    const button =
+    const button=
       document.createElement("button");
 
     button.className="answer";
-
-    button.textContent=answer;
+    button.textContent=text;
 
     button.onclick=()=>{
-      answerQuiz(
-        index,
-        button
-      );
+      answerQuiz(index,button);
     };
 
     answers.appendChild(button);
@@ -4419,18 +4747,15 @@ function renderQuiz(){
 
 }
 
-function answerQuiz(
-  index,
-  button
-){
+function answerQuiz(index,button){
 
-  const data =
-    quizData[quizIndex];
+  const data=
+    quiz[quizIndex];
 
   document.querySelectorAll(
     ".answer"
   ).forEach(
-    item=>item.disabled=true
+    el=>el.disabled=true
   );
 
   if(index===data.correct){
@@ -4467,12 +4792,11 @@ function nextQuiz(){
   quizIndex++;
 
   if(
-    quizIndex >=
-    quizData.length
+    quizIndex>=quiz.length
   ){
 
     showToast(
-      `Результат: ${quizScore}/${quizData.length}`
+      `Результат: ${quizScore}/${quiz.length}`
     );
 
     quizIndex=0;
@@ -4485,107 +4809,20 @@ function nextQuiz(){
 }
 
 /* =========================================================
-   TRAINER
-========================================================= */
-
-function renderTrainingChart(){
-
-  const container =
-    document.getElementById(
-      "trainingCandles"
-    );
-
-  if(!container){
-    return;
-  }
-
-  container.innerHTML="";
-
-  for(let i=0;i<14;i++){
-
-    const candle =
-      document.createElement("div");
-
-    const green =
-      Math.random()>.45;
-
-    candle.className=
-      "train-candle "+
-      (
-        green
-        ? "train-green"
-        : "train-red"
-      );
-
-    candle.style.height=
-      (35+Math.random()*100)+"px";
-
-    container.appendChild(candle);
-
-  }
-
-}
-
-let trainingDirection =
-  Math.random()>.5
-  ? "UP"
-  : "DOWN";
-
-function trainerAnswer(answer){
-
-  const result =
-    document.getElementById(
-      "trainerResult"
-    );
-
-  if(answer===trainingDirection){
-
-    result.innerHTML=
-      "✓ Хороший анализ. В этом учебном сценарии направление совпало.";
-
-    result.style.color=
-      "var(--green)";
-
-  }else{
-
-    result.innerHTML=
-      "Попробуй ещё раз. Помни: реальный рынок не даёт гарантированных исходов.";
-
-    result.style.color=
-      "var(--red)";
-
-  }
-
-  setTimeout(()=>{
-
-    trainingDirection =
-      Math.random()>.5
-      ? "UP"
-      : "DOWN";
-
-    renderTrainingChart();
-
-  },1000);
-
-}
-
-/* =========================================================
    PROFILE
 ========================================================= */
 
 function changeAvatar(event){
 
-  const file =
+  const file=
     event.target.files[0];
 
-  if(!file){
-    return;
-  }
+  if(!file)return;
 
-  const reader =
+  const reader=
     new FileReader();
 
-  reader.onload=function(e){
+  reader.onload=e=>{
 
     const src=e.target.result;
 
@@ -4610,12 +4847,12 @@ function changeAvatar(event){
 
 function loadAvatar(){
 
-  const saved =
+  const saved=
     localStorage.getItem(
       "avaAvatar"
     );
 
-  const avatar =
+  const avatar=
     document.getElementById(
       "profileAvatar"
     );
@@ -4623,7 +4860,6 @@ function loadAvatar(){
   if(saved){
 
     avatar.src=saved;
-
     return;
 
   }
@@ -4631,7 +4867,6 @@ function loadAvatar(){
   avatar.src=
     "data:image/svg+xml;charset=UTF-8,"+
     encodeURIComponent(`
-
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="200"
@@ -4678,58 +4913,30 @@ function loadAvatar(){
 
 }
 
-function setLanguage(
-  selected,
-  button
-){
-
-  language=selected;
+function setLanguage(language,button){
 
   localStorage.setItem(
     "avaLanguage",
-    selected
+    language
   );
 
   document.querySelectorAll(
-    ".language-button"
-  ).forEach(item=>{
-    item.classList.remove("active");
-  });
+    ".lang"
+  ).forEach(
+    el=>el.classList.remove("active")
+  );
 
   button.classList.add("active");
 
-  if(selected==="ru"){
-    showToast("Русский язык ✓");
-  }
+  const names={
+    ru:"Русский язык ✓",
+    en:"English ✓",
+    uk:"Українська ✓"
+  };
 
-  if(selected==="en"){
-    showToast("English ✓");
-  }
-
-  if(selected==="uk"){
-    showToast("Українська ✓");
-  }
-
-}
-
-/* =========================================================
-   TELEGRAM
-========================================================= */
-
-function openTelegramChat(){
-
-  window.open(
-    "https://t.me/m/7wm-HAsAMmIy",
-    "_blank"
-  );
-
-}
-
-function openTelegramChannel(){
-
-  window.open(
-    "https://t.me/+D1kxbrvyGSViZWFi",
-    "_blank"
+  showToast(
+    names[language] ||
+    "Язык изменён"
   );
 
 }
@@ -4740,13 +4947,11 @@ function openTelegramChannel(){
 
 function updateStats(){
 
-  const count =
-    completedLessons.length;
+  const count=
+    completed.length;
 
-  const percent =
-    Math.round(
-      count/100*100
-    );
+  const percent=
+    Math.round(count/100*100);
 
   document.getElementById(
     "statLessons"
@@ -4803,6 +5008,51 @@ function updateStats(){
     "profileLevelText"
   ).textContent=level;
 
+  document.getElementById(
+    "achievement1"
+  ).classList.toggle(
+    "locked",
+    count<1
+  );
+
+  document.getElementById(
+    "achievement2"
+  ).classList.toggle(
+    "locked",
+    count<10
+  );
+
+  document.getElementById(
+    "achievement3"
+  ).classList.toggle(
+    "locked",
+    count<90
+  );
+
+}
+
+/* =========================================================
+   TELEGRAM
+========================================================= */
+
+function openTelegramChat(){
+
+  window.open(
+    "https://t.me/m/7wm-HAsAMmIy",
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+function openTelegramChannel(){
+
+  window.open(
+    "https://t.me/+D1kxbrvyGSViZWFi",
+    "_blank",
+    "noopener,noreferrer"
+  );
+
 }
 
 /* =========================================================
@@ -4813,10 +5063,8 @@ let toastTimer;
 
 function showToast(message){
 
-  const toast =
-    document.getElementById(
-      "toast"
-    );
+  const toast=
+    document.getElementById("toast");
 
   toast.textContent=message;
 
@@ -4841,12 +5089,16 @@ function logout(){
     "avaTraderId"
   );
 
+  localStorage.removeItem(
+    "avaOwnerSession"
+  );
+
   location.reload();
 
 }
 
 /* =========================================================
-   START
+   INIT
 ========================================================= */
 
 document.addEventListener(
@@ -4869,37 +5121,75 @@ document.addEventListener(
 
     loadAvatar();
 
+    /*
+      Owner session сохраняется локально.
+      Но при следующем открытии сайта мы
+      дополнительно проверяем Owner ID через
+      сервер — поэтому локальный флаг сам по
+      себе не даёт доступ.
+    */
+
     if(traderId){
 
-      document.getElementById(
-        "accessScreen"
-      ).style.display="none";
+      if(ownerSession){
 
-      document.getElementById(
-        "app"
-      ).style.display="block";
+        restoreOwnerSession();
 
-      document.getElementById(
-        "profileTraderId"
-      ).textContent=traderId;
+      }else{
 
-      updateStats();
+        /*
+          Для обычного Trader ID повторная
+          проверка выполняется автоматически.
+        */
+
+        restoreTraderSession();
+
+      }
 
     }
 
-    document.querySelectorAll(
-      ".language-button"
-    ).forEach(button=>{
-
-      button.classList.toggle(
-        "active",
-        button.dataset.lang===language
-      );
-
-    });
-
   }
 );
+
+async function restoreOwnerSession(){
+
+  /*
+    В localStorage хранится только факт сессии,
+    но не секрет Owner ID.
+  */
+
+  document.getElementById(
+    "accessScreen"
+  ).style.display="flex";
+
+  document.getElementById(
+    "accessId"
+  ).value="";
+
+  setStatus(
+    "Введите Owner ID для продолжения.",
+    "loading"
+  );
+
+}
+
+async function restoreTraderSession(){
+
+  /*
+    Не показываем приложение только на основании
+    localStorage. Пользователь должен снова пройти
+    проверку Trader ID.
+  */
+
+  document.getElementById(
+    "accessId"
+  ).value=traderId;
+
+  setTimeout(()=>{
+    checkAccess();
+  },250);
+
+}
 
 </script>
 
