@@ -1,1 +1,3370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#08060f">
+<title>AVA — Trading Academy</title>
 
+<style>
+:root{
+  --bg:#08060f;
+  --bg2:#100c1c;
+  --card:rgba(255,255,255,.065);
+  --card2:rgba(255,255,255,.035);
+  --border:rgba(255,255,255,.09);
+  --purple:#8b5cf6;
+  --purple2:#b58cff;
+  --purple3:#5b21b6;
+  --green:#38e28f;
+  --red:#ff5574;
+  --text:#fff;
+  --muted:#858092;
+  --muted2:#aaa3b4;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input{
+  font-family:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+  overflow:hidden;
+  position:relative;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(139,92,246,.20),transparent 30%),
+    radial-gradient(circle at 100% 35%,rgba(91,33,182,.16),transparent 30%),
+    linear-gradient(180deg,#08060f,#0a0712);
+}
+
+.app::before{
+  content:"";
+  position:fixed;
+  inset:-50%;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    radial-gradient(circle,rgba(181,140,255,.55) 1px,transparent 1.5px);
+  background-size:48px 48px;
+  animation:stars 30s linear infinite;
+}
+
+@keyframes stars{
+  to{transform:translate(48px,48px)}
+}
+
+.orb{
+  position:fixed;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:rgba(139,92,246,.12);
+  filter:blur(80px);
+  pointer-events:none;
+}
+
+.orb1{
+  top:-130px;
+  left:-120px;
+  animation:floatOrb 9s ease-in-out infinite alternate;
+}
+
+.orb2{
+  right:-150px;
+  bottom:100px;
+  animation:floatOrb 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatOrb{
+  to{transform:translate(35px,25px) scale(1.1)}
+}
+
+/* SVG */
+
+svg{
+  display:block;
+}
+
+.icon{
+  width:22px;
+  height:22px;
+}
+
+.icon-sm{
+  width:18px;
+  height:18px;
+}
+
+.icon-lg{
+  width:29px;
+  height:29px;
+}
+
+/* SCREENS */
+
+.screen{
+  display:none;
+  width:100%;
+  max-width:580px;
+  min-height:100vh;
+  margin:auto;
+  padding:20px 16px 115px;
+  position:relative;
+  z-index:2;
+  animation:screenIn .38s cubic-bezier(.2,.8,.2,1);
+}
+
+.screen.active{
+  display:block;
+}
+
+@keyframes screenIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* HEADER */
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:25px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:43px;
+  height:43px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:950;
+  font-size:21px;
+  background:linear-gradient(135deg,#c5aaff,#6724d4);
+  box-shadow:0 10px 35px rgba(139,92,246,.3);
+}
+
+.brand-name{
+  font-size:18px;
+  font-weight:850;
+  letter-spacing:-.5px;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#a987ff,#4c1d95);
+  font-weight:900;
+}
+
+/* HERO */
+
+.hero{
+  min-height:235px;
+  padding:25px;
+  position:relative;
+  overflow:hidden;
+  border-radius:31px;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(181,140,255,.18),transparent 35%),
+    linear-gradient(135deg,rgba(139,92,246,.20),rgba(255,255,255,.035));
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
+  backdrop-filter:blur(25px);
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-70px;
+  top:-75px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 0 70px rgba(139,92,246,.25);
+}
+
+.hero h1{
+  position:relative;
+  z-index:2;
+  max-width:290px;
+  font-size:31px;
+  line-height:1.03;
+  letter-spacing:-1.3px;
+}
+
+.hero p{
+  position:relative;
+  z-index:2;
+  max-width:310px;
+  margin-top:11px;
+  color:var(--muted2);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.primary{
+  position:relative;
+  z-index:3;
+  height:43px;
+  margin-top:18px;
+  padding:0 17px;
+  border-radius:14px;
+  background:#fff;
+  color:#17131f;
+  font-size:11px;
+  font-weight:850;
+  transition:.25s;
+}
+
+.primary:active{
+  transform:scale(.95);
+}
+
+.ava-sphere{
+  position:absolute;
+  right:20px;
+  bottom:20px;
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 32% 22%,#eee5ff,#a57cff 33%,#391076 72%);
+  box-shadow:
+    0 0 50px rgba(139,92,246,.45),
+    inset 0 2px 15px rgba(255,255,255,.35);
+  animation:avaFloat 4s ease-in-out infinite;
+}
+
+@keyframes avaFloat{
+  50%{transform:translateY(-8px)}
+}
+
+.bot-face{
+  width:55px;
+  height:40px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:rgba(16,8,29,.75);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.eye{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#d7c4ff;
+  box-shadow:0 0 12px #b58cff;
+}
+
+/* SECTION */
+
+.section{
+  margin-top:28px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:0 3px 13px;
+}
+
+.section-title h2{
+  font-size:18px;
+  letter-spacing:-.4px;
+}
+
+.section-title span{
+  color:#6e6878;
+  font-size:10px;
+}
+
+/* PROGRESS */
+
+.progress-card{
+  padding:18px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:var(--card);
+  backdrop-filter:blur(20px);
+}
+
+.progress-line{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:11px;
+  font-size:12px;
+  font-weight:750;
+}
+
+.progress-line span{
+  color:var(--purple2);
+}
+
+.progress-track{
+  height:8px;
+  border-radius:20px;
+  overflow:hidden;
+  background:rgba(255,255,255,.06);
+}
+
+.progress-fill{
+  width:0;
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#6d28d9,#b58cff);
+  box-shadow:0 0 20px rgba(139,92,246,.5);
+  transition:1s cubic-bezier(.2,.8,.2,1);
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.stat{
+  padding:15px 13px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.stat-icon{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  color:var(--purple2);
+  background:rgba(139,92,246,.12);
+  margin-bottom:10px;
+}
+
+.stat-number{
+  font-size:21px;
+  font-weight:900;
+}
+
+.stat-label{
+  margin-top:4px;
+  color:#706b79;
+  font-size:9px;
+}
+
+/* COURSE */
+
+.course-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.course{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:15px;
+  border-radius:21px;
+  border:1px solid var(--border);
+  background:var(--card2);
+  transition:.22s;
+}
+
+.course:active{
+  transform:scale(.98);
+}
+
+.course-icon{
+  width:49px;
+  height:49px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  color:#bda6ff;
+  background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.05));
+}
+
+.course-info{
+  flex:1;
+}
+
+.course-info strong{
+  display:block;
+  font-size:12px;
+}
+
+.course-info small{
+  display:block;
+  margin-top:5px;
+  color:#716b7a;
+  font-size:9px;
+}
+
+.course-arrow{
+  color:#625c6c;
+  font-size:23px;
+}
+
+/* PAGE TITLE */
+
+.page-title{
+  margin-top:8px;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.page-sub{
+  margin-top:6px;
+  margin-bottom:22px;
+  color:#777180;
+  font-size:12px;
+  line-height:1.5;
+}
+
+/* MODULE */
+
+.module{
+  margin-bottom:24px;
+}
+
+.module-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:11px;
+}
+
+.module-icon{
+  width:37px;
+  height:37px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  color:#bda5ff;
+  background:rgba(139,92,246,.12);
+}
+
+.module-name strong{
+  display:block;
+  font-size:14px;
+}
+
+.module-name span{
+  display:block;
+  margin-top:3px;
+  color:#6c6675;
+  font-size:9px;
+}
+
+/* LESSON */
+
+.lesson{
+  margin-bottom:8px;
+  overflow:hidden;
+  border-radius:19px;
+  border:1px solid var(--border);
+  background:var(--card2);
+  transition:.25s;
+}
+
+.lesson-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:14px;
+}
+
+.lesson-num{
+  width:40px;
+  height:40px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:13px;
+  background:rgba(139,92,246,.1);
+  color:#b99cff;
+  font-size:10px;
+  font-weight:850;
+}
+
+.lesson-info{
+  flex:1;
+}
+
+.lesson-info strong{
+  display:block;
+  font-size:11px;
+}
+
+.lesson-info span{
+  display:block;
+  margin-top:4px;
+  color:#686272;
+  font-size:9px;
+}
+
+.lesson-status{
+  color:#5c5765;
+  font-size:19px;
+}
+
+.lesson.completed .lesson-status{
+  color:var(--green);
+}
+
+.lesson-body{
+  display:none;
+  padding:0 14px 15px 65px;
+  color:#96909f;
+  font-size:10px;
+  line-height:1.7;
+}
+
+.lesson.open .lesson-body{
+  display:block;
+  animation:bodyIn .25s ease;
+}
+
+@keyframes bodyIn{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:none}
+}
+
+.complete-btn{
+  height:38px;
+  margin-top:11px;
+  padding:0 14px;
+  border-radius:12px;
+  color:#fff;
+  background:linear-gradient(100deg,#6d28d9,#9567f4);
+  font-size:10px;
+  font-weight:800;
+}
+
+/* BOT */
+
+.bot-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.bot-logo{
+  width:55px;
+  height:55px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:18px;
+  color:white;
+  background:linear-gradient(135deg,#b794ff,#5b21b6);
+  box-shadow:0 12px 40px rgba(139,92,246,.25);
+}
+
+.bot-header strong{
+  display:block;
+  font-size:19px;
+}
+
+.online{
+  margin-top:4px;
+  color:#42df91;
+  font-size:9px;
+}
+
+.chat{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding-bottom:80px;
+}
+
+.message{
+  max-width:88%;
+  padding:13px 14px;
+  border-radius:18px;
+  font-size:11px;
+  line-height:1.6;
+  animation:messageIn .3s ease;
+}
+
+@keyframes messageIn{
+  from{
+    opacity:0;
+    transform:translateY(7px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.message.bot{
+  align-self:flex-start;
+  color:#aaa3b2;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.055);
+  border-bottom-left-radius:6px;
+}
+
+.message.user{
+  align-self:flex-end;
+  color:white;
+  background:linear-gradient(135deg,#7040db,#9161ef);
+  border-bottom-right-radius:6px;
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:3px;
+}
+
+.quick{
+  min-height:44px;
+  border-radius:14px;
+  border:1px solid rgba(139,92,246,.16);
+  color:#ad94e9;
+  background:rgba(139,92,246,.07);
+  font-size:9px;
+  font-weight:750;
+}
+
+.chat-input{
+  position:fixed;
+  z-index:20;
+  left:50%;
+  bottom:94px;
+  transform:translateX(-50%);
+  width:min(548px,calc(100% - 30px));
+  height:54px;
+  display:flex;
+  gap:7px;
+  padding:6px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:rgba(20,17,29,.92);
+  backdrop-filter:blur(25px);
+  box-shadow:0 15px 50px rgba(0,0,0,.4);
+}
+
+.chat-input input{
+  min-width:0;
+  flex:1;
+  padding:0 10px;
+  border:0;
+  outline:0;
+  color:white;
+  background:transparent;
+  font-size:11px;
+}
+
+.send{
+  width:41px;
+  height:41px;
+  border-radius:13px;
+  color:#fff;
+  background:#8b5cf6;
+  font-size:18px;
+}
+
+/* ANALYSIS */
+
+.chart-card{
+  padding:16px;
+  border-radius:24px;
+  border:1px solid var(--border);
+  background:var(--card);
+}
+
+.chart-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.chart-head strong{
+  font-size:14px;
+}
+
+.price{
+  color:var(--green);
+  font-size:13px;
+  font-weight:850;
+}
+
+.chart{
+  height:245px;
+  overflow:hidden;
+  border-radius:17px;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
+    #0b0911;
+  background-size:40px 40px;
+}
+
+canvas{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.chart-controls{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:10px;
+}
+
+.chart-btn{
+  height:40px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  color:#827b8c;
+  background:rgba(255,255,255,.035);
+  font-size:9px;
+  font-weight:750;
+}
+
+.chart-btn.active{
+  color:#bea7ff;
+  border-color:rgba(139,92,246,.3);
+  background:rgba(139,92,246,.12);
+}
+
+.ava-analysis{
+  margin-top:12px;
+  padding:17px;
+  border-radius:21px;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.analysis-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.analysis-label{
+  color:#756f7e;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.demo-label{
+  padding:5px 8px;
+  border-radius:8px;
+  color:#43df91;
+  background:rgba(53,213,138,.08);
+  font-size:8px;
+  font-weight:800;
+}
+
+.analysis-title{
+  margin-top:11px;
+  font-size:16px;
+  font-weight:850;
+}
+
+.analysis-description{
+  margin-top:6px;
+  color:#777181;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.analysis-run{
+  width:100%;
+  height:44px;
+  margin-top:13px;
+  border-radius:13px;
+  color:#fff;
+  background:linear-gradient(100deg,#6d28d9,#9669f5);
+  font-size:10px;
+  font-weight:800;
+}
+
+/* TRAINER */
+
+.trainer{
+  margin-top:12px;
+  padding:17px;
+  border-radius:23px;
+  border:1px solid var(--border);
+  background:var(--card);
+}
+
+.trainer-chart{
+  height:200px;
+  overflow:hidden;
+  border-radius:16px;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
+    #0b0911;
+  background-size:40px 40px;
+}
+
+.trainer-question{
+  margin:15px 0 11px;
+  font-size:13px;
+  font-weight:750;
+}
+
+.direction-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.direction{
+  height:48px;
+  border-radius:14px;
+  border:1px solid;
+  font-size:10px;
+  font-weight:850;
+}
+
+.up{
+  color:#42df91;
+  border-color:rgba(53,213,138,.22);
+  background:rgba(53,213,138,.07);
+}
+
+.down{
+  color:#ff7187;
+  border-color:rgba(255,85,112,.22);
+  background:rgba(255,85,112,.07);
+}
+
+.trainer-result{
+  display:none;
+  margin-top:10px;
+  padding:12px;
+  border-radius:13px;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.trainer-result.show{
+  display:block;
+}
+
+/* TEST */
+
+.quiz{
+  margin-bottom:11px;
+  padding:19px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:var(--card);
+}
+
+.quiz-label{
+  margin-bottom:9px;
+  color:#a583f5;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:1px;
+}
+
+.question{
+  margin-bottom:14px;
+  font-size:14px;
+  line-height:1.45;
+  font-weight:750;
+}
+
+.option{
+  width:100%;
+  padding:13px;
+  margin-bottom:7px;
+  border-radius:13px;
+  border:1px solid var(--border);
+  color:#a29aa9;
+  background:rgba(255,255,255,.035);
+  text-align:left;
+  font-size:10px;
+}
+
+.option.correct{
+  color:#44df91;
+  border-color:rgba(53,213,138,.25);
+  background:rgba(53,213,138,.08);
+}
+
+.option.wrong{
+  color:#ff7187;
+  border-color:rgba(255,85,112,.25);
+  background:rgba(255,85,112,.08);
+}
+
+/* DICTIONARY */
+
+.search{
+  width:100%;
+  height:50px;
+  margin-bottom:12px;
+  padding:0 15px;
+  outline:0;
+  border-radius:16px;
+  border:1px solid var(--border);
+  color:#fff;
+  background:rgba(255,255,255,.04);
+  font-size:11px;
+}
+
+.term{
+  margin-bottom:8px;
+  padding:15px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.term strong{
+  color:#b99aff;
+  font-size:12px;
+}
+
+.term p{
+  margin-top:6px;
+  color:#777181;
+  font-size:10px;
+  line-height:1.55;
+}
+
+/* PROFILE */
+
+.profile{
+  padding:24px;
+  text-align:center;
+  border-radius:25px;
+  border:1px solid var(--border);
+  background:var(--card);
+}
+
+.profile-avatar{
+  width:80px;
+  height:80px;
+  margin:0 auto 13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:26px;
+  color:white;
+  background:linear-gradient(135deg,#b794ff,#5b21b6);
+  box-shadow:0 15px 45px rgba(139,92,246,.25);
+  font-size:30px;
+  font-weight:900;
+}
+
+.profile-name{
+  font-size:18px;
+  font-weight:850;
+}
+
+.profile-id{
+  margin-top:5px;
+  color:#716b79;
+  font-size:9px;
+}
+
+.setting{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:9px;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.setting span{
+  color:#aaa3b1;
+  font-size:10px;
+}
+
+.setting b{
+  color:#8d8796;
+  font-size:9px;
+}
+
+/* ACHIEVEMENTS */
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.achievement{
+  min-height:100px;
+  padding:13px 8px;
+  text-align:center;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.achievement-icon{
+  width:38px;
+  height:38px;
+  margin:0 auto 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:13px;
+  color:#a989ff;
+  background:rgba(139,92,246,.12);
+}
+
+.achievement strong{
+  display:block;
+  font-size:9px;
+}
+
+.achievement small{
+  display:block;
+  margin-top:4px;
+  color:#676170;
+  font-size:7px;
+}
+
+/* NAV */
+
+.nav{
+  position:fixed;
+  z-index:30;
+  left:50%;
+  bottom:11px;
+  transform:translateX(-50%);
+  width:min(555px,calc(100% - 24px));
+  height:73px;
+  padding:7px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(18,15,27,.88);
+  backdrop-filter:blur(30px);
+  box-shadow:0 20px 70px rgba(0,0,0,.55);
+}
+
+.nav button{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  border-radius:19px;
+  color:#625d6d;
+  background:transparent;
+  transition:.22s;
+}
+
+.nav button.active{
+  color:#c3a9ff;
+  background:rgba(139,92,246,.12);
+}
+
+.nav button:active{
+  transform:scale(.9);
+}
+
+.nav span{
+  font-size:7px;
+  font-weight:750;
+}
+
+.nav .ava-nav{
+  color:#b68fff;
+}
+
+/* ACCESS */
+
+.access{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(139,92,246,.22),transparent 35%),
+    #08060f;
+}
+
+.access.hidden{
+  display:none;
+}
+
+.access-box{
+  width:100%;
+  max-width:430px;
+  padding:27px;
+  border-radius:30px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(30px);
+  box-shadow:0 35px 100px rgba(0,0,0,.55);
+  animation:accessIn .55s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes accessIn{
+  from{
+    opacity:0;
+    transform:translateY(25px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.access-logo{
+  width:74px;
+  height:74px;
+  margin:0 auto 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:24px;
+  color:white;
+  background:linear-gradient(135deg,#c2a4ff,#6926d5);
+  box-shadow:0 0 55px rgba(139,92,246,.32);
+  font-size:32px;
+  font-weight:950;
+}
+
+.access h1{
+  text-align:center;
+  font-size:29px;
+  letter-spacing:-1px;
+}
+
+.access-desc{
+  margin:8px 0 22px;
+  text-align:center;
+  color:#777181;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.google{
+  width:100%;
+  height:53px;
+  border-radius:15px;
+  color:#111;
+  background:#fff;
+  font-size:12px;
+  font-weight:850;
+}
+
+.google.connected{
+  color:#43df91;
+  border:1px solid rgba(53,213,138,.2);
+  background:rgba(53,213,138,.08);
+}
+
+.divider{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:20px 0;
+}
+
+.divider i{
+  height:1px;
+  flex:1;
+  background:var(--border);
+}
+
+.divider span{
+  color:#5e5868;
+  font-size:7px;
+  letter-spacing:1.5px;
+}
+
+.pocket-id{
+  width:100%;
+  height:53px;
+  padding:0 15px;
+  outline:0;
+  border-radius:15px;
+  border:1px solid var(--border);
+  color:#fff;
+  background:rgba(0,0,0,.25);
+  font-size:11px;
+}
+
+.pocket-id:focus{
+  border-color:rgba(139,92,246,.55);
+  box-shadow:0 0 0 4px rgba(139,92,246,.07);
+}
+
+.check-access{
+  width:100%;
+  height:53px;
+  margin-top:9px;
+  border-radius:15px;
+  color:#fff;
+  background:linear-gradient(100deg,#6d28d9,#996bf7);
+  font-size:11px;
+  font-weight:850;
+}
+
+.access-result{
+  display:none;
+  margin-top:11px;
+  padding:12px;
+  border-radius:13px;
+  font-size:9px;
+  line-height:1.5;
+}
+
+.access-result.show{
+  display:block;
+}
+
+.access-result.good{
+  color:#43df91;
+  border:1px solid rgba(53,213,138,.18);
+  background:rgba(53,213,138,.07);
+}
+
+.access-result.bad{
+  color:#ff7187;
+  border:1px solid rgba(255,85,112,.18);
+  background:rgba(255,85,112,.07);
+}
+
+.access-note{
+  margin-top:15px;
+  text-align:center;
+  color:#4e4957;
+  font-size:8px;
+  line-height:1.6;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  z-index:200;
+  top:17px;
+  left:50%;
+  transform:translate(-50%,-20px);
+  opacity:0;
+  pointer-events:none;
+  padding:11px 15px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  color:#d0c9d7;
+  background:rgba(24,20,33,.94);
+  backdrop-filter:blur(20px);
+  box-shadow:0 15px 45px rgba(0,0,0,.45);
+  font-size:9px;
+  transition:.3s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+@media(max-width:360px){
+  .screen{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  .hero{
+    padding:21px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .ava-sphere{
+    width:78px;
+    height:78px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SVG ICON SYSTEM -->
+
+<svg style="display:none">
+
+<symbol id="i-home" viewBox="0 0 24 24">
+<path d="M3 10.5 12 3l9 7.5v9A1.5 1.5 0 0 1 19.5 21h-15A1.5 1.5 0 0 1 3 19.5v-9Z"
+fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M9 21v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+</symbol>
+
+<symbol id="i-book" viewBox="0 0 24 24">
+<path d="M4 5a3 3 0 0 1 3-3h13v17H7a3 3 0 0 0-3 3V5Z"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+<path d="M4 19a3 3 0 0 1 3-3h13M8 6h8M8 10h7"
+fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="i-bot" viewBox="0 0 24 24">
+<rect x="4" y="6" width="16" height="13" rx="4"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+<path d="M12 2v4M8 12h.01M16 12h.01M9 16h6"
+fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="i-chart" viewBox="0 0 24 24">
+<path d="M4 19V5M4 19h17"
+fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+<path d="m6 15 4-4 3 2 6-7"
+fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="i-user" viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+<path d="M4 21c.8-4 3.5-6 8-6s7.2 2 8 6"
+fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="i-fire" viewBox="0 0 24 24">
+<path d="M13.5 3c.5 3.5-2 5.1-2 7.4 0 1.2.7 2 1.6 2.6-.1-1.8 1-3.1 2.3-4.1 1.5 1.7 3.1 3.7 3.1 6.3A6.5 6.5 0 0 1 12 21a6.5 6.5 0 0 1-6.5-6.5c0-3.1 1.9-5.5 4.3-7.5-.1 2.4.7 3.6 1.5 4.2.1-3.1 2.2-5 2.2-8.2Z"
+fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="i-target" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="8"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+<circle cx="12" cy="12" r="4"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+<circle cx="12" cy="12" r="1" fill="currentColor"/>
+</symbol>
+
+<symbol id="i-brain" viewBox="0 0 24 24">
+<path d="M9 4a3 3 0 0 0-5 2.2A3.4 3.4 0 0 0 5 12a3.3 3.3 0 0 0 2 6.2A3 3 0 0 0 12 17V7a3 3 0 0 0-3-3ZM15 4a3 3 0 0 1 5 2.2A3.4 3.4 0 0 1 19 12a3.3 3.3 0 0 1-2 6.2A3 3 0 0 1 12 17V7a3 3 0 0 1 3-3Z"
+fill="none" stroke="currentColor" stroke-width="1.5"/>
+</symbol>
+
+<symbol id="i-shield" viewBox="0 0 24 24">
+<path d="M12 3 20 6v5.5c0 5-3.2 8.3-8 9.5-4.8-1.2-8-4.5-8-9.5V6l8-3Z"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+<path d="m8.5 12 2.2 2.2 4.8-5"
+fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="i-trophy" viewBox="0 0 24 24">
+<path d="M7 4h10v5a5 5 0 0 1-10 0V4ZM12 14v5M8 21h8"
+fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M7 6H3v2a4 4 0 0 0 4 4M17 6h4v2a4 4 0 0 1-4 4"
+fill="none" stroke="currentColor" stroke-width="1.7"/>
+</symbol>
+
+<symbol id="i-star" viewBox="0 0 24 24">
+<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"
+fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+</symbol>
+
+</svg>
+
+
+<div class="app">
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+
+<!-- ACCESS -->
+
+<div id="access" class="access">
+
+<div class="access-box">
+
+<div class="access-logo">A</div>
+
+<h1>AVA</h1>
+
+<div class="access-desc">
+Trading Academy нового поколения<br>
+Обучение · практика · AI-помощник
+</div>
+
+<button id="googleBtn" class="google" onclick="googleLogin()">
+Продолжить через Google
+</button>
+
+<div class="divider">
+<i></i>
+<span>POCKET OPTION</span>
+<i></i>
+</div>
+
+<input
+id="pocketId"
+class="pocket-id"
+inputmode="numeric"
+placeholder="Введите Pocket Option ID"
+>
+
+<button class="check-access" onclick="checkAccess()">
+Проверить доступ
+</button>
+
+<div id="accessResult" class="access-result"></div>
+
+<div class="access-note">
+Сейчас работает демонстрационный режим.<br>
+Официальная проверка Pocket Option будет подключена
+через защищённый Vercel API.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- HOME -->
+
+<section id="home" class="screen active">
+
+<div class="top">
+
+<div class="brand">
+<div class="logo">A</div>
+<div class="brand-name">AVA</div>
+</div>
+
+<div class="avatar">A</div>
+
+</div>
+
+<div style="margin-bottom:8px;color:#777181;font-size:12px">
+Добро пожаловать 👋
+</div>
+
+<div class="hero">
+
+<h1>
+Учись.<br>
+Анализируй.<br>
+Расти.
+</h1>
+
+<p>
+Персональная академия трейдинга
+с интерактивными уроками,
+практикой и AI-помощником AVA.
+</p>
+
+<button class="primary" onclick="openScreen('lessons')">
+Продолжить обучение
+</button>
+
+<div class="ava-sphere">
+<div class="bot-face">
+<div class="eye"></div>
+<div class="eye"></div>
+</div>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+<h2>Прогресс</h2>
+<span id="homePercent">0%</span>
+</div>
+
+<div class="progress-card">
+
+<div class="progress-line">
+<div>Академия</div>
+<span id="homeCount">0 / 100</span>
+</div>
+
+<div class="progress-track">
+<div id="progressBar" class="progress-fill"></div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+<h2>Статистика</h2>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-icon">
+<svg class="icon-sm"><use href="#i-book"/></svg>
+</div>
+<div id="statLessons" class="stat-number">0</div>
+<div class="stat-label">Уроков</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">
+<svg class="icon-sm"><use href="#i-target"/></svg>
+</div>
+<div id="statTests" class="stat-number">0</div>
+<div class="stat-label">Ответов</div>
+</div>
+
+<div class="stat">
+<div class="stat-icon">
+<svg class="icon-sm"><use href="#i-fire"/></svg>
+</div>
+<div class="stat-number">1</div>
+<div class="stat-label">День подряд</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+<h2>Начни с этого</h2>
+<span>AVA</span>
+</div>
+
+<div class="course-list">
+
+<div class="course" onclick="openScreen('lessons')">
+
+<div class="course-icon">
+<svg class="icon"><use href="#i-book"/></svg>
+</div>
+
+<div class="course-info">
+<strong>Основы трейдинга</strong>
+<small>10 уроков · Начальный уровень</small>
+</div>
+
+<div class="course-arrow">›</div>
+
+</div>
+
+
+<div class="course" onclick="openScreen('analysis')">
+
+<div class="course-icon">
+<svg class="icon"><use href="#i-chart"/></svg>
+</div>
+
+<div class="course-info">
+<strong>График и анализ</strong>
+<small>Практический тренажёр</small>
+</div>
+
+<div class="course-arrow">›</div>
+
+</div>
+
+
+<div class="course" onclick="openScreen('bot')">
+
+<div class="course-icon">
+<svg class="icon"><use href="#i-bot"/></svg>
+</div>
+
+<div class="course-info">
+<strong>Поговорить с AVA</strong>
+<small>AI-помощник по обучению</small>
+</div>
+
+<div class="course-arrow">›</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LESSONS -->
+
+<section id="lessons" class="screen">
+
+<div class="page-title">Академия</div>
+
+<div class="page-sub">
+100 уроков от основ до продвинутого анализа
+</div>
+
+<div id="lessonContainer"></div>
+
+</section>
+
+
+<!-- BOT -->
+
+<section id="bot" class="screen">
+
+<div class="bot-header">
+
+<div class="bot-logo">
+<svg class="icon-lg"><use href="#i-bot"/></svg>
+</div>
+
+<div>
+<strong>AVA</strong>
+<div class="online">● помощник онлайн</div>
+</div>
+
+</div>
+
+<div id="chat" class="chat">
+
+<div class="message bot">
+Привет! Я <b>AVA</b> 🤖<br><br>
+Я помогу тебе разбираться в трейдинге:
+свечи, тренды, уровни, индикаторы,
+риск-менеджмент и психология.<br><br>
+Можешь задать мне любой вопрос.
+</div>
+
+<div class="quick-grid">
+
+<button class="quick" onclick="quickBot('Что такое тренд?')">
+📈 Что такое тренд?
+</button>
+
+<button class="quick" onclick="quickBot('Объясни свечи')">
+🕯 Как читать свечи?
+</button>
+
+<button class="quick" onclick="quickBot('Что такое RSI?')">
+📊 Что такое RSI?
+</button>
+
+<button class="quick" onclick="quickBot('Что такое поддержка?')">
+🎯 Уровни
+</button>
+
+<button class="quick" onclick="quickBot('Что такое риск?')">
+🛡 Риск
+</button>
+
+<button class="quick" onclick="quickBot('Дай учебный сценарий')">
+🤖 Учебный сценарий
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ANALYSIS -->
+
+<section id="analysis" class="screen">
+
+<div class="page-title">Анализ</div>
+
+<div class="page-sub">
+Интерактивный учебный график
+</div>
+
+<div class="chart-card">
+
+<div class="chart-head">
+
+<strong>BTC / USD</strong>
+
+<div id="price" class="price">
+$104,382
+</div>
+
+</div>
+
+<div class="chart">
+<canvas id="mainChart"></canvas>
+</div>
+
+<div class="chart-controls">
+
+<button class="chart-btn active" onclick="chartMode(this,'price')">
+Цена
+</button>
+
+<button class="chart-btn" onclick="chartMode(this,'ma')">
+MA
+</button>
+
+<button class="chart-btn" onclick="chartMode(this,'rsi')">
+RSI
+</button>
+
+</div>
+
+</div>
+
+
+<div class="ava-analysis">
+
+<div class="analysis-top">
+
+<div class="analysis-label">
+AVA ANALYSIS
+</div>
+
+<div class="demo-label">
+УЧЕБНЫЙ
+</div>
+
+</div>
+
+<div id="analysisTitle" class="analysis-title">
+Готова к анализу
+</div>
+
+<div id="analysisText" class="analysis-description">
+Нажми кнопку ниже. AVA разберёт
+виртуальный график и объяснит,
+какие элементы структуры можно увидеть.
+</div>
+
+<button class="analysis-run" onclick="runAnalysis()">
+Запустить анализ AVA
+</button>
+
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+<h2>Тренажёр</h2>
+<span>Практика</span>
+</div>
+
+<div class="trainer">
+
+<div class="trainer-chart">
+<canvas id="trainerChart"></canvas>
+</div>
+
+<div class="trainer-question">
+Какое направление движения ты видишь?
+</div>
+
+<div class="direction-grid">
+
+<button class="direction up" onclick="trainerAnswer(true)">
+↑ ВОСХОДЯЩЕЕ
+</button>
+
+<button class="direction down" onclick="trainerAnswer(false)">
+↓ НИСХОДЯЩЕЕ
+</button>
+
+</div>
+
+<div id="trainerResult" class="trainer-result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TESTS -->
+
+<section id="tests" class="screen">
+
+<div class="page-title">Тесты</div>
+
+<div class="page-sub">
+Проверяй знания после обучения
+</div>
+
+
+<div class="quiz">
+
+<div class="quiz-label">ВОПРОС 01</div>
+
+<div class="question">
+Что показывает японская свеча?
+</div>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Только цену открытия
+</button>
+
+<button class="option" onclick="answerQuiz(this,true)">
+Открытие, максимум, минимум и закрытие
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Только цену закрытия
+</button>
+
+</div>
+
+
+<div class="quiz">
+
+<div class="quiz-label">ВОПРОС 02</div>
+
+<div class="question">
+Что такое тренд?
+</div>
+
+<button class="option" onclick="answerQuiz(this,true)">
+Основное направление движения цены
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Размер комиссии
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Количество сделок
+</button>
+
+</div>
+
+
+<div class="quiz">
+
+<div class="quiz-label">ВОПРОС 03</div>
+
+<div class="question">
+Для чего нужен риск-менеджмент?
+</div>
+
+<button class="option" onclick="answerQuiz(this,true)">
+Для контроля потенциального риска
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Чтобы гарантировать прибыль
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Чтобы предсказать рынок на 100%
+</button>
+
+</div>
+
+
+<div class="quiz">
+
+<div class="quiz-label">ВОПРОС 04</div>
+
+<div class="question">
+Что такое поддержка?
+</div>
+
+<button class="option" onclick="answerQuiz(this,true)">
+Ценовая зона, где снижение может встретить спрос
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Индикатор объёма
+</button>
+
+<button class="option" onclick="answerQuiz(this,false)">
+Торговая комиссия
+</button>
+
+</div>
+
+</section>
+
+
+<!-- DICTIONARY -->
+
+<section id="dictionary" class="screen">
+
+<div class="page-title">Словарь</div>
+
+<div class="page-sub">
+Основные понятия трейдера
+</div>
+
+<input
+id="dictionarySearch"
+class="search"
+placeholder="Поиск термина..."
+oninput="searchDictionary()"
+>
+
+<div id="dictionaryList"></div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="screen">
+
+<div class="page-title">Профиль</div>
+
+<div class="page-sub">
+Твоя статистика AVA
+</div>
+
+<div class="profile">
+
+<div class="profile-avatar">A</div>
+
+<div class="profile-name">
+AVA Trader
+</div>
+
+<div id="profileId" class="profile-id">
+Pocket Option ID не указан
+</div>
+
+</div>
+
+
+<div class="setting">
+<span>Пройдено уроков</span>
+<b id="profileLessons">0 / 100</b>
+</div>
+
+<div class="setting">
+<span>Прогресс</span>
+<b id="profileProgress">0%</b>
+</div>
+
+<div class="setting">
+<span>Ответов в тестах</span>
+<b id="profileTests">0</b>
+</div>
+
+<div class="setting">
+<span>Статус</span>
+<b>AVA MEMBER</b>
+</div>
+
+
+<div class="section">
+
+<div class="section-title">
+<h2>Достижения</h2>
+</div>
+
+<div class="achievement-grid">
+
+<div class="achievement">
+<div class="achievement-icon">
+<svg class="icon-sm"><use href="#i-star"/></svg>
+</div>
+<strong>Первый шаг</strong>
+<small>Начало обучения</small>
+</div>
+
+<div class="achievement">
+<div class="achievement-icon">
+<svg class="icon-sm"><use href="#i-fire"/></svg>
+</div>
+<strong>В огне</strong>
+<small>10 уроков</small>
+</div>
+
+<div class="achievement">
+<div class="achievement-icon">
+<svg class="icon-sm"><use href="#i-trophy"/></svg>
+</div>
+<strong>Знаток</strong>
+<small>50 уроков</small>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CHAT INPUT -->
+
+<div id="chatInput" class="chat-input" style="display:none">
+
+<input
+id="messageInput"
+placeholder="Спросите AVA..."
+onkeydown="chatKey(event)"
+>
+
+<button class="send" onclick="sendMessage()">
+↑
+</button>
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="nav">
+
+<button class="active" data-screen="home" onclick="openScreen('home')">
+<svg class="icon"><use href="#i-home"/></svg>
+<span>Главная</span>
+</button>
+
+<button data-screen="lessons" onclick="openScreen('lessons')">
+<svg class="icon"><use href="#i-book"/></svg>
+<span>Академия</span>
+</button>
+
+<button class="ava-nav" data-screen="bot" onclick="openScreen('bot')">
+<svg class="icon"><use href="#i-bot"/></svg>
+<span>AVA</span>
+</button>
+
+<button data-screen="analysis" onclick="openScreen('analysis')">
+<svg class="icon"><use href="#i-chart"/></svg>
+<span>Анализ</span>
+</button>
+
+<button data-screen="profile" onclick="openScreen('profile')">
+<svg class="icon"><use href="#i-user"/></svg>
+<span>Профиль</span>
+</button>
+
+</nav>
+
+
+<div id="toast" class="toast"></div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   AVA STATE
+========================================================= */
+
+let completed = Number(localStorage.getItem("ava_lessons") || 0);
+let testAnswers = Number(localStorage.getItem("ava_tests") || 0);
+let pocketId = localStorage.getItem("ava_pocket_id") || "";
+let googleConnected = false;
+
+
+/* =========================================================
+   LESSONS — 100 LESSONS
+========================================================= */
+
+const modules = [
+
+{
+ title:"Фундамент трейдинга",
+ icon:"i-book",
+ lessons:[
+  ["Что такое трейдинг?","Разбираем понятие трейдинга и основные задачи трейдера."],
+  ["Финансовые рынки","Какие существуют рынки и чем они отличаются."],
+  ["Как формируется цена","Почему цена постоянно меняется."],
+  ["Покупатели и продавцы","Как взаимодействуют спрос и предложение."],
+  ["Bid и Ask","Разница между ценой покупки и продажи."],
+  ["Спред","Что такое разница между Bid и Ask."],
+  ["Ликвидность","Почему ликвидность важна для рынка."],
+  ["Волатильность","Почему движение цены бывает быстрым."],
+  ["Таймфреймы","Как читать один рынок на разных периодах."],
+  ["Торговый план","Почему правила нужно определить заранее."]
+ ]
+},
+
+{
+ title:"Японские свечи",
+ icon:"i-chart",
+ lessons:[
+  ["Строение свечи","Открытие, закрытие, максимум, минимум и тени."],
+  ["Тело свечи","Что показывает расстояние между открытием и закрытием."],
+  ["Верхняя тень","Как интерпретировать максимум свечи."],
+  ["Нижняя тень","Как интерпретировать минимум свечи."],
+  ["Бычья свеча","Что означает закрытие выше открытия."],
+  ["Медвежья свеча","Что означает закрытие ниже открытия."],
+  ["Doji","Свеча с небольшим телом и неопределённостью."],
+  ["Hammer","Изучаем форму молота."],
+  ["Pin Bar","Длинная тень и реакция цены."],
+  ["Engulfing","Изучаем модель поглощения."]
+ ]
+},
+
+{
+ title:"Структура рынка",
+ icon:"i-chart",
+ lessons:[
+  ["Что такое тренд","Основное направление движения."],
+  ["Восходящий тренд","Последовательность повышающихся экстремумов."],
+  ["Нисходящий тренд","Последовательность понижающихся экстремумов."],
+  ["Флет","Когда цена движется в диапазоне."],
+  ["Higher High","Новый повышающийся максимум."],
+  ["Higher Low","Повышающийся минимум."],
+  ["Lower High","Понижающийся максимум."],
+  ["Lower Low","Понижающийся минимум."],
+  ["Импульс","Сильное направленное движение."],
+  ["Коррекция","Временное движение против импульса."]
+ ]
+},
+
+{
+ title:"Уровни и зоны",
+ icon:"i-target",
+ lessons:[
+  ["Поддержка","Область потенциальной реакции покупателей."],
+  ["Сопротивление","Область потенциальной реакции продавцов."],
+  ["Уровень и зона","Почему уровень не всегда одна цена."],
+  ["Локальные экстремумы","Поиск важных точек графика."],
+  ["История реакций","Как прошлые реакции помогают анализу."],
+  ["Пробой","Когда цена выходит за пределы зоны."],
+  ["Ложный пробой","Когда цена возвращается обратно."],
+  ["Ретест","Возврат к пробитой зоне."],
+  ["Импульс от уровня","Изучаем реакцию после касания."],
+  ["Практика уровней","Учимся находить зоны самостоятельно."]
+ ]
+},
+
+{
+ title:"Price Action",
+ icon:"i-target",
+ lessons:[
+  ["Что такое Price Action","Анализ поведения цены."],
+  ["Контекст","Почему формация важна только вместе с окружением."],
+  ["Свеча возле уровня","Изучаем реакцию цены на зоне."],
+  ["Импульс против коррекции","Как отличать движения."],
+  ["Последовательность свечей","Почему нельзя смотреть только на одну свечу."],
+  ["Ложное движение","Как распознавать слабые пробои."],
+  ["Ретест после пробоя","Изучаем поведение цены."],
+  ["Сжатие","Как выглядит уменьшение диапазона."],
+  ["Расширение","Как возрастает диапазон движения."],
+  ["Практика Price Action","Закрепляем материал."]
+ ]
+},
+
+{
+ title:"Индикаторы",
+ icon:"i-chart",
+ lessons:[
+  ["Что такое индикатор","Зачем используются математические расчёты."],
+  ["Moving Average","Основы скользящей средней."],
+  ["EMA","Экспоненциальная средняя."],
+  ["RSI","Индикатор относительной силы."],
+  ["MACD","Изучаем основу MACD."],
+  ["Bollinger Bands","Полосы вокруг средней."],
+  ["Stochastic","Положение цены в диапазоне."],
+  ["Accelerator Oscillator","Идея анализа ускорения движения."],
+  ["Сигналы индикаторов","Как читать расчётные данные."],
+  ["Ошибки индикаторов","Почему индикатор не гарантирует результат."]
+ ]
+},
+
+{
+ title:"Риск-менеджмент",
+ icon:"i-shield",
+ lessons:[
+  ["Что такое риск","Понятие потенциального убытка."],
+  ["Риск на сделку","Почему размер риска имеет значение."],
+  ["Размер позиции","Как позиция связана с риском."],
+  ["Серия убытков","Почему нужно учитывать последовательность."],
+  ["Риск/доходность","Как сравнивать потенциальные значения."],
+  ["Стоп-лосс","Инструмент ограничения потенциального убытка."],
+  ["Переторговка","Почему большое число решений увеличивает нагрузку."],
+  ["Мартингейл","Почему увеличение риска после убытка опасно."],
+  ["Торговый лимит","Как заранее ограничивать активность."],
+  ["Практика риска","Создаём учебный риск-план."]
+ ]
+},
+
+{
+ title:"Психология трейдера",
+ icon:"i-brain",
+ lessons:[
+  ["Эмоции","Как эмоции влияют на решения."],
+  ["FOMO","Страх упустить движение."],
+  ["Тильт","Потеря контроля после эмоционального события."],
+  ["Revenge Trading","Попытка отыграться после убытка."],
+  ["Жадность","Как желание заработать больше влияет на решения."],
+  ["Страх","Почему страх меняет торговый план."],
+  ["Дисциплина","Следование собственным правилам."],
+  ["Дневник трейдера","Зачем фиксировать решения."],
+  ["Ошибки","Как превращать ошибки в обучение."],
+  ["Холодная голова","Формирование спокойного процесса."]
+ ]
+},
+
+{
+ title:"Продвинутый анализ",
+ icon:"i-star",
+ lessons:[
+  ["Мульти-таймфрейм","Сравнение структуры на разных периодах."],
+  ["Контекст рынка","Объединение нескольких факторов."],
+  ["Ликвидность","Изучаем понятие ликвидности глубже."],
+  ["Импульс и дисбаланс","Разбираем сильные движения."],
+  ["Сценарии","Почему лучше иметь несколько вариантов."],
+  ["Подтверждение","Как оценивать дополнительные факторы."],
+  ["Статистика","Почему важна серия наблюдений."],
+  ["Бэктест","Проверка идеи на исторических данных."],
+  ["Система","Что такое набор заранее определённых правил."],
+  ["Финальный разбор","Объединяем все знания."]
+ ]
+},
+
+{
+ title:"Практика AVA",
+ icon:"i-trophy",
+ lessons:[
+  ["Найди тренд","Определи направление виртуального графика."],
+  ["Найди поддержку","Выбери логичную зону."],
+  ["Найди сопротивление","Определи потенциальную область продавцов."],
+  ["Определи свечу","Распознай свечную формацию."],
+  ["Найди коррекцию","Отдели коррекцию от импульса."],
+  ["Найди пробой","Определи выход из диапазона."],
+  ["Найди ретест","Определи возвращение к зоне."],
+  ["Найди ошибку","Проанализируй ошибочный сценарий."],
+  ["Создай сценарий","Собери несколько возможных вариантов."],
+  ["Экзамен AVA","Финальная проверка полученных знаний."]
+ ]
+}
+
+];
+
+
+/* =========================================================
+   DICTIONARY
+========================================================= */
+
+const dictionary = [
+
+["Тренд","Основное направление движения цены."],
+["Поддержка","Зона, где снижение цены может встретить спрос."],
+["Сопротивление","Зона, где рост цены может встретить предложение."],
+["Волатильность","Степень изменения цены за определённый период."],
+["Ликвидность","Способность рынка исполнять сделки без существенного влияния на цену."],
+["Импульс","Быстрое направленное движение."],
+["Коррекция","Движение против предыдущего импульса."],
+["Ретест","Возвращение цены к ранее пробитой области."],
+["Пробой","Выход цены за пределы определённой зоны."],
+["Ложный пробой","Пробой с последующим возвращением цены."],
+["Doji","Свеча с небольшим телом."],
+["Pin Bar","Свечная формация с выраженной тенью."],
+["RSI","Индикатор относительной силы."],
+["MACD","Индикатор на основе экспоненциальных средних."],
+["EMA","Экспоненциальная скользящая средняя."],
+["MA","Скользящая средняя."],
+["FOMO","Страх пропустить движение."],
+["Тильт","Эмоциональное состояние, ухудшающее процесс принятия решений."],
+["Price Action","Анализ движения цены."],
+["Риск-менеджмент","Управление потенциальным финансовым риском."]
+];
+
+
+/* =========================================================
+   ACCESS
+========================================================= */
+
+function googleLogin(){
+
+  googleConnected=true;
+
+  const btn=document.getElementById("googleBtn");
+
+  btn.classList.add("connected");
+  btn.textContent="✓ Google подключён";
+
+  showToast("Google подключён");
+
+}
+
+
+async function checkAccess(){
+
+  const id=document.getElementById("pocketId").value.trim();
+  const result=document.getElementById("accessResult");
+  const button=document.querySelector(".check-access");
+
+  if(!googleConnected){
+
+    result.className="access-result show bad";
+    result.textContent="Сначала подключите Google.";
+
+    return;
+  }
+
+  if(!id){
+
+    result.className="access-result show bad";
+    result.textContent="Введите Pocket Option ID.";
+
+    return;
+  }
+
+  if(!/^[0-9]+$/.test(id)){
+
+    result.className="access-result show bad";
+    result.textContent="ID должен содержать только цифры.";
+
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent="Проверяем...";
+
+  await new Promise(resolve=>setTimeout(resolve,1000));
+
+  /*
+    ВАЖНО:
+
+    Здесь пока DEMO.
+
+    После создания Vercel API заменим эту
+    часть на настоящий запрос:
+
+    /api/pocket-check
+
+    API token Pocket Option будет храниться
+    только на сервере.
+  */
+
+  pocketId=id;
+
+  localStorage.setItem("ava_pocket_id",id);
+
+  result.className="access-result show good";
+  result.textContent="✓ Доступ разрешён в демонстрационном режиме.";
+
+  setTimeout(()=>{
+
+    document.getElementById("access").classList.add("hidden");
+
+    updateUI();
+
+  },700);
+
+  button.disabled=false;
+  button.textContent="Проверить доступ";
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function openScreen(name){
+
+  document.querySelectorAll(".screen")
+  .forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  const screen=document.getElementById(name);
+
+  if(screen){
+    screen.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav button")
+  .forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.screen===name
+    );
+  });
+
+  const chatInput=document.getElementById("chatInput");
+
+  chatInput.style.display=
+    name==="bot" ? "flex" : "none";
+
+  if(name==="analysis"){
+
+    setTimeout(()=>{
+      drawMainChart();
+      drawTrainerChart();
+    },80);
+
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* =========================================================
+   LESSON RENDER
+========================================================= */
+
+function renderLessons(){
+
+  const container=document.getElementById("lessonContainer");
+
+  container.innerHTML="";
+
+  let globalIndex=0;
+
+  modules.forEach(module=>{
+
+    const moduleElement=document.createElement("div");
+
+    moduleElement.className="module";
+
+    moduleElement.innerHTML=`
+
+      <div class="module-head">
+
+        <div class="module-icon">
+          <svg class="icon-sm">
+            <use href="#${module.icon}"></use>
+          </svg>
+        </div>
+
+        <div class="module-name">
+          <strong>${module.title}</strong>
+          <span>${module.lessons.length} уроков</span>
+        </div>
+
+      </div>
+
+    `;
+
+    module.lessons.forEach(lesson=>{
+
+      const index=globalIndex++;
+
+      const isDone=index < completed;
+
+      const element=document.createElement("div");
+
+      element.className=
+        "lesson"+
+        (isDone ? " completed" : "");
+
+      element.innerHTML=`
+
+        <div class="lesson-head">
+
+          <div class="lesson-num">
+            ${String(index+1).padStart(2,"0")}
+          </div>
+
+          <div class="lesson-info">
+            <strong>${lesson[0]}</strong>
+            <span>
+              Урок ${index+1} ·
+              ${isDone ? "Завершён" : "Не начат"}
+            </span>
+          </div>
+
+          <div class="lesson-status">
+            ${isDone ? "✓" : "›"}
+          </div>
+
+        </div>
+
+        <div class="lesson-body">
+
+          ${lesson[1]}
+
+          <br><br>
+
+          <b style="color:#b99aff">
+            AVA TIP
+          </b>
+
+          <br>
+
+          Изучай этот материал вместе
+          с предыдущими уроками. Не делай
+          выводы только по одному элементу
+          графика.
+
+          ${
+            isDone
+            ? `
+              <div style="margin-top:10px;color:#43df91">
+                ✓ Урок уже завершён
+              </div>
+            `
+            : `
+              <button
+                class="complete-btn"
+                onclick="completeLesson(event,${index})">
+                Завершить урок
+              </button>
+            `
+          }
+
+        </div>
+
+      `;
+
+      element
+        .querySelector(".lesson-head")
+        .addEventListener("click",()=>{
+
+          element.classList.toggle("open");
+
+        });
+
+      moduleElement.appendChild(element);
+
+    });
+
+    container.appendChild(moduleElement);
+
+  });
+
+}
+
+
+/* =========================================================
+   COMPLETE LESSON
+========================================================= */
+
+function completeLesson(event,index){
+
+  event.stopPropagation();
+
+  if(index>=completed){
+
+    completed=Math.min(completed+1,100);
+
+    localStorage.setItem(
+      "ava_lessons",
+      completed
+    );
+
+  }
+
+  renderLessons();
+  updateUI();
+
+  showToast("Урок завершён ✓");
+}
+
+
+/* =========================================================
+   UI
+========================================================= */
+
+function updateUI(){
+
+  const percent=completed;
+
+  document.getElementById("homePercent")
+    .textContent=percent+"%";
+
+  document.getElementById("homeCount")
+    .textContent=completed+" / 100";
+
+  document.getElementById("progressBar")
+    .style.width=percent+"%";
+
+  document.getElementById("statLessons")
+    .textContent=completed;
+
+  document.getElementById("statTests")
+    .textContent=testAnswers;
+
+  document.getElementById("profileLessons")
+    .textContent=completed+" / 100";
+
+  document.getElementById("profileProgress")
+    .textContent=percent+"%";
+
+  document.getElementById("profileTests")
+    .textContent=testAnswers;
+
+  if(pocketId){
+
+    document.getElementById("profileId")
+      .textContent=
+      "Pocket Option ID: "+pocketId;
+
+  }
+
+}
+
+
+/* =========================================================
+   AVA BOT
+========================================================= */
+
+function chatKey(event){
+
+  if(event.key==="Enter"){
+    sendMessage();
+  }
+
+}
+
+
+function sendMessage(){
+
+  const input=document.getElementById("messageInput");
+
+  const text=input.value.trim();
+
+  if(!text)return;
+
+  addMessage(text,"user");
+
+  input.value="";
+
+  setTimeout(()=>{
+
+    addMessage(
+      botAnswer(text),
+      "bot"
+    );
+
+  },550);
+
+}
+
+
+function quickBot(text){
+
+  addMessage(text,"user");
+
+  setTimeout(()=>{
+
+    addMessage(
+      botAnswer(text),
+      "bot"
+    );
+
+  },450);
+
+}
+
+
+function addMessage(text,type){
+
+  const chat=document.getElementById("chat");
+
+  const message=document.createElement("div");
+
+  message.className="message "+type;
+
+  message.innerHTML=text;
+
+  chat.appendChild(message);
+
+  message.scrollIntoView({
+    behavior:"smooth",
+    block:"end"
+  });
+
+}
+
+
+function botAnswer(text){
+
+  const t=text.toLowerCase();
+
+
+  if(t.includes("тренд")){
+
+    return `
+      <b>Тренд</b> — основное направление
+      движения цены.<br><br>
+
+      Обычно рассматривают:
+      <br>• восходящий
+      <br>• нисходящий
+      <br>• боковой рынок
+      <br><br>
+
+      Смотри на последовательность
+      максимумов и минимумов, а не только
+      на последнюю свечу.
+    `;
+
+  }
+
+
+  if(
+    t.includes("свеч")
+    ||
+    t.includes("свечи")
+  ){
+
+    return `
+      Японская свеча содержит
+      <b>4 значения</b>:
+      <br><br>
+      • Open — открытие
+      <br>
+      • High — максимум
+      <br>
+      • Low — минимум
+      <br>
+      • Close — закрытие
+      <br><br>
+
+      Тело показывает расстояние между
+      открытием и закрытием.
+    `;
+
+  }
+
+
+  if(t.includes("rsi")){
+
+    return `
+      <b>RSI</b> — индикатор относительной
+      силы движения цены.<br><br>
+
+      Он помогает оценивать динамику
+      изменения цены, но не является
+      гарантией разворота.
+    `;
+
+  }
+
+
+  if(
+    t.includes("поддерж")
+  ){
+
+    return `
+      <b>Поддержка</b> — ценовая область,
+      где снижение раньше могло встретить
+      спрос.<br><br>
+
+      Важно рассматривать её как <b>зону</b>,
+      а не как одну точную цену.
+    `;
+
+  }
+
+
+  if(
+    t.includes("сопротив")
+  ){
+
+    return `
+      <b>Сопротивление</b> — область,
+      где рост цены мог встретить
+      предложение.<br><br>
+
+      Сила зоны зависит от контекста
+      и предыдущих реакций.
+    `;
+
+  }
+
+
+  if(
+    t.includes("риск")
+  ){
+
+    return `
+      <b>Риск-менеджмент</b> — система
+      контроля потенциального убытка.<br><br>
+
+      Главное — заранее определить правила
+      и не менять их из-за эмоций.
+    `;
+
+  }
+
+
+  if(
+    t.includes("учебный")
+    ||
+    t.includes("сценарий")
+    ||
+    t.includes("сигнал")
+  ){
+
+    return `
+      🤖 <b>Учебный сценарий AVA</b><br><br>
+
+      Виртуальный график показывает
+      восходящую структуру.<br><br>
+
+      Наблюдение:
+      <br>• максимумы повышаются
+      <br>• минимумы повышаются
+      <br>• движение содержит коррекции
+      <br><br>
+
+      Это <b>демонстрация для обучения</b>,
+      а не рекомендация открывать реальную
+      сделку.
+    `;
+
+  }
+
+
+  if(
+    t.includes("индикатор")
+  ){
+
+    return `
+      Индикатор — математический инструмент,
+      который обрабатывает данные графика.<br><br>
+
+      Например:
+      <br>• MA
+      <br>• RSI
+      <br>• MACD
+      <br>• Bollinger Bands
+      <br><br>
+
+      Индикатор не способен гарантировать
+      будущий результат.
+    `;
+
+  }
+
+
+  return `
+    Я AVA 🤖<br><br>
+
+    Я могу рассказать:
+    <br>📈 про тренды
+    <br>🕯 про свечи
+    <br>🎯 про уровни
+    <br>📊 про индикаторы
+    <br>🛡 про риск
+    <br>🧠 про психологию
+    <br><br>
+
+    Задай мне конкретный вопрос.
+  `;
+
+}
+
+
+/* =========================================================
+   CHART
+========================================================= */
+
+function setupCanvas(canvas){
+
+  const rect=canvas.getBoundingClientRect();
+
+  const ratio=window.devicePixelRatio||1;
+
+  canvas.width=rect.width*ratio;
+  canvas.height=rect.height*ratio;
+
+  const ctx=canvas.getContext("2d");
+
+  ctx.setTransform(
+    ratio,
+    0,
+    0,
+    ratio,
+    0,
+    0
+  );
+
+  return{
+    ctx,
+    w:rect.width,
+    h:rect.height
+  };
+
+}
+
+
+function generatePoints(count,height){
+
+  const points=[];
+
+  let y=height*.68;
+
+  for(let i=0;i<count;i++){
+
+    y -= 1.5;
+
+    y += (Math.random()-.5)*9;
+
+    y=Math.max(
+      20,
+      Math.min(
+        height-20,
+        y
+      )
+    );
+
+    points.push(y);
+
+  }
+
+  return points;
+
+}
+
+
+function drawMainChart(){
+
+  const canvas=document.getElementById("mainChart");
+
+  if(!canvas)return;
+
+  const {ctx,w,h}=setupCanvas(canvas);
+
+  ctx.clearRect(0,0,w,h);
+
+  const points=generatePoints(65,h);
+
+  ctx.beginPath();
+
+  points.forEach((y,i)=>{
+
+    const x=
+      i/(points.length-1)*w;
+
+    if(i===0)
+      ctx.moveTo(x,y);
+    else
+      ctx.lineTo(x,y);
+
+  });
+
+  ctx.lineWidth=2;
+  ctx.strokeStyle="#a78bfa";
+  ctx.shadowBlur=11;
+  ctx.shadowColor="rgba(139,92,246,.5)";
+
+  ctx.stroke();
+
+  ctx.shadowBlur=0;
+
+  ctx.lineTo(w,h);
+  ctx.lineTo(0,h);
+  ctx.closePath();
+
+  const gradient=
+    ctx.createLinearGradient(
+      0,
+      0,
+      0,
+      h
+    );
+
+  gradient.addColorStop(
+    0,
+    "rgba(139,92,246,.17)"
+  );
+
+  gradient.addColorStop(
+    1,
+    "rgba(139,92,246,0)"
+  );
+
+  ctx.fillStyle=gradient;
+
+  ctx.fill();
+
+}
+
+
+function drawTrainerChart(){
+
+  const canvas=document.getElementById("trainerChart");
+
+  if(!canvas)return;
+
+  const {ctx,w,h}=setupCanvas(canvas);
+
+  ctx.clearRect(0,0,w,h);
+
+  const points=[];
+
+  let y=h*.7;
+
+  for(let i=0;i<45;i++){
+
+    y-=2.8;
+
+    y+=(Math.random()-.5)*6;
+
+    points.push(y);
+
+  }
+
+  ctx.beginPath();
+
+  points.forEach((y,i)=>{
+
+    const x=
+      i/(points.length-1)*w;
+
+    if(i===0)
+      ctx.moveTo(x,y);
+    else
+      ctx.lineTo(x,y);
+
+  });
+
+  ctx.lineWidth=2;
+  ctx.strokeStyle="#9b78f7";
+  ctx.shadowBlur=10;
+  ctx.shadowColor="rgba(139,92,246,.45)";
+
+  ctx.stroke();
+
+  ctx.shadowBlur=0;
+
+}
+
+
+/* =========================================================
+   CHART MODES
+========================================================= */
+
+function chartMode(button,mode){
+
+  document.querySelectorAll(".chart-btn")
+    .forEach(
+      b=>b.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+  if(mode==="ma"){
+
+    showToast("MA включена");
+
+  }else if(mode==="rsi"){
+
+    showToast("RSI включён");
+
+  }else{
+
+    showToast("График цены");
+
+  }
+
+}
+
+
+/* =========================================================
+   AVA ANALYSIS
+========================================================= */
+
+function runAnalysis(){
+
+  const scenarios=[
+
+    [
+      "Восходящая структура",
+      "На виртуальном графике видна последовательность повышающихся максимумов и минимумов. Следующее действие в обучении — проверить, сохраняется ли структура после коррекции."
+    ],
+
+    [
+      "Коррекционное движение",
+      "После импульса цена откатывается. В учебном анализе важно определить, является ли это коррекцией или изменением структуры."
+    ],
+
+    [
+      "Боковой диапазон",
+      "Цена движется между локальными границами. В такой ситуации важно не принимать каждое касание границы за гарантированный разворот."
+    ]
+
+  ];
+
+  const item=
+    scenarios[
+      Math.floor(
+        Math.random()*scenarios.length
+      )
+    ];
+
+  document.getElementById("analysisTitle")
+    .textContent=item[0];
+
+  document.getElementById("analysisText")
+    .textContent=
+      item[1]+
+      " Это исключительно учебный сценарий, а не торговая рекомендация.";
+
+  showToast("AVA завершила анализ");
+
+}
+
+
+/* =========================================================
+   TRAINER
+========================================================= */
+
+function trainerAnswer(up){
+
+  const result=
+    document.getElementById("trainerResult");
+
+  result.classList.add("show");
+
+  if(up){
+
+    result.style.color="#43df91";
+    result.style.background=
+      "rgba(53,213,138,.08)";
+
+    result.textContent=
+      "✓ Верно для этого учебного графика. Видна последовательность повышающихся точек.";
+
+  }else{
+
+    result.style.color="#ff7187";
+    result.style.background=
+      "rgba(255,85,112,.08)";
+
+    result.textContent=
+      "Попробуй ещё раз. Посмотри на последовательность максимумов и минимумов.";
+
+  }
+
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+function answerQuiz(button,correct){
+
+  const parent=button.parentElement;
+
+  parent.querySelectorAll(".option")
+    .forEach(
+      b=>b.disabled=true
+    );
+
+  testAnswers++;
+
+  localStorage.setItem(
+    "ava_tests",
+    testAnswers
+  );
+
+  if(correct){
+
+    button.classList.add("correct");
+
+    showToast("Правильно ✓");
+
+  }else{
+
+    button.classList.add("wrong");
+
+    showToast("Ответ неверный");
+
+  }
+
+  updateUI();
+
+}
+
+
+/* =========================================================
+   DICTIONARY
+========================================================= */
+
+function renderDictionary(){
+
+  const container=
+    document.getElementById("dictionaryList");
+
+  container.innerHTML="";
+
+  dictionary.forEach(item=>{
+
+    const element=
+      document.createElement("div");
+
+    element.className="term";
+
+    element.innerHTML=`
+
+      <strong>${item[0]}</strong>
+
+      <p>${item[1]}</p>
+
+    `;
+
+    container.appendChild(element);
+
+  });
+
+}
+
+
+function searchDictionary(){
+
+  const value=
+    document
+      .getElementById("dictionarySearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  document
+    .querySelectorAll(".term")
+    .forEach(term=>{
+
+      term.style.display=
+        term.textContent
+          .toLowerCase()
+          .includes(value)
+          ? "block"
+          : "none";
+
+    });
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(text){
+
+  const toast=
+    document.getElementById("toast");
+
+  toast.textContent=text;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },1800);
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+renderLessons();
+renderDictionary();
+updateUI();
+
+if(pocketId){
+
+  document.getElementById("pocketId")
+    .value=pocketId;
+
+}
+
+window.addEventListener(
+  "resize",
+  ()=>{
+
+    if(
+      document
+        .getElementById("analysis")
+        .classList
+        .contains("active")
+    ){
+
+      drawMainChart();
+      drawTrainerChart();
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
