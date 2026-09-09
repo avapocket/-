@@ -3,25 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#090711">
+<meta name="theme-color" content="#090713">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>AVA — Trading Academy</title>
 
 <style>
 :root{
-  --bg:#080711;
-  --bg2:#0e0b19;
+  --bg:#08060f;
+  --bg2:#100b1d;
   --card:rgba(255,255,255,.065);
   --card2:rgba(255,255,255,.035);
-  --border:rgba(255,255,255,.10);
-  --purple:#9b6cff;
-  --purple2:#c084ff;
-  --blue:#6ea8ff;
-  --green:#35df9a;
-  --red:#ff6178;
+  --border:rgba(255,255,255,.105);
+  --purple:#9b5cff;
+  --purple2:#c46cff;
+  --purple3:#6331ff;
+  --pink:#ff5fba;
+  --blue:#6ca8ff;
+  --green:#36e29a;
+  --red:#ff5877;
   --yellow:#ffd166;
-  --text:#fff;
-  --muted:#9b98aa;
-  --muted2:#686579;
+  --white:#fff;
+  --text:#fdfcff;
+  --muted:#aaa5b8;
+  --muted2:#716c7d;
   --radius:24px;
 }
 
@@ -33,7 +37,6 @@
 html,body{
   margin:0;
   padding:0;
-  width:100%;
   min-height:100%;
   background:var(--bg);
   color:var(--text);
@@ -44,23 +47,23 @@ body{
   overflow-x:hidden;
 }
 
-button,input,select{
+button,input,select,textarea{
   font:inherit;
 }
 
 button{
   border:0;
-  color:inherit;
   cursor:pointer;
+  color:inherit;
 }
 
-#app{
-  min-height:100vh;
-  position:relative;
-  overflow:hidden;
+.hidden{
+  display:none!important;
 }
 
-/* BACKGROUND */
+/* =========================
+   BACKGROUND
+========================= */
 
 .bg{
   position:fixed;
@@ -69,314 +72,508 @@ button{
   pointer-events:none;
   z-index:0;
   background:
-    radial-gradient(circle at 15% 10%,rgba(155,108,255,.16),transparent 28%),
-    radial-gradient(circle at 85% 30%,rgba(80,120,255,.10),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(192,132,255,.09),transparent 35%),
-    #080711;
+    radial-gradient(circle at 50% -15%,rgba(155,92,255,.25),transparent 38%),
+    radial-gradient(circle at -10% 50%,rgba(255,95,186,.10),transparent 30%),
+    radial-gradient(circle at 110% 70%,rgba(99,49,255,.14),transparent 32%),
+    var(--bg);
 }
 
 .glow{
   position:absolute;
-  width:280px;
-  height:280px;
+  width:330px;
+  height:330px;
   border-radius:50%;
-  filter:blur(90px);
-  opacity:.35;
-  animation:floatGlow 9s ease-in-out infinite alternate;
+  filter:blur(100px);
+  opacity:.22;
+  animation:glowMove 10s ease-in-out infinite alternate;
 }
 
-.g1{
-  background:#8b5cf6;
+.glow.a{
+  left:-130px;
   top:-100px;
-  left:-100px;
+  background:#8d4cff;
 }
 
-.g2{
-  background:#2563eb;
-  right:-120px;
-  top:35%;
+.glow.b{
+  right:-140px;
+  top:28%;
+  background:#ff3fae;
   animation-delay:-3s;
 }
 
-.g3{
-  background:#c026d3;
-  bottom:-150px;
-  left:35%;
+.glow.c{
+  left:25%;
+  bottom:-180px;
+  background:#4c2bff;
   animation-delay:-6s;
 }
 
-@keyframes floatGlow{
+@keyframes glowMove{
   from{transform:translate(0,0) scale(1)}
-  to{transform:translate(35px,-30px) scale(1.15)}
+  to{transform:translate(40px,30px) scale(1.18)}
 }
 
-.chart-bg{
+.candles{
   position:absolute;
   inset:0;
-  opacity:.12;
+  opacity:.13;
 }
 
 .candle{
   position:absolute;
-  width:5px;
+  width:6px;
   border-radius:5px;
-  background:linear-gradient(to top,var(--purple),#d5b7ff);
-  animation:candleFloat 5s ease-in-out infinite;
+  animation:candleMove 5s ease-in-out infinite;
+}
+
+.candle:before,
+.candle:after{
+  content:"";
+  position:absolute;
+  left:2px;
+  width:2px;
+  background:currentColor;
 }
 
 .candle:before{
-  content:"";
-  position:absolute;
-  left:1px;
-  width:3px;
-  background:inherit;
   top:-20px;
+  height:20px;
+}
+
+.candle:after{
   bottom:-20px;
-  border-radius:5px;
+  height:20px;
 }
 
-.candle.red{
-  background:linear-gradient(to top,var(--red),#ffb1bd);
+.candle.up{
+  background:var(--green);
+  color:var(--green);
 }
 
-@keyframes candleFloat{
-  0%,100%{transform:translateY(0);opacity:.55}
-  50%{transform:translateY(-22px);opacity:1}
+.candle.down{
+  background:var(--red);
+  color:var(--red);
 }
 
-.watermark{
+@keyframes candleMove{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-24px)}
+}
+
+.ava-watermark{
   position:absolute;
-  font-size:80px;
-  font-weight:900;
-  letter-spacing:-5px;
+  font-size:120px;
+  font-weight:1000;
+  letter-spacing:-8px;
   color:transparent;
   -webkit-text-stroke:1px rgba(255,255,255,.035);
-  transform:rotate(-15deg);
-  user-select:none;
+  transform:rotate(-12deg);
 }
 
-/* LAYOUT */
+/* =========================
+   ACCESS
+========================= */
 
-.shell{
+#accessScreen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  overflow:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px 18px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(155,92,255,.24),transparent 38%),
+    #08060f;
+}
+
+.access{
+  width:100%;
+  max-width:460px;
+  text-align:center;
+  animation:fadeUp .7s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.access-logo{
+  width:105px;
+  height:105px;
+  margin:0 auto 24px;
+  border-radius:33px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#8d4dff,#c66cff);
+  box-shadow:
+    0 20px 80px rgba(142,77,255,.42),
+    inset 0 1px 1px rgba(255,255,255,.45);
+  animation:logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+  0%,100%{transform:translateY(0) rotate(-1deg)}
+  50%{transform:translateY(-9px) rotate(1deg)}
+}
+
+.bot-face{
+  position:relative;
+  width:49px;
+  height:57px;
+  border:4px solid white;
+  border-radius:18px;
+}
+
+.bot-face:before,
+.bot-face:after{
+  content:"";
+  position:absolute;
+  top:19px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:white;
+}
+
+.bot-face:before{left:10px}
+.bot-face:after{right:10px}
+
+.bot-mouth{
+  position:absolute;
+  width:22px;
+  height:10px;
+  left:10px;
+  top:31px;
+  border-bottom:3px solid white;
+  border-radius:50%;
+}
+
+.access h1{
+  margin:0;
+  font-size:42px;
+  letter-spacing:-2px;
+  font-weight:950;
+}
+
+.access h1 span{
+  background:linear-gradient(90deg,#fff,#c177ff,#ff72c4);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.access-sub{
+  margin:12px auto 25px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+  max-width:390px;
+}
+
+.access-card{
+  padding:22px;
+  border-radius:27px;
+  border:1px solid var(--border);
+  background:rgba(17,12,28,.82);
+  backdrop-filter:blur(25px);
+  box-shadow:0 30px 100px rgba(0,0,0,.35);
+}
+
+.input{
+  width:100%;
+  height:57px;
+  padding:0 17px;
+  color:white;
+  outline:none;
+  border-radius:17px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.055);
+}
+
+.input:focus{
+  border-color:rgba(155,92,255,.7);
+  box-shadow:0 0 0 4px rgba(155,92,255,.08);
+}
+
+.primary{
+  width:100%;
+  height:57px;
+  margin-top:11px;
+  border-radius:17px;
+  font-weight:800;
+  background:linear-gradient(100deg,#8c4fff,#c36cff);
+  box-shadow:0 15px 35px rgba(140,79,255,.25);
+}
+
+.status{
+  display:none;
+  margin-top:12px;
+  padding:13px;
+  border-radius:14px;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.status.show{
+  display:block;
+}
+
+.status.loading{
+  display:block;
+  color:#cebaff;
+  background:rgba(155,92,255,.08);
+}
+
+.status.error{
+  color:#ff9bad;
+  background:rgba(255,88,119,.08);
+}
+
+.status.success{
+  color:#75efb4;
+  background:rgba(54,226,154,.08);
+}
+
+.secure{
+  margin-top:15px;
+  color:var(--muted2);
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
   position:relative;
   z-index:2;
-  width:100%;
-  max-width:600px;
+  display:none;
   min-height:100vh;
+}
+
+.shell{
+  width:100%;
+  max-width:720px;
   margin:auto;
-  padding-bottom:105px;
+  min-height:100vh;
+  padding-bottom:110px;
 }
 
 .topbar{
-  padding:
-    calc(env(safe-area-inset-top) + 18px)
-    18px
-    8px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  padding:
+    calc(env(safe-area-inset-top) + 16px)
+    16px
+    10px;
 }
 
-.brand{
+.top-left{
   display:flex;
   align-items:center;
   gap:11px;
 }
 
-.logo{
-  width:44px;
-  height:44px;
+.mini-logo{
+  width:45px;
+  height:45px;
   border-radius:15px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#8b5cf6,#c084fc);
-  box-shadow:0 10px 35px rgba(139,92,246,.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#8d4fff,#c36cff);
+  box-shadow:0 10px 30px rgba(140,79,255,.25);
+  font-size:15px;
+  font-weight:950;
 }
 
-.logo svg{
-  width:27px;
-  height:27px;
+.top-name{
+  font-size:16px;
+  font-weight:850;
 }
 
-.brand-title{
-  font-weight:800;
-  font-size:18px;
-  letter-spacing:-.4px;
-}
-
-.brand-sub{
-  font-size:11px;
+.top-sub{
   color:var(--muted);
+  font-size:10px;
   margin-top:2px;
 }
 
 .top-actions{
   display:flex;
-  gap:8px;
+  gap:7px;
 }
 
 .icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:15px;
+  width:41px;
+  height:41px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
   border:1px solid var(--border);
   background:rgba(255,255,255,.045);
-  display:grid;
-  place-items:center;
-  backdrop-filter:blur(20px);
 }
 
 .icon-btn svg{
-  width:20px;
-  height:20px;
+  width:19px;
+  height:19px;
 }
 
 .page{
-  padding:8px 16px 20px;
+  padding:8px 16px 25px;
 }
 
 .view{
   display:none;
-  animation:pageIn .35s ease;
+  animation:viewIn .35s ease;
 }
 
 .view.active{
   display:block;
 }
 
-@keyframes pageIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
+@keyframes viewIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
-
-/* CARDS */
 
 .card{
   border:1px solid var(--border);
   background:linear-gradient(145deg,var(--card),var(--card2));
-  backdrop-filter:blur(25px);
-  -webkit-backdrop-filter:blur(25px);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
   border-radius:var(--radius);
-  box-shadow:0 18px 50px rgba(0,0,0,.18);
+  box-shadow:0 18px 60px rgba(0,0,0,.18);
 }
 
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin:25px 2px 13px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:20px;
+  letter-spacing:-.6px;
+}
+
+.section-head span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* =========================
+   HOME
+========================= */
+
 .hero{
-  padding:24px;
   position:relative;
   overflow:hidden;
-  min-height:230px;
+  padding:24px;
+  min-height:250px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,95,186,.17),transparent 33%),
+    radial-gradient(circle at 0% 100%,rgba(99,49,255,.16),transparent 35%),
+    rgba(255,255,255,.055);
 }
 
 .hero:after{
   content:"AVA";
   position:absolute;
-  right:-20px;
-  bottom:-45px;
-  font-size:130px;
+  right:-22px;
+  bottom:-42px;
+  font-size:125px;
   font-weight:1000;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(255,255,255,.035);
+  color:rgba(255,255,255,.025);
 }
 
-.badge{
+.online-badge{
   display:inline-flex;
   align-items:center;
   gap:7px;
   padding:7px 11px;
   border-radius:999px;
-  background:rgba(155,108,255,.12);
-  color:#cbb5ff;
-  font-size:11px;
-  font-weight:700;
+  color:#cdb9ff;
+  background:rgba(155,92,255,.11);
+  font-size:10px;
+  font-weight:800;
 }
 
-.dot{
+.online-dot{
   width:7px;
   height:7px;
   border-radius:50%;
   background:var(--green);
-  box-shadow:0 0 12px var(--green);
+  box-shadow:0 0 12px rgba(54,226,154,.8);
 }
 
 .hero h1{
-  font-size:31px;
-  line-height:1.05;
-  margin:18px 0 10px;
+  position:relative;
+  z-index:1;
+  margin:18px 0 9px;
+  font-size:32px;
+  line-height:1.06;
   letter-spacing:-1.5px;
 }
 
-.gradient{
-  background:linear-gradient(90deg,#fff,#bda1ff,#8bbcff);
+.hero h1 span{
+  background:linear-gradient(90deg,#fff,#bd83ff,#ff75c4);
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .hero p{
+  position:relative;
+  z-index:1;
   color:var(--muted);
   line-height:1.55;
-  font-size:14px;
-  max-width:430px;
+  font-size:13px;
+  max-width:500px;
 }
 
-.btn{
-  min-height:48px;
-  padding:0 18px;
-  border-radius:16px;
-  font-weight:750;
+.hero-btn{
+  position:relative;
+  z-index:2;
   display:inline-flex;
   align-items:center;
-  justify-content:center;
-  gap:8px;
-  transition:.2s;
+  gap:9px;
+  min-height:47px;
+  padding:0 18px;
+  border-radius:15px;
+  background:linear-gradient(100deg,#8c4fff,#c36cff);
+  font-size:13px;
+  font-weight:800;
 }
-
-.btn:active{
-  transform:scale(.97);
-}
-
-.btn-primary{
-  background:linear-gradient(135deg,#8b5cf6,#b86cff);
-  box-shadow:0 12px 30px rgba(139,92,246,.25);
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--border);
-}
-
-.btn-full{
-  width:100%;
-}
-
-.section-title{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  margin:25px 3px 12px;
-}
-
-.section-title h2{
-  margin:0;
-  font-size:19px;
-  letter-spacing:-.5px;
-}
-
-.section-title span{
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* STATS */
 
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:9px;
-  margin-top:12px;
+  margin-top:11px;
 }
 
 .stat{
-  padding:15px 12px;
+  padding:15px 10px;
   text-align:center;
 }
 
@@ -387,12 +584,40 @@ button{
 
 .stat span{
   display:block;
-  color:var(--muted);
-  font-size:10px;
   margin-top:4px;
+  color:var(--muted);
+  font-size:9px;
 }
 
-/* HOME */
+.progress-card{
+  padding:17px;
+}
+
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+}
+
+.progress-top span{
+  color:#c49dff;
+}
+
+.progress-track{
+  height:8px;
+  margin-top:11px;
+  overflow:hidden;
+  border-radius:20px;
+  background:rgba(255,255,255,.06);
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#8c4fff,#c36cff);
+  transition:.6s;
+}
 
 .quick-grid{
   display:grid;
@@ -401,105 +626,123 @@ button{
 }
 
 .quick{
-  min-height:120px;
+  min-height:126px;
   padding:17px;
   text-align:left;
-  position:relative;
-  overflow:hidden;
+  border-radius:21px;
+  background:var(--card);
+  border:1px solid var(--border);
+  transition:.2s;
 }
 
-.quick svg{
-  width:25px;
-  height:25px;
-  color:#c4adff;
+.quick:active{
+  transform:scale(.97);
 }
 
-.quick h3{
-  margin:14px 0 4px;
-  font-size:14px;
-}
-
-.quick p{
-  margin:0;
-  color:var(--muted);
-  font-size:11px;
-}
-
-.progress-card{
-  padding:18px;
-}
-
-.progress-head{
+.quick-icon{
+  width:42px;
+  height:42px;
   display:flex;
-  justify-content:space-between;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  color:#c79dff;
+  background:rgba(155,92,255,.13);
+}
+
+.quick-icon svg{
+  width:22px;
+  height:22px;
+}
+
+.quick strong{
+  display:block;
+  margin-top:13px;
   font-size:13px;
 }
 
-.progress-head span{
-  color:#bda1ff;
-}
-
-.progress{
-  height:7px;
-  background:rgba(255,255,255,.07);
-  border-radius:20px;
-  margin-top:12px;
-  overflow:hidden;
-}
-
-.progress i{
+.quick small{
   display:block;
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#8b5cf6,#c084fc);
-  border-radius:20px;
-  transition:width .5s;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
 }
 
-/* ACADEMY */
+/* =========================
+   ACADEMY
+========================= */
+
+.search{
+  width:100%;
+  height:49px;
+  margin-bottom:11px;
+  padding:0 15px;
+  color:white;
+  outline:none;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+}
 
 .module{
-  padding:17px;
   margin-bottom:10px;
-  position:relative;
   overflow:hidden;
+  border-radius:21px;
+  border:1px solid var(--border);
+  background:var(--card);
 }
 
-.module-top{
+.module-header{
+  width:100%;
   display:flex;
   align-items:center;
   gap:12px;
+  padding:17px;
+  background:none;
+  text-align:left;
 }
 
-.module-icon{
-  width:45px;
-  height:45px;
-  border-radius:15px;
-  display:grid;
-  place-items:center;
-  background:rgba(155,108,255,.12);
+.module-number{
+  width:42px;
+  height:42px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  color:#c49dff;
+  background:rgba(155,92,255,.13);
+  font-weight:850;
 }
 
-.module-icon svg{
-  width:22px;
+.module-info{
+  flex:1;
 }
 
-.module h3{
-  margin:0;
-  font-size:15px;
+.module-info b{
+  display:block;
+  font-size:14px;
 }
 
-.module p{
-  margin:4px 0 0;
+.module-info small{
+  display:block;
+  margin-top:4px;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
+}
+
+.module-arrow{
+  color:var(--muted);
+  transition:.25s;
+}
+
+.module.open .module-arrow{
+  transform:rotate(180deg);
 }
 
 .lesson-list{
   display:none;
-  margin-top:14px;
   border-top:1px solid var(--border);
-  padding-top:10px;
 }
 
 .module.open .lesson-list{
@@ -508,11 +751,11 @@ button{
 
 .lesson{
   width:100%;
-  padding:13px 8px;
   display:flex;
-  gap:10px;
   align-items:center;
-  background:transparent;
+  gap:11px;
+  padding:13px 15px;
+  background:none;
   text-align:left;
   border-bottom:1px solid rgba(255,255,255,.045);
 }
@@ -521,16 +764,17 @@ button{
   border-bottom:0;
 }
 
-.lesson-num{
+.lesson-number{
   width:30px;
   height:30px;
-  border-radius:10px;
-  background:rgba(255,255,255,.06);
-  display:grid;
-  place-items:center;
-  font-size:11px;
-  color:var(--muted);
   flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  background:rgba(255,255,255,.05);
+  color:var(--muted);
+  font-size:10px;
 }
 
 .lesson-info{
@@ -538,30 +782,707 @@ button{
 }
 
 .lesson-info b{
-  font-size:12px;
   display:block;
+  font-size:12px;
 }
 
 .lesson-info small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+  font-size:9px;
+}
+
+.lesson-check{
+  width:27px;
+  height:27px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+
+.lesson.done .lesson-check{
+  background:var(--green);
+  color:#07140d;
+  border-color:var(--green);
+}
+
+/* =========================
+   BOT / AI
+========================= */
+
+.ai-card{
+  padding:20px;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,95,186,.12),transparent 35%),
+    radial-gradient(circle at 0% 100%,rgba(99,49,255,.12),transparent 35%),
+    var(--card);
+}
+
+.ai-head{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.ai-avatar{
+  width:57px;
+  height:57px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:19px;
+  background:linear-gradient(145deg,#8d4fff,#c46cff);
+  box-shadow:0 12px 35px rgba(140,79,255,.3);
+  font-weight:950;
+}
+
+.ai-name{
+  font-size:18px;
+  font-weight:850;
+}
+
+.ai-status{
+  margin-top:3px;
+  color:var(--green);
+  font-size:10px;
+}
+
+.chat{
+  height:350px;
+  overflow:auto;
+  margin-top:17px;
+  padding:3px;
+}
+
+.message{
+  max-width:87%;
+  margin-bottom:10px;
+  padding:12px 14px;
+  border-radius:17px;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.message.ava{
+  background:rgba(155,92,255,.11);
+  border:1px solid rgba(155,92,255,.15);
+  border-bottom-left-radius:6px;
+}
+
+.message.user{
+  margin-left:auto;
+  background:rgba(255,255,255,.075);
+  border-bottom-right-radius:6px;
+}
+
+.chat-input{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+}
+
+.chat-input input{
+  flex:1;
+  min-width:0;
+  height:49px;
+  padding:0 13px;
+  color:white;
+  outline:none;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(255,255,255,.05);
+}
+
+.send{
+  width:49px;
+  height:49px;
+  flex:none;
+  border-radius:15px;
+  background:linear-gradient(135deg,#8d4fff,#c46cff);
+}
+
+.chips{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding:10px 0 2px;
+}
+
+.chip{
+  white-space:nowrap;
+  padding:9px 11px;
+  border-radius:11px;
+  color:#c8b7e6;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  font-size:10px;
+}
+
+/* BOT SIGNAL */
+
+.bot-panel{
+  padding:19px;
+}
+
+.field{
+  margin-bottom:11px;
+}
+
+.field label{
+  display:block;
+  margin:0 0 6px 2px;
   color:var(--muted);
   font-size:10px;
 }
 
-.check{
-  color:var(--green);
-  font-size:15px;
+.select{
+  width:100%;
+  height:50px;
+  padding:0 12px;
+  color:white;
+  outline:none;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:#171024;
 }
 
-/* LESSON MODAL */
+.mode{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.mode button{
+  height:46px;
+  border-radius:14px;
+  color:var(--muted);
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--border);
+}
+
+.mode button.active{
+  color:white;
+  background:rgba(155,92,255,.14);
+  border-color:rgba(155,92,255,.5);
+}
+
+.signal{
+  display:none;
+  margin-top:13px;
+  padding:17px;
+  border-radius:20px;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--border);
+}
+
+.signal.show{
+  display:block;
+  animation:signalIn .35s ease;
+}
+
+@keyframes signalIn{
+  from{opacity:0;transform:scale(.97)}
+  to{opacity:1;transform:none}
+}
+
+.signal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.signal-pair{
+  font-size:17px;
+  font-weight:800;
+}
+
+.signal-meta{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:4px;
+}
+
+.direction{
+  font-size:24px;
+  font-weight:950;
+}
+
+.up{color:var(--green)}
+.down{color:var(--red)}
+
+.conf-track{
+  height:6px;
+  margin-top:15px;
+  border-radius:20px;
+  overflow:hidden;
+  background:rgba(255,255,255,.06);
+}
+
+.conf-fill{
+  height:100%;
+  width:0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#8d4fff,#36e29a);
+  transition:1s;
+}
+
+/* =========================
+   ANALYSIS
+========================= */
+
+.chart-card{
+  overflow:hidden;
+}
+
+.chart-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+}
+
+.chart-pair{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.chart-price{
+  margin-top:3px;
+  font-size:26px;
+  font-weight:900;
+}
+
+.chart-change{
+  margin-top:2px;
+  color:var(--green);
+  font-size:10px;
+}
+
+.chart-area{
+  position:relative;
+  height:260px;
+  overflow:hidden;
+  margin:0 12px;
+  border-radius:17px;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:20% 20%;
+}
+
+.chart-svg{
+  position:absolute;
+  inset:20px 10px;
+  width:calc(100% - 20px);
+  height:calc(100% - 40px);
+}
+
+.indicator-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+
+.indicator{
+  padding:14px 9px;
+  text-align:center;
+}
+
+.indicator b{
+  display:block;
+  font-size:13px;
+}
+
+.indicator span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:8px;
+}
+
+/* =========================
+   PATTERNS
+========================= */
+
+.pattern-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.pattern{
+  padding:16px;
+  min-height:145px;
+}
+
+.pattern-icon{
+  height:65px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+}
+
+.pattern-icon svg{
+  width:100%;
+  height:65px;
+}
+
+.pattern b{
+  font-size:13px;
+}
+
+.pattern p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+
+/* =========================
+   DICTIONARY / FAQ
+========================= */
+
+.term{
+  padding:16px;
+  margin-bottom:9px;
+}
+
+.term b{
+  font-size:13px;
+}
+
+.term p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.faq{
+  overflow:hidden;
+  margin-bottom:9px;
+}
+
+.faq-question{
+  width:100%;
+  padding:16px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  background:none;
+  text-align:left;
+  font-size:12px;
+  font-weight:750;
+}
+
+.faq-answer{
+  display:none;
+  padding:0 16px 16px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+.faq.open .faq-answer{
+  display:block;
+}
+
+/* =========================
+   TESTS
+========================= */
+
+.quiz-card{
+  padding:20px;
+}
+
+.quiz-number{
+  color:#c49dff;
+  font-size:10px;
+  font-weight:800;
+}
+
+.question{
+  margin:13px 0 18px;
+  font-size:19px;
+  line-height:1.35;
+  font-weight:850;
+}
+
+.answers{
+  display:grid;
+  gap:8px;
+}
+
+.answer{
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.045);
+  text-align:left;
+  font-size:12px;
+}
+
+.answer.correct{
+  background:rgba(54,226,154,.1);
+  border-color:rgba(54,226,154,.5);
+}
+
+.answer.wrong{
+  background:rgba(255,88,119,.1);
+  border-color:rgba(255,88,119,.5);
+}
+
+/* =========================
+   TRAINER
+========================= */
+
+.training{
+  padding:18px;
+}
+
+.training-chart{
+  position:relative;
+  height:260px;
+  overflow:hidden;
+  margin-top:12px;
+  border-radius:18px;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:25% 25%;
+}
+
+.training-candles{
+  position:absolute;
+  inset:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+}
+
+.train-candle{
+  position:relative;
+  width:9px;
+  border-radius:4px;
+}
+
+.train-candle:before,
+.train-candle:after{
+  content:"";
+  position:absolute;
+  width:2px;
+  left:3.5px;
+  background:currentColor;
+}
+
+.train-candle:before{
+  top:-18px;
+  height:18px;
+}
+
+.train-candle:after{
+  bottom:-18px;
+  height:18px;
+}
+
+.train-green{
+  background:var(--green);
+  color:var(--green);
+}
+
+.train-red{
+  background:var(--red);
+  color:var(--red);
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile{
+  padding:23px;
+  text-align:center;
+}
+
+.avatar-wrap{
+  position:relative;
+  width:96px;
+  height:96px;
+  margin:0 auto 13px;
+}
+
+.profile-avatar{
+  width:96px;
+  height:96px;
+  object-fit:cover;
+  border-radius:31px;
+  background:linear-gradient(145deg,#8d4fff,#ff62b9);
+  border:2px solid rgba(255,255,255,.15);
+}
+
+.avatar-edit{
+  position:absolute;
+  right:-4px;
+  bottom:-4px;
+  width:32px;
+  height:32px;
+  border-radius:11px;
+  background:white;
+  color:#111;
+}
+
+.profile-name{
+  font-size:21px;
+  font-weight:850;
+}
+
+.profile-id{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.level{
+  display:inline-flex;
+  margin-top:11px;
+  padding:7px 11px;
+  border-radius:999px;
+  color:#d0b6ff;
+  background:rgba(155,92,255,.11);
+  font-size:10px;
+  font-weight:800;
+}
+
+.setting{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.setting:last-child{
+  border-bottom:0;
+}
+
+.setting-icon{
+  width:39px;
+  height:39px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  border-radius:13px;
+  background:rgba(255,255,255,.05);
+}
+
+.setting-icon svg{
+  width:19px;
+}
+
+.setting-info{
+  flex:1;
+  text-align:left;
+}
+
+.setting-info b{
+  display:block;
+  font-size:12px;
+}
+
+.setting-info small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.language-buttons{
+  display:flex;
+  gap:5px;
+}
+
+.language-button{
+  padding:7px 8px;
+  border-radius:9px;
+  color:var(--muted);
+  background:rgba(255,255,255,.05);
+  font-size:9px;
+}
+
+.language-button.active{
+  color:white;
+  background:#8d4fff;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+  padding:18px;
+}
+
+.contact-buttons{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+
+.contact-button{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--border);
+  text-align:left;
+}
+
+.contact-icon{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:13px;
+  background:rgba(155,92,255,.13);
+  color:#c69dff;
+}
+
+.contact-button b{
+  display:block;
+  font-size:12px;
+}
+
+.contact-button small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+  font-size:9px;
+}
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   position:fixed;
   inset:0;
-  z-index:50;
+  z-index:80;
   display:none;
+  align-items:flex-end;
   background:rgba(3,2,7,.72);
   backdrop-filter:blur(15px);
-  align-items:flex-end;
 }
 
 .modal.show{
@@ -570,14 +1491,14 @@ button{
 
 .sheet{
   width:100%;
-  max-width:600px;
-  margin:auto;
+  max-width:720px;
   max-height:88vh;
   overflow:auto;
+  margin:auto;
   padding:22px 18px calc(25px + env(safe-area-inset-bottom));
   border-radius:30px 30px 0 0;
   border:1px solid var(--border);
-  background:#100d1b;
+  background:#100c1b;
   animation:sheetUp .35s ease;
 }
 
@@ -590,741 +1511,311 @@ button{
   float:right;
   width:35px;
   height:35px;
-  border-radius:12px;
+  border-radius:11px;
   background:rgba(255,255,255,.06);
 }
 
-.lesson-content h2{
+.lesson-modal h2{
+  margin:12px 0;
   font-size:24px;
-  margin:10px 0;
 }
 
-.lesson-content h3{
-  margin-top:25px;
-  color:#c5adff;
+.lesson-modal h3{
+  margin-top:23px;
+  color:#c79eff;
+  font-size:15px;
 }
 
-.lesson-content p,
-.lesson-content li{
-  color:#c2bfca;
+.lesson-modal p,
+.lesson-modal li{
+  color:#c4bfce;
+  font-size:13px;
   line-height:1.7;
-  font-size:14px;
 }
 
 .tip{
   padding:15px;
   border-radius:17px;
-  background:rgba(155,108,255,.08);
-  border:1px solid rgba(155,108,255,.16);
-  margin:16px 0;
+  background:rgba(155,92,255,.08);
+  border:1px solid rgba(155,92,255,.15);
 }
 
-/* BOT */
-
-.bot-hero{
-  padding:20px;
-  position:relative;
-  overflow:hidden;
-}
-
-.bot-orb{
-  width:80px;
-  height:80px;
-  border-radius:28px;
-  background:radial-gradient(circle at 30% 25%,#d6baff,#8b5cf6 55%,#3b1c72);
-  display:grid;
-  place-items:center;
-  box-shadow:0 15px 45px rgba(139,92,246,.3);
-  animation:botPulse 3s ease-in-out infinite;
-}
-
-@keyframes botPulse{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-7px)}
-}
-
-.bot-orb svg{
-  width:42px;
-}
-
-.bot-flex{
-  display:flex;
-  gap:16px;
-  align-items:center;
-}
-
-.field{
-  margin-bottom:12px;
-}
-
-.field label{
-  display:block;
-  font-size:11px;
-  color:var(--muted);
-  margin:0 0 7px 3px;
-}
-
-.select{
-  width:100%;
-  min-height:49px;
-  padding:0 13px;
-  color:#fff;
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--border);
-  border-radius:15px;
-  outline:none;
-}
-
-.select option{
-  background:#11101a;
-}
-
-.mode{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.mode button{
-  min-height:45px;
-  border-radius:14px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
-  color:var(--muted);
-}
-
-.mode button.active{
-  color:white;
-  border-color:rgba(155,108,255,.5);
-  background:rgba(155,108,255,.13);
-}
-
-.signal{
-  display:none;
-  margin-top:15px;
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
-  animation:signalIn .4s ease;
-}
-
-.signal.show{
-  display:block;
-}
-
-@keyframes signalIn{
-  from{opacity:0;transform:scale(.97)}
-  to{opacity:1;transform:none}
-}
-
-.signal-main{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.signal-side{
-  text-align:right;
-}
-
-.signal-side b{
-  font-size:25px;
-}
-
-.signal-side small{
-  display:block;
-  color:var(--muted);
-}
-
-.signal-up{
-  color:var(--green);
-}
-
-.signal-down{
-  color:var(--red);
-}
-
-.confidence{
-  height:6px;
-  background:rgba(255,255,255,.07);
-  border-radius:10px;
-  margin-top:15px;
-}
-
-.confidence i{
-  display:block;
-  width:0;
-  height:100%;
-  border-radius:10px;
-  background:linear-gradient(90deg,#8b5cf6,#35df9a);
-  transition:1s;
-}
-
-/* ANALYSIS */
-
-.market-chart{
-  height:250px;
-  position:relative;
-  overflow:hidden;
-  padding:10px;
-}
-
-.grid-lines{
-  position:absolute;
-  inset:20px;
-  background:
-    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
-  background-size:25% 25%;
-}
-
-.chart-line{
-  position:absolute;
-  left:20px;
-  right:20px;
-  top:50%;
-  height:100px;
-}
-
-.chart-line svg{
-  width:100%;
-  height:100%;
-  overflow:visible;
-}
-
-.pair-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px;
-}
-
-.price{
-  font-size:27px;
-  font-weight:800;
-}
-
-.change{
-  color:var(--green);
-  font-size:12px;
-  margin-top:3px;
-}
-
-.indicators{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:10px;
-}
-
-.indicator{
-  padding:13px;
-  text-align:center;
-}
-
-.indicator b{
-  display:block;
-  font-size:14px;
-}
-
-.indicator span{
-  color:var(--muted);
-  font-size:9px;
-}
-
-/* TESTS */
-
-.quiz{
-  padding:20px;
-}
-
-.question{
-  font-size:18px;
-  line-height:1.35;
-  font-weight:750;
-  margin:12px 0 18px;
-}
-
-.answers{
-  display:grid;
-  gap:9px;
-}
-
-.answer{
-  width:100%;
-  text-align:left;
-  padding:15px;
-  border-radius:15px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
-}
-
-.answer.correct{
-  border-color:rgba(53,223,154,.5);
-  background:rgba(53,223,154,.09);
-}
-
-.answer.wrong{
-  border-color:rgba(255,97,120,.5);
-  background:rgba(255,97,120,.09);
-}
-
-/* DICTIONARY */
-
-.search{
-  width:100%;
-  min-height:50px;
-  padding:0 16px;
-  border-radius:16px;
-  color:#fff;
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--border);
-  outline:none;
-  margin-bottom:10px;
-}
-
-.word{
-  padding:17px;
-  margin-bottom:9px;
-}
-
-.word b{
-  font-size:15px;
-}
-
-.word p{
-  margin:7px 0 0;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
-}
-
-/* PROFILE */
-
-.profile-card{
-  padding:22px;
-  text-align:center;
-}
-
-.avatar-wrap{
-  position:relative;
-  width:92px;
-  height:92px;
-  margin:5px auto 13px;
-}
-
-.avatar{
-  width:92px;
-  height:92px;
-  border-radius:31px;
-  object-fit:cover;
-  display:block;
-  background:linear-gradient(135deg,#8b5cf6,#c084fc);
-  border:2px solid rgba(255,255,255,.13);
-}
-
-.avatar-edit{
-  position:absolute;
-  right:-4px;
-  bottom:-4px;
-  width:31px;
-  height:31px;
-  border-radius:11px;
-  background:#fff;
-  color:#111;
-  display:grid;
-  place-items:center;
-}
-
-.avatar-edit svg{
-  width:16px;
-}
-
-.profile-name{
-  font-size:21px;
-  font-weight:800;
-}
-
-.profile-id{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
-}
-
-.settings{
-  margin-top:12px;
-}
-
-.setting{
-  padding:16px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  border-bottom:1px solid rgba(255,255,255,.055);
-}
-
-.setting:last-child{
-  border:0;
-}
-
-.setting-icon{
-  width:39px;
-  height:39px;
-  border-radius:13px;
-  background:rgba(255,255,255,.055);
-  display:grid;
-  place-items:center;
-}
-
-.setting-icon svg{
-  width:19px;
-}
-
-.setting-text{
-  flex:1;
-  text-align:left;
-}
-
-.setting-text b{
-  display:block;
-  font-size:13px;
-}
-
-.setting-text span{
-  color:var(--muted);
-  font-size:10px;
-}
-
-.langs{
-  display:flex;
-  gap:6px;
-}
-
-.lang{
-  padding:7px 9px;
-  border-radius:9px;
-  background:rgba(255,255,255,.05);
-  font-size:10px;
-}
-
-.lang.active{
-  background:#8b5cf6;
-}
-
-/* ACCESS */
-
-#access{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(139,92,246,.2),transparent 35%),
-    #080711;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:22px;
-}
-
-.access-box{
-  width:100%;
-  max-width:440px;
-}
-
-.access-logo{
-  width:76px;
-  height:76px;
-  border-radius:27px;
-  margin:0 auto 18px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#8b5cf6,#c084fc);
-  box-shadow:0 20px 70px rgba(139,92,246,.3);
-}
-
-.access-logo svg{
-  width:44px;
-}
-
-.access-box h1{
-  text-align:center;
-  margin:0;
-  font-size:30px;
-  letter-spacing:-1.3px;
-}
-
-.access-box>p{
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-  margin:10px 0 22px;
-}
-
-.access-card{
-  padding:20px;
-}
-
-.input{
-  width:100%;
-  min-height:54px;
-  border-radius:17px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.05);
-  color:white;
-  outline:none;
-  padding:0 16px;
-  font-size:16px;
-  margin-bottom:10px;
-}
-
-.access-status{
-  margin-top:12px;
-  padding:13px;
-  border-radius:14px;
-  display:none;
-  font-size:12px;
-  line-height:1.5;
-}
-
-.access-status.show{
-  display:block;
-}
-
-.access-status.loading{
-  background:rgba(155,108,255,.08);
-  color:#cbb5ff;
-}
-
-.access-status.ok{
-  background:rgba(53,223,154,.08);
-  color:#72edba;
-}
-
-.access-status.error{
-  background:rgba(255,97,120,.08);
-  color:#ff93a4;
-}
-
-/* NAV */
+/* =========================
+   BOTTOM NAV
+========================= */
 
 .bottom-nav{
   position:fixed;
-  z-index:20;
+  z-index:30;
   left:50%;
-  bottom:calc(10px + env(safe-area-inset-bottom));
+  bottom:calc(9px + env(safe-area-inset-bottom));
   transform:translateX(-50%);
-  width:min(580px,calc(100% - 18px));
-  padding:8px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(13,10,23,.82);
-  backdrop-filter:blur(28px);
-  border-radius:25px;
+  width:min(690px,calc(100% - 14px));
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
+  gap:3px;
+  padding:7px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:25px;
+  background:rgba(13,9,23,.86);
+  backdrop-filter:blur(30px);
+  box-shadow:0 20px 70px rgba(0,0,0,.45);
 }
 
-.nav-btn{
-  min-height:59px;
-  border-radius:18px;
-  background:transparent;
-  color:var(--muted);
+.nav{
+  min-height:58px;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:5px;
+  flex-direction:column;
+  gap:4px;
+  border-radius:18px;
+  color:var(--muted);
+  background:transparent;
 }
 
-.nav-btn svg{
-  width:21px;
-  height:21px;
+.nav svg{
+  width:20px;
+  height:20px;
 }
 
-.nav-btn span{
-  font-size:9px;
-  font-weight:650;
+.nav span{
+  font-size:8px;
+  font-weight:700;
 }
 
-.nav-btn.active{
-  color:#fff;
-  background:linear-gradient(145deg,rgba(139,92,246,.2),rgba(139,92,246,.06));
+.nav.active{
+  color:white;
+  background:rgba(155,92,255,.13);
 }
 
-.nav-btn.active svg{
-  color:#c3a7ff;
-  filter:drop-shadow(0 0 8px rgba(155,108,255,.6));
+.nav.active svg{
+  color:#c69eff;
+  filter:drop-shadow(0 0 8px rgba(155,92,255,.6));
 }
 
-/* TOAST */
+/* =========================
+   TOAST
+========================= */
 
-.toast{
+#toast{
   position:fixed;
   z-index:200;
+  top:calc(env(safe-area-inset-top) + 13px);
   left:50%;
-  top:calc(env(safe-area-inset-top) + 15px);
-  transform:translate(-50%,-20px);
+  transform:translate(-50%,-15px);
   opacity:0;
-  padding:12px 17px;
-  border-radius:14px;
-  background:rgba(30,27,42,.95);
-  border:1px solid var(--border);
-  font-size:12px;
-  transition:.3s;
   pointer-events:none;
+  padding:11px 15px;
+  border-radius:14px;
+  background:rgba(30,26,41,.96);
+  border:1px solid var(--border);
+  font-size:11px;
+  transition:.3s;
 }
 
-.toast.show{
+#toast.show{
   opacity:1;
   transform:translate(-50%,0);
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(min-width:700px){
+  .page{
+    padding-left:25px;
+    padding-right:25px;
+  }
+
+  .quick-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .pattern-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
 
 @media(max-width:380px){
-  .hero h1{font-size:27px}
-  .quick{min-height:110px}
-  .nav-btn{min-height:55px}
-  .nav-btn span{font-size:8px}
+  .hero h1{
+    font-size:28px;
+  }
+
+  .nav{
+    min-height:53px;
+  }
+
+  .nav span{
+    font-size:7px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     BACKGROUND
+========================= -->
+
 <div class="bg">
-  <div class="glow g1"></div>
-  <div class="glow g2"></div>
-  <div class="glow g3"></div>
 
-  <div class="chart-bg">
-    <div class="watermark" style="left:-20px;top:25%">AVA</div>
-    <div class="watermark" style="right:-40px;top:58%">TRADING</div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+  <div class="glow c"></div>
 
-    <div class="candle" style="left:8%;top:18%;height:55px"></div>
-    <div class="candle red" style="left:16%;top:31%;height:80px;animation-delay:-1s"></div>
-    <div class="candle" style="left:25%;top:24%;height:95px;animation-delay:-2s"></div>
-    <div class="candle" style="left:34%;top:45%;height:60px;animation-delay:-3s"></div>
-    <div class="candle red" style="left:43%;top:20%;height:120px;animation-delay:-1.5s"></div>
-    <div class="candle" style="left:52%;top:34%;height:70px;animation-delay:-2.5s"></div>
-    <div class="candle" style="left:61%;top:16%;height:100px;animation-delay:-4s"></div>
-    <div class="candle red" style="left:70%;top:38%;height:75px;animation-delay:-3.2s"></div>
-    <div class="candle" style="left:79%;top:25%;height:115px;animation-delay:-1.2s"></div>
-    <div class="candle" style="left:88%;top:44%;height:65px;animation-delay:-2s"></div>
+  <div class="ava-watermark" style="left:-20px;top:23%">AVA</div>
+  <div class="ava-watermark" style="right:-45px;top:62%">AVA</div>
+
+  <div class="candles">
+
+    <div class="candle up" style="left:6%;top:18%;height:60px"></div>
+    <div class="candle down" style="left:14%;top:31%;height:90px;animation-delay:-1s"></div>
+    <div class="candle up" style="left:23%;top:22%;height:105px;animation-delay:-2s"></div>
+    <div class="candle up" style="left:31%;top:42%;height:65px;animation-delay:-3s"></div>
+    <div class="candle down" style="left:40%;top:19%;height:115px;animation-delay:-1.5s"></div>
+    <div class="candle up" style="left:49%;top:35%;height:75px;animation-delay:-2.5s"></div>
+    <div class="candle up" style="left:58%;top:16%;height:100px;animation-delay:-4s"></div>
+    <div class="candle down" style="left:67%;top:39%;height:72px;animation-delay:-3.2s"></div>
+    <div class="candle up" style="left:76%;top:24%;height:110px;animation-delay:-1.2s"></div>
+    <div class="candle down" style="left:86%;top:44%;height:63px;animation-delay:-2s"></div>
+
   </div>
+
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast"></div>
 
-<!-- ACCESS -->
-<section id="access">
-  <div class="access-box">
+<!-- =========================
+     ACCESS SCREEN
+========================= -->
+
+<section id="accessScreen">
+
+  <div class="access">
 
     <div class="access-logo">
-      <svg viewBox="0 0 64 64" fill="none">
-        <path d="M18 31c0-8 6-14 14-14s14 6 14 14v8c0 6-5 11-11 11H29c-6 0-11-5-11-11v-8Z" stroke="white" stroke-width="4"/>
-        <path d="M25 30h.01M39 30h.01M26 40c4 3 8 3 12 0" stroke="white" stroke-width="4" stroke-linecap="round"/>
-      </svg>
+      <div class="bot-face">
+        <div class="bot-mouth"></div>
+      </div>
     </div>
 
-    <h1>AVA <span class="gradient">Trading Academy</span></h1>
+    <h1>AVA <span>TRADING ACADEMY</span></h1>
 
-    <p>
-      Образовательная платформа по трейдингу.<br>
-      Для доступа введи свой Pocket Option Trader ID.
+    <p class="access-sub">
+      Образовательная платформа нового поколения.
+      Изучай рынок, тренируйся и развивай торговую дисциплину.
     </p>
 
-    <div class="card access-card">
+    <div class="access-card">
 
       <input
-        id="traderInput"
+        id="traderIdInput"
         class="input"
         type="text"
         inputmode="numeric"
-        placeholder="Pocket Option Trader ID"
         autocomplete="off"
+        placeholder="Введите Pocket Option Trader ID"
       >
 
-      <button class="btn btn-primary btn-full" onclick="checkAccess()">
+      <button class="primary" onclick="checkAccess()">
         Проверить доступ
       </button>
 
-      <div id="accessStatus" class="access-status"></div>
+      <div id="accessStatus" class="status"></div>
 
-      <div style="margin-top:13px;text-align:center;color:var(--muted2);font-size:10px;line-height:1.5">
-        Данные проверяются через защищённый сервер.<br>
-        API-токен никогда не передаётся в браузер.
+      <div class="secure">
+        🔐 Проверка выполняется через защищённый сервер.<br>
+        API-токен не передаётся в браузер.
       </div>
 
     </div>
 
   </div>
+
 </section>
 
-<!-- APP -->
-<div id="app" style="display:none">
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app">
 
   <div class="shell">
 
+    <!-- HEADER -->
+
     <header class="topbar">
 
-      <div class="brand">
-        <div class="logo">
-          <svg viewBox="0 0 64 64" fill="none">
-            <path d="M18 31c0-8 6-14 14-14s14 6 14 14v8c0 6-5 11-11 11H29c-6 0-11-5-11-11v-8Z" stroke="white" stroke-width="4"/>
-            <path d="M25 30h.01M39 30h.01M26 40c4 3 8 3 12 0" stroke="white" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <div class="top-left">
+
+        <div class="mini-logo">AVA</div>
+
         <div>
-          <div class="brand-title">AVA</div>
-          <div class="brand-sub">Trading Academy</div>
+          <div class="top-name">AVA Trading Academy</div>
+          <div class="top-sub">Образовательная платформа</div>
         </div>
+
       </div>
 
       <div class="top-actions">
+
         <button class="icon-btn" onclick="showToast('Уведомления пока пусты')">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"/>
           </svg>
         </button>
 
         <button class="icon-btn" onclick="openView('profile')">
           <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="8" r="4"
+              stroke="currentColor"
+              stroke-width="1.8"/>
+            <path d="M4 21c1-4 3.6-6 8-6s7 2 8 6"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"/>
           </svg>
         </button>
+
       </div>
 
     </header>
 
     <main class="page">
 
-      <!-- HOME -->
+      <!-- =====================
+           HOME
+      ====================== -->
+
       <section id="home" class="view active">
 
         <div class="card hero">
-          <div class="badge">
-            <span class="dot"></span>
+
+          <div class="online-badge">
+            <span class="online-dot"></span>
             AVA ONLINE
           </div>
 
           <h1>
             Добро пожаловать<br>
-            в <span class="gradient">AVA Academy</span>
+            в <span>AVA Academy</span>
           </h1>
 
           <p>
-            Учись читать график, понимать индикаторы,
-            управлять риском и тренироваться на виртуальном рынке.
+            Учись понимать график, находить рыночные сценарии,
+            работать с индикаторами, паттернами и риск-менеджментом.
           </p>
 
-          <button class="btn btn-primary" onclick="openView('academy')">
-            Продолжить обучение
-            <span>→</span>
+          <button class="hero-btn" onclick="openView('academy')">
+            Начать обучение →
           </button>
+
         </div>
 
         <div class="stats">
@@ -1341,192 +1832,357 @@ button{
 
           <div class="card stat">
             <b id="statStreak">1</b>
-            <span>день серии</span>
+            <span>серия дней</span>
           </div>
 
         </div>
 
-        <div class="section-title">
+        <div class="section-head">
           <h2>Быстрый доступ</h2>
         </div>
 
         <div class="quick-grid">
 
-          <button class="card quick" onclick="openView('bot')">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M8 12h.01M16 12h.01M9 16c2 1.5 4 1.5 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <h3>AVA Bot</h3>
-            <p>Учебный анализ рынка</p>
+          <button class="quick" onclick="openView('ava')">
+
+            <div class="quick-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"
+                  stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 12h.01M16 12h.01M9 16c2 1.4 4 1.4 6 0"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <strong>AVA AI</strong>
+            <small>Задай вопрос AVA</small>
+
           </button>
 
-          <button class="card quick" onclick="openView('analysis')">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M4 19V5M4 19h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="m7 15 4-5 3 3 5-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h3>Анализ</h3>
-            <p>График и индикаторы</p>
+          <button class="quick" onclick="openView('bot')">
+
+            <div class="quick-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 19V5M4 19h16"
+                  stroke="currentColor" stroke-width="1.8"/>
+                <path d="m7 15 4-5 3 3 5-7"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <strong>AVA Bot</strong>
+            <small>Учебный сигнал</small>
+
           </button>
 
-          <button class="card quick" onclick="openView('tests')">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M5 4h14v16H5z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="m8 12 2 2 5-5M8 8h8M8 17h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <h3>Тесты</h3>
-            <p>Проверь свои знания</p>
+          <button class="quick" onclick="openView('patterns')">
+
+            <div class="quick-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 18 9 11l4 4 7-9"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <strong>Паттерны</strong>
+            <small>Фигуры графика</small>
+
           </button>
 
-          <button class="card quick" onclick="openView('dictionary')">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M7 20V7a3 3 0 0 1 3-3M10 9h6M10 13h6M10 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <h3>Словарь</h3>
-            <p>Термины трейдера</p>
+          <button class="quick" onclick="openView('tests')">
+
+            <div class="quick-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 4h14v16H5z"
+                  stroke="currentColor" stroke-width="1.8"/>
+                <path d="m8 12 2 2 5-5M8 8h8M8 17h5"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <strong>Тесты</strong>
+            <small>Проверь знания</small>
+
           </button>
 
         </div>
 
-        <div class="section-title">
+        <div class="section-head">
           <h2>Твой прогресс</h2>
-          <span id="progressLabel">0 из 100</span>
+          <span id="progressLabel">0 / 100</span>
         </div>
 
         <div class="card progress-card">
-          <div class="progress-head">
+
+          <div class="progress-top">
             <b>Обучение AVA</b>
             <span id="progressPercent">0%</span>
           </div>
-          <div class="progress">
-            <i id="progressBar"></i>
+
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
           </div>
+
+        </div>
+
+        <div class="section-head">
+          <h2>Разделы AVA</h2>
+        </div>
+
+        <div class="quick-grid">
+
+          <button class="quick" onclick="openView('academy')">
+            <div class="quick-icon">🎓</div>
+            <strong>Академия</strong>
+            <small>100 уроков</small>
+          </button>
+
+          <button class="quick" onclick="openView('analysis')">
+            <div class="quick-icon">📊</div>
+            <strong>Анализ</strong>
+            <small>Учебный график</small>
+          </button>
+
+          <button class="quick" onclick="openView('dictionary')">
+            <div class="quick-icon">📖</div>
+            <strong>Термины</strong>
+            <small>Словарь трейдера</small>
+          </button>
+
+          <button class="quick" onclick="openView('faq')">
+            <div class="quick-icon">❓</div>
+            <strong>FAQ</strong>
+            <small>Частые вопросы</small>
+          </button>
+
         </div>
 
       </section>
 
-      <!-- ACADEMY -->
+      <!-- =====================
+           ACADEMY
+      ====================== -->
+
       <section id="academy" class="view">
 
-        <div class="section-title">
+        <div class="section-head">
           <h2>Академия</h2>
           <span>100 уроков</span>
         </div>
+
+        <input
+          id="lessonSearch"
+          class="search"
+          placeholder="🔎 Поиск урока..."
+          oninput="searchLessons(this.value)"
+        >
 
         <div id="modules"></div>
 
       </section>
 
-      <!-- BOT -->
-      <section id="bot" class="view">
+      <!-- =====================
+           AVA AI
+      ====================== -->
 
-        <div class="card bot-hero">
+      <section id="ava" class="view">
 
-          <div class="bot-flex">
+        <div class="section-head">
+          <h2>AVA AI</h2>
+          <span>Твой помощник</span>
+        </div>
 
-            <div class="bot-orb">
-              <svg viewBox="0 0 64 64" fill="none">
-                <path d="M18 30c0-8 6-14 14-14s14 6 14 14v9c0 6-5 10-11 10H29c-6 0-11-4-11-10v-9Z" stroke="white" stroke-width="4"/>
-                <circle cx="26" cy="30" r="2" fill="white"/>
-                <circle cx="38" cy="30" r="2" fill="white"/>
-                <path d="M27 40c3 2 7 2 10 0" stroke="white" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
+        <div class="card ai-card">
+
+          <div class="ai-head">
+
+            <div class="ai-avatar">AVA</div>
 
             <div>
-              <h2 style="margin:0;font-size:22px">AVA Bot</h2>
-              <p style="margin:6px 0 0;color:var(--muted);font-size:12px">
-                Учебный AI-анализ
-              </p>
+              <div class="ai-name">AVA</div>
+              <div class="ai-status">● Онлайн · готова помочь</div>
             </div>
 
           </div>
 
-          <div style="margin-top:17px;padding:12px;border-radius:14px;background:rgba(255,255,255,.035);color:var(--muted);font-size:10px;line-height:1.5">
-            Сигнал является виртуальным учебным сценарием.
-            Он не гарантирует результат и не является финансовой рекомендацией.
+          <div id="chat" class="chat">
+
+            <div class="message ava">
+              Привет! Я AVA 👋<br><br>
+              Могу объяснить трейдинг простыми словами,
+              рассказать о паттернах, свечах, индикаторах,
+              риск-менеджменте и помочь разобраться с платформой.
+            </div>
+
+          </div>
+
+          <div class="chips">
+
+            <button class="chip" onclick="quickAsk('Что такое тренд?')">
+              Что такое тренд?
+            </button>
+
+            <button class="chip" onclick="quickAsk('Объясни RSI')">
+              Объясни RSI
+            </button>
+
+            <button class="chip" onclick="quickAsk('Что такое OTC?')">
+              Что такое OTC?
+            </button>
+
+            <button class="chip" onclick="quickAsk('Что изучать новичку?')">
+              Что изучать?
+            </button>
+
+          </div>
+
+          <div class="chat-input">
+
+            <input
+              id="chatInput"
+              placeholder="Напиши вопрос AVA..."
+              onkeydown="if(event.key==='Enter')sendMessage()"
+            >
+
+            <button class="send" onclick="sendMessage()">
+              ➤
+            </button>
+
           </div>
 
         </div>
 
-        <div class="section-title">
-          <h2>Настройка анализа</h2>
+      </section>
+
+      <!-- =====================
+           BOT
+      ====================== -->
+
+      <section id="bot" class="view">
+
+        <div class="section-head">
+          <h2>AVA Bot</h2>
+          <span>Учебный режим</span>
         </div>
 
-        <div class="card" style="padding:18px">
+        <div class="card bot-panel">
+
+          <div class="ai-head">
+
+            <div class="ai-avatar">AVA</div>
+
+            <div>
+              <div class="ai-name">AVA Bot</div>
+              <div class="ai-status">● Анализатор активен</div>
+            </div>
+
+          </div>
+
+          <p style="color:var(--muted);font-size:11px;line-height:1.5">
+            Выбери инструмент и параметры. AVA создаст
+            виртуальный учебный сценарий для практики.
+          </p>
 
           <div class="field">
+
             <label>Валютная пара</label>
+
             <select id="botPair" class="select"></select>
+
           </div>
 
           <div class="field">
-            <label>Рынок</label>
+
+            <label>Режим</label>
 
             <div class="mode">
-              <button id="marketBtn" class="active" onclick="setMarket('market')">
+
+              <button
+                id="marketButton"
+                class="active"
+                onclick="setMarket('market')">
                 MARKET
               </button>
 
-              <button id="otcBtn" onclick="setMarket('otc')">
+              <button
+                id="otcButton"
+                onclick="setMarket('otc')">
                 OTC
               </button>
+
             </div>
+
           </div>
 
           <div class="field">
-            <label>Период анализа</label>
+
+            <label>Экспирация / период</label>
 
             <select id="botTime" class="select">
+
               <option value="1">1 минута</option>
               <option value="3">3 минуты</option>
               <option value="5">5 минут</option>
               <option value="15">15 минут</option>
+
             </select>
+
           </div>
 
-          <button class="btn btn-primary btn-full" onclick="generateSignal()">
-            <span>✦</span>
-            Получить учебный сигнал
+          <button class="primary" onclick="generateSignal()">
+            ✦ Получить учебный сигнал
           </button>
 
           <div id="signal" class="signal">
 
-            <div class="signal-main">
+            <div class="signal-head">
 
               <div>
-                <small style="color:var(--muted)">AVA ANALYSIS</small>
-                <h3 id="signalPair" style="margin:6px 0;font-size:19px">
+                <div id="signalPair" class="signal-pair">
                   EUR/USD
-                </h3>
-                <span id="signalMarket" style="color:var(--muted);font-size:11px">
-                  MARKET
+                </div>
+
+                <div id="signalMeta" class="signal-meta">
+                  MARKET · 1 минута
+                </div>
+              </div>
+
+              <div id="signalDirection" class="direction up">
+                UP
+              </div>
+
+            </div>
+
+            <div style="margin-top:16px">
+
+              <div style="display:flex;justify-content:space-between;font-size:10px">
+
+                <span style="color:var(--muted)">
+                  Учебная уверенность
                 </span>
-              </div>
 
-              <div class="signal-side">
-                <b id="signalDirection" class="signal-up">UP</b>
-                <small id="signalTime">1 мин</small>
-              </div>
-
-            </div>
-
-            <div style="margin-top:17px">
-              <div style="display:flex;justify-content:space-between;font-size:11px">
-                <span style="color:var(--muted)">Учебная уверенность</span>
                 <b id="signalConfidence">0%</b>
+
               </div>
 
-              <div class="confidence">
-                <i id="confidenceBar"></i>
+              <div class="conf-track">
+                <div id="confidenceFill" class="conf-fill"></div>
               </div>
+
             </div>
 
-            <div style="margin-top:14px;color:var(--muted);font-size:10px;line-height:1.5">
-              Сгенерировано локальным учебным симулятором.
-              Не использовать как гарантию направления реальной сделки.
+            <div style="margin-top:13px;color:var(--muted);font-size:9px;line-height:1.5">
+              Это виртуальный учебный сценарий AVA.
+              Он не является гарантированным прогнозом рынка
+              или финансовой рекомендацией.
             </div>
 
           </div>
@@ -1535,67 +2191,99 @@ button{
 
       </section>
 
-      <!-- ANALYSIS -->
+      <!-- =====================
+           ANALYSIS
+      ====================== -->
+
       <section id="analysis" class="view">
 
-        <div class="section-title">
+        <div class="section-head">
           <h2>Market Analysis</h2>
-          <span>Учебный режим</span>
+          <span>Учебный график</span>
         </div>
 
-        <div class="card">
+        <div class="card chart-card">
 
-          <div class="pair-header">
+          <div class="chart-top">
 
             <div>
-              <div style="font-size:12px;color:var(--muted)">EUR/USD</div>
-              <div class="price">1.0842</div>
-              <div class="change">+0.42%</div>
+              <div id="analysisPair" class="chart-pair">
+                EUR/USD
+              </div>
+
+              <div id="analysisPrice" class="chart-price">
+                1.0842
+              </div>
+
+              <div class="chart-change">
+                +0.42%
+              </div>
             </div>
 
-            <select class="select" style="width:125px" onchange="changeAnalysisPair(this.value)">
+            <select
+              class="select"
+              style="width:130px"
+              onchange="changeAnalysisPair(this.value)"
+            >
+
               <option>EUR/USD</option>
               <option>GBP/USD</option>
               <option>USD/JPY</option>
               <option>AUD/USD</option>
               <option>USD/CAD</option>
               <option>USD/CHF</option>
+              <option>NZD/USD</option>
+
             </select>
 
           </div>
 
-          <div class="market-chart">
+          <div class="chart-area">
 
-            <div class="grid-lines"></div>
+            <svg
+              class="chart-svg"
+              viewBox="0 0 600 240"
+              preserveAspectRatio="none"
+            >
 
-            <div class="chart-line">
-              <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="lineGrad" x1="0" x2="1">
-                    <stop offset="0%" stop-color="#8b5cf6"/>
-                    <stop offset="100%" stop-color="#35df9a"/>
-                  </linearGradient>
-                </defs>
+              <defs>
 
-                <path
-                  d="M0 115 C30 90 45 110 70 85 S110 75 130 95 S160 105 180 65 S210 55 230 70 S270 55 290 82 S320 92 340 45 S380 35 400 62 S430 55 450 28 S480 25 500 10"
-                  fill="none"
-                  stroke="url(#lineGrad)"
-                  stroke-width="4"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </div>
+                <linearGradient id="chartGradient" x1="0" x2="1">
+
+                  <stop offset="0%" stop-color="#8d4fff"/>
+                  <stop offset="100%" stop-color="#36e29a"/>
+
+                </linearGradient>
+
+              </defs>
+
+              <path
+                d="M0 185
+                   C35 170 50 188 80 155
+                   S130 130 155 165
+                   S205 180 230 115
+                   S280 85 305 120
+                   S350 140 380 80
+                   S430 65 455 95
+                   S510 105 535 50
+                   S575 35 600 18"
+                fill="none"
+                stroke="url(#chartGradient)"
+                stroke-width="5"
+                stroke-linecap="round"
+              />
+
+            </svg>
 
           </div>
 
         </div>
 
-        <div class="indicators">
+        <div class="indicator-grid">
 
           <div class="card indicator">
             <b>RSI 58</b>
-            <span>Нейтральный</span>
+            <span>Нейтрально</span>
           </div>
 
           <div class="card indicator">
@@ -1605,69 +2293,63 @@ button{
 
           <div class="card indicator">
             <b>EMA 20</b>
-            <span>Выше цены</span>
+            <span>Тренд</span>
           </div>
 
         </div>
 
-        <div class="section-title">
-          <h2>Как читать график</h2>
+        <div class="section-head">
+          <h2>Учебный разбор</h2>
         </div>
 
         <div class="card" style="padding:18px">
 
-          <p style="color:var(--muted);font-size:13px;line-height:1.65;margin:0">
-            Анализ сочетает структуру движения цены, импульс,
-            положение относительно EMA и RSI. Используй этот экран
-            для обучения, а не как гарантию будущего движения.
+          <p style="margin:0;color:var(--muted);font-size:12px;line-height:1.65">
+            Не рассматривай один индикатор как самостоятельную систему.
+            Сначала оцени структуру рынка, тренд и уровни,
+            затем используй индикаторы как дополнительное подтверждение.
           </p>
 
         </div>
 
       </section>
 
-      <!-- TESTS -->
-      <section id="tests" class="view">
+      <!-- =====================
+           PATTERNS
+      ====================== -->
 
-        <div class="section-title">
-          <h2>Тест знаний</h2>
-          <span id="quizCounter">1 / 10</span>
-        </div>
+      <section id="patterns" class="view">
 
-        <div class="card quiz">
-
-          <div class="badge">
-            🧠 Knowledge Check
-          </div>
-
-          <div id="question" class="question"></div>
-
-          <div id="answers" class="answers"></div>
-
-          <button
-            id="nextQuestion"
-            class="btn btn-primary btn-full"
-            style="display:none;margin-top:13px"
-            onclick="nextQuiz()">
-            Следующий вопрос
-          </button>
-
-        </div>
-
-      </section>
-
-      <!-- DICTIONARY -->
-      <section id="dictionary" class="view">
-
-        <div class="section-title">
-          <h2>Словарь</h2>
-          <span>Основные термины</span>
+        <div class="section-head">
+          <h2>Паттерны</h2>
+          <span>Библиотека</span>
         </div>
 
         <input
-          id="dictionarySearch"
+          id="patternSearch"
           class="search"
-          placeholder="Поиск термина..."
+          placeholder="🔎 Найти паттерн..."
+          oninput="renderPatterns(this.value)"
+        >
+
+        <div id="patternsList" class="pattern-grid"></div>
+
+      </section>
+
+      <!-- =====================
+           DICTIONARY
+      ====================== -->
+
+      <section id="dictionary" class="view">
+
+        <div class="section-head">
+          <h2>Термины</h2>
+          <span>Словарь трейдера</span>
+        </div>
+
+        <input
+          class="search"
+          placeholder="🔎 Поиск термина..."
           oninput="renderDictionary(this.value)"
         >
 
@@ -1675,19 +2357,127 @@ button{
 
       </section>
 
-      <!-- PROFILE -->
+      <!-- =====================
+           FAQ
+      ====================== -->
+
+      <section id="faq" class="view">
+
+        <div class="section-head">
+          <h2>FAQ</h2>
+          <span>Частые вопросы</span>
+        </div>
+
+        <div id="faqList"></div>
+
+      </section>
+
+      <!-- =====================
+           TRAINER
+      ====================== -->
+
+      <section id="trainer" class="view">
+
+        <div class="section-head">
+          <h2>Тренажёр</h2>
+          <span>Практика</span>
+        </div>
+
+        <div class="card training">
+
+          <div style="font-size:13px;font-weight:800">
+            Куда пойдёт следующий сценарий?
+          </div>
+
+          <div style="color:var(--muted);font-size:10px;margin-top:4px">
+            Проанализируй виртуальный график.
+          </div>
+
+          <div class="training-chart">
+
+            <div id="trainingCandles" class="training-candles"></div>
+
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+
+            <button
+              class="primary"
+              style="margin:0"
+              onclick="trainerAnswer('UP')">
+              ↑ Рост
+            </button>
+
+            <button
+              class="primary"
+              style="margin:0;background:linear-gradient(100deg,#ff526f,#ff7090)"
+              onclick="trainerAnswer('DOWN')">
+              ↓ Падение
+            </button>
+
+          </div>
+
+          <div id="trainerResult"
+            style="margin-top:12px;color:var(--muted);font-size:11px;text-align:center">
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================
+           TESTS
+      ====================== -->
+
+      <section id="tests" class="view">
+
+        <div class="section-head">
+          <h2>Тесты</h2>
+          <span id="quizCounter">1 / 10</span>
+        </div>
+
+        <div class="card quiz-card">
+
+          <div class="quiz-number">
+            KNOWLEDGE CHECK
+          </div>
+
+          <div id="question" class="question"></div>
+
+          <div id="answers" class="answers"></div>
+
+          <button
+            id="nextQuizButton"
+            class="primary"
+            style="display:none"
+            onclick="nextQuiz()">
+            Следующий вопрос →
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- =====================
+           PROFILE
+      ====================== -->
+
       <section id="profile" class="view">
 
-        <div class="card profile-card">
+        <div class="card profile">
 
           <div class="avatar-wrap">
 
-            <img id="avatar" class="avatar" alt="Profile">
+            <img
+              id="profileAvatar"
+              class="profile-avatar"
+              alt="Профиль"
+            >
 
-            <button class="avatar-edit" onclick="document.getElementById('avatarInput').click()">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="m14 6 4 4M5 19l3.5-.8L19 7.7a2.4 2.4 0 0 0-3.4-3.4L5.1 14.8 5 19Z" stroke="currentColor" stroke-width="1.8"/>
-              </svg>
+            <button
+              class="avatar-edit"
+              onclick="document.getElementById('avatarInput').click()">
+              ✎
             </button>
 
             <input
@@ -1700,39 +2490,63 @@ button{
 
           </div>
 
-          <div class="profile-name" id="profileName">
+          <div class="profile-name">
             AVA Trader
           </div>
 
           <div class="profile-id">
-            Trader ID: <span id="profileTrader">—</span>
+            Trader ID:
+            <span id="profileTraderId">—</span>
+          </div>
+
+          <div id="profileLevel" class="level">
+            Новичок
           </div>
 
         </div>
 
-        <div class="section-title">
+        <div class="section-head">
           <h2>Настройки</h2>
         </div>
 
-        <div class="card settings">
+        <div class="card">
 
           <div class="setting">
 
             <div class="setting-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
+              🌐
             </div>
 
-            <div class="setting-text">
+            <div class="setting-info">
+
               <b>Язык</b>
-              <span>Интерфейс приложения</span>
+              <small>Язык интерфейса AVA</small>
+
             </div>
 
-            <div class="langs">
-              <button class="lang active" onclick="setLanguage('ru',this)">RU</button>
-              <button class="lang" onclick="setLanguage('en',this)">EN</button>
-              <button class="lang" onclick="setLanguage('uk',this)">UA</button>
+            <div class="language-buttons">
+
+              <button
+                class="language-button active"
+                data-lang="ru"
+                onclick="setLanguage('ru',this)">
+                RU
+              </button>
+
+              <button
+                class="language-button"
+                data-lang="en"
+                onclick="setLanguage('en',this)">
+                EN
+              </button>
+
+              <button
+                class="language-button"
+                data-lang="uk"
+                onclick="setLanguage('uk',this)">
+                UA
+              </button>
+
             </div>
 
           </div>
@@ -1740,14 +2554,17 @@ button{
           <div class="setting">
 
             <div class="setting-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v18M5 8h14M7 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
+              🎓
             </div>
 
-            <div class="setting-text">
-              <b>Прогресс</b>
-              <span id="profileProgress">0 из 100 уроков</span>
+            <div class="setting-info">
+
+              <b>Пройдено уроков</b>
+
+              <small id="profileLessons">
+                0 из 100
+              </small>
+
             </div>
 
           </div>
@@ -1755,23 +2572,107 @@ button{
           <div class="setting">
 
             <div class="setting-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-              </svg>
+              🏆
             </div>
 
-            <div class="setting-text">
+            <div class="setting-info">
+
               <b>Уровень</b>
-              <span id="profileLevel">Новичок</span>
+
+              <small id="profileLevelText">
+                Новичок
+              </small>
+
             </div>
+
+          </div>
+
+          <div class="setting">
+
+            <div class="setting-icon">
+              🔥
+            </div>
+
+            <div class="setting-info">
+
+              <b>Серия обучения</b>
+
+              <small>
+                Продолжай обучение каждый день
+              </small>
+
+            </div>
+
+            <b id="profileStreak">1</b>
+
+          </div>
+
+        </div>
+
+        <div class="section-head">
+          <h2>Связь с автором</h2>
+        </div>
+
+        <div class="card contact">
+
+          <div style="color:var(--muted);font-size:11px;line-height:1.5">
+            Есть вопрос по AVA или нужна помощь?
+            Свяжись с автором напрямую.
+          </div>
+
+          <div class="contact-buttons">
+
+            <button
+              class="contact-button"
+              onclick="openTelegramChat()">
+
+              <div class="contact-icon">
+                💬
+              </div>
+
+              <div>
+
+                <b>Написать мне</b>
+
+                <small>
+                  Личный Telegram-чат
+                </small>
+
+              </div>
+
+              <span style="margin-left:auto">›</span>
+
+            </button>
+
+            <button
+              class="contact-button"
+              onclick="openTelegramChannel()">
+
+              <div class="contact-icon">
+                📢
+              </div>
+
+              <div>
+
+                <b>Telegram-канал</b>
+
+                <small>
+                  Новости и материалы AVA
+                </small>
+
+              </div>
+
+              <span style="margin-left:auto">›</span>
+
+            </button>
 
           </div>
 
         </div>
 
         <button
-          class="btn btn-secondary btn-full"
-          style="margin-top:12px"
+          class="primary"
+          style="margin-top:11px;background:rgba(255,255,255,.055);border:1px solid var(--border)"
           onclick="logout()">
           Выйти из AVA
         </button>
@@ -1782,68 +2683,131 @@ button{
 
   </div>
 
-  <!-- NAV -->
+  <!-- =====================
+       NAVIGATION
+  ====================== -->
+
   <nav class="bottom-nav">
 
-    <button class="nav-btn active" data-view="home" onclick="openView('home')">
+    <button class="nav active" data-view="home" onclick="openView('home')">
+
       <svg viewBox="0 0 24 24" fill="none">
-        <path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path
+          d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linejoin="round"/>
       </svg>
+
       <span>Главная</span>
+
     </button>
 
-    <button class="nav-btn" data-view="academy" onclick="openView('academy')">
+    <button class="nav" data-view="academy" onclick="openView('academy')">
+
       <svg viewBox="0 0 24 24" fill="none">
-        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z" stroke="currentColor" stroke-width="1.8"/>
-        <path d="M8 7h8M8 11h8M8 15h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path
+          d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5v-12Z"
+          stroke="currentColor"
+          stroke-width="1.8"/>
+        <path
+          d="M8 7h8M8 11h8M8 15h5"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"/>
       </svg>
+
       <span>Академия</span>
+
     </button>
 
-    <button class="nav-btn" data-view="bot" onclick="openView('bot')">
+    <button class="nav" data-view="ava" onclick="openView('ava')">
+
       <svg viewBox="0 0 24 24" fill="none">
-        <path d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.8"/>
-        <path d="M8 12h.01M16 12h.01M9 16c2 1.5 4 1.5 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path
+          d="M12 3v3M8 7h8a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-5a4 4 0 0 1 4-4Z"
+          stroke="currentColor"
+          stroke-width="1.8"/>
+        <path
+          d="M8 12h.01M16 12h.01M9 16c2 1.4 4 1.4 6 0"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"/>
       </svg>
-      <span>AVA Bot</span>
+
+      <span>AVA AI</span>
+
     </button>
 
-    <button class="nav-btn" data-view="analysis" onclick="openView('analysis')">
+    <button class="nav" data-view="analysis" onclick="openView('analysis')">
+
       <svg viewBox="0 0 24 24" fill="none">
-        <path d="M4 19V5M4 19h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="m7 15 4-5 3 3 5-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path
+          d="M4 19V5M4 19h16"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"/>
+        <path
+          d="m7 15 4-5 3 3 5-7"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
       </svg>
+
       <span>Анализ</span>
+
     </button>
 
-    <button class="nav-btn" data-view="profile" onclick="openView('profile')">
+    <button class="nav" data-view="profile" onclick="openView('profile')">
+
       <svg viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
-        <path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <circle
+          cx="12"
+          cy="8"
+          r="4"
+          stroke="currentColor"
+          stroke-width="1.8"/>
+        <path
+          d="M4 21c1-4 3.6-6 8-6s7 2 8 6"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"/>
       </svg>
+
       <span>Профиль</span>
+
     </button>
 
   </nav>
 
 </div>
 
-<!-- LESSON MODAL -->
+<!-- =========================
+     LESSON MODAL
+========================= -->
 
-<div id="lessonModal" class="modal" onclick="closeLesson(event)">
+<div
+  id="lessonModal"
+  class="modal"
+  onclick="closeLesson(event)"
+>
 
   <div class="sheet">
 
-    <button class="close" onclick="closeLesson()">×</button>
+    <button
+      class="close"
+      onclick="closeLesson()">
+      ×
+    </button>
 
-    <div id="lessonContent" class="lesson-content"></div>
+    <div id="lessonContent" class="lesson-modal"></div>
 
     <button
-      id="completeLessonBtn"
-      class="btn btn-primary btn-full"
-      style="margin-top:18px"
-      onclick="completeCurrentLesson()">
-      Завершить урок
+      id="completeLessonButton"
+      class="primary"
+      onclick="completeLesson()">
+      Завершить урок ✓
     </button>
 
   </div>
@@ -1852,42 +2816,69 @@ button{
 
 <script>
 
-/* =========================
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
 const pairs = [
-  "EUR/USD","GBP/USD","USD/JPY","AUD/USD","USD/CAD","USD/CHF",
-  "NZD/USD","EUR/GBP","EUR/JPY","GBP/JPY","EUR/AUD","EUR/CAD",
-  "AUD/CAD","AUD/JPY","CAD/JPY","CHF/JPY","GBP/CAD","GBP/CHF",
-  "NZD/JPY","NZD/CAD","USD/SGD","USD/HKD","USD/MXN","USD/TRY",
-  "USD/ZAR","USD/BRL","EUR/CHF","EUR/NZD","GBP/AUD","GBP/NZD"
+  "EUR/USD",
+  "GBP/USD",
+  "USD/JPY",
+  "AUD/USD",
+  "USD/CAD",
+  "USD/CHF",
+  "NZD/USD",
+  "EUR/GBP",
+  "EUR/JPY",
+  "GBP/JPY",
+  "EUR/AUD",
+  "EUR/CAD",
+  "AUD/CAD",
+  "AUD/JPY",
+  "CAD/JPY",
+  "CHF/JPY",
+  "GBP/CAD",
+  "GBP/CHF",
+  "NZD/JPY",
+  "NZD/CAD",
+  "USD/SGD",
+  "USD/HKD",
+  "USD/MXN",
+  "USD/TRY",
+  "USD/ZAR",
+  "USD/BRL",
+  "EUR/CHF",
+  "EUR/NZD",
+  "GBP/AUD",
+  "GBP/NZD"
 ];
 
-const otcPairs = pairs.map(p => p + " OTC");
+const otcPairs = pairs.map(pair => pair + " OTC");
 
-const modules = [
+const moduleData = [
+
   {
-    title:"Старт в трейдинге",
-    icon:"🚀",
-    desc:"База для абсолютного новичка",
+    title:"Основы трейдинга",
+    icon:"01",
+    desc:"Фундаментальные понятия",
     lessons:[
       "Что такое трейдинг",
-      "Как работает валютный рынок",
+      "Как работает финансовый рынок",
       "Что такое валютная пара",
       "Base и Quote Currency",
       "Bid и Ask",
       "Спред",
-      "График цены",
+      "Цена и котировка",
       "Таймфреймы",
-      "Свечи",
+      "График цены",
       "Как читать OHLC"
     ]
   },
+
   {
     title:"Свечной анализ",
-    icon:"🕯️",
-    desc:"Учимся видеть движение цены",
+    icon:"02",
+    desc:"Учимся читать свечи",
     lessons:[
       "Бычья свеча",
       "Медвежья свеча",
@@ -1896,15 +2887,16 @@ const modules = [
       "Doji",
       "Pin Bar",
       "Hammer",
+      "Inverted Hammer",
       "Engulfing",
-      "Morning Star",
       "Свечные комбинации"
     ]
   },
+
   {
     title:"Тренд и структура",
-    icon:"📈",
-    desc:"Определяем направление рынка",
+    icon:"03",
+    desc:"Понимание движения цены",
     lessons:[
       "Что такое тренд",
       "Восходящий тренд",
@@ -1918,14 +2910,15 @@ const modules = [
       "Изменение структуры"
     ]
   },
+
   {
     title:"Уровни",
-    icon:"🎯",
+    icon:"04",
     desc:"Поддержка и сопротивление",
     lessons:[
       "Поддержка",
       "Сопротивление",
-      "Зоны вместо линий",
+      "Зона вместо линии",
       "Исторические уровни",
       "Психологические уровни",
       "Ложный пробой",
@@ -1935,10 +2928,11 @@ const modules = [
       "Практика уровней"
     ]
   },
+
   {
     title:"Индикаторы",
-    icon:"📊",
-    desc:"RSI, MACD, EMA и другие",
+    icon:"05",
+    desc:"Основные инструменты",
     lessons:[
       "Что такое индикаторы",
       "EMA",
@@ -1952,16 +2946,17 @@ const modules = [
       "Сочетание индикаторов"
     ]
   },
+
   {
     title:"Price Action",
-    icon:"⚡",
-    desc:"Анализируем саму цену",
+    icon:"06",
+    desc:"Анализ движения цены",
     lessons:[
       "Основы Price Action",
       "Импульс",
       "Коррекция",
       "Ликвидность",
-      "Вынос стопов",
+      "Вынос ликвидности",
       "Сжатие цены",
       "Расширение диапазона",
       "Ретест зоны",
@@ -1969,10 +2964,11 @@ const modules = [
       "Практика Price Action"
     ]
   },
+
   {
     title:"Риск-менеджмент",
-    icon:"🛡️",
-    desc:"Главная часть дисциплины",
+    icon:"07",
+    desc:"Контроль риска",
     lessons:[
       "Что такое риск",
       "Риск на сделку",
@@ -1986,10 +2982,11 @@ const modules = [
       "Торговый план"
     ]
   },
+
   {
     title:"Психология",
-    icon:"🧠",
-    desc:"Контроль эмоций",
+    icon:"08",
+    desc:"Дисциплина трейдера",
     lessons:[
       "Страх",
       "Жадность",
@@ -2003,9 +3000,10 @@ const modules = [
       "Психологический чек-лист"
     ]
   },
+
   {
     title:"Практика",
-    icon:"🎮",
+    icon:"09",
     desc:"Закрепляем знания",
     lessons:[
       "Разбор тренда",
@@ -2016,14 +3014,15 @@ const modules = [
       "Работа с EMA",
       "Работа с RSI",
       "Комбинированный анализ",
-      "Учебный сигнал",
+      "Учебный сценарий",
       "Финальный разбор"
     ]
   },
+
   {
     title:"Продвинутый уровень",
-    icon:"💎",
-    desc:"Собираем систему",
+    icon:"10",
+    desc:"Собираем торговую систему",
     lessons:[
       "Мультифрейм-анализ",
       "Контекст рынка",
@@ -2037,149 +3036,305 @@ const modules = [
       "Финальный экзамен AVA"
     ]
   }
+
 ];
 
-const dictionary = [
+const dictionaryData = [
+
   ["Ask","Цена, по которой можно купить актив."],
   ["Bid","Цена, по которой можно продать актив."],
-  ["Breakout","Пробой важного уровня."],
-  ["Candle","Свеча, показывающая движение цены за период."],
+  ["Breakout","Пробой важной ценовой области."],
+  ["Candle","Свеча, показывающая движение цены за определённый период."],
   ["EMA","Экспоненциальная скользящая средняя."],
   ["FOMO","Страх пропустить движение рынка."],
-  ["Flat","Боковое движение цены без выраженного тренда."],
-  ["Liquidity","Объём доступных заявок и интереса на рынке."],
+  ["Flat","Боковое движение без выраженного направления."],
+  ["Liquidity","Ликвидность и доступный объём интереса на рынке."],
   ["MACD","Индикатор импульса и направления движения."],
   ["OTC","Внебиржевой режим, который может отличаться от обычного рынка."],
-  ["Price Action","Анализ движения цены без необходимости опираться только на индикаторы."],
+  ["Price Action","Изучение движения самой цены."],
   ["Pullback","Коррекционное движение против основного импульса."],
-  ["Resistance","Область потенциального сопротивления росту."],
-  ["RSI","Осциллятор относительной силы."],
-  ["Support","Область потенциальной поддержки цены."],
+  ["Resistance","Область потенциального сопротивления."],
+  ["RSI","Индикатор относительной силы."],
+  ["Support","Область потенциальной поддержки."],
   ["Spread","Разница между Bid и Ask."],
-  ["Trend","Устойчивое направление движения цены."],
+  ["Trend","Преимущественное направление движения цены."],
   ["Volatility","Интенсивность изменения цены."],
-  ["Volume","Количество торговой активности за определённый период."],
-  ["Risk/Reward","Соотношение потенциального риска и результата."]
+  ["Volume","Объём торговой активности."],
+  ["Risk/Reward","Соотношение потенциального риска и результата."],
+  ["Doji","Свеча с близкими ценами открытия и закрытия."],
+  ["Engulfing","Свечная модель поглощения."],
+  ["Pin Bar","Свеча с выраженной тенью и небольшим телом."],
+  ["Retest","Повторная проверка ранее пробитой области."],
+  ["Momentum","Сила и скорость текущего движения."]
+];
+
+const patternData = [
+
+  ["Двойная вершина","Потенциальная разворотная структура после роста.","double"],
+  ["Двойное дно","Потенциальная разворотная структура после снижения.","double"],
+  ["Голова и плечи","Модель возможного изменения структуры.","head"],
+  ["Треугольник","Сжатие диапазона перед возможным расширением.","triangle"],
+  ["Флаг","Короткая коррекция после импульса.","flag"],
+  ["Клин","Сходящиеся линии движения цены.","wedge"],
+  ["Поглощение","Свечная модель смены краткосрочного импульса.","engulf"],
+  ["Pin Bar","Свеча с длинной тенью и небольшим телом.","pin"],
+  ["Doji","Свеча неопределённости.","doji"],
+  ["Hammer","Модель с длинной нижней тенью.","hammer"],
+  ["Morning Star","Трёхсвечная модель возможного разворота.","star"],
+  ["Three Soldiers","Последовательность сильных бычьих свечей.","soldiers"]
+];
+
+const faqData = [
+
+  [
+    "Что такое Trader ID?",
+    "Trader ID — идентификатор аккаунта трейдера. AVA использует его для проверки доступа через серверную интеграцию."
+  ],
+
+  [
+    "Что такое OTC?",
+    "OTC — внебиржевой режим. Условия и характер движения цены могут отличаться от обычного рыночного режима."
+  ],
+
+  [
+    "Что изучать новичку?",
+    "Начни с основ, свечей, трендов, уровней и риск-менеджмента. После этого переходи к индикаторам и Price Action."
+  ],
+
+  [
+    "Можно ли доверять одному индикатору?",
+    "Нет. Индикатор лучше рассматривать как один элемент анализа, а не как гарантию будущего движения."
+  ],
+
+  [
+    "AVA Bot гарантирует прибыль?",
+    "Нет. AVA Bot в этой версии создаёт учебные виртуальные сценарии. Никакой сигнал не гарантирует результат."
+  ],
+
+  [
+    "Что такое риск-менеджмент?",
+    "Это система правил, которая помогает контролировать потенциальные потери и не принимать решения под влиянием эмоций."
+  ],
+
+  [
+    "Зачем нужен торговый план?",
+    "Чтобы заранее определить условия анализа, допустимый риск и действия в разных рыночных сценариях."
+  ],
+
+  [
+    "Можно ли торговать без обучения?",
+    "Технически возможно, но отсутствие знаний и контроля риска значительно увеличивает вероятность необдуманных решений."
+  ],
+
+  [
+    "Что такое Price Action?",
+    "Это подход к анализу, в котором большое внимание уделяется структуре и поведению самой цены."
+  ],
+
+  [
+    "Где связаться с автором?",
+    "В профиле AVA есть кнопки личного Telegram-чата и Telegram-канала."
+  ]
+
 ];
 
 const quizData = [
+
   {
     q:"Что показывает зелёная свеча?",
-    a:["Цена закрытия выше открытия","Цена закрытия ниже открытия","Всегда рост рынка","Объём"],
+    a:[
+      "Цена закрытия выше цены открытия",
+      "Цена закрытия ниже цены открытия",
+      "Всегда сильный рост",
+      "Объём рынка"
+    ],
     correct:0
   },
+
   {
     q:"Что такое поддержка?",
-    a:["Индикатор","Область интереса покупателей","Тип свечи","Комиссия"],
+    a:[
+      "Индикатор",
+      "Ценовая область потенциального спроса",
+      "Тип свечи",
+      "Комиссия"
+    ],
     correct:1
   },
+
   {
     q:"Что показывает RSI?",
-    a:["Только объём","Силу/динамику движения","Баланс","Спред"],
+    a:[
+      "Только объём",
+      "Относительную силу движения",
+      "Баланс",
+      "Спред"
+    ],
     correct:1
   },
+
   {
     q:"Что такое тренд?",
-    a:["Направление движения цены","Размер свечи","Комиссия","Время открытия"],
+    a:[
+      "Преимущественное направление движения цены",
+      "Размер свечи",
+      "Комиссия",
+      "Время открытия"
+    ],
     correct:0
   },
+
   {
     q:"Что означает FOMO?",
-    a:["Индикатор","Страх пропустить движение","Тип ордера","Валютную пару"],
+    a:[
+      "Тип индикатора",
+      "Страх пропустить движение",
+      "Тип ордера",
+      "Валютную пару"
+    ],
     correct:1
   },
+
   {
     q:"Для чего нужен риск-менеджмент?",
-    a:["Чтобы гарантировать прибыль","Чтобы контролировать потенциальные потери","Чтобы увеличить каждую сделку","Чтобы убрать волатильность"],
+    a:[
+      "Чтобы гарантировать прибыль",
+      "Чтобы контролировать потенциальные потери",
+      "Чтобы увеличить каждую сделку",
+      "Чтобы убрать волатильность"
+    ],
     correct:1
   },
+
   {
     q:"Что такое EMA?",
-    a:["Скользящая средняя","Осциллятор","Валютная пара","Тип свечи"],
+    a:[
+      "Скользящая средняя",
+      "Осциллятор",
+      "Валютная пара",
+      "Тип свечи"
+    ],
     correct:0
   },
+
   {
     q:"Что такое флэт?",
-    a:["Сильный тренд","Боковое движение","Пробой","Импульс"],
+    a:[
+      "Сильный тренд",
+      "Боковое движение",
+      "Пробой",
+      "Импульс"
+    ],
     correct:1
   },
+
   {
     q:"Что такое ретест?",
-    a:["Повторная проверка пробитой зоны","Новая свеча","Изменение валюты","Комиссия"],
+    a:[
+      "Повторная проверка пробитой области",
+      "Новая свеча",
+      "Изменение валюты",
+      "Комиссия"
+    ],
     correct:0
   },
+
   {
-    q:"Главная задача торгового плана?",
-    a:["Гарантировать сделки","Заранее определить правила действий","Увеличить риск","Избежать анализа"],
+    q:"Зачем нужен торговый план?",
+    a:[
+      "Гарантировать результат",
+      "Заранее определить правила действий",
+      "Увеличить риск",
+      "Избежать анализа"
+    ],
     correct:1
   }
+
 ];
 
-/* =========================
+/* =========================================================
    STATE
-========================= */
+========================================================= */
 
 let traderId = localStorage.getItem("avaTraderId") || "";
-let completed = JSON.parse(localStorage.getItem("avaCompleted") || "[]");
+
+let completedLessons = JSON.parse(
+  localStorage.getItem("avaCompletedLessons") || "[]"
+);
+
 let currentLesson = null;
+
 let marketMode = "market";
-let currentLanguage = localStorage.getItem("avaLanguage") || "ru";
+
 let quizIndex = 0;
 let quizScore = 0;
 
-/* =========================
+let language =
+  localStorage.getItem("avaLanguage") || "ru";
+
+/* =========================================================
    ACCESS
-========================= */
+========================================================= */
 
 async function checkAccess(){
 
-  const input = document.getElementById("traderInput");
-  const status = document.getElementById("accessStatus");
-  const id = input.value.trim();
+  const input =
+    document.getElementById("traderIdInput");
+
+  const status =
+    document.getElementById("accessStatus");
+
+  const id =
+    input.value.trim();
 
   if(!id){
-    showAccessStatus("Введите Trader ID.","error");
+
+    setAccessStatus(
+      "Введите Trader ID.",
+      "error"
+    );
+
     return;
   }
 
-  showAccessStatus("Проверяем Trader ID…","loading");
+  setAccessStatus(
+    "Проверяем аккаунт…",
+    "loading"
+  );
 
   try{
 
-    const response = await fetch(
-      "/api/pocket-check?trader_id=" +
-      encodeURIComponent(id),
-      {
-        method:"GET",
-        headers:{
-          "Accept":"application/json"
+    const response =
+      await fetch(
+        "/api/pocket-check?trader_id="+
+        encodeURIComponent(id),
+        {
+          method:"GET",
+          headers:{
+            "Accept":"application/json"
+          }
         }
-      }
-    );
+      );
 
-    const data = await response.json().catch(()=>({}));
+    const data =
+      await response.json().catch(()=>({}));
 
     if(!response.ok){
 
-      if(response.status === 404){
-        showAccessStatus(
-          "Trader ID не найден в партнёрской системе.",
-          "error"
-        );
-      }else{
-        showAccessStatus(
-          data.error || "Не удалось проверить аккаунт.",
-          "error"
-        );
-      }
+      setAccessStatus(
+        data.error ||
+        "Не удалось проверить аккаунт.",
+        "error"
+      );
 
       return;
     }
 
     if(!data.success){
 
-      showAccessStatus(
-        data.error || "Проверка не выполнена.",
+      setAccessStatus(
+        data.error ||
+        "Проверка не выполнена.",
         "error"
       );
 
@@ -2188,8 +3343,8 @@ async function checkAccess(){
 
     if(!data.allowed){
 
-      showAccessStatus(
-        "Доступ не подтверждён. Убедитесь, что аккаунт относится к нужной кампании и баланс соответствует условиям.",
+      setAccessStatus(
+        "Доступ не подтверждён. Проверь Trader ID и условия доступа.",
         "error"
       );
 
@@ -2198,12 +3353,22 @@ async function checkAccess(){
 
     traderId = id;
 
-    localStorage.setItem("avaTraderId",id);
+    localStorage.setItem(
+      "avaTraderId",
+      id
+    );
 
-    document.getElementById("access").style.display="none";
-    document.getElementById("app").style.display="block";
+    document.getElementById(
+      "accessScreen"
+    ).style.display="none";
 
-    document.getElementById("profileTrader").textContent=id;
+    document.getElementById(
+      "app"
+    ).style.display="block";
+
+    document.getElementById(
+      "profileTraderId"
+    ).textContent=id;
 
     updateStats();
 
@@ -2211,275 +3376,574 @@ async function checkAccess(){
 
   }catch(error){
 
-    showAccessStatus(
+    setAccessStatus(
       "Ошибка соединения с сервером. Попробуйте ещё раз.",
       "error"
     );
 
   }
-}
-
-function showAccessStatus(text,type){
-
-  const el=document.getElementById("accessStatus");
-
-  el.textContent=text;
-  el.className="access-status show "+type;
 
 }
 
-/* =========================
+function setAccessStatus(text,type){
+
+  const element =
+    document.getElementById("accessStatus");
+
+  element.textContent=text;
+
+  element.className=
+    "status show "+type;
+
+}
+
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
 function openView(view){
 
-  document.querySelectorAll(".view").forEach(v=>{
-    v.classList.remove("active");
-  });
+  document.querySelectorAll(".view")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
 
-  const target=document.getElementById(view);
+  const target =
+    document.getElementById(view);
 
   if(target){
     target.classList.add("active");
   }
 
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.toggle(
-      "active",
-      btn.dataset.view===view
-    );
-  });
+  document.querySelectorAll(".nav")
+    .forEach(button=>{
+      button.classList.toggle(
+        "active",
+        button.dataset.view===view
+      );
+    });
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
+  if(view==="patterns"){
+    renderPatterns();
+  }
+
   if(view==="dictionary"){
     renderDictionary();
+  }
+
+  if(view==="faq"){
+    renderFAQ();
   }
 
   if(view==="tests"){
     renderQuiz();
   }
+
 }
 
-/* =========================
+/* =========================================================
    ACADEMY
-========================= */
+========================================================= */
 
-function renderModules(){
+function renderModules(filter=""){
 
-  const container=document.getElementById("modules");
+  const container =
+    document.getElementById("modules");
+
   container.innerHTML="";
 
   let lessonNumber=1;
 
-  modules.forEach((module,moduleIndex)=>{
+  moduleData.forEach((module,moduleIndex)=>{
 
-    const wrapper=document.createElement("div");
-    wrapper.className="card module";
+    const matchingLessons =
+      module.lessons
+      .map((title,index)=>({
+        title,
+        index
+      }))
+      .filter(item=>
+        !filter ||
+        item.title.toLowerCase()
+          .includes(filter.toLowerCase()) ||
+        module.title.toLowerCase()
+          .includes(filter.toLowerCase())
+      );
 
-    const top=document.createElement("button");
-    top.style.cssText="width:100%;background:none;text-align:left;color:white";
+    if(!matchingLessons.length){
+      lessonNumber += module.lessons.length;
+      return;
+    }
 
-    top.innerHTML=`
-      <div class="module-top">
-        <div class="module-icon">
-          <span style="font-size:22px">${module.icon}</span>
-        </div>
+    const moduleElement =
+      document.createElement("div");
 
-        <div style="flex:1">
-          <h3>${module.title}</h3>
-          <p>${module.desc}</p>
-        </div>
+    moduleElement.className="module";
 
-        <div style="color:var(--muted);font-size:20px">⌄</div>
+    const header =
+      document.createElement("button");
+
+    header.className="module-header";
+
+    header.innerHTML=`
+
+      <div class="module-number">
+        ${module.icon}
+      </div>
+
+      <div class="module-info">
+
+        <b>${module.title}</b>
+
+        <small>
+          ${module.desc} · ${module.lessons.length} уроков
+        </small>
+
+      </div>
+
+      <div class="module-arrow">
+        ▼
       </div>
     `;
 
-    const list=document.createElement("div");
+    const list =
+      document.createElement("div");
+
     list.className="lesson-list";
 
-    module.lessons.forEach((title,localIndex)=>{
+    matchingLessons.forEach(item=>{
 
-      const id=lessonNumber;
+      const id =
+        lessonNumber +
+        module.lessons.indexOf(item.title);
 
-      const button=document.createElement("button");
-      button.className="lesson";
+      const lesson =
+        document.createElement("button");
 
-      button.innerHTML=`
-        <div class="lesson-num">${id}</div>
+      lesson.className=
+        "lesson "+
+        (
+          completedLessons.includes(id)
+          ? "done"
+          : ""
+        );
 
-        <div class="lesson-info">
-          <b>${title}</b>
-          <small>Урок ${id} · 5–10 минут</small>
+      lesson.innerHTML=`
+
+        <div class="lesson-number">
+          ${id}
         </div>
 
-        <div class="check">
-          ${completed.includes(id) ? "✓" : "›"}
+        <div class="lesson-info">
+
+          <b>${item.title}</b>
+
+          <small>
+            Урок ${id} · 5–10 минут
+          </small>
+
+        </div>
+
+        <div class="lesson-check">
+          ${
+            completedLessons.includes(id)
+            ? "✓"
+            : "›"
+          }
         </div>
       `;
 
-      button.onclick=()=>openLesson(
-        id,
-        title,
-        module.title,
-        moduleIndex,
-        localIndex
-      );
+      lesson.onclick=()=>{
 
-      list.appendChild(button);
+        openLesson(
+          id,
+          item.title,
+          module.title
+        );
 
-      lessonNumber++;
+      };
+
+      list.appendChild(lesson);
+
     });
 
-    top.onclick=()=>{
-      wrapper.classList.toggle("open");
+    header.onclick=()=>{
+      moduleElement.classList.toggle("open");
     };
 
-    wrapper.appendChild(top);
-    wrapper.appendChild(list);
-    container.appendChild(wrapper);
+    moduleElement.appendChild(header);
+    moduleElement.appendChild(list);
+
+    container.appendChild(moduleElement);
+
+    lessonNumber += module.lessons.length;
 
   });
 
 }
 
-function openLesson(id,title,moduleTitle,moduleIndex,localIndex){
+function searchLessons(value){
+
+  renderModules(value.trim());
+
+}
+
+function openLesson(
+  id,
+  title,
+  moduleTitle
+){
 
   currentLesson={
     id,
     title,
-    moduleTitle,
-    moduleIndex,
-    localIndex
+    moduleTitle
   };
 
-  const content=document.getElementById("lessonContent");
+  const modal =
+    document.getElementById("lessonModal");
 
-  const examples=[
-    "Сначала разберись с определением и только потом переходи к практике.",
-    "Посмотри на несколько разных участков графика и найди этот элемент самостоятельно.",
-    "Попробуй описать ситуацию своими словами — это помогает закрепить материал.",
-    "Не ищи гарантированные паттерны. Любой рыночный сценарий может отработать иначе.",
-    "Сравни несколько таймфреймов и оцени контекст перед выводом."
-  ];
-
-  const tip=examples[(id-1)%examples.length];
+  const content =
+    document.getElementById("lessonContent");
 
   content.innerHTML=`
-    <div class="badge">УРОК ${id} · ${moduleTitle}</div>
+
+    <div class="online-badge">
+      УРОК ${id} · ${moduleTitle}
+    </div>
 
     <h2>${title}</h2>
 
     <p>
-      В этом уроке AVA объясняет тему простым языком,
-      показывает логику анализа и даёт направление для самостоятельной практики.
+      AVA разбирает эту тему простым языком,
+      чтобы ты мог не просто запомнить термин,
+      а понимать его применение на графике.
     </p>
 
     <h3>Главная идея</h3>
 
     <p>
-      ${getLessonExplanation(title)}
+      ${lessonExplanation(title)}
     </p>
 
     <div class="tip">
+
       <b>💡 Совет AVA</b>
-      <p style="margin-bottom:0">${tip}</p>
+
+      <p>
+        Не пытайся принимать решение только на основании
+        одного признака. Сначала оцени общий контекст рынка.
+      </p>
+
     </div>
 
     <h3>Практика</h3>
 
     <p>
-      Открой учебный график и попробуй самостоятельно
-      найти несколько примеров этой ситуации. Запиши,
-      почему ты считаешь найденный пример подходящим.
+      Открой учебный график в разделе «Анализ»
+      и попробуй найти несколько примеров этой ситуации.
+      Затем объясни самому себе, почему ты считаешь их подходящими.
     </p>
 
-    <h3>Важно</h3>
+    <h3>Что нужно запомнить</h3>
 
-    <p>
-      Обучение не означает, что конкретный паттерн или индикатор
-      гарантирует направление цены. Рынок содержит неопределённость,
-      поэтому анализ всегда должен рассматриваться как сценарий.
-    </p>
+    <ul>
+      <li>Изучай контекст, а не одну свечу.</li>
+      <li>Используй несколько факторов анализа.</li>
+      <li>Не воспринимай паттерн как гарантию.</li>
+      <li>Контролируй риск и свои эмоции.</li>
+    </ul>
+
   `;
 
-  document
-    .getElementById("completeLessonBtn")
-    .textContent=completed.includes(id)
-      ? "Урок уже завершён ✓"
-      : "Завершить урок";
+  document.getElementById(
+    "completeLessonButton"
+  ).textContent=
+    completedLessons.includes(id)
+    ? "Урок уже завершён ✓"
+    : "Завершить урок ✓";
 
-  document.getElementById("lessonModal").classList.add("show");
+  modal.classList.add("show");
+
 }
 
-function getLessonExplanation(title){
+function lessonExplanation(title){
 
-  const map={
-    "Что такое трендинг":"Трейдинг — это работа с изменением стоимости финансового инструмента. Главная задача обучения — научиться строить сценарии и контролировать риск, а не искать гарантированный результат.",
-    "Что такое тренд":"Тренд описывает преимущественное направление движения цены. Для анализа важно смотреть не на одну свечу, а на последовательность максимумов и минимумов.",
-    "Поддержка":"Поддержка — это ценовая область, где ранее возникал спрос. Она не является точной гарантией разворота.",
-    "Сопротивление":"Сопротивление — область, в которой рост цены ранее встречал повышенное предложение.",
-    "RSI":"RSI помогает оценивать относительную силу движения и может использоваться как один из элементов комплексного анализа.",
-    "EMA":"EMA — скользящая средняя, которая сильнее учитывает последние значения цены.",
-    "Что такое риск":"Риск — потенциальная величина потери в торговом сценарии. Без контроля риска даже хорошая аналитика может привести к плохому результату.",
-    "FOMO":"FOMO возникает, когда человек боится пропустить движение и принимает решение без заранее определённого плана."
+  const explanations={
+
+    "Что такое трейдинг":
+      "Трейдинг — это работа с изменением стоимости финансовых инструментов. Важная часть обучения — научиться оценивать сценарии, неопределённость и риск.",
+
+    "Что такое тренд":
+      "Тренд показывает преимущественное направление движения цены. Для его определения важно смотреть на последовательность максимумов и минимумов.",
+
+    "Поддержка":
+      "Поддержка — ценовая область, в которой ранее наблюдался повышенный интерес покупателей. Это зона, а не гарантированная точка разворота.",
+
+    "Сопротивление":
+      "Сопротивление — область, где рост цены ранее встречал повышенное предложение.",
+
+    "RSI":
+      "RSI помогает оценивать относительную силу движения. Его лучше использовать вместе со структурой рынка и другими признаками.",
+
+    "EMA":
+      "EMA — скользящая средняя, которая сильнее учитывает последние значения цены.",
+
+    "FOMO":
+      "FOMO — эмоциональное состояние, когда человек боится пропустить движение и принимает решение вне своего плана.",
+
+    "Что такое риск":
+      "Риск — потенциальная величина потери в торговом сценарии. Контроль риска является одной из главных частей дисциплины трейдера."
+
   };
 
-  if(map[title]) return map[title];
+  return explanations[title] ||
+    `Тема «${title}» является частью модуля «${currentLesson?.moduleTitle || "AVA Academy"}». Изучи определение, посмотри примеры и попробуй найти аналогичную ситуацию на учебном графике.`;
 
-  return `Тема «${title}» является частью модуля обучения AVA. Изучи определение, посмотри примеры на графике и попробуй самостоятельно найти аналогичные ситуации. Главная цель — понять логику, а не механически запомнить шаблон.`;
 }
 
-function closeLesson(e){
+function completeLesson(){
 
-  if(e && e.target!==document.getElementById("lessonModal")){
+  if(!currentLesson){
     return;
   }
 
-  document.getElementById("lessonModal").classList.remove("show");
-}
+  if(!completedLessons.includes(
+    currentLesson.id
+  )){
 
-function completeCurrentLesson(){
-
-  if(!currentLesson) return;
-
-  if(!completed.includes(currentLesson.id)){
-
-    completed.push(currentLesson.id);
-
-    localStorage.setItem(
-      "avaCompleted",
-      JSON.stringify(completed)
+    completedLessons.push(
+      currentLesson.id
     );
 
-    updateStats();
+    localStorage.setItem(
+      "avaCompletedLessons",
+      JSON.stringify(completedLessons)
+    );
 
     showToast("Урок завершён ✓");
 
   }
 
-  document.getElementById("lessonModal").classList.remove("show");
+  closeLesson();
 
-  renderModules();
+  renderModules(
+    document.getElementById("lessonSearch")?.value || ""
+  );
+
+  updateStats();
+
 }
 
-/* =========================
+function closeLesson(event){
+
+  if(
+    event &&
+    event.target !==
+    document.getElementById("lessonModal")
+  ){
+    return;
+  }
+
+  document.getElementById(
+    "lessonModal"
+  ).classList.remove("show");
+
+}
+
+/* =========================================================
+   AVA AI
+========================================================= */
+
+function sendMessage(){
+
+  const input =
+    document.getElementById("chatInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+    return;
+  }
+
+  addMessage(
+    text,
+    "user"
+  );
+
+  input.value="";
+
+  setTimeout(()=>{
+
+    const answer =
+      avaAnswer(text);
+
+    addMessage(
+      answer,
+      "ava"
+    );
+
+  },450);
+
+}
+
+function quickAsk(text){
+
+  document.getElementById(
+    "chatInput"
+  ).value=text;
+
+  sendMessage();
+
+}
+
+function addMessage(
+  text,
+  type
+){
+
+  const chat =
+    document.getElementById("chat");
+
+  const message =
+    document.createElement("div");
+
+  message.className=
+    "message "+type;
+
+  message.innerHTML=
+    text.replace(/\n/g,"<br>");
+
+  chat.appendChild(message);
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+}
+
+function avaAnswer(question){
+
+  const q =
+    question.toLowerCase();
+
+  if(
+    q.includes("привет") ||
+    q.includes("здравств")
+  ){
+
+    return "Привет 👋 Я AVA. Спрашивай что угодно о трейдинге, обучении и функциях платформы.";
+
+  }
+
+  if(
+    q.includes("тренд")
+  ){
+
+    return "Тренд — преимущественное направление движения цены. Обычно выделяют восходящий, нисходящий и боковой рынок. Для анализа полезно смотреть на последовательность максимумов и минимумов.";
+
+  }
+
+  if(
+    q.includes("rsi")
+  ){
+
+    return "RSI — осциллятор относительной силы. Он помогает оценивать состояние движения, но сам по себе не является гарантией разворота.";
+
+  }
+
+  if(
+    q.includes("ema")
+  ){
+
+    return "EMA — экспоненциальная скользящая средняя. Она сильнее учитывает последние значения цены и может использоваться для оценки контекста тренда.";
+
+  }
+
+  if(
+    q.includes("otc")
+  ){
+
+    return "OTC — внебиржевой режим. Его характеристики могут отличаться от обычного рынка, поэтому относись к нему как к отдельному режиму для анализа.";
+
+  }
+
+  if(
+    q.includes("свеч")
+  ){
+
+    return "Свеча показывает движение цены за определённый период: открытие, максимум, минимум и закрытие. Тело показывает разницу между открытием и закрытием, а тени — экстремумы периода.";
+
+  }
+
+  if(
+    q.includes("паттер")
+  ){
+
+    return "Паттерн — определённая структура движения цены. В AVA есть отдельная библиотека паттернов: двойная вершина, двойное дно, треугольники, флаги, клинья и свечные модели.";
+
+  }
+
+  if(
+    q.includes("риск")
+  ){
+
+    return "Риск-менеджмент помогает контролировать потенциальные потери. Никогда не воспринимай один сигнал как гарантию результата и не пытайся отыгрывать убыток увеличением риска.";
+
+  }
+
+  if(
+    q.includes("нович") ||
+    q.includes("начать") ||
+    q.includes("изучать")
+  ){
+
+    return "Я бы начала так: 1) основы рынка → 2) свечи → 3) тренды → 4) уровни → 5) индикаторы → 6) Price Action → 7) риск-менеджмент → 8) практика.";
+
+  }
+
+  if(
+    q.includes("ava") ||
+    q.includes("платформ")
+  ){
+
+    return "В AVA есть Академия, AVA AI, AVA Bot, Market Analysis, паттерны, словарь, FAQ, тренажёр, тесты и профиль. Если хочешь разобраться с конкретной функцией — спроси меня.";
+
+  }
+
+  if(
+    q.includes("telegram") ||
+    q.includes("связ")
+  ){
+
+    return "Связаться с автором можно через раздел «Профиль». Там есть личный Telegram-чат и Telegram-канал.";
+
+  }
+
+  return "Хороший вопрос. Попробуй уточнить тему: свечи, тренд, уровни, RSI, EMA, MACD, Price Action, OTC, паттерны, риск-менеджмент или функции AVA.";
+
+}
+
+/* =========================================================
    BOT
-========================= */
+========================================================= */
 
 function renderPairs(){
 
-  const select=document.getElementById("botPair");
+  const select =
+    document.getElementById("botPair");
 
   select.innerHTML="";
 
   pairs.forEach(pair=>{
 
-    const option=document.createElement("option");
+    const option =
+      document.createElement("option");
 
     option.value=pair;
     option.textContent=pair;
@@ -2494,25 +3958,37 @@ function setMarket(mode){
 
   marketMode=mode;
 
-  document
-    .getElementById("marketBtn")
-    .classList.toggle("active",mode==="market");
+  document.getElementById(
+    "marketButton"
+  ).classList.toggle(
+    "active",
+    mode==="market"
+  );
 
-  document
-    .getElementById("otcBtn")
-    .classList.toggle("active",mode==="otc");
+  document.getElementById(
+    "otcButton"
+  ).classList.toggle(
+    "active",
+    mode==="otc"
+  );
 
-  const select=document.getElementById("botPair");
+  const select =
+    document.getElementById("botPair");
 
-  const current=select.value.replace(" OTC","");
+  const current =
+    select.value.replace(" OTC","");
 
   select.innerHTML="";
 
-  const list=mode==="otc" ? otcPairs : pairs;
+  const list =
+    mode==="otc"
+    ? otcPairs
+    : pairs;
 
   list.forEach(pair=>{
 
-    const option=document.createElement("option");
+    const option =
+      document.createElement("option");
 
     option.value=pair;
     option.textContent=pair;
@@ -2524,49 +4000,78 @@ function setMarket(mode){
   if(list.includes(current)){
     select.value=current;
   }
+
 }
 
 function generateSignal(){
 
-  const pair=document.getElementById("botPair").value;
-  const time=document.getElementById("botTime").value;
+  const pair =
+    document.getElementById(
+      "botPair"
+    ).value;
 
-  const direction=Math.random()>.5 ? "UP" : "DOWN";
+  const time =
+    document.getElementById(
+      "botTime"
+    ).value;
 
-  const confidence=Math.floor(
-    61 + Math.random()*28
-  );
+  const direction =
+    Math.random() > .5
+    ? "UP"
+    : "DOWN";
 
-  const signal=document.getElementById("signal");
+  const confidence =
+    Math.floor(
+      62 + Math.random()*26
+    );
+
+  const signal =
+    document.getElementById("signal");
 
   signal.classList.remove("show");
 
   setTimeout(()=>{
 
-    document.getElementById("signalPair").textContent=pair;
+    document.getElementById(
+      "signalPair"
+    ).textContent=pair;
 
-    document.getElementById("signalMarket").textContent=
-      marketMode==="market"
-      ? "MARKET"
-      : "OTC";
+    document.getElementById(
+      "signalMeta"
+    ).textContent=
+      (
+        marketMode==="market"
+        ? "MARKET"
+        : "OTC"
+      )+
+      " · "+
+      time+
+      " минута";
 
-    const directionEl=
-      document.getElementById("signalDirection");
+    const directionElement =
+      document.getElementById(
+        "signalDirection"
+      );
 
-    directionEl.textContent=direction;
+    directionElement.textContent=
+      direction;
 
-    directionEl.className=
-      direction==="UP"
-      ? "signal-up"
-      : "signal-down";
+    directionElement.className=
+      "direction "+
+      (
+        direction==="UP"
+        ? "up"
+        : "down"
+      );
 
-    document.getElementById("signalTime").textContent=
-      time+" мин";
-
-    document.getElementById("signalConfidence").textContent=
+    document.getElementById(
+      "signalConfidence"
+    ).textContent=
       confidence+"%";
 
-    document.getElementById("confidenceBar").style.width=
+    document.getElementById(
+      "confidenceFill"
+    ).style.width=
       confidence+"%";
 
     signal.classList.add("show");
@@ -2575,72 +4080,363 @@ function generateSignal(){
 
 }
 
-/* =========================
+/* =========================================================
    ANALYSIS
-========================= */
+========================================================= */
+
+const analysisPrices={
+
+  "EUR/USD":"1.0842",
+  "GBP/USD":"1.2714",
+  "USD/JPY":"149.28",
+  "AUD/USD":"0.6551",
+  "USD/CAD":"1.3562",
+  "USD/CHF":"0.8834",
+  "NZD/USD":"0.6034"
+
+};
 
 function changeAnalysisPair(pair){
 
-  const prices={
-    "EUR/USD":"1.0842",
-    "GBP/USD":"1.2714",
-    "USD/JPY":"149.28",
-    "AUD/USD":"0.6551",
-    "USD/CAD":"1.3562",
-    "USD/CHF":"0.8834"
-  };
+  document.getElementById(
+    "analysisPair"
+  ).textContent=pair;
 
-  document.querySelector(".price").textContent=
-    prices[pair] || "1.0000";
+  document.getElementById(
+    "analysisPrice"
+  ).textContent=
+    analysisPrices[pair] ||
+    "1.0000";
 
 }
 
-/* =========================
+/* =========================================================
+   PATTERNS
+========================================================= */
+
+function patternSVG(type){
+
+  if(type==="double"){
+
+    return `
+      <svg viewBox="0 0 180 70" fill="none">
+        <path
+          d="M5 58
+             C25 55 25 18 48 18
+             C68 18 65 53 90 53
+             C112 53 110 18 134 18
+             C157 18 155 52 175 55"
+          stroke="#a86cff"
+          stroke-width="3"
+          stroke-linecap="round"/>
+      </svg>
+    `;
+
+  }
+
+  if(type==="head"){
+
+    return `
+      <svg viewBox="0 0 180 70" fill="none">
+        <path
+          d="M5 55
+             C25 52 30 32 48 38
+             C62 43 65 12 90 12
+             C113 12 116 43 132 38
+             C150 32 156 52 175 55"
+          stroke="#a86cff"
+          stroke-width="3"
+          stroke-linecap="round"/>
+      </svg>
+    `;
+
+  }
+
+  if(type==="triangle"){
+
+    return `
+      <svg viewBox="0 0 180 70" fill="none">
+        <path
+          d="M8 15L170 55M8 55L170 15"
+          stroke="#a86cff"
+          stroke-width="2"/>
+        <path
+          d="M20 48l18-20 17 14 18-18 17 10 18-12 17 7 20-5"
+          stroke="#36e29a"
+          stroke-width="3"
+          stroke-linecap="round"/>
+      </svg>
+    `;
+
+  }
+
+  if(type==="flag"){
+
+    return `
+      <svg viewBox="0 0 180 70" fill="none">
+        <path
+          d="M10 58L45 12"
+          stroke="#36e29a"
+          stroke-width="5"/>
+        <path
+          d="M55 20L165 38M55 45L165 63"
+          stroke="#a86cff"
+          stroke-width="2"/>
+        <path
+          d="M60 32l20 5 18-3 20 8 20-3"
+          stroke="#fff"
+          stroke-width="3"/>
+      </svg>
+    `;
+
+  }
+
+  if(type==="wedge"){
+
+    return `
+      <svg viewBox="0 0 180 70" fill="none">
+        <path
+          d="M8 12L172 55M8 55L172 62"
+          stroke="#a86cff"
+          stroke-width="2"/>
+        <path
+          d="M12 48l22-18 20 15 22-11 20 9 20-7 20 5 25-4"
+          stroke="#36e29a"
+          stroke-width="3"/>
+      </svg>
+    `;
+
+  }
+
+  return `
+    <svg viewBox="0 0 180 70" fill="none">
+      <path
+        d="M10 55L45 20 70 42 100 18 130 43 170 12"
+        stroke="#a86cff"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    </svg>
+  `;
+
+}
+
+function renderPatterns(search=""){
+
+  const container =
+    document.getElementById(
+      "patternsList"
+    );
+
+  if(!container){
+    return;
+  }
+
+  const query =
+    search.toLowerCase().trim();
+
+  const data =
+    patternData.filter(item=>
+      item[0].toLowerCase()
+        .includes(query) ||
+      item[1].toLowerCase()
+        .includes(query)
+    );
+
+  container.innerHTML="";
+
+  data.forEach(item=>{
+
+    const element =
+      document.createElement("div");
+
+    element.className="card pattern";
+
+    element.innerHTML=`
+
+      <div class="pattern-icon">
+        ${patternSVG(item[2])}
+      </div>
+
+      <b>${item[0]}</b>
+
+      <p>${item[1]}</p>
+
+    `;
+
+    container.appendChild(element);
+
+  });
+
+}
+
+/* =========================================================
+   DICTIONARY
+========================================================= */
+
+function renderDictionary(search=""){
+
+  const container =
+    document.getElementById(
+      "dictionaryList"
+    );
+
+  if(!container){
+    return;
+  }
+
+  const query =
+    search.toLowerCase().trim();
+
+  const data =
+    dictionaryData.filter(item=>
+      item[0].toLowerCase()
+        .includes(query) ||
+      item[1].toLowerCase()
+        .includes(query)
+    );
+
+  container.innerHTML="";
+
+  data.forEach(item=>{
+
+    const element =
+      document.createElement("div");
+
+    element.className="card term";
+
+    element.innerHTML=`
+
+      <b>${item[0]}</b>
+
+      <p>${item[1]}</p>
+
+    `;
+
+    container.appendChild(element);
+
+  });
+
+}
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+function renderFAQ(){
+
+  const container =
+    document.getElementById(
+      "faqList"
+    );
+
+  if(!container){
+    return;
+  }
+
+  container.innerHTML="";
+
+  faqData.forEach(item=>{
+
+    const element =
+      document.createElement("div");
+
+    element.className=
+      "card faq";
+
+    element.innerHTML=`
+
+      <button
+        class="faq-question"
+        onclick="this.parentElement.classList.toggle('open')">
+
+        <span>${item[0]}</span>
+
+        <span>⌄</span>
+
+      </button>
+
+      <div class="faq-answer">
+        ${item[1]}
+      </div>
+
+    `;
+
+    container.appendChild(element);
+
+  });
+
+}
+
+/* =========================================================
    QUIZ
-========================= */
+========================================================= */
 
 function renderQuiz(){
 
-  const data=quizData[quizIndex];
+  const data =
+    quizData[quizIndex];
 
-  document.getElementById("quizCounter").textContent=
+  document.getElementById(
+    "quizCounter"
+  ).textContent=
     `${quizIndex+1} / ${quizData.length}`;
 
-  document.getElementById("question").textContent=
-    data.q;
+  document.getElementById(
+    "question"
+  ).textContent=data.q;
 
-  const answers=document.getElementById("answers");
+  const answers =
+    document.getElementById(
+      "answers"
+    );
 
   answers.innerHTML="";
 
   data.a.forEach((answer,index)=>{
 
-    const btn=document.createElement("button");
+    const button =
+      document.createElement("button");
 
-    btn.className="answer";
+    button.className="answer";
 
-    btn.textContent=answer;
+    button.textContent=answer;
 
-    btn.onclick=()=>answerQuiz(index,btn);
+    button.onclick=()=>{
+      answerQuiz(
+        index,
+        button
+      );
+    };
 
-    answers.appendChild(btn);
+    answers.appendChild(button);
 
   });
 
-  document.getElementById("nextQuestion").style.display="none";
+  document.getElementById(
+    "nextQuizButton"
+  ).style.display="none";
+
 }
 
-function answerQuiz(index,button){
+function answerQuiz(
+  index,
+  button
+){
 
-  const data=quizData[quizIndex];
+  const data =
+    quizData[quizIndex];
 
-  document
-    .querySelectorAll(".answer")
-    .forEach(b=>b.disabled=true);
+  document.querySelectorAll(
+    ".answer"
+  ).forEach(
+    item=>item.disabled=true
+  );
 
   if(index===data.correct){
 
     button.classList.add("correct");
+
     quizScore++;
 
     showToast("Правильно ✓");
@@ -2649,25 +4445,34 @@ function answerQuiz(index,button){
 
     button.classList.add("wrong");
 
-    document
-      .querySelectorAll(".answer")[data.correct]
+    document.querySelectorAll(
+      ".answer"
+    )[data.correct]
       .classList.add("correct");
 
-    showToast("Правильный ответ подсвечен");
+    showToast(
+      "Правильный ответ подсвечен"
+    );
 
   }
 
-  document.getElementById("nextQuestion").style.display="flex";
+  document.getElementById(
+    "nextQuizButton"
+  ).style.display="block";
+
 }
 
 function nextQuiz(){
 
   quizIndex++;
 
-  if(quizIndex>=quizData.length){
+  if(
+    quizIndex >=
+    quizData.length
+  ){
 
     showToast(
-      `Тест завершён: ${quizScore}/${quizData.length}`
+      `Результат: ${quizScore}/${quizData.length}`
     );
 
     quizIndex=0;
@@ -2676,168 +4481,342 @@ function nextQuiz(){
   }
 
   renderQuiz();
+
 }
 
-/* =========================
-   DICTIONARY
-========================= */
+/* =========================================================
+   TRAINER
+========================================================= */
 
-function renderDictionary(search=""){
+function renderTrainingChart(){
 
-  const list=document.getElementById("dictionaryList");
-
-  const query=search.toLowerCase().trim();
-
-  const filtered=
-    dictionary.filter(item=>
-      item[0].toLowerCase().includes(query) ||
-      item[1].toLowerCase().includes(query)
+  const container =
+    document.getElementById(
+      "trainingCandles"
     );
 
-  list.innerHTML="";
+  if(!container){
+    return;
+  }
 
-  filtered.forEach(item=>{
+  container.innerHTML="";
 
-    const el=document.createElement("div");
+  for(let i=0;i<14;i++){
 
-    el.className="card word";
+    const candle =
+      document.createElement("div");
 
-    el.innerHTML=`
-      <b>${item[0]}</b>
-      <p>${item[1]}</p>
-    `;
+    const green =
+      Math.random()>.45;
 
-    list.appendChild(el);
+    candle.className=
+      "train-candle "+
+      (
+        green
+        ? "train-green"
+        : "train-red"
+      );
 
-  });
+    candle.style.height=
+      (35+Math.random()*100)+"px";
+
+    container.appendChild(candle);
+
+  }
 
 }
 
-/* =========================
+let trainingDirection =
+  Math.random()>.5
+  ? "UP"
+  : "DOWN";
+
+function trainerAnswer(answer){
+
+  const result =
+    document.getElementById(
+      "trainerResult"
+    );
+
+  if(answer===trainingDirection){
+
+    result.innerHTML=
+      "✓ Хороший анализ. В этом учебном сценарии направление совпало.";
+
+    result.style.color=
+      "var(--green)";
+
+  }else{
+
+    result.innerHTML=
+      "Попробуй ещё раз. Помни: реальный рынок не даёт гарантированных исходов.";
+
+    result.style.color=
+      "var(--red)";
+
+  }
+
+  setTimeout(()=>{
+
+    trainingDirection =
+      Math.random()>.5
+      ? "UP"
+      : "DOWN";
+
+    renderTrainingChart();
+
+  },1000);
+
+}
+
+/* =========================================================
    PROFILE
-========================= */
+========================================================= */
 
 function changeAvatar(event){
 
-  const file=event.target.files[0];
+  const file =
+    event.target.files[0];
 
-  if(!file) return;
+  if(!file){
+    return;
+  }
 
-  const reader=new FileReader();
+  const reader =
+    new FileReader();
 
   reader.onload=function(e){
 
-    document.getElementById("avatar").src=e.target.result;
+    const src=e.target.result;
+
+    document.getElementById(
+      "profileAvatar"
+    ).src=src;
 
     localStorage.setItem(
       "avaAvatar",
-      e.target.result
+      src
     );
 
-    showToast("Фото профиля обновлено ✓");
+    showToast(
+      "Фото профиля изменено ✓"
+    );
 
   };
 
   reader.readAsDataURL(file);
+
 }
 
 function loadAvatar(){
 
-  const saved=localStorage.getItem("avaAvatar");
+  const saved =
+    localStorage.getItem(
+      "avaAvatar"
+    );
+
+  const avatar =
+    document.getElementById(
+      "profileAvatar"
+    );
 
   if(saved){
 
-    document.getElementById("avatar").src=saved;
+    avatar.src=saved;
 
-  }else{
-
-    document.getElementById("avatar").src=
-      "data:image/svg+xml,"+
-      encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-          <defs>
-            <linearGradient id="g">
-              <stop stop-color="#8b5cf6"/>
-              <stop offset="1" stop-color="#c084fc"/>
-            </linearGradient>
-          </defs>
-          <rect width="200" height="200" rx="60" fill="url(#g)"/>
-          <circle cx="100" cy="82" r="32" fill="white" opacity=".9"/>
-          <path d="M45 175c10-40 100-40 110 0" fill="white" opacity=".9"/>
-        </svg>
-      `);
+    return;
 
   }
 
+  avatar.src=
+    "data:image/svg+xml;charset=UTF-8,"+
+    encodeURIComponent(`
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="200"
+        height="200">
+
+        <defs>
+
+          <linearGradient
+            id="g"
+            x1="0"
+            x2="1">
+
+            <stop
+              stop-color="#8d4fff"/>
+
+            <stop
+              offset="1"
+              stop-color="#ff62b9"/>
+
+          </linearGradient>
+
+        </defs>
+
+        <rect
+          width="200"
+          height="200"
+          rx="60"
+          fill="url(#g)"/>
+
+        <circle
+          cx="100"
+          cy="78"
+          r="33"
+          fill="white"
+          opacity=".92"/>
+
+        <path
+          d="M45 175c10-42 100-42 110 0"
+          fill="white"
+          opacity=".92"/>
+
+      </svg>
+    `);
+
 }
 
-function setLanguage(lang,button){
+function setLanguage(
+  selected,
+  button
+){
 
-  currentLanguage=lang;
+  language=selected;
 
   localStorage.setItem(
     "avaLanguage",
-    lang
+    selected
   );
 
-  document.querySelectorAll(".lang")
-    .forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(
+    ".language-button"
+  ).forEach(item=>{
+    item.classList.remove("active");
+  });
 
   button.classList.add("active");
 
-  if(lang==="en"){
-    showToast("English selected");
-  }else if(lang==="uk"){
-    showToast("Українську мову вибрано");
-  }else{
-    showToast("Русский язык выбран");
+  if(selected==="ru"){
+    showToast("Русский язык ✓");
+  }
+
+  if(selected==="en"){
+    showToast("English ✓");
+  }
+
+  if(selected==="uk"){
+    showToast("Українська ✓");
   }
 
 }
 
-/* =========================
+/* =========================================================
+   TELEGRAM
+========================================================= */
+
+function openTelegramChat(){
+
+  window.open(
+    "https://t.me/m/7wm-HAsAMmIy",
+    "_blank"
+  );
+
+}
+
+function openTelegramChannel(){
+
+  window.open(
+    "https://t.me/+D1kxbrvyGSViZWFi",
+    "_blank"
+  );
+
+}
+
+/* =========================================================
    STATS
-========================= */
+========================================================= */
 
 function updateStats(){
 
-  const count=completed.length;
+  const count =
+    completedLessons.length;
 
-  const percent=Math.round(
-    count/100*100
-  );
+  const percent =
+    Math.round(
+      count/100*100
+    );
 
-  document.getElementById("statLessons").textContent=count;
-  document.getElementById("statProgress").textContent=percent+"%";
-  document.getElementById("progressPercent").textContent=percent+"%";
-  document.getElementById("progressLabel").textContent=
-    count+" из 100";
+  document.getElementById(
+    "statLessons"
+  ).textContent=count;
 
-  document.getElementById("progressBar").style.width=
+  document.getElementById(
+    "statProgress"
+  ).textContent=
     percent+"%";
 
-  document.getElementById("profileProgress").textContent=
-    count+" из 100 уроков";
+  document.getElementById(
+    "progressPercent"
+  ).textContent=
+    percent+"%";
+
+  document.getElementById(
+    "progressLabel"
+  ).textContent=
+    count+" / 100";
+
+  document.getElementById(
+    "progressFill"
+  ).style.width=
+    percent+"%";
+
+  document.getElementById(
+    "profileLessons"
+  ).textContent=
+    count+" из 100";
 
   let level="Новичок";
 
-  if(count>=10) level="Ученик";
-  if(count>=30) level="Практик";
-  if(count>=60) level="Продвинутый";
-  if(count>=90) level="AVA Master";
+  if(count>=10){
+    level="Ученик";
+  }
 
-  document.getElementById("profileLevel").textContent=level;
+  if(count>=30){
+    level="Практик";
+  }
+
+  if(count>=60){
+    level="Продвинутый";
+  }
+
+  if(count>=90){
+    level="AVA Master";
+  }
+
+  document.getElementById(
+    "profileLevel"
+  ).textContent=level;
+
+  document.getElementById(
+    "profileLevelText"
+  ).textContent=level;
+
 }
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
 
 let toastTimer;
 
 function showToast(message){
 
-  const toast=document.getElementById("toast");
+  const toast =
+    document.getElementById(
+      "toast"
+    );
 
   toast.textContent=message;
 
@@ -2845,49 +4824,82 @@ function showToast(message){
 
   clearTimeout(toastTimer);
 
-  toastTimer=setTimeout(()=>{
-    toast.classList.remove("show");
-  },2400);
+  toastTimer=
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },2300);
 
 }
 
-/* =========================
+/* =========================================================
    LOGOUT
-========================= */
+========================================================= */
 
 function logout(){
 
-  localStorage.removeItem("avaTraderId");
+  localStorage.removeItem(
+    "avaTraderId"
+  );
 
   location.reload();
 
 }
 
-/* =========================
+/* =========================================================
    START
-========================= */
+========================================================= */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
 
-  renderModules();
-  renderPairs();
-  renderDictionary();
-  renderQuiz();
-  loadAvatar();
+    renderModules();
 
-  if(traderId){
+    renderPairs();
 
-    document.getElementById("access").style.display="none";
-    document.getElementById("app").style.display="block";
+    renderPatterns();
 
-    document.getElementById("profileTrader").textContent=
-      traderId;
+    renderDictionary();
 
-    updateStats();
+    renderFAQ();
+
+    renderQuiz();
+
+    renderTrainingChart();
+
+    loadAvatar();
+
+    if(traderId){
+
+      document.getElementById(
+        "accessScreen"
+      ).style.display="none";
+
+      document.getElementById(
+        "app"
+      ).style.display="block";
+
+      document.getElementById(
+        "profileTraderId"
+      ).textContent=traderId;
+
+      updateStats();
+
+    }
+
+    document.querySelectorAll(
+      ".language-button"
+    ).forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.lang===language
+      );
+
+    });
 
   }
-
-});
+);
 
 </script>
 
